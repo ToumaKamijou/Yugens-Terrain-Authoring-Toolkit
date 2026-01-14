@@ -84,6 +84,11 @@ var cd : bool
 
 var needs_update : Array[Array] # Stores which tiles need to be updated because one of their corners' heights was changed.
 
+#terrain blend options to allow for smooth color and height blend influence at transitions and at different heights 
+var lower_thresh : float = 0.3 # Sharp bands: < 0.3 = lower color
+var upper_thresh : float = 0.7 #, > 0.7 = upper color, middle = blend
+var blend_zone = upper_thresh - lower_thresh
+
 
 # Called by TerrainSystem parent
 func initialize_terrain(should_regenerate_mesh: bool = true):
@@ -679,12 +684,12 @@ func add_point(x: float, y: float, z: float, uv_x: float = 0, uv_y: float = 0, d
 		var upper_0: Color = cell_wall_upper_color_0 if use_wall_colors else cell_floor_upper_color_0
 
 		# Sharp bands: < 0.3 = lower color, > 0.7 = upper color, middle = blend
-		if height_factor < 0.3:
+		if height_factor < lower_thresh:
 			color_0 = lower_0
-		elif height_factor > 0.7:
+		elif height_factor > upper_thresh:
 			color_0 = upper_0
 		else:
-			var blend_factor = (height_factor - 0.3) / 0.4
+			var blend_factor = (height_factor - lower_thresh) / blend_zone
 			color_0 = lerp(lower_0, upper_0, blend_factor)
 		color_0 = get_dominant_color(color_0)
 	else:

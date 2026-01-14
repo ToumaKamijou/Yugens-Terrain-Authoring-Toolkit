@@ -322,7 +322,6 @@ var grass_mesh : QuadMesh = preload("res://addons/MarchingSquaresTerrain/resourc
 
 var chunks : Dictionary = {}
 
-
 func _init() -> void:
 	if not terrain_material:
 		terrain_material = preload("res://addons/MarchingSquaresTerrain/resources/materials/mst_terrain_shader.tres")

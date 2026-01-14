@@ -7,4 +7,3 @@ script = ExtResource("1_preset")
 preset_name = "DesertGrass"
 wall_texture_slot = 1
 ground_texture_slot = 5
-has_grass = false

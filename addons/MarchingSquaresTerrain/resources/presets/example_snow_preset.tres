@@ -6,4 +6,4 @@
 script = ExtResource("1_bird3")
 preset_name = "Snow"
 wall_texture_slot = 2
-ground_texture_slot = 6
+ground_texture_slot = 4
