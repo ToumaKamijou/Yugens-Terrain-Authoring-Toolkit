@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MarchingSquaresTerrainPreset" load_steps=2 format=3 uid="uid://ic4c80ipr7hg"]
+
+[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_terrain_preset.gd" id="1_preset"]
+
+[resource]
+script = ExtResource("1_preset")
+preset_name = "DesertGrass"
+wall_texture_slot = 1
+ground_texture_slot = 5

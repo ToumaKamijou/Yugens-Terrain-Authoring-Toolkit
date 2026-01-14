@@ -72,6 +72,15 @@ const VAR_NAMES : Array[Dictionary] = [
 	},
 ]
 
+const WALL_VAR_NAMES : Array[Dictionary] = [
+	{ "tex_var": "wall_texture", "color_var": "wall_color" },
+	{ "tex_var": "wall_texture_2", "color_var": "wall_color_2" },
+	{ "tex_var": "wall_texture_3", "color_var": "wall_color_3" },
+	{ "tex_var": "wall_texture_4", "color_var": "wall_color_4" },
+	{ "tex_var": "wall_texture_5", "color_var": "wall_color_5" },
+	{ "tex_var": "wall_texture_6", "color_var": "wall_color_6" },
+]
+
 var vflow_container
 
 
@@ -160,7 +169,51 @@ func add_texture_settings() -> void:
 		
 		if i <= 5:
 			vbox.add_child(HSeparator.new())
-	
+
+	# Wall Textures Section Header
+	var wall_header := Label.new()
+	wall_header.set_text("=== WALL TEXTURES ===")
+	wall_header.set_horizontal_alignment(HORIZONTAL_ALIGNMENT_CENTER)
+	vbox.add_child(wall_header)
+	vbox.add_child(HSeparator.new())
+
+	# Wall textures loop (6 slots)
+	for i in range(6):
+		var label := Label.new()
+		label.set_text("Wall " + str(i+1))
+		label.set_vertical_alignment(VERTICAL_ALIGNMENT_CENTER)
+		label.set_custom_minimum_size(Vector2(50, 15))
+		var c_cont := CenterContainer.new()
+		c_cont.set_custom_minimum_size(Vector2(50, 25))
+		c_cont.add_child(label, true)
+		vbox.add_child(c_cont, true)
+
+		# Wall texture picker
+		var wall_tex : Texture2D = terrain.get(WALL_VAR_NAMES[i].get("tex_var"))
+		var editor_r_picker := EditorResourcePicker.new()
+		editor_r_picker.set_base_type("Texture2D")
+		editor_r_picker.edited_resource = wall_tex
+		editor_r_picker.resource_changed.connect(
+			func(resource): _on_texture_setting_changed(WALL_VAR_NAMES[i].get("tex_var"), resource)
+		)
+		editor_r_picker.set_custom_minimum_size(Vector2(100, 25))
+		vbox.add_child(editor_r_picker, true)
+
+		# Wall color picker
+		var wall_color : Color = terrain.get(WALL_VAR_NAMES[i].get("color_var"))
+		var c_pick_button := ColorPickerButton.new()
+		c_pick_button.color = wall_color
+		c_pick_button.color_changed.connect(
+			func(color): _on_texture_setting_changed(WALL_VAR_NAMES[i].get("color_var"), color)
+		)
+		c_pick_button.set_custom_minimum_size(Vector2(150, 25))
+		var c_cont_2 := CenterContainer.new()
+		c_cont_2.set_custom_minimum_size(Vector2(150, 25))
+		c_cont_2.add_child(c_pick_button, true)
+		vbox.add_child(c_cont_2, true)
+
+		vbox.add_child(HSeparator.new())
+
 	add_child(vbox, true)
 
 

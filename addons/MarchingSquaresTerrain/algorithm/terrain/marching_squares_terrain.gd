@@ -32,7 +32,27 @@ class_name MarchingSquaresTerrain
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_texture : Texture2D = preload("res://addons/MarchingSquaresTerrain/resources/materials/grass_terrain_noise.res"):
 	set(value):
 		wall_texture = value
-		terrain_material.set_shader_parameter("wall_texture", value)
+		terrain_material.set_shader_parameter("wall_tex_1", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_texture_2 : Texture2D:
+	set(value):
+		wall_texture_2 = value
+		terrain_material.set_shader_parameter("wall_tex_2", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_texture_3 : Texture2D:
+	set(value):
+		wall_texture_3 = value
+		terrain_material.set_shader_parameter("wall_tex_3", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_texture_4 : Texture2D:
+	set(value):
+		wall_texture_4 = value
+		terrain_material.set_shader_parameter("wall_tex_4", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_texture_5 : Texture2D:
+	set(value):
+		wall_texture_5 = value
+		terrain_material.set_shader_parameter("wall_tex_5", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_texture_6 : Texture2D:
+	set(value):
+		wall_texture_6 = value
+		terrain_material.set_shader_parameter("wall_tex_6", value)
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ground_color : Color = Color("647851ff"):
 	set(value):
 		ground_color = value
@@ -43,6 +63,26 @@ class_name MarchingSquaresTerrain
 	set(value):
 		wall_color = value
 		terrain_material.set_shader_parameter("wall_albedo", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_color_2 : Color = Color("665950ff"):
+	set(value):
+		wall_color_2 = value
+		terrain_material.set_shader_parameter("wall_albedo_2", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_color_3 : Color = Color("595240ff"):
+	set(value):
+		wall_color_3 = value
+		terrain_material.set_shader_parameter("wall_albedo_3", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_color_4 : Color = Color("615745ff"):
+	set(value):
+		wall_color_4 = value
+		terrain_material.set_shader_parameter("wall_albedo_4", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_color_5 : Color = Color("5c5442ff"):
+	set(value):
+		wall_color_5 = value
+		terrain_material.set_shader_parameter("wall_albedo_5", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_color_6 : Color = Color("6b614cff"):
+	set(value):
+		wall_color_6 = value
+		terrain_material.set_shader_parameter("wall_albedo_6", value)
 
 # Base grass settings
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var grass_sprite : CompressedTexture2D = preload("res://addons/MarchingSquaresTerrain/resources/materials/grass_leaf_sprite.png"):
@@ -282,7 +322,6 @@ var grass_mesh : QuadMesh = preload("res://addons/MarchingSquaresTerrain/resourc
 
 var chunks : Dictionary = {}
 
-
 func _init() -> void:
 	if not terrain_material:
 		terrain_material = preload("res://addons/MarchingSquaresTerrain/resources/materials/mst_terrain_shader.tres")
@@ -404,8 +443,8 @@ func _ensure_textures() -> void:
 		terrain_material.set_shader_parameter("vc_tex_gg", texture_6)
 	if grass_mat.get_shader_parameter("wind_texture") == null:
 		grass_mat.set_shader_parameter("wind_texture", placeholder_wind_texture)
-	if wall_texture and terrain_material.get_shader_parameter("wall_texture") == null:
-		terrain_material.set_shader_parameter("wall_texture", wall_texture)
+	if wall_texture and terrain_material.get_shader_parameter("wall_tex_1") == null:
+		terrain_material.set_shader_parameter("wall_tex_1", wall_texture)
 	if grass_sprite and grass_mat.get_shader_parameter("grass_texture") == null:
 		grass_mat.set_shader_parameter("grass_texture", grass_sprite)
 	if grass_sprite_tex_2 and grass_mat.get_shader_parameter("grass_texture_2") == null:
@@ -420,3 +459,11 @@ func _ensure_textures() -> void:
 		grass_mat.set_shader_parameter("grass_texture_6", grass_sprite_tex_6)
 	if terrain_material.get_shader_parameter("vc_tex_aa") == null:
 		terrain_material.set_shader_parameter("vc_tex_aa", void_texture)
+
+	# Ensure wall albedo colors are set (required because setters don't run on load with defaults)
+	terrain_material.set_shader_parameter("wall_albedo", wall_color)
+	terrain_material.set_shader_parameter("wall_albedo_2", wall_color_2)
+	terrain_material.set_shader_parameter("wall_albedo_3", wall_color_3)
+	terrain_material.set_shader_parameter("wall_albedo_4", wall_color_4)
+	terrain_material.set_shader_parameter("wall_albedo_5", wall_color_5)
+	terrain_material.set_shader_parameter("wall_albedo_6", wall_color_6)

@@ -15,6 +15,9 @@ class_name MarchingSquaresToolAttributeSettings
 @export var material : bool = false
 @export var texture_name : bool = false
 
+# Preset selection for biome painting
+@export var preset_selection : bool = false
+
 # Non-brush attributes
 @export var chunk_management : bool = false
 @export var terrain_settings : bool = false

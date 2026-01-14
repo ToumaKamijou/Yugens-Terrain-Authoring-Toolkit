@@ -142,9 +142,19 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 				
 				var color_0 = _chunk.get_dominant_color(colors_0[i]*u + colors_0[i+1]*v + colors_0[i+2]*(1-u-v))
 				var color_1 = _chunk.get_dominant_color(colors_1[i]*u + colors_1[i+1]*v + colors_1[i+2]*(1-u-v))
+
+				# Check grass mask first - green channel forces grass ON, red channel masks grass OFF
+				var mask = grass_mask[i]*u + grass_mask[i+1]*v + grass_mask[i+2]*(1-u-v)
+				var is_masked: bool = mask.r < 0.9999
+				var force_grass_on: bool = mask.g >= 0.9999  # Preset override: force grass regardless of texture
+
 				var on_grass_tex: bool = false
 				var texture_id := _get_texture_id(color_0, color_1)
-				if texture_id == 1: # Base grass
+
+				if force_grass_on:
+					# Preset has_grass=true overrides texture setting
+					on_grass_tex = true
+				elif texture_id == 1: # Base grass
 					on_grass_tex = true
 				elif texture_id >= 2 and texture_id <= 6:
 					var has_grass : bool = false
@@ -170,13 +180,6 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 						on_grass_tex = false
 				else:
 					on_grass_tex = false
-				
-				var mask = grass_mask[i]*u + grass_mask[i+1]*v + grass_mask[i+2]*(1-u-v)
-				var is_masked: bool = false
-				if mask.r < 0.9999:
-					is_masked = true
-				else:
-					is_masked = false
 				
 				if on_grass_tex and not on_ledge and not is_masked:
 					var edge1 = b - a

@@ -139,6 +139,11 @@ func _on_setting_changed(p_setting_name: String, p_value: Variant) -> void:
 				var new_names = vp_texture_names.texture_names.duplicate()
 				new_names[plugin.vertex_color_idx] = p_value
 				vp_texture_names.texture_names = new_names
+		"preset_selection":
+			if p_value is MarchingSquaresTerrainPreset:
+				plugin.selected_preset = p_value
+			else:
+				plugin.selected_preset = null
 
 
 func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> void:
@@ -281,3 +286,41 @@ func _on_texture_setting_changed(p_setting_name: String, p_value: Variant) -> vo
 		"texture_15":
 			if p_value is Texture2D or p_value == null:
 				terrain.texture_15 = p_value
+		# Wall textures
+		"wall_texture":
+			if p_value is Texture2D or p_value == null:
+				terrain.wall_texture = p_value
+		"wall_texture_2":
+			if p_value is Texture2D or p_value == null:
+				terrain.wall_texture_2 = p_value
+		"wall_texture_3":
+			if p_value is Texture2D or p_value == null:
+				terrain.wall_texture_3 = p_value
+		"wall_texture_4":
+			if p_value is Texture2D or p_value == null:
+				terrain.wall_texture_4 = p_value
+		"wall_texture_5":
+			if p_value is Texture2D or p_value == null:
+				terrain.wall_texture_5 = p_value
+		"wall_texture_6":
+			if p_value is Texture2D or p_value == null:
+				terrain.wall_texture_6 = p_value
+		# Wall colors
+		"wall_color":
+			if p_value is Color:
+				terrain.wall_color = p_value
+		"wall_color_2":
+			if p_value is Color:
+				terrain.wall_color_2 = p_value
+		"wall_color_3":
+			if p_value is Color:
+				terrain.wall_color_3 = p_value
+		"wall_color_4":
+			if p_value is Color:
+				terrain.wall_color_4 = p_value
+		"wall_color_5":
+			if p_value is Color:
+				terrain.wall_color_5 = p_value
+		"wall_color_6":
+			if p_value is Color:
+				terrain.wall_color_6 = p_value

@@ -13,6 +13,7 @@ enum SettingType {
 	TEXT,
 	CHUNK,
 	TERRAIN,
+	PRESET,
 	ERROR,
 }
 
@@ -66,6 +67,7 @@ func show_tool_attributes(tool_index: int) -> void:
 		"text": SettingType.TEXT,
 		"chunk": SettingType.CHUNK,
 		"terrain": SettingType.TERRAIN,
+		"preset": SettingType.PRESET,
 	}
 	
 	var new_attributes := []
@@ -89,6 +91,8 @@ func show_tool_attributes(tool_index: int) -> void:
 		new_attributes.append(attribute_list.material)
 	if tool_attributes.texture_name:
 		new_attributes.append(attribute_list.texture_name)
+	if tool_attributes.preset_selection:
+		new_attributes.append(attribute_list.preset_selection)
 	if tool_attributes.chunk_management:
 		new_attributes.append(attribute_list.chunk_management)
 	if tool_attributes.terrain_settings:
@@ -362,6 +366,48 @@ func add_setting(p_params: Dictionary) -> void:
 					vbox = VBoxContainer.new()
 			if vbox.get_child_count() > 0:
 				add_child(vbox)
+		SettingType.PRESET:
+			var preset_button := OptionButton.new()
+			preset_button.add_item("None")  # First option is no preset
+			preset_button.set_item_metadata(0, null)
+
+			# Load presets from the presets folder
+			var presets_path := "res://addons/MarchingSquaresTerrain/resources/presets/"
+			var dir := DirAccess.open(presets_path)
+			if dir:
+				dir.list_dir_begin()
+				var file_name := dir.get_next()
+				while file_name != "":
+					if file_name.ends_with(".tres") or file_name.ends_with(".res"):
+						var preset := load(presets_path + file_name) as MarchingSquaresTerrainPreset
+						if preset:
+							preset_button.add_item(preset.preset_name)
+							preset_button.set_item_metadata(preset_button.item_count - 1, preset)
+					file_name = dir.get_next()
+				dir.list_dir_end()
+
+			preset_button.set_flat(true)
+			preset_button.item_selected.connect(func(index):
+				var selected_preset = preset_button.get_item_metadata(index)
+				_on_setting_changed(setting_name, selected_preset)
+			)
+			preset_button.set_custom_minimum_size(Vector2(100, 35))
+
+			# Sync dropdown selection with current plugin.selected_preset
+			var current_preset = _get_setting_value(setting_name)
+			if current_preset == null:
+				preset_button.select(0)  # Select "None"
+			else:
+				# Find matching preset in dropdown
+				for i in range(preset_button.item_count):
+					if preset_button.get_item_metadata(i) == current_preset:
+						preset_button.select(i)
+						break
+
+			cont = CenterContainer.new()
+			cont.set_custom_minimum_size(Vector2(100, 35))
+			cont.add_child(preset_button, true)
+			add_child(cont, true)
 		SettingType.ERROR: # Fallback
 			printerr("ERROR: [MarchingSquaresToolAttributes] couldn't load tool attributes setting")
 	
@@ -390,6 +436,8 @@ func _get_setting_value(p_setting_name: String) -> Variant:
 			return plugin.vertex_color_idx
 		"texture_name":
 			pass
+		"preset_selection":
+			return plugin.selected_preset
 		"chunk_management":
 			pass
 		"terrain_settings":

@@ -10,6 +10,7 @@ brush_type = true
 size = true
 flatten = true
 falloff = true
+preset_selection = true
 metadata/_custom_type_script = "uid://b6jopat61dbd3"
 
 [resource]

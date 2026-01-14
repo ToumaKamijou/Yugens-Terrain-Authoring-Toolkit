@@ -9,6 +9,7 @@ script = ExtResource("1_nb1fd")
 brush_type = true
 size = true
 ease_value = true
+preset_selection = true
 metadata/_custom_type_script = "uid://b6jopat61dbd3"
 
 [resource]

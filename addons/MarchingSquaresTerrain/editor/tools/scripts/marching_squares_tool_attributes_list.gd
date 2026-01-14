@@ -92,7 +92,14 @@ var terrain_settings : Dictionary = {
 	"label": "Terrain Settings",
 }
 
-""" 
+var preset_selection : Dictionary = {
+	"name": "preset_selection",
+	"type": "preset",
+	"label": "Preset",
+	"default": null,
+}
+
+"""
 # Example Attribute Entries
 	"name": "",
 	"type": "",
