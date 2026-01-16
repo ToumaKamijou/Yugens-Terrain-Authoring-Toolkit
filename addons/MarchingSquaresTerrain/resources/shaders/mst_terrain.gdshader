@@ -143,7 +143,7 @@ vec4 sample_material_by_index(int index, vec2 uv) {
 		case 12: result = texture(vc_tex_ar, uv); break;
 		case 13: result = texture(vc_tex_ag, uv); break;
 		case 14: result = texture(vc_tex_ab, uv); break;
-		case 15: result = texture(vc_tex_aa, uv); break;
+		case 15: result = vec4(0.0); break;  // VOID: fully transparent, no color contribution to blending
 		default: result = texture(vc_tex_rr, uv) * ground_albedo; break;
 	}
 	return result;
