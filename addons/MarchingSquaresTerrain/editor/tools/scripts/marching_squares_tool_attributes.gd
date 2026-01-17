@@ -250,7 +250,8 @@ func add_setting(p_params: Dictionary) -> void:
 				preset_button.set_custom_minimum_size(Vector2(100, 35))
 				
 				# Sync dropdown selection with current plugin.current_texture_preset
-				var current_texture_preset = _get_setting_value(setting_name)
+				var terrain := MarchingSquaresTerrainPlugin.instance.current_terrain_node
+				var current_texture_preset = terrain.current_terrain_preset if terrain else null
 				if current_texture_preset == null:
 					preset_button.select(0)  # Select "None"
 				else:

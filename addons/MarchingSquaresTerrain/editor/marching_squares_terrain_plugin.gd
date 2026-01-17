@@ -928,6 +928,10 @@ func _set_vertex_colors(vc_idx: int) -> void:
 func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 	if _preset == null:
 		return
+	
+	#Set BatchUpdate flag to avoid indivudal setters triggering updates
+	current_terrain_node.is_batch_updating = true
+
 	for i in range(6): # The range is 6 because MarchingSquaresTextureList currently has 6 export variables
 		match i:
 			0: # floor_textures
@@ -1054,11 +1058,21 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 	vp_texture_names.floor_texture_names = _preset.new_tex_names.floor_texture_names
 	vp_texture_names.wall_texture_names = _preset.new_tex_names.wall_texture_names
 
-	#Ensure the Editor is updated live (trick it to redraw - There might be an easier way but this works)
-	EditorInterface.inspect_object(current_terrain_node)
-	current_terrain_node.is_batch_updating = true
+
+	#Apply a batch update
 	current_terrain_node.force_batch_update()
 
+	# Mark scene as modified so user knows to save
+	EditorInterface.mark_scene_as_unsaved()
+
+	#store current preset
+	current_terrain_node.current_terrain_preset = _preset
+
+	#Set batch update to false, to allow setters to work individually
+	current_terrain_node.is_batch_updating = false
+
+	#Ensure the Editor is updated live (trick it to redraw - There might be an easier way but this works)
+	EditorInterface.inspect_object(current_terrain_node)
 
 func get_cell_normal(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> Vector3:
 	var h_c := chunk.get_height(cell)

@@ -358,6 +358,8 @@ class_name MarchingSquaresTerrain
 			var grass_mat := grass_mesh.material as ShaderMaterial
 			grass_mat.set_shader_parameter("grass_color_6", value)
 
+@export_storage var current_terrain_preset: MarchingSquaresTexturePreset = null
+
 var void_texture := preload("res://addons/MarchingSquaresTerrain/resources/materials/void_texture.tres")
 var placeholder_wind_texture := preload("res://addons/MarchingSquaresTerrain/resources/materials/wind_noise_texture.tres") # Change to your own texture
 
