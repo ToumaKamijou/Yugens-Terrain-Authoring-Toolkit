@@ -267,8 +267,10 @@ func _get_terrain_image(texture_id: int) -> Image:
 		return null
 	
 	var img : Image = terrain_texture.get_image()
-	img.decompress()
-	return img
+	if img:
+		img.decompress()
+		return img
+	return null
 
 
 func _get_texture_id(vc_col_0: Color, vc_col_1: Color) -> int:

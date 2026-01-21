@@ -18,13 +18,13 @@ const MERGE_MODE = {
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var merge_mode : Mode = Mode.POLYHEDRON: # The max height distance between points before a wall is created between them
 	set(mode):
 		merge_mode = mode
+		merge_threshold = MERGE_MODE[mode]
 		if is_inside_tree():
 			var grass_mat := grass_planter.multimesh.mesh.surface_get_material(0) as ShaderMaterial
 			if mode == Mode.SEMI_ROUND or Mode.SPHERICAL:
 				grass_mat.set_shader_parameter("is_merge_round", true)
 			else:
 				grass_mat.set_shader_parameter("is_merge_round", false)
-			merge_threshold = MERGE_MODE[mode]
 			regenerate_all_cells()
 @export_storage var height_map : Array # Stores the heights from the heightmap.
 @export_storage var color_map_0 : PackedColorArray # Stores the colors from vertex_color_0
@@ -70,24 +70,20 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 		if grass_planter:
 			grass_planter._chunk = self
 	
-	if Engine.is_editor_hint():
-		if not height_map:
-			generate_height_map()
-		if not color_map_0 or not color_map_1:
-			generate_color_maps()
-		if not grass_mask_map:
-			generate_grass_mask_map()
-		if not mesh and should_regenerate_mesh:
-			regenerate_mesh()
-		for child in get_children():
-			if child is StaticBody3D:
-				child.collision_layer = 17 # ground (1) + terrain (16)
-		
-		grass_planter.setup(self, true)
-		grass_planter.regenerate_all_cells()
+	if not height_map:
+		generate_height_map()
+	if not color_map_0 or not color_map_1:
+		generate_color_maps()
+	if not grass_mask_map:
+		generate_grass_mask_map()
+	if not mesh and should_regenerate_mesh:
+		regenerate_mesh()
+	for child in get_children():
+		if child is StaticBody3D:
+			child.collision_layer = 17 # ground (1) + terrain (16)
 	
-	else:
-		printerr("ERROR: Trying to generate terrain during runtime (NOT SUPPORTED)")
+	grass_planter.setup(self, true)
+	grass_planter.regenerate_all_cells()
 
 
 func _exit_tree() -> void:
@@ -109,7 +105,7 @@ func regenerate_mesh():
 	
 	var start_time: int = Time.get_ticks_msec()
 	
-	if not find_child("GrassPlanter"):
+	if not get_node_or_null("GrassPlanter"):
 		grass_planter = get_node_or_null("GrassPlanter")
 		if not grass_planter:
 			grass_planter = GrassPlanter.new()
@@ -124,8 +120,6 @@ func regenerate_mesh():
 		grass_planter.setup(self)
 		if Engine.is_editor_hint():
 			grass_planter.owner = EditorInterface.get_edited_scene_root()
-		else:
-			grass_planter.owner = get_tree().root
 	else:
 		grass_planter._chunk = self
 	
@@ -199,8 +193,8 @@ func generate_terrain_cells():
 			
 			var cell := cell_factory.create(height_map[z][x], height_map[z][x+1], height_map[z+1][x], height_map[z+1][x+1], merge_threshold)
 			cell.generate_geometry(self)
-				if grass_planter and grass_planter.terrain_system:
-					grass_planter.generate_grass_on_cell(cell_coords)
+			if grass_planter and grass_planter.terrain_system:
+				grass_planter.generate_grass_on_cell(cell_coords)
 
 # Adds a point. Coordinates are relative to the top-left corner (not mesh origin relative).
 # UV.x is closeness to the bottom of an edge. and UV.Y is closeness to the edge of a cliff.
@@ -262,12 +256,12 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: March
 	g_mask.g = 1.0 if is_ridge else 0.0
 	st.set_custom(1, g_mask)
 	
-	var vert = Vector3((cell_coords.x+x) * cell_size.x, y, (cell_coords.y+z) * cell_size.y)
-	var uv2
+	var vert := Vector3((cell_coords.x+x) * cell_size.x, y, (cell_coords.y+z) * cell_size.y)
+	var uv2: Vector2
 	if floor_mode:
 		uv2 = Vector2(vert.x, vert.z) / cell_size
 	else:
-		var global_pos = vert + global_position
+		var global_pos := vert + get_global_pos()
 		uv2 = (Vector2(global_pos.x, global_pos.y) + Vector2(global_pos.z, global_pos.y))
 	
 	st.set_uv2(uv2)
@@ -281,6 +275,10 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: March
 	cell_geometry[cell_coords]["grass_mask"].append(g_mask)
 	cell_geometry[cell_coords]["is_floor"].append(floor_mode)
 
+func get_global_pos() -> Vector3:
+	if is_inside_tree():
+		return global_position
+	return Vector3.ZERO
 
 func get_dominant_color(c: Color) -> Color:
 	var max_val := c.r
