@@ -35,7 +35,7 @@ var merge_threshold : float = MERGE_MODE[Mode.POLYHEDRON]
 
 var grass_planter : GrassPlanter = preload("res://addons/MarchingSquaresTerrain/algorithm/grass/grass_planter.tscn").instantiate()
 
-var cell_factory : MarchingSquaresCellFactory = MarchingSquaresCellFactory.new()
+var cell_factory : MarchingSquaresCellFactory = MarchingSquaresCellFactory.new(MarchingSquaresCellFactory.CellType.AUTHORED)
 
 # Size of the 2 dimensional cell array (xz value) and y scale (y value)
 var dimensions : Vector3i:
@@ -70,20 +70,20 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 		if grass_planter:
 			grass_planter._chunk = self
 	
-	if not height_map:
-		generate_height_map()
-	if not color_map_0 or not color_map_1:
-		generate_color_maps()
-	if not grass_mask_map:
-		generate_grass_mask_map()
-	if not mesh and should_regenerate_mesh:
-		regenerate_mesh()
-	for child in get_children():
-		if child is StaticBody3D:
-			child.collision_layer = 17 # ground (1) + terrain (16)
-	
-	grass_planter.setup(self, true)
-	grass_planter.regenerate_all_cells()
+		if not height_map:
+			generate_height_map()
+		if not color_map_0 or not color_map_1:
+			generate_color_maps()
+		if not grass_mask_map:
+			generate_grass_mask_map()
+		if not mesh and should_regenerate_mesh:
+			regenerate_mesh()
+		for child in get_children():
+			if child is StaticBody3D:
+				child.collision_layer = 17 # ground (1) + terrain (16)
+		
+		grass_planter.setup(self, true)
+		grass_planter.regenerate_all_cells()
 
 
 func _exit_tree() -> void:
