@@ -350,7 +350,7 @@ func generate_grass_mask_map():
 	grass_mask_map.resize(dimensions.z * dimensions.x)
 	for z in range(dimensions.z):
 		for x in range(dimensions.x):
-			grass_mask_map[z*dimensions.z + x] = Color(1.0, 1.0, 1.0, 1.0)
+			grass_mask_map[z*dimensions.x + x] = Color(1.0, 1.0, 1.0, 1.0)
 
 
 func get_height(cc: Vector2i) -> float:
