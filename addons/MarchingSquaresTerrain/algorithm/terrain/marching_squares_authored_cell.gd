@@ -21,9 +21,13 @@ var c15: MeshInstance3D = preload("uid://c2vi7uic1sbev").instantiate().get_child
 var c16: MeshInstance3D = preload("uid://nw716v010u2o").instantiate().get_child(0)
 var c17: MeshInstance3D = preload("uid://d3boe1vqqnu35").instantiate().get_child(0)
 
-func add_c0(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c0, chunk)
+@export var detect_walls := false
 
+@export var use_prefab_normals := true
+
+func add_c0(chunk: MarchingSquaresTerrainChunk) -> void:
+	add_chunk_geometry(c0, chunk, [0,0,0,0])
+	
 func add_c1(chunk: MarchingSquaresTerrainChunk) -> void:
 	add_chunk_geometry(c1, chunk, [1,0,0,0])
 	
@@ -93,6 +97,8 @@ func add_chunk_geometry(mesh: MeshInstance3D, chunk: MarchingSquaresTerrainChunk
 	var base_uv : PackedVector2Array = base_arrays[Mesh.ARRAY_TEX_UV]
 	var base_idx : PackedInt32Array = base_arrays[Mesh.ARRAY_INDEX]
 	var base_vertices : PackedVector3Array = base_arrays[Mesh.ARRAY_VERTEX]
+	var base_normals : PackedVector3Array = base_arrays[Mesh.ARRAY_NORMAL]
+	
 	var ay_vertices : PackedVector3Array = ay_arrays[Mesh.ARRAY_VERTEX]
 	var by_vertices : PackedVector3Array = by_arrays[Mesh.ARRAY_VERTEX]
 	var cy_vertices : PackedVector3Array = cy_arrays[Mesh.ARRAY_VERTEX]
@@ -110,13 +116,13 @@ func add_chunk_geometry(mesh: MeshInstance3D, chunk: MarchingSquaresTerrainChunk
 		result[i] += (by_vertices[i] - base_vertices[i] ) * (by-offsets[1])
 		result[i] += (cy_vertices[i] - base_vertices[i] ) * (cy-offsets[2])
 		result[i] += (dy_vertices[i] - base_vertices[i] ) * (dy-offsets[3])
-	
-	chunk.start_floor()
+			
 	assert(base_idx.size() % 3 == 0)
 	
 	const UP_MARGIN_DEG := 85.
 	const UP_COS := cos(deg_to_rad(UP_MARGIN_DEG))
-	
+	if not detect_walls:
+		chunk.start_floor()
 	for i in range(base_idx.size()/3):
 		var idx0 = base_idx[i*3]
 		var idx1 = base_idx[i*3+1]
@@ -130,16 +136,41 @@ func add_chunk_geometry(mesh: MeshInstance3D, chunk: MarchingSquaresTerrainChunk
 		var uv1 := base_uv[idx1]
 		var uv2 := base_uv[idx2]
 		
-		var normal = (v1 - v0).cross(v2 - v0).normalized()
-		if abs(normal.dot(Vector3.UP)) < UP_COS:
-			#wall
-			if chunk.floor_mode:
-				chunk.start_wall()
-		else:
-			#not wall
-			if not chunk.floor_mode:
-				chunk.start_floor()
+		var n = (v2 - v0).cross(v1 - v0).normalized()
 		
-		chunk.add_point(v0.x, v0.y, v0.z, uv0.x, uv0.y, rotation) 
-		chunk.add_point(v1.x, v1.y, v1.z, uv1.x, uv1.y, rotation) 
-		chunk.add_point(v2.x, v2.y, v2.z, uv2.x, uv2.y, rotation) 
+		var n0 := Vector3.ZERO
+		var n1 := Vector3.ZERO
+		var n2 := Vector3.ZERO
+		
+		if use_prefab_normals:
+			if is_face_flat(n, base_normals[idx0], base_normals[idx1], base_normals[idx2]):
+				n0 = n
+				n1 = n
+				n2 = n
+			else:
+				var a0 = (v1 - v0).angle_to(v2 - v0)
+				var a1 = (v0 - v1).angle_to(v2 - v1)
+				var a2 = (v0 - v2).angle_to(v1 - v2)
+			
+				n0 = (base_normals[idx0] + n * a0).normalized()
+				n1 = (base_normals[idx1] + n * a1).normalized()
+				n2 = (base_normals[idx2] + n * a2).normalized()
+		
+		if detect_walls:
+			if abs(n.dot(Vector3.UP)) < UP_COS:
+				#wall
+				if chunk.floor_mode:
+					chunk.start_wall()
+			else:
+				#not wall
+				if not chunk.floor_mode:
+					chunk.start_floor()
+		
+		chunk.add_point(v0, uv0, n0, rotation) 
+		chunk.add_point(v1, uv1, n1, rotation) 
+		chunk.add_point(v2, uv2, n2, rotation)
+
+func is_face_flat(base_n: Vector3, n0: Vector3, n1: Vector3, n2: Vector3, e: float = 0.999) -> bool:
+	return n0.dot(n1) > e and \
+		n1.dot(n2) > e and \
+		n2.dot(n0) > e

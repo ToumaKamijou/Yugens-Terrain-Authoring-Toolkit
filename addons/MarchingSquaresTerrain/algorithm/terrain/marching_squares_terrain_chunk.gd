@@ -48,6 +48,8 @@ var cell_size : Vector2:
 
 var new_chunk : bool = false
 
+var should_generate_normals : bool = true
+
 var st : SurfaceTool # The surfacetool used to construct the current terrain
 var cell_coords : Vector2i # cell coordinates currently being evaluated
 
@@ -70,20 +72,20 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 		if grass_planter:
 			grass_planter._chunk = self
 	
-		if not height_map:
-			generate_height_map()
-		if not color_map_0 or not color_map_1:
-			generate_color_maps()
-		if not grass_mask_map:
-			generate_grass_mask_map()
-		if not mesh and should_regenerate_mesh:
-			regenerate_mesh()
-		for child in get_children():
-			if child is StaticBody3D:
-				child.collision_layer = 17 # ground (1) + terrain (16)
-		
-		grass_planter.setup(self, true)
-		grass_planter.regenerate_all_cells()
+	if not height_map:
+		generate_height_map()
+	if not color_map_0 or not color_map_1:
+		generate_color_maps()
+	if not grass_mask_map:
+		generate_grass_mask_map()
+	if not mesh and should_regenerate_mesh:
+		regenerate_mesh()
+	for child in get_children():
+		if child is StaticBody3D:
+			child.collision_layer = 17 # ground (1) + terrain (16)
+	
+	grass_planter.setup(self, true)
+	grass_planter.regenerate_all_cells()
 
 
 func _exit_tree() -> void:
@@ -127,8 +129,9 @@ func regenerate_mesh():
 	
 	if new_chunk:
 		new_chunk = false
-	
-	st.generate_normals()
+		
+	if should_generate_normals:
+		st.generate_normals()
 	st.index()
 	
 	# Create a new mesh out of floor, and add the wall surface to it
@@ -152,6 +155,8 @@ func regenerate_mesh():
 func generate_terrain_cells():
 	if not cell_geometry:
 		cell_geometry = {}
+		
+	should_generate_normals = true
 	
 	for z in range(dimensions.z - 1):
 		for x in range(dimensions.x - 1):
@@ -162,6 +167,7 @@ func generate_terrain_cells():
 				var verts = cell_geometry[cell_coords]["verts"]
 				var uvs = cell_geometry[cell_coords]["uvs"]
 				var uv2s = cell_geometry[cell_coords]["uv2s"]
+				var normals = cell_geometry[cell_coords]["normals"]
 				var colors_0 = cell_geometry[cell_coords]["colors_0"]
 				var colors_1 = cell_geometry[cell_coords]["colors_1"]
 				var grass_mask = cell_geometry[cell_coords]["grass_mask"]
@@ -170,6 +176,9 @@ func generate_terrain_cells():
 					st.set_smooth_group(0 if is_floor[i] == true else -1)
 					st.set_uv(uvs[i])
 					st.set_uv2(uv2s[i])
+					if (not normals[i].is_equal_approx(Vector3.ZERO)):
+						st.set_normal(normals[i])
+					st.set_normal(normals[i])
 					st.set_color(colors_0[i])
 					st.set_custom(0, colors_1[i])
 					st.set_custom(1, grass_mask[i])
@@ -185,6 +194,7 @@ func generate_terrain_cells():
 				"verts": PackedVector3Array(),
 				"uvs": PackedVector2Array(),
 				"uv2s": PackedVector2Array(),
+				"normals": PackedVector3Array(),
 				"colors_0": PackedColorArray(),
 				"colors_1": PackedColorArray(),
 				"grass_mask": PackedColorArray(),
@@ -198,15 +208,18 @@ func generate_terrain_cells():
 
 # Adds a point. Coordinates are relative to the top-left corner (not mesh origin relative).
 # UV.x is closeness to the bottom of an edge. and UV.Y is closeness to the edge of a cliff.
-func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: MarchingSquaresTerrainCell.CellRotation, diag_midpoint: bool = false):
+func add_point(pt: Vector3, uv: Vector2, norm: Vector3 = Vector3.ZERO, ro: MarchingSquaresTerrainCell.CellRotation = 0, diag_midpoint: bool = false):
 	for i in range(ro as int):
-		var temp = x
-		x = 1 - z
-		z = temp
+		var temp = pt.x
+		pt.x = 1 - pt.z
+		pt.z = temp
+		var ntemp = norm.x
+		norm.x = -norm.z
+		norm.z = ntemp
 	
 	# uv - used for ledge detection. X = closeness to top terrace, Y = closeness to bottom of terrace
 	# Walls will always have UV of 1, 1
-	var uv = Vector2(uv_x, uv_y) if floor_mode else Vector2(1, 1)
+	uv = uv if floor_mode else Vector2(1, 1)
 	st.set_uv(uv)
 	
 	# Use the minimum between both lerped diagonals, component-wise
@@ -224,9 +237,9 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: March
 		if ad_color.b > 0.99 or bc_color.b > 0.99: color_0.b = 1.0;
 		if ad_color.a > 0.99 or bc_color.a > 0.99: color_0.a = 1.0;
 	else:
-		var ab_color = lerp(color_map_0[cell_coords.y*dimensions.x + cell_coords.x], color_map_0[cell_coords.y*dimensions.x + cell_coords.x + 1], x)
-		var cd_color = lerp(color_map_0[(cell_coords.y + 1)*dimensions.x + cell_coords.x], color_map_0[(cell_coords.y + 1)*dimensions.x + cell_coords.x + 1], x)
-		color_0 = get_dominant_color(lerp(ab_color, cd_color, z)) #Use this for mixed triangles
+		var ab_color = lerp(color_map_0[cell_coords.y*dimensions.x + cell_coords.x], color_map_0[cell_coords.y*dimensions.x + cell_coords.x + 1], pt.x)
+		var cd_color = lerp(color_map_0[(cell_coords.y + 1)*dimensions.x + cell_coords.x], color_map_0[(cell_coords.y + 1)*dimensions.x + cell_coords.x + 1], pt.x)
+		color_0 = get_dominant_color(lerp(ab_color, cd_color, pt.z)) #Use this for mixed triangles
 		#color_0 = color_map_0[cell_coords.y * dimensions.x + cell_coords.x] #Use this for perfect square tiles
 	st.set_color(color_0)
 	
@@ -243,9 +256,9 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: March
 		if ad_color.b > 0.99 or bc_color.b > 0.99: color_0.b = 1.0;
 		if ad_color.a > 0.99 or bc_color.a > 0.99: color_0.a = 1.0;
 	else:
-		var ab_color = lerp(color_map_1[cell_coords.y*dimensions.x + cell_coords.x], color_map_1[cell_coords.y*dimensions.x + cell_coords.x + 1], x)
-		var cd_color = lerp(color_map_1[(cell_coords.y + 1)*dimensions.x + cell_coords.x], color_map_1[(cell_coords.y + 1)*dimensions.x + cell_coords.x + 1], x)
-		color_1 = get_dominant_color(lerp(ab_color, cd_color, z)) #Use this for mixed triangles
+		var ab_color = lerp(color_map_1[cell_coords.y*dimensions.x + cell_coords.x], color_map_1[cell_coords.y*dimensions.x + cell_coords.x + 1], pt.x)
+		var cd_color = lerp(color_map_1[(cell_coords.y + 1)*dimensions.x + cell_coords.x], color_map_1[(cell_coords.y + 1)*dimensions.x + cell_coords.x + 1], pt.x)
+		color_1 = get_dominant_color(lerp(ab_color, cd_color, pt.z)) #Use this for mixed triangles
 		#color_1 = color_map_1[cell_coords.y * dimensions.x + cell_coords.x] #Use this for perfect square tiles
 	st.set_custom(0, color_1)
 	
@@ -256,7 +269,7 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: March
 	g_mask.g = 1.0 if is_ridge else 0.0
 	st.set_custom(1, g_mask)
 	
-	var vert := Vector3((cell_coords.x+x) * cell_size.x, y, (cell_coords.y+z) * cell_size.y)
+	var vert := Vector3((cell_coords.x+pt.x) * cell_size.x, pt.y, (cell_coords.y+pt.z) * cell_size.y)
 	var uv2: Vector2
 	if floor_mode:
 		uv2 = Vector2(vert.x, vert.z) / cell_size
@@ -265,11 +278,15 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, ro: March
 		uv2 = (Vector2(global_pos.x, global_pos.y) + Vector2(global_pos.z, global_pos.y))
 	
 	st.set_uv2(uv2)
+	if (not norm.is_equal_approx(Vector3.ZERO)):
+		st.set_normal(norm)
+		should_generate_normals = false
 	st.add_vertex(vert)
 	
 	cell_geometry[cell_coords]["verts"].append(vert)
 	cell_geometry[cell_coords]["uvs"].append(uv)
 	cell_geometry[cell_coords]["uv2s"].append(uv2)
+	cell_geometry[cell_coords]["normals"].append(norm)
 	cell_geometry[cell_coords]["colors_0"].append(color_0)
 	cell_geometry[cell_coords]["colors_1"].append(color_1)
 	cell_geometry[cell_coords]["grass_mask"].append(g_mask)
