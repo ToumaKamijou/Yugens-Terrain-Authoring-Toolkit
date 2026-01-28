@@ -423,11 +423,6 @@ class_name MarchingSquaresTerrain
 		texture_scale_15 = value
 		if not is_batch_updating:
 			terrain_material.set_shader_parameter("texture_scale_15", value)
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var texture_scale_16 : float = 1.0:
-	set(value):
-		texture_scale_16 = value
-		if not is_batch_updating:
-			terrain_material.set_shader_parameter("texture_scale_16", value)
 
 @export_storage var current_texture_preset : MarchingSquaresTexturePreset = null
 
@@ -650,7 +645,6 @@ func force_batch_update() -> void:
 	terrain_material.set_shader_parameter("texture_scale_13", texture_scale_13)
 	terrain_material.set_shader_parameter("texture_scale_14", texture_scale_14)
 	terrain_material.set_shader_parameter("texture_scale_15", texture_scale_15)
-	terrain_material.set_shader_parameter("texture_scale_16", texture_scale_16)
 	
 	# GRASS MATERIAL - Grass Textures 
 	grass_mat.set_shader_parameter("grass_texture", grass_sprite)
@@ -710,6 +704,23 @@ func save_to_preset() -> void:
 	current_texture_preset.new_textures.terrain_textures[12] = texture_13
 	current_texture_preset.new_textures.terrain_textures[13] = texture_14
 	current_texture_preset.new_textures.terrain_textures[14] = texture_15
+	
+	# Texture scales
+	current_texture_preset.new_textures.texture_scales[0] = texture_scale_1
+	current_texture_preset.new_textures.texture_scales[1] = texture_scale_2
+	current_texture_preset.new_textures.texture_scales[2] = texture_scale_3
+	current_texture_preset.new_textures.texture_scales[3] = texture_scale_4
+	current_texture_preset.new_textures.texture_scales[4] = texture_scale_5
+	current_texture_preset.new_textures.texture_scales[5] = texture_scale_6
+	current_texture_preset.new_textures.texture_scales[6] = texture_scale_7
+	current_texture_preset.new_textures.texture_scales[7] = texture_scale_8
+	current_texture_preset.new_textures.texture_scales[8] = texture_scale_9
+	current_texture_preset.new_textures.texture_scales[9] = texture_scale_10
+	current_texture_preset.new_textures.texture_scales[10] = texture_scale_11
+	current_texture_preset.new_textures.texture_scales[11] = texture_scale_12
+	current_texture_preset.new_textures.texture_scales[12] = texture_scale_13
+	current_texture_preset.new_textures.texture_scales[13] = texture_scale_14
+	current_texture_preset.new_textures.texture_scales[14] = texture_scale_15
 	
 	# Grass sprites
 	current_texture_preset.new_textures.grass_sprites[0] = grass_sprite

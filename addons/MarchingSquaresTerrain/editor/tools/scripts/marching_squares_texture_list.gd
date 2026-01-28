@@ -13,6 +13,12 @@ const GRASS_SPRITE : Texture2D = preload("res://addons/MarchingSquaresTerrain/re
 	Texture2D.new(), Texture2D.new(), Texture2D.new(),
 ]
 
+@export var texture_scales : Array[float] = [
+	1.0, 1.0, 1.0, 1.0, 1.0,
+	1.0, 1.0, 1.0, 1.0, 1.0,
+	1.0, 1.0, 1.0, 1.0, 1.0,
+]
+
 @export var grass_sprites : Array[Texture2D] = [
 	GRASS_SPRITE, GRASS_SPRITE, GRASS_SPRITE,
 	GRASS_SPRITE, GRASS_SPRITE, GRASS_SPRITE,

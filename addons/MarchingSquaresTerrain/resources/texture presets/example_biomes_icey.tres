@@ -1,64 +1,57 @@
-[gd_resource type="Resource" script_class="MarchingSquaresTexturePreset" format=3 uid="uid://orvvwqol311t"]
+[gd_resource type="Resource" script_class="MarchingSquaresTexturePreset" format=3 uid="uid://dbef14ikib3y"]
 
-[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="1_wm3h7"]
-[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res" id="2_glclx"]
-[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png" id="3_7vptc"]
-[ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="4_kw3sc"]
-[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="5_ajli0"]
-[ext_resource type="Resource" uid="uid://btiw10gr4acth" path="res://addons/MarchingSquaresTerrain/resources/quick paints/example_forest_paint.tres" id="6_ppne5"]
-[ext_resource type="Resource" uid="uid://dl17nobgpd02j" path="res://addons/MarchingSquaresTerrain/resources/quick paints/example_snow_paint.tres" id="7_3ek0n"]
-[ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="8_4mnrn"]
+[ext_resource type="Resource" uid="uid://dd7fens03aosa" path="res://addons/MarchingSquaresTerrain/resources/texture_names.tres" id="1_rrqhx"]
+[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png" id="2_mj53h"]
+[ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="3_8t6fg"]
+[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res" id="4_74r6l"]
+[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="5_bfkh4"]
+[ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="6_0gudh"]
 
-[sub_resource type="Resource" id="Resource_4dj7t"]
-script = ExtResource("1_wm3h7")
-texture_names = Array[String](["Base Grass", "Texture 2 (g)", "Texture 3 (g)", "Texture 4 (g)", "Blue Ice", "Snowy", "Texture 7", "Texture 8", "Texture 9", "Texture 10", "Texture 11", "Texture 12", "Texture 13", "Texture 14", "Texture 15", "Void"])
-
-[sub_resource type="Texture2D" id="Texture2D_wm3h7"]
+[sub_resource type="Texture2D" id="Texture2D_vynns"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_glclx"]
+[sub_resource type="Texture2D" id="Texture2D_p1dug"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_7vptc"]
+[sub_resource type="Texture2D" id="Texture2D_38l2j"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_kw3sc"]
+[sub_resource type="Texture2D" id="Texture2D_ta716"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_ajli0"]
+[sub_resource type="Texture2D" id="Texture2D_1nue7"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_ppne5"]
+[sub_resource type="Texture2D" id="Texture2D_iuhot"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_3ek0n"]
+[sub_resource type="Texture2D" id="Texture2D_vk8tc"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_4mnrn"]
+[sub_resource type="Texture2D" id="Texture2D_11ep3"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Texture2D" id="Texture2D_rxobr"]
+[sub_resource type="Texture2D" id="Texture2D_fpfsv"]
 resource_local_to_scene = false
 resource_name = ""
 
-[sub_resource type="Resource" id="Resource_s6lbc"]
-script = ExtResource("4_kw3sc")
-terrain_textures = Array[Texture2D]([ExtResource("2_glclx"), ExtResource("2_glclx"), ExtResource("2_glclx"), ExtResource("2_glclx"), null, null, SubResource("Texture2D_wm3h7"), SubResource("Texture2D_glclx"), SubResource("Texture2D_7vptc"), SubResource("Texture2D_kw3sc"), SubResource("Texture2D_ajli0"), SubResource("Texture2D_ppne5"), SubResource("Texture2D_3ek0n"), SubResource("Texture2D_4mnrn"), SubResource("Texture2D_rxobr")])
-grass_colors = Array[Color]([Color(0.65882355, 0.9394608, 0.972549, 1), Color(0.27218676, 0.5515594, 0.8732414, 1), Color(0.11707836, 0.34160534, 0.58870035, 1), Color(0.07107241, 0.24152821, 0.4282803, 1), Color(0.20849088, 0.73309654, 0.8678708, 1), Color(1, 1, 1, 1)])
-has_grass = Array[bool]([false, true, false, false, false])
+[sub_resource type="Resource" id="Resource_0suar"]
+script = ExtResource("3_8t6fg")
+terrain_textures = Array[Texture2D]([ExtResource("4_74r6l"), ExtResource("4_74r6l"), ExtResource("4_74r6l"), ExtResource("4_74r6l"), ExtResource("4_74r6l"), null, SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
+texture_scales = Array[float]([1.0, 1.0, 1.0, 1.0, 5.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+grass_colors = Array[Color]([Color(0.65882355, 0.9411765, 0.972549, 1), Color(0.27058825, 0.5529412, 0.8745098, 1), Color(0.11764706, 0.34117648, 0.5882353, 1), Color(0.07058824, 0.24313726, 0.42745098, 1), Color(0.20784314, 0.73333335, 0.8666667, 1), Color(1, 1, 1, 1)])
+has_grass = Array[bool]([true, true, true, false, false])
 
 [resource]
-script = ExtResource("8_4mnrn")
+script = ExtResource("6_0gudh")
 preset_name = "Biomes - Icey"
-new_tex_names = SubResource("Resource_4dj7t")
-new_textures = SubResource("Resource_s6lbc")
-quick_paints = Array[ExtResource("5_ajli0")]([ExtResource("6_ppne5"), ExtResource("7_3ek0n")])
-metadata/_custom_type_script = "uid://fvb3vi413siv"
+new_tex_names = ExtResource("1_rrqhx")
+new_textures = SubResource("Resource_0suar")

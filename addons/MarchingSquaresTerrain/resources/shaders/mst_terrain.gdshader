@@ -38,7 +38,6 @@ uniform float texture_scale_12 : hint_range(0.1, 20.0, 0.1) = 1.0;
 uniform float texture_scale_13 : hint_range(0.1, 20.0, 0.1) = 1.0;
 uniform float texture_scale_14 : hint_range(0.1, 20.0, 0.1) = 1.0;
 uniform float texture_scale_15 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_16 : hint_range(0.1, 20.0, 0.1) = 1.0;
 group_uniforms;
 
 group_uniforms Vertex_Colors;
@@ -146,14 +145,15 @@ float get_texture_scale(int index) {
 		case 12: return texture_scale_13;
 		case 13: return texture_scale_14;
 		case 14: return texture_scale_15;
-		case 15: return texture_scale_16;
 		default: return 1.0;
 	}
 }
 
 // Sample material by index with albedo tints and per-texture scaling applied
 vec4 sample_material_by_index(int index, vec2 base_uv) {
-	float scale = get_texture_scale(index);
+	float scale = 1.0;
+	if (index != 15)
+		scale = get_texture_scale(index);
 	vec2 uv = base_uv * scale;
 	vec4 result;
 	switch(index) {

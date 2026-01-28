@@ -44,7 +44,7 @@ func _export_to_texture_preset() -> void:
 	
 	filename_input.text = "new_texture_preset"
 	
-	filename_dialog.popup_centered(Vector2(600, 150))
+	filename_dialog.popup_centered(Vector2(400, 150))
 	filename_input.grab_focus()
 	filename_input.select_all()
 
@@ -109,7 +109,7 @@ func _get_current_texture_data() -> MarchingSquaresTextureList:
 	var new_texture_list := MarchingSquaresTextureList.new()
 	var current_terrain_node : MarchingSquaresTerrain = get_parent().get_parent().get_parent().plugin.current_terrain_node #There has to be a better way to do this but this works for now
 	
-	for i in range(4): # The range is 4 because MarchingSquaresTextureList has 4 export variables (terrain textures, grass sprites, grass colors, has_grass)
+	for i in range(5): # The range is 5 because MarchingSquaresTextureList has 5 export variables (terrain textures, texture scales, grass sprites, grass colors, has_grass)
 		match i:
 			0: # terrain_textures
 				for i_tex in range(new_texture_list.terrain_textures.size()):
@@ -146,6 +146,41 @@ func _get_current_texture_data() -> MarchingSquaresTextureList:
 						14:
 							tex = current_terrain_node.texture_15
 					new_texture_list.terrain_textures[i_tex] = tex
+			1: # texture_scales
+				for i_tex_scale in range(new_texture_list.texture_scales.size()):
+					var scale : float = 1.0
+					match i_tex_scale:
+						0:
+							scale = current_terrain_node.texture_scale_1
+						1:
+							scale = current_terrain_node.texture_scale_2
+						2:
+							scale = current_terrain_node.texture_scale_3
+						3:
+							scale = current_terrain_node.texture_scale_4
+						4:
+							scale = current_terrain_node.texture_scale_5
+						5:
+							scale = current_terrain_node.texture_scale_6
+						6:
+							scale = current_terrain_node.texture_scale_7
+						7:
+							scale = current_terrain_node.texture_scale_8
+						8:
+							scale = current_terrain_node.texture_scale_9
+						9:
+							scale = current_terrain_node.texture_scale_10
+						10:
+							scale = current_terrain_node.texture_scale_11
+						11:
+							scale = current_terrain_node.texture_scale_12
+						12:
+							scale = current_terrain_node.texture_scale_13
+						13:
+							scale = current_terrain_node.texture_scale_14
+						14:
+							scale = current_terrain_node.texture_scale_15
+					new_texture_list.texture_scales[i_tex_scale] = scale
 			1: # grass_sprites
 				for i_grass_tex in range(new_texture_list.grass_sprites.size()):
 					var tex : Texture2D = Texture2D.new()

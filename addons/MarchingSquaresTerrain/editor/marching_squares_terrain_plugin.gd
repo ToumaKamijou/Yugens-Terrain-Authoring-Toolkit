@@ -1033,7 +1033,7 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 	# Set BatchUpdate flag to avoid indivudal setters triggering updates
 	current_terrain_node.is_batch_updating = true
 	
-	for i in range(4): # The range is 4 because MarchingSquaresTextureList has 4 export variables (terrain textures, grass sprites, grass colors, has_grass)
+	for i in range(5): # The range is 5 because MarchingSquaresTextureList has 5 export variables (terrain textures, texture scales, grass sprites, grass colors, has_grass)
 		match i:
 			0: # terrain_textures (unified for both floor and wall painting)
 				for i_tex in range(_preset.new_textures.terrain_textures.size()):
@@ -1069,7 +1069,41 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 							current_terrain_node.texture_14 = tex
 						14: # texture_15 is reserved for VOID
 							current_terrain_node.texture_15 = tex
-			1: # grass_sprites
+			1: # texture_scales
+				for i_tex_scale in range(_preset.new_textures.texture_scales.size()):
+					var scale : float = _preset.new_textures.texture_scales[i_tex_scale]
+					match i_tex_scale:
+						0:
+							current_terrain_node.texture_scale_1 = scale
+						1:
+							current_terrain_node.texture_scale_2 = scale
+						2:
+							current_terrain_node.texture_scale_3 = scale
+						3:
+							current_terrain_node.texture_scale_4 = scale
+						4:
+							current_terrain_node.texture_scale_5 = scale
+						5:
+							current_terrain_node.texture_scale_6 = scale
+						6:
+							current_terrain_node.texture_scale_7 = scale
+						7:
+							current_terrain_node.texture_scale_8 = scale
+						8:
+							current_terrain_node.texture_scale_9 = scale
+						9:
+							current_terrain_node.texture_scale_10 = scale
+						10:
+							current_terrain_node.texture_scale_11 = scale
+						11:
+							current_terrain_node.texture_scale_12 = scale
+						12:
+							current_terrain_node.texture_scale_13 = scale
+						13:
+							current_terrain_node.texture_scale_14 = scale
+						14:
+							current_terrain_node.texture_scale_15 = scale
+			2: # grass_sprites
 				for i_grass_tex in range(_preset.new_textures.grass_sprites.size()):
 					var tex : Texture2D = _preset.new_textures.grass_sprites[i_grass_tex]
 					if tex == null:
@@ -1087,7 +1121,7 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 							current_terrain_node.grass_sprite_tex_5 = tex
 						5:
 							current_terrain_node.grass_sprite_tex_6 = tex
-			2: # grass_colors
+			3: # grass_colors
 				for i_grass_col in range(_preset.new_textures.grass_colors.size()):
 					var col : Color = _preset.new_textures.grass_colors[i_grass_col]
 					if col == null:
@@ -1105,7 +1139,7 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 							current_terrain_node.ground_color_5 = col
 						5:
 							current_terrain_node.ground_color_6 = col
-			3: # has_grass
+			4: # has_grass
 				for i_has_grass in range(_preset.new_textures.has_grass.size()):
 					var val : bool = _preset.new_textures.has_grass[i_has_grass]
 					match i_has_grass:
