@@ -35,7 +35,6 @@ shader_parameter/texture_scale_12 = 1.0
 shader_parameter/texture_scale_13 = 1.0
 shader_parameter/texture_scale_14 = 1.0
 shader_parameter/texture_scale_15 = 1.0
-shader_parameter/texture_scale_16 = 1.0
 shader_parameter/vc_tex_rr = ExtResource("3_30qmr")
 shader_parameter/vc_tex_rg = ExtResource("3_30qmr")
 shader_parameter/vc_tex_rb = ExtResource("3_30qmr")

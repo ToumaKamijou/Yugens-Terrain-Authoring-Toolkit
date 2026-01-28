@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode diffuse_toon, depth_draw_always;
+render_mode diffuse_toon, depth_draw_always, alpha_to_coverage, cull_disabled;
 
 group_uniforms Albedo;
 uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0;
@@ -172,7 +172,7 @@ vec4 sample_material_by_index(int index, vec2 base_uv) {
 		case 12: result = texture(vc_tex_ar, uv); break;
 		case 13: result = texture(vc_tex_ag, uv); break;
 		case 14: result = texture(vc_tex_ab, uv); break;
-		case 15: result = vec4(0.0); break;  // VOID: fully transparent, no color contribution to blending
+		case 15: result = texture(vc_tex_aa, uv); break;  // VOID: fully transparent, no color contribution to blending
 		default: result = texture(vc_tex_rr, uv) * ground_albedo; break;
 	}
 	return result;
@@ -437,6 +437,7 @@ void fragment() {
 		vec3 texture_z = wall_mat_z.rgb * tri_weights.z;
 
 		ALBEDO = texture_x + texture_z;
+		ALPHA = wall_mat_x.a;
 	}
 }
 

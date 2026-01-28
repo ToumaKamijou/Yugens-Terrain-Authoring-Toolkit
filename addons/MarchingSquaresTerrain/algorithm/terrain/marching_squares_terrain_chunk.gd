@@ -579,7 +579,6 @@ func generate_terrain_cells():
 					add_point(0, cy, 1)
 					add_point(1, edge_dy, 0.5)
 				
-				
 				# Case 17: All edges are connected, except BD, and B is higher than D.
 				# Make an edge here, but merge one side of the edge together
 				elif ab and ac and cd and is_higher(by, dy):
@@ -612,18 +611,16 @@ func generate_terrain_cells():
 					add_point(0, cy, 1)
 					add_point(0, edge_cy, 0.5)
 					add_point(1, dy, 1)
-				
-				
 				else:
 					case_found = false
-					
+				
 				if case_found:
 					if grass_planter and grass_planter.terrain_system:
 						grass_planter.generate_grass_on_cell(cell_coords)
 					break
-					
+			
 			if not case_found:
-				#Invalid / unknown cell type. put a full floor here and hope it looks fine
+				# Invalid / unknown cell type. put a full floor here and hope it looks fine
 				add_full_floor()
 
 
@@ -703,7 +700,7 @@ func add_point(x: float, y: float, z: float, uv_x: float = 0, uv_y: float = 0, d
 			if ad_color.a > 0.99 or bc_color.a > 0.99: color_0.a = 1.0;
 	elif cell_is_boundary:
 		if terrain_system.use_hard_textures:
-			#use cell's corner color
+			# Use cell's corner color
 			color_0 = source_map_0[cell_coords.y * dimensions.x + cell_coords.x]
 		else:
 			# HEIGHT-BASED SAMPLING for smooth blend mode
@@ -878,7 +875,7 @@ func texture_index_to_colors(idx: int) -> Array[Color]:
 	return [c0, c1]
 
 
-## Calculate 2 dominant textures for current cell 
+# Calculate 2 dominant textures for current cell 
 func calculate_cell_material_pair(source_map_0: PackedColorArray, source_map_1: PackedColorArray) -> void:
 	var tex_a : int = get_texture_index_from_colors(
 		source_map_0[cell_coords.y * dimensions.x + cell_coords.x],
@@ -960,7 +957,6 @@ func calculate_material_blend_data(vert_x: float, vert_z: float, source_map_0: P
 	if total_weight > 0.001:
 		weight_mat_a /= total_weight
 		weight_mat_b /= total_weight
-		# weight_mat_c = 1 - weight_mat_a - weight_mat_b (computed in shader)
 	
 	# Pack mat_a and mat_b into one channel (each is 0-15, so together 0-255)
 	var packed_mats : float = (float(cell_mat_a) + float(cell_mat_b) * 16.0) / 255.0
@@ -1299,7 +1295,7 @@ func draw_grass_mask(x: int, z: int, masked: Color):
 func notify_needs_update(z: int, x: int):
 	if z < 0 or z >= terrain_system.dimensions.z-1 or x < 0 or x >= terrain_system.dimensions.x-1:
 		return
-		
+	
 	needs_update[z][x] = true
 
 
@@ -1307,5 +1303,5 @@ func regenerate_all_cells():
 	for z in range(dimensions.z-1):
 		for x in range(dimensions.x-1):
 			needs_update[z][x] = true
-			
+	
 	regenerate_mesh()

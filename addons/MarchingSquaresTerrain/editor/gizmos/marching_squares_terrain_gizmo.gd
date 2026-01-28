@@ -81,23 +81,41 @@ func _redraw():
 	
 	# Check if we're in wall painting mode
 	var is_wall_painting : bool = terrain_plugin.paint_walls_mode and terrain_plugin.mode == terrain_plugin.TerrainToolMode.VERTEX_PAINTING
-
+	
 	if terrain_chunk_hovered:
 		# Brush radius visualization
 		var brush_transform : Transform3D
 		brush_transform = Transform3D(Vector3.RIGHT * terrain_plugin.brush_size, Vector3.UP, Vector3.BACK * terrain_plugin.brush_size, pos)
-
+		
 		if is_wall_painting:
-			brush_transform = Transform3D(
-				Vector3.RIGHT * terrain_plugin.brush_size,
-				Vector3.BACK,  # Normal direction (unit vector, no scale)
-				Vector3.UP * terrain_plugin.brush_size,
-				pos
+			var viewport := EditorInterface.get_editor_viewport_3d()
+			var editor_camera := viewport.get_camera_3d()
+			var mouse_pos := viewport.get_mouse_position()
+			
+			var ray_origin := editor_camera.project_ray_origin(mouse_pos)
+			var ray_dir := editor_camera.project_ray_normal(mouse_pos)
+			
+			var space := terrain_system.get_world_3d().direct_space_state
+			var query := PhysicsRayQueryParameters3D.create(
+				ray_origin,
+				ray_origin + ray_dir * 1000.0
 			)
 			
-		if terrain_plugin.mode != terrain_plugin.TerrainToolMode.SMOOTH and terrain_plugin.mode != terrain_plugin.TerrainToolMode.GRASS_MASK and terrain_plugin.mode != terrain_plugin.TerrainToolMode.DEBUG_BRUSH:
+			query.collide_with_areas = false
+			query.collide_with_bodies = true
+			var hit_result = space.intersect_ray(query)
+			var wall_normal : Vector3 = Vector3.BACK
+			if hit_result:
+				wall_normal = hit_result.normal
+			
+			var basis := _create_brush_basis(wall_normal, terrain_plugin.brush_size)
+			if wall_normal.y > 0.5:
+				basis.z = Vector3.ZERO
+			brush_transform = Transform3D(basis, pos)
+			
+		if terrain_plugin.mode != terrain_plugin.TerrainToolMode.SMOOTH and terrain_plugin.mode != terrain_plugin.TerrainToolMode.GRASS_MASK and terrain_plugin.mode != terrain_plugin.TerrainToolMode.DEBUG_BRUSH and terrain_plugin.paint_walls_mode:
 			add_mesh(terrain_plugin.BRUSH_RADIUS_VISUAL, null, brush_transform)
-
+		
 		pos = terrain_plugin.brush_position
 		
 		var pos_tl := Vector2(pos.x + terrain_system.cell_size.x - terrain_plugin.brush_size/2, pos.z + terrain_system.cell_size.y - terrain_plugin.brush_size/2)
@@ -172,7 +190,7 @@ func _redraw():
 						# Only draw ground brush squares if NOT in wall paint mode
 						if not is_wall_painting:
 							add_mesh(terrain_plugin.BRUSH_VISUAL, brush_material, draw_transform)
-
+						
 						# Draw to current pattern
 						if terrain_plugin.is_drawing:
 							if not terrain_plugin.current_draw_pattern.has(cursor_chunk_coords):
@@ -203,11 +221,29 @@ func _redraw():
 				if terrain_plugin.is_setting and terrain_plugin.draw_height_set:
 					var draw_position = Vector3(draw_x, draw_y + height_diff * sample, draw_z)
 					var draw_transform = Transform3D(Vector3.RIGHT*sample, Vector3.UP*sample, Vector3.BACK*sample, draw_position)
-					add_mesh(terrain_plugin.BRUSH_VISUAL, null, draw_transform)
+					if not is_wall_painting:
+						add_mesh(terrain_plugin.BRUSH_VISUAL, null, draw_transform)
 				else:
 					var draw_position = Vector3(draw_x, draw_y, draw_z)
 					var draw_transform = Transform3D(Vector3.RIGHT*sample, Vector3.UP*sample, Vector3.BACK*sample, draw_position)
-					add_mesh(terrain_plugin.BRUSH_VISUAL, null, draw_transform)
+					if not is_wall_painting:
+						add_mesh(terrain_plugin.BRUSH_VISUAL, null, draw_transform)
+
+
+func _create_brush_basis(normal: Vector3, brush_size: float) -> Basis:
+	var n := normal.normalized()
+	
+	var tangent := Vector3.UP.cross(n)
+	if tangent.length_squared() < 0.001:
+		tangent = Vector3.RIGHT.cross(n)
+	
+	tangent = tangent.normalized()
+	var bitangent := n.cross(tangent)
+	
+	tangent *= brush_size
+	bitangent *= brush_size
+	
+	return Basis(tangent, n, bitangent)
 
 
 func try_add_chunk(terrain_system: MarchingSquaresTerrain, coords: Vector2i):

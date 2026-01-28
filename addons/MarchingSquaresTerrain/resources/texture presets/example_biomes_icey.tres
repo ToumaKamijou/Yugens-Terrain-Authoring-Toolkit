@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res" id="4_74r6l"]
 [ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="5_bfkh4"]
 [ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="6_0gudh"]
+[ext_resource type="Resource" uid="uid://dl17nobgpd02j" path="res://addons/MarchingSquaresTerrain/resources/quick paints/example_snow_paint.tres" id="6_2ytvk"]
 
 [sub_resource type="Texture2D" id="Texture2D_vynns"]
 resource_local_to_scene = false
@@ -55,3 +56,4 @@ script = ExtResource("6_0gudh")
 preset_name = "Biomes - Icey"
 new_tex_names = ExtResource("1_rrqhx")
 new_textures = SubResource("Resource_0suar")
+quick_paints = Array[ExtResource("5_bfkh4")]([ExtResource("6_2ytvk")])

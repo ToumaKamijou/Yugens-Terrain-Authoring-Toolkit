@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="MarchingSquaresQuickPaint" load_steps=2 format=3 uid="uid://dl17nobgpd02j"]
+[gd_resource type="Resource" script_class="MarchingSquaresQuickPaint" format=3 uid="uid://dl17nobgpd02j"]
 
 [ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="1_bird3"]
 
 [resource]
 script = ExtResource("1_bird3")
-paint_name = "Snow"
-wall_texture_slot = 2
-ground_texture_slot = 4
+paint_name = "Full Snow"
+wall_texture_slot = 5
+ground_texture_slot = 5

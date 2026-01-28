@@ -24,7 +24,7 @@ func _get_property_list() -> Array[Dictionary]:
 		"name": "wall_texture_slot",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": ",".join(TEXTURE_NAMES.floor_texture_names),
+		"hint_string": ",".join(TEXTURE_NAMES.texture_names),
 		"usage": PROPERTY_USAGE_DEFAULT,
 	})
 
@@ -33,7 +33,7 @@ func _get_property_list() -> Array[Dictionary]:
 		"name": "ground_texture_slot",
 		"type": TYPE_INT,
 		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": ",".join(TEXTURE_NAMES.floor_texture_names),
+		"hint_string": ",".join(TEXTURE_NAMES.texture_names),
 		"usage": PROPERTY_USAGE_DEFAULT,
 	})
 

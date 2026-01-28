@@ -46,6 +46,9 @@ var mode : TerrainToolMode = TerrainToolMode.BRUSH:
 	set(value):
 		mode = value
 		current_draw_pattern.clear()
+		if mode == TerrainToolMode.VERTEX_PAINTING:
+			falloff = false
+			BRUSH_RADIUS_MATERIAL.set_shader_parameter("falloff_visible", false)
 
 var vp_texture_names = preload("res://addons/MarchingSquaresTerrain/resources/texture_names.tres")
 
@@ -73,6 +76,7 @@ var _syncing_from_terrain : bool = false
 var current_texture_preset : MarchingSquaresTexturePreset = null:
 	set(value):
 		current_texture_preset = value
+		current_quick_paint = null
 		if not _syncing_from_terrain:
 			_set_new_textures(value)
 
@@ -80,7 +84,10 @@ var current_texture_preset : MarchingSquaresTexturePreset = null:
 var current_quick_paint : MarchingSquaresQuickPaint = null
 
 # Toggle for painting walls vs ground in VERTEX_PAINTING mode
-var paint_walls_mode : bool = false
+var paint_walls_mode : bool = false:
+	set(value):
+		paint_walls_mode = value
+		
 
 var vertex_color_idx : int = 0:
 	set(value):
@@ -322,7 +329,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 					bridge_start_pos = brush_position
 				if mode == TerrainToolMode.SMOOTH and falloff == false:
 					falloff = true
-				if (mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.DEBUG_BRUSH) and falloff == true:
+				if (mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.DEBUG_BRUSH) and falloff == true:
 					falloff = false
 				if (mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.DEBUG_BRUSH) and flatten == true:
 					flatten = false
@@ -917,8 +924,12 @@ func draw_wall_color_1_pattern_action(terrain: MarchingSquaresTerrain, pattern: 
 func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: Dictionary) -> void:
 	var affected_chunks : Dictionary = {}  # chunk_coords -> chunk reference
 	
+	var composite_disabled := false
+	if mode == TerrainToolMode.SMOOTH and current_quick_paint == null:
+		composite_disabled = true
+	
 	# Apply wall colors FIRST (before height changes that create ridge vertices)
-	if patterns.has("wall_color_0"):
+	if patterns.has("wall_color_0") and not composite_disabled:
 		for chunk_coords: Vector2i in patterns.wall_color_0:
 			var chunk: MarchingSquaresTerrainChunk = terrain.chunks.get(chunk_coords)
 			if chunk:
@@ -926,7 +937,7 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 				for cell_coords: Vector2i in patterns.wall_color_0[chunk_coords]:
 					chunk.draw_wall_color_0(cell_coords.x, cell_coords.y, patterns.wall_color_0[chunk_coords][cell_coords])
 	
-	if patterns.has("wall_color_1"):
+	if patterns.has("wall_color_1") and not composite_disabled:
 		for chunk_coords: Vector2i in patterns.wall_color_1:
 			var chunk: MarchingSquaresTerrainChunk = terrain.chunks.get(chunk_coords)
 			if chunk:
@@ -944,7 +955,7 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 					chunk.draw_height(cell_coords.x, cell_coords.y, patterns.height[chunk_coords][cell_coords])
 	
 	# Apply grass mask
-	if patterns.has("grass_mask"):
+	if patterns.has("grass_mask") and not composite_disabled:
 		for chunk_coords: Vector2i in patterns.grass_mask:
 			var chunk: MarchingSquaresTerrainChunk = terrain.chunks.get(chunk_coords)
 			if chunk:
@@ -953,7 +964,7 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 					chunk.draw_grass_mask(cell_coords.x, cell_coords.y, patterns.grass_mask[chunk_coords][cell_coords])
 	
 	# Apply ground colors LAST
-	if patterns.has("color_0"):
+	if patterns.has("color_0") and not composite_disabled:
 		for chunk_coords: Vector2i in patterns.color_0:
 			var chunk: MarchingSquaresTerrainChunk = terrain.chunks.get(chunk_coords)
 			if chunk:
@@ -961,7 +972,7 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 				for cell_coords: Vector2i in patterns.color_0[chunk_coords]:
 					chunk.draw_color_0(cell_coords.x, cell_coords.y, patterns.color_0[chunk_coords][cell_coords])
 	
-	if patterns.has("color_1"):
+	if patterns.has("color_1") and not composite_disabled:
 		for chunk_coords: Vector2i in patterns.color_1:
 			var chunk: MarchingSquaresTerrainChunk = terrain.chunks.get(chunk_coords)
 			if chunk:

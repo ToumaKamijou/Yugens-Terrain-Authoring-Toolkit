@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MarchingSquaresQuickPaint" format=3 uid="uid://bh8snii2ug8n6"]
+
+[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="1_ydxdw"]
+
+[resource]
+script = ExtResource("1_ydxdw")
+paint_name = "Full Void"
+wall_texture_slot = 15
+ground_texture_slot = 15
+metadata/_custom_type_script = "uid://mtlf02qfkqp5"

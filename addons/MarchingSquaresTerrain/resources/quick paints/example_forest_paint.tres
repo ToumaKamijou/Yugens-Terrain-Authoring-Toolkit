@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="MarchingSquaresQuickPaint" load_steps=2 format=3 uid="uid://btiw10gr4acth"]
-
-[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="1_preset"]
-
-[resource]
-script = ExtResource("1_preset")
-paint_name = "Forest"
-wall_texture_slot = 0
-ground_texture_slot = 2
