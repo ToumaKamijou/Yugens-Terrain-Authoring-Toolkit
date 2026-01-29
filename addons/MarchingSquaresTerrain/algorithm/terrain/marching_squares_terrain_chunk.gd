@@ -35,8 +35,6 @@ var merge_threshold : float = MERGE_MODE[Mode.POLYHEDRON]
 
 var grass_planter : GrassPlanter = preload("res://addons/MarchingSquaresTerrain/algorithm/grass/grass_planter.tscn").instantiate()
 
-var cell_factory : MarchingSquaresCellFactory = MarchingSquaresCellFactory.new(MarchingSquaresCellFactory.CellType.AUTHORED)
-
 # Size of the 2 dimensional cell array (xz value) and y scale (y value)
 var dimensions : Vector3i:
 	get:
@@ -201,7 +199,18 @@ func generate_terrain_cells():
 				"is_floor": [],
 			}
 			
+			var cell_factory : MarchingSquaresCellFactory
+			if terrain_system.prefabs and terrain_system.chunk_cell_type == MarchingSquaresCellFactory.CellType.AUTHORED:
+				cell_factory = MarchingSquaresCellFactory.new(MarchingSquaresCellFactory.CellType.AUTHORED)
+			else:
+				cell_factory = MarchingSquaresCellFactory.new(MarchingSquaresCellFactory.CellType.PROCEDURAL)
+
 			var cell := cell_factory.create(height_map[z][x], height_map[z][x+1], height_map[z+1][x], height_map[z+1][x+1], merge_threshold)
+			if cell is MarchingSquaresAuthoredlCell:
+				cell.prefabs = terrain_system.prefabs
+				cell.detect_walls = terrain_system.detect_prefab_walls
+				cell.use_prefab_normals = terrain_system.use_prefab_normals
+				
 			cell.generate_geometry(self)
 			if grass_planter and grass_planter.terrain_system:
 				grass_planter.generate_grass_on_cell(cell_coords)

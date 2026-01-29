@@ -1,7 +1,7 @@
 extends MarchingSquaresTerrainCell
 class_name MarchingSquaresAuthoredlCell
 
-@export var prefabs : MarchingSquaresTerrainPrefabCells = preload("uid://ly4dhlt8wwfr") as MarchingSquaresTerrainPrefabCells
+@export var prefabs : MarchingSquaresTerrainPrefabCells
 
 @export var detect_walls := false
 
