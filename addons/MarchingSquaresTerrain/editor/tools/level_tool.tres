@@ -17,6 +17,11 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_qrcvc")
 icon = ExtResource("1_q142h")
 label = "Level"
-tooltip = "Used to level terrain to a certain height. Hold CONTROL while clicking to set the terrain height to the brush's position."
+tooltip = "Level Tool
+
+Used to level terrain to a certain height.
+
+[SHORTCUTS]
+• Ctrl+LMB: Set the terrain level height to the hovered cell's Y value."
 attributes = SubResource("Resource_5ton1")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

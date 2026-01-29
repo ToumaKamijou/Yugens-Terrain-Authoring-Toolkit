@@ -16,6 +16,12 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_xy6if")
 icon = ExtResource("1_xvlk8")
 label = "Bridge"
-tooltip = "Used to create a bridge between two points."
+tooltip = "Bridge Tool
+
+Used to create a bridge between two points.
+
+[INFO]
+The bridge curve falloff can be set via the \"ease value\" attribute. 
+For reference see the ease value cheatsheet in the documentation+ folder."
 attributes = SubResource("Resource_l6yvy")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

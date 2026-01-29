@@ -469,13 +469,13 @@ func add_setting(p_params: Dictionary) -> void:
 						checkbox.button_pressed = plugin.current_terrain_node.get(setting)
 						checkbox.toggled.connect(func(pressed): _on_terrain_setting_changed(setting, pressed))
 						checkbox.set_custom_minimum_size(Vector2(25, 25))
-
+						
 						ts_cont = CenterContainer.new()
 						ts_cont.set_custom_minimum_size(Vector2(35, 35))
 						ts_cont.add_child(checkbox, true)
 						hbox.add_child(ts_cont, true)
 						vbox.add_child(hbox, true)
-					"WallDropdown": #Q: Do we still need this?
+					"WallDropdown":
 						var wall_dropdown := OptionButton.new()
 						wall_dropdown.set_flat(true)
 						# Populate with texture names from the shared texture names resource
@@ -485,7 +485,7 @@ func add_setting(p_params: Dictionary) -> void:
 						wall_dropdown.selected = plugin.current_terrain_node.default_wall_texture_slot
 						wall_dropdown.item_selected.connect(func(index): _on_terrain_setting_changed(setting, index))
 						wall_dropdown.set_custom_minimum_size(Vector2(100, 35))
-
+						
 						ts_cont = CenterContainer.new()
 						ts_cont.set_custom_minimum_size(Vector2(100, 35))
 						ts_cont.add_child(wall_dropdown, true)

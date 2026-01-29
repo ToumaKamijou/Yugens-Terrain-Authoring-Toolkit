@@ -14,6 +14,13 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("2_74ofp")
 icon = ExtResource("1_caa87")
 label = "Debug Brush"
-tooltip = "Used to print data about selected cells."
+tooltip = "Debug Brush Tool
+
+Used to print data about selected cells.
+
+[DEBUG INFO]
+• Global position
+• Color ID values (two Vector4's)
+• Normal"
 attributes = SubResource("Resource_2gp4f")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

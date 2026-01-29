@@ -13,6 +13,16 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_j1t8c")
 icon = ExtResource("1_ir1w2")
 label = "Chunk Manager"
-tooltip = "Used to create, delete and change chunk settings."
+tooltip = "Chunk Management Tool
+
+Used to create, delete and change chunk settings.
+
+[INFO]
+Chunk cell merge modes:
+• CUBIC: The most blocky of all the modes. Has minimal smoothing between cells.
+• POLYHEDRON: Blocky terrain with slight cell smoothing (DEFAULT CHUNK STATE).
+• ROUNDED_POLYHEDRON: A good 50/50 mix between having smooth and blocky terrain.
+• SEMI_ROUND: Mostly smooth terrain with the occasional blocky cells.
+• SPHERICAL: All the terrain will become smooth. This mode looks the most unnatural for the algorithm."
 attributes = SubResource("Resource_w6p77")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

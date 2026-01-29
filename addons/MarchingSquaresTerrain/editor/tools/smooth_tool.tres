@@ -16,6 +16,8 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_dmhpo")
 icon = ExtResource("1_oq0vg")
 label = "Smooth"
-tooltip = "Used to smooth neighbouring terrain to their average height."
+tooltip = "Smooth Tool
+
+Used to smooth neighbouring terrain to their average height."
 attributes = SubResource("Resource_4c4b8")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

@@ -13,6 +13,16 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_b2ltq")
 icon = ExtResource("1_pnnl0")
 label = "Terrain Settings"
-tooltip = "Used to tweak global terrain settings."
+tooltip = "Terrain Settings Tool
+
+Used to tweak global terrain settings.
+
+[INFO]
+• Enabling \"Use Hard Textures\" makes smoothing between neighbouring cell's terrain textures absolete.
+• Setting a \"Noise Hmap\" makes the base chunk height generation procedural instead of flat. 
+• Setting the \"Animation Fps\" value to more than 0 makes the grass sprites move with limited fps.
+    • Keeping it at 0 gives the grass a smooth wind based effect.
+• \"Ridge Threshold\" controls how close grass sprites get spawned to lowering terrain(cliffs).
+• \"Ledge Threshold\" controls how close grass sprites get spawned to elevating terrain (walls)."
 attributes = SubResource("Resource_vnd2o")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

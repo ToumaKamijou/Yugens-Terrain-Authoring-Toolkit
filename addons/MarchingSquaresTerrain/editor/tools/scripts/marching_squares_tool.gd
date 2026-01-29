@@ -6,5 +6,5 @@ class_name MarchingSquaresTool
 # Tool data
 @export var icon : CompressedTexture2D
 @export var label : String
-@export var tooltip : String
+@export_multiline var tooltip : String
 @export var attributes : MarchingSquaresToolAttributeSettings
