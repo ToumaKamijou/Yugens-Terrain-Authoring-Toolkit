@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="MarchingSquaresTerrainPrefabCells" load_steps=21 format=3 uid="uid://5nns2tpfna5l"]
+
+[ext_resource type="PackedScene" uid="uid://cqg72yl74cqf7" path="res://geometry_template/C0.glb" id="1_fdh0c"]
+[ext_resource type="Script" uid="uid://cht52sif2udhq" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_prefab_cells.gd" id="1_v23pf"]
+[ext_resource type="PackedScene" uid="uid://bcd6vlsah6r3a" path="res://geometry_template/C10.glb" id="2_kvwdj"]
+[ext_resource type="PackedScene" uid="uid://by5fhtfe821v1" path="res://geometry_template/C11.glb" id="3_8x2cp"]
+[ext_resource type="PackedScene" uid="uid://66ukx5q67u1r" path="res://geometry_template/C12.glb" id="4_hpprq"]
+[ext_resource type="PackedScene" uid="uid://dir2u5jlbtaoc" path="res://geometry_template/C13.glb" id="5_vyu5m"]
+[ext_resource type="PackedScene" uid="uid://cm8e8x3026kb1" path="res://geometry_template/C14.glb" id="6_utdy5"]
+[ext_resource type="PackedScene" uid="uid://c2vi7uic1sbev" path="res://geometry_template/C15.glb" id="7_46by6"]
+[ext_resource type="PackedScene" uid="uid://nw716v010u2o" path="res://geometry_template/C16.glb" id="8_le3au"]
+[ext_resource type="PackedScene" uid="uid://d3boe1vqqnu35" path="res://geometry_template/C17.glb" id="9_ydbt7"]
+[ext_resource type="PackedScene" uid="uid://t4flqvcyafog" path="res://geometry_template/C1.glb" id="10_psuim"]
+[ext_resource type="PackedScene" uid="uid://cisql05w1tg1e" path="res://geometry_template/C2.glb" id="11_6ce7t"]
+[ext_resource type="PackedScene" uid="uid://dt38rwma05yd3" path="res://geometry_template/C3.glb" id="12_7xggh"]
+[ext_resource type="PackedScene" uid="uid://b34pux3e3pnft" path="res://geometry_template/C4.glb" id="13_emsr2"]
+[ext_resource type="PackedScene" uid="uid://d0crhnc15or7" path="res://geometry_template/C5.glb" id="14_whilb"]
+[ext_resource type="PackedScene" uid="uid://cf7v67q8s4gsa" path="res://geometry_template/C5b.glb" id="15_x5eaj"]
+[ext_resource type="PackedScene" uid="uid://b1yitv1oysrk8" path="res://geometry_template/C6.glb" id="16_uqlhe"]
+[ext_resource type="PackedScene" uid="uid://c6ke17d6q15yw" path="res://geometry_template/C7.glb" id="17_pwc1t"]
+[ext_resource type="PackedScene" uid="uid://dj17tbqb6dtky" path="res://geometry_template/C8.glb" id="18_tct4t"]
+[ext_resource type="PackedScene" uid="uid://bhjyyn86u3raq" path="res://geometry_template/C9.glb" id="19_q2j26"]
+
+[resource]
+script = ExtResource("1_v23pf")
+c0_scene = ExtResource("1_fdh0c")
+c1_scene = ExtResource("10_psuim")
+c2_scene = ExtResource("11_6ce7t")
+c3_scene = ExtResource("12_7xggh")
+c4_scene = ExtResource("13_emsr2")
+c5_scene = ExtResource("14_whilb")
+c5b_scene = ExtResource("15_x5eaj")
+c6_scene = ExtResource("16_uqlhe")
+c7_scene = ExtResource("17_pwc1t")
+c8_scene = ExtResource("18_tct4t")
+c9_scene = ExtResource("19_q2j26")
+c10_scene = ExtResource("2_kvwdj")
+c11_scene = ExtResource("3_8x2cp")
+c12_scene = ExtResource("4_hpprq")
+c13_scene = ExtResource("5_vyu5m")
+c14_scene = ExtResource("6_utdy5")
+c15_scene = ExtResource("7_46by6")
+c16_scene = ExtResource("8_le3au")
+c17_scene = ExtResource("9_ydbt7")
+metadata/_custom_type_script = "uid://cht52sif2udhq"

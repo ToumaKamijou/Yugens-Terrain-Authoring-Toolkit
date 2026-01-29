@@ -1,86 +1,68 @@
 extends MarchingSquaresTerrainCell
 class_name MarchingSquaresAuthoredlCell
 
-var c0: MeshInstance3D = preload("uid://cqg72yl74cqf7").instantiate().get_child(0)
-var c1: MeshInstance3D = preload("uid://t4flqvcyafog").instantiate().get_child(0)
-var c2: MeshInstance3D = preload("uid://cisql05w1tg1e").instantiate().get_child(0)
-var c3: MeshInstance3D = preload("uid://dt38rwma05yd3").instantiate().get_child(0)
-var c4: MeshInstance3D = preload("uid://b34pux3e3pnft").instantiate().get_child(0)
-var c5: MeshInstance3D = preload("uid://d0crhnc15or7").instantiate().get_child(0)
-var c5b: MeshInstance3D = preload("uid://cf7v67q8s4gsa").instantiate().get_child(0)
-var c6: MeshInstance3D = preload("uid://b1yitv1oysrk8").instantiate().get_child(0)
-var c7: MeshInstance3D = preload("uid://c6ke17d6q15yw").instantiate().get_child(0)
-var c8: MeshInstance3D = preload("uid://dj17tbqb6dtky").instantiate().get_child(0)
-var c9: MeshInstance3D = preload("uid://bhjyyn86u3raq").instantiate().get_child(0)
-var c10: MeshInstance3D = preload("uid://bcd6vlsah6r3a").instantiate().get_child(0)
-var c11: MeshInstance3D = preload("uid://by5fhtfe821v1").instantiate().get_child(0)
-var c12: MeshInstance3D = preload("uid://66ukx5q67u1r").instantiate().get_child(0)
-var c13: MeshInstance3D = preload("uid://dir2u5jlbtaoc").instantiate().get_child(0)
-var c14: MeshInstance3D = preload("uid://cm8e8x3026kb1").instantiate().get_child(0)
-var c15: MeshInstance3D = preload("uid://c2vi7uic1sbev").instantiate().get_child(0)
-var c16: MeshInstance3D = preload("uid://nw716v010u2o").instantiate().get_child(0)
-var c17: MeshInstance3D = preload("uid://d3boe1vqqnu35").instantiate().get_child(0)
+@export var prefabs : MarchingSquaresTerrainPrefabCells = preload("uid://ly4dhlt8wwfr") as MarchingSquaresTerrainPrefabCells
 
 @export var detect_walls := false
 
-@export var use_prefab_normals := true
+@export var use_prefab_normals := false
 
 func add_c0(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c0, chunk, [0,0,0,0])
+	add_chunk_geometry(prefabs.c0,chunk, [0,0,0,0])
 	
 func add_c1(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c1, chunk, [1,0,0,0])
+	add_chunk_geometry(prefabs.c1,chunk, [1,0,0,0])
 	
 func add_c2(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c2, chunk, [1,1,0,0])
+	add_chunk_geometry(prefabs.c2,chunk, [1,1,0,0])
 	
 func add_c3(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c3, chunk,[2,1,0,0])
+	add_chunk_geometry(prefabs.c3,chunk,[2,1,0,0])
 	
 func add_c4(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c4, chunk,[1,2,0,0])
+	add_chunk_geometry(prefabs.c4,chunk,[1,2,0,0])
 	
 func add_c5(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c5, chunk,[0,1,1,0])
+	add_chunk_geometry(prefabs.c5,chunk,[0,1,1,0])
 	
 func add_c5b(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c5b, chunk,[0,2,1,0])
+	add_chunk_geometry(prefabs.c5b,chunk,[0,2,1,0])
 	
 func add_c6(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c6, chunk,[0,1,1,1])
+	add_chunk_geometry(prefabs.c6,chunk,[0,1,1,1])
 	
 func add_c7(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c7, chunk,[0,1,1,2])
+	add_chunk_geometry(prefabs.c7,chunk,[0,1,1,2])
 	
 func add_c8(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c8, chunk,[0,1,2,1])
+	add_chunk_geometry(prefabs.c8,chunk,[0,1,2,1])
 
 func add_c9(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c9, chunk,[0,2,1,1])
+	add_chunk_geometry(prefabs.c9,chunk,[0,2,1,1])
 
 func add_c10(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c10, chunk,[0,2,1,2])
+	add_chunk_geometry(prefabs.c10,chunk,[0,2,1,2])
 
 func add_c11(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c11, chunk,[0,1,2,2])
+	add_chunk_geometry(prefabs.c11,chunk,[0,1,2,2])
 
 func add_c12(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c12, chunk,[0,1,3,2])
+	add_chunk_geometry(prefabs.c12,chunk,[0,1,3,2])
 
 func add_c13(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c13, chunk,[0,3,1,2])
+	add_chunk_geometry(prefabs.c13,chunk,[0,3,1,2])
 
 func add_c14(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c14, chunk,[0,1,2,3])
+	add_chunk_geometry(prefabs.c14,chunk,[0,1,2,3])
 
 func add_c15(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c15, chunk,[0,2,1,3])
+	add_chunk_geometry(prefabs.c15,chunk,[0,2,1,3])
 
 func add_c16(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c16, chunk,[1,0,0,0])
+	add_chunk_geometry(prefabs.c16,chunk,[1,0,0,0])
 
 func add_c17(chunk: MarchingSquaresTerrainChunk) -> void:
-	add_chunk_geometry(c17, chunk,[0,1,0,0])
+	add_chunk_geometry(prefabs.c17,chunk,[0,1,0,0])
 
 func add_chunk_geometry(mesh: MeshInstance3D, chunk: MarchingSquaresTerrainChunk, offsets: Array[float] = [0,0,0,0]) -> void:
 	var ay_idx := mesh.find_blend_shape_by_name("ay")

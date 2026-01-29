@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="MarchingSquaresTerrainPrefabCells" load_steps=21 format=3 uid="uid://ly4dhlt8wwfr"]
+
+[ext_resource type="PackedScene" uid="uid://dlc5o8ns8nyd" path="res://grass_tiles/C0.glb" id="1_aows1"]
+[ext_resource type="Script" uid="uid://cht52sif2udhq" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_prefab_cells.gd" id="1_xglb6"]
+[ext_resource type="PackedScene" uid="uid://bydg17nx57ek4" path="res://grass_tiles/C10.glb" id="2_5de2k"]
+[ext_resource type="PackedScene" uid="uid://bb6pxeg0udb5" path="res://grass_tiles/C11.glb" id="3_xpny0"]
+[ext_resource type="PackedScene" uid="uid://bcmm52kpxc5ny" path="res://grass_tiles/C12.glb" id="4_aei4y"]
+[ext_resource type="PackedScene" uid="uid://qcfui0ubqxd3" path="res://grass_tiles/C13.glb" id="5_ypr2c"]
+[ext_resource type="PackedScene" uid="uid://nxavstieeq6w" path="res://grass_tiles/C14.glb" id="6_mu86b"]
+[ext_resource type="PackedScene" uid="uid://mpc40pv2gnty" path="res://grass_tiles/C15.glb" id="7_6dr2m"]
+[ext_resource type="PackedScene" uid="uid://c8itaqxkj3q4m" path="res://grass_tiles/C16.glb" id="8_4roux"]
+[ext_resource type="PackedScene" uid="uid://bxsmu6s8xwdbu" path="res://grass_tiles/C17.glb" id="9_bc88t"]
+[ext_resource type="PackedScene" uid="uid://bcaoiwxtqs7co" path="res://grass_tiles/C1.glb" id="10_wg6j8"]
+[ext_resource type="PackedScene" uid="uid://cy56ynhv8ppm8" path="res://grass_tiles/C2.glb" id="11_dw05g"]
+[ext_resource type="PackedScene" uid="uid://d2i6vyskj5gy4" path="res://grass_tiles/C3.glb" id="12_4rkbm"]
+[ext_resource type="PackedScene" uid="uid://b5eivn6ofd1d6" path="res://grass_tiles/C4.glb" id="13_1u6ux"]
+[ext_resource type="PackedScene" uid="uid://chry54t2cigtn" path="res://grass_tiles/C5.glb" id="14_oid4s"]
+[ext_resource type="PackedScene" uid="uid://5dlurgav46fh" path="res://grass_tiles/C5b.glb" id="15_pbt7g"]
+[ext_resource type="PackedScene" uid="uid://mya22mk7cghx" path="res://grass_tiles/C6.glb" id="16_orjjx"]
+[ext_resource type="PackedScene" uid="uid://bakny3gdqh5wl" path="res://grass_tiles/C7.glb" id="17_rvedn"]
+[ext_resource type="PackedScene" uid="uid://csv70x7ighfio" path="res://grass_tiles/C8.glb" id="18_g746f"]
+[ext_resource type="PackedScene" uid="uid://byacsrrg5yfde" path="res://grass_tiles/C9.glb" id="19_te65i"]
+
+[resource]
+script = ExtResource("1_xglb6")
+c0_scene = ExtResource("1_aows1")
+c1_scene = ExtResource("10_wg6j8")
+c2_scene = ExtResource("11_dw05g")
+c3_scene = ExtResource("12_4rkbm")
+c4_scene = ExtResource("13_1u6ux")
+c5_scene = ExtResource("14_oid4s")
+c5b_scene = ExtResource("15_pbt7g")
+c6_scene = ExtResource("16_orjjx")
+c7_scene = ExtResource("17_rvedn")
+c8_scene = ExtResource("18_g746f")
+c9_scene = ExtResource("19_te65i")
+c10_scene = ExtResource("2_5de2k")
+c11_scene = ExtResource("3_xpny0")
+c12_scene = ExtResource("4_aei4y")
+c13_scene = ExtResource("5_ypr2c")
+c14_scene = ExtResource("6_mu86b")
+c15_scene = ExtResource("7_6dr2m")
+c16_scene = ExtResource("8_4roux")
+c17_scene = ExtResource("9_bc88t")
+metadata/_custom_type_script = "uid://cht52sif2udhq"
