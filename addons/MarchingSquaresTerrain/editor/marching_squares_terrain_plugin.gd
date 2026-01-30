@@ -244,16 +244,6 @@ func _forward_3d_gui_input(camera: Camera3D, event: InputEvent) -> int:
 	if not selected or len(selected) > 1:
 		return EditorPlugin.AFTER_GUI_INPUT_PASS
 
-	# Handle Global Cancel (Right Click)
-	if event is InputEventMouseButton and event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.is_pressed():
-		if not current_draw_pattern.is_empty() or is_drawing or is_setting:
-			current_draw_pattern.clear()
-			is_drawing = false
-			is_setting = false
-			is_making_bridge = false
-			gizmo_plugin.terrain_gizmo._redraw()
-			return EditorPlugin.AFTER_GUI_INPUT_STOP
-
 	# Handle clicks
 	if event is InputEventMouseButton or event is InputEventMouseMotion:
 		return handle_mouse(camera, event)
@@ -325,9 +315,16 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 					draw_position = terrain.to_local(plane_pos)
 					draw_area_hovered = true
 		
-		# ALT to clear the current draw pattern. Don't clear while setting
-		if Input.is_key_pressed(KEY_ALT) and not is_setting:
-			current_draw_pattern.clear()
+		# ALT or Right Click to clear the current draw pattern. Don't clear while setting
+		var _right_clicked: bool = (
+			event is InputEventMouseButton and 
+			event.button_index == MOUSE_BUTTON_RIGHT and 
+			event.pressed
+		)
+		
+		if not is_setting:
+			if _right_clicked or Input.is_key_pressed(KEY_ALT):
+				current_draw_pattern.clear()
 		
 		# Check for terrain collision
 		if draw_area_hovered:
