@@ -77,7 +77,7 @@ func _redraw():
 		terrain_plugin.draw_height_set = true
 		terrain_plugin.draw_height = terrain_plugin.brush_position.y
 	
-	var terrain_chunk_hovered: bool = terrain_plugin.terrain_hovered and terrain_system.chunks.has(terrain_plugin.current_hovered_chunk)
+	var terrain_chunk_hovered: bool = terrain_plugin.terrain_hovered
 	
 	# Check if we're in wall painting mode
 	var is_wall_painting : bool = terrain_plugin.paint_walls_mode and terrain_plugin.mode == terrain_plugin.TerrainToolMode.VERTEX_PAINTING

@@ -305,6 +305,14 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 			if result:
 				draw_position = terrain.to_local(result.position)
 				draw_area_hovered = true
+			else:
+				# FALLBACK: If we didn't hit a chunk, project onto a virtual plane at draw_height
+				# This allows painting onto chunks while the mouse is in "negative space"
+				var virtual_plane = Plane(Vector3.UP, Vector3(0, draw_height, 0))
+				var plane_pos = virtual_plane.intersects_ray(ray_origin, ray_dir)
+				if plane_pos:
+					draw_position = terrain.to_local(plane_pos)
+					draw_area_hovered = true
 		
 		# ALT to clear the current draw pattern. Don't clear while setting
 		if Input.is_key_pressed(KEY_ALT) and not is_setting:
