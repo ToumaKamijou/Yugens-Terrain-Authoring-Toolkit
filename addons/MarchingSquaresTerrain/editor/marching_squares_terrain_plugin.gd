@@ -243,7 +243,18 @@ func _forward_3d_gui_input(camera: Camera3D, event: InputEvent) -> int:
 	# Only proceed if exactly 1 terrain system is selected
 	if not selected or len(selected) > 1:
 		return EditorPlugin.AFTER_GUI_INPUT_PASS
-	
+
+	# Handle Global Cancel (Right Click)
+	if event is InputEventMouseButton and event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.is_pressed():
+		if not current_draw_pattern.is_empty() or is_drawing or is_setting:
+			current_draw_pattern.clear()
+			is_drawing = false
+			is_setting = false
+			is_making_bridge = false
+			gizmo_plugin.terrain_gizmo._redraw()
+			return EditorPlugin.AFTER_GUI_INPUT_STOP
+
+	# Handle clicks
 	if event is InputEventMouseButton or event is InputEventMouseMotion:
 		return handle_mouse(camera, event)
 	
