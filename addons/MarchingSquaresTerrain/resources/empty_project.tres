@@ -1,11 +1,16 @@
 [gd_resource type="Resource" script_class="MarchingSquaresTexturePreset" format=3 uid="uid://db4scsn2nqqyu"]
 
-[ext_resource type="Resource" uid="uid://dd7fens03aosa" path="res://addons/MarchingSquaresTerrain/resources/texture_names.tres" id="1_jjx4n"]
+[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="1_p1dug"]
 [ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png" id="2_shyxq"]
 [ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="3_vnc0j"]
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res" id="4_td885"]
 [ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="5_22b5s"]
+[ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/wall_noise_texture.res" id="5_p1dug"]
 [ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="6_47oyh"]
+
+[sub_resource type="Resource" id="Resource_38l2j"]
+script = ExtResource("1_p1dug")
+metadata/_custom_type_script = "uid://dqeuj3gddfm65"
 
 [sub_resource type="Texture2D" id="Texture2D_vynns"]
 resource_local_to_scene = false
@@ -45,10 +50,10 @@ resource_name = ""
 
 [sub_resource type="Resource" id="Resource_658wv"]
 script = ExtResource("3_vnc0j")
-terrain_textures = Array[Texture2D]([ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
+terrain_textures = Array[Texture2D]([ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("4_td885"), ExtResource("5_p1dug"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
 
 [resource]
 script = ExtResource("6_47oyh")
 preset_name = "Empty Project"
-new_tex_names = ExtResource("1_jjx4n")
+new_tex_names = SubResource("Resource_38l2j")
 new_textures = SubResource("Resource_658wv")

@@ -1,12 +1,17 @@
 [gd_resource type="Resource" script_class="MarchingSquaresTexturePreset" format=3 uid="uid://dbef14ikib3y"]
 
-[ext_resource type="Resource" uid="uid://dd7fens03aosa" path="res://addons/MarchingSquaresTerrain/resources/texture_names.tres" id="1_rrqhx"]
+[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="1_2ytvk"]
 [ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png" id="2_mj53h"]
 [ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="3_8t6fg"]
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res" id="4_74r6l"]
 [ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="5_bfkh4"]
 [ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="6_0gudh"]
 [ext_resource type="Resource" uid="uid://dl17nobgpd02j" path="res://addons/MarchingSquaresTerrain/resources/quick paints/example_snow_paint.tres" id="6_2ytvk"]
+
+[sub_resource type="Resource" id="Resource_wm3h7"]
+script = ExtResource("1_2ytvk")
+texture_names = Array[String](["Base Grass", "Texture 2 (g)", "Texture 3 (g)", "Texture 4 (g)", "Blue Ice", "Snow", "Texture 7", "Texture 8", "Texture 9", "Texture 10", "Texture 11", "Texture 12", "Texture 13", "Texture 14", "Texture 15", "Void"])
+metadata/_custom_type_script = "uid://dqeuj3gddfm65"
 
 [sub_resource type="Texture2D" id="Texture2D_vynns"]
 resource_local_to_scene = false
@@ -54,6 +59,6 @@ has_grass = Array[bool]([true, true, true, false, false])
 [resource]
 script = ExtResource("6_0gudh")
 preset_name = "Biomes - Icey"
-new_tex_names = ExtResource("1_rrqhx")
+new_tex_names = SubResource("Resource_wm3h7")
 new_textures = SubResource("Resource_0suar")
 quick_paints = Array[ExtResource("5_bfkh4")]([ExtResource("6_2ytvk")])

@@ -97,7 +97,7 @@ func _save_preset(path: String) -> void:
 	
 	new_tex_preset.preset_name = filename_input.text
 	new_tex_preset.new_textures = texture_preset_data
-	new_tex_preset.new_tex_names = TEXTURE_NAMES
+	new_tex_preset.new_tex_names = TEXTURE_NAMES.duplicate()
 	
 	var save_error = ResourceSaver.save(new_tex_preset, path)
 	if save_error == OK:

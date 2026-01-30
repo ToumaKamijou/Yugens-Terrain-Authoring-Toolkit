@@ -1,10 +1,14 @@
 [gd_resource type="Resource" script_class="MarchingSquaresTexturePreset" format=3 uid="uid://r6ss2ilkekoq"]
 
-[ext_resource type="Resource" uid="uid://dd7fens03aosa" path="res://addons/MarchingSquaresTerrain/resources/texture_names.tres" id="1_jld1o"]
+[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="1_41tud"]
 [ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png" id="2_j2uhx"]
 [ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="3_xmhuy"]
 [ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="4_6uohx"]
 [ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="5_rysht"]
+
+[sub_resource type="Resource" id="Resource_8s2fj"]
+script = ExtResource("1_41tud")
+metadata/_custom_type_script = "uid://dqeuj3gddfm65"
 
 [sub_resource type="Texture2D" id="Texture2D_vynns"]
 resource_local_to_scene = false
@@ -49,5 +53,5 @@ terrain_textures = Array[Texture2D]([null, null, null, null, null, null, SubReso
 [resource]
 script = ExtResource("5_rysht")
 preset_name = "Flat Toon"
-new_tex_names = ExtResource("1_jld1o")
+new_tex_names = SubResource("Resource_8s2fj")
 new_textures = SubResource("Resource_xs5jl")
