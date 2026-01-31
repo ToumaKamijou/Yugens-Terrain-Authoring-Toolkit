@@ -13,7 +13,7 @@ For community showcases, feature requests and bug reporting, please refer to the
 * Used to elevate or lower terrain.
   * Holding **[SHIFT]** and pressing **[LEFT MOUSE BUTTON]** with most brush tools selected will keep adding terrain to the selection even after letting go of the original mouse click.
   * In the same fashion as above, holding **[SHIFT]** and using the **[SCROLL WHEEL]** decreases and increases the current brush size.
-  * You can also press **[ALT]** to deselect the current draw selection.
+  * You can also press **[ALT]** or **[RMB]** to deselect the current draw selection.
 
 ### Level Tool
 * Used to level terrain to a certain height.

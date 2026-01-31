@@ -24,7 +24,7 @@ Used to elevate or lower terrain.
 [SHORTCUTS]
 • Shift+LMB+Drag: Add cells to the current draw selection.
 • Shift+MWU/MWD: Increase or decrease the brush size..
-• Alt: Reset the current draw selection.
+• Alt/RMB/Esc: Reset the current draw selection.
 These shortcuts apply to all brush tools"
 attributes = SubResource("Resource_f0ade")
 metadata/_custom_type_script = "uid://brkjbcthwswel"
