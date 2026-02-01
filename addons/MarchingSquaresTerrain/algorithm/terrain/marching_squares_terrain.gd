@@ -5,13 +5,6 @@ class_name MarchingSquaresTerrain
 
 enum StorageMode { RUNTIME, BAKED }
 
-
-## Custom data directory path (leave empty for auto scene-relative path)
-## Format when empty: [SceneDir]/[SceneName]_TerrainData/[NodeName]_[UID]/
-@export var data_directory : String = "":
-	set(value):
-		data_directory = value
-
 ## The storage mode for terrain data. 
 ## RUNTIME: Rebuilds mesh/collision from source data on load (Smallest files, higher load time)
 ## BAKED: Saves and loads pre-built mesh/collision assets (Larger files, instant load)
@@ -25,6 +18,12 @@ enum StorageMode { RUNTIME, BAKED }
 					chunk.mark_dirty()
 			print_verbose("MST: Storage mode changed. All chunks marked for save.")
 
+## Custom data directory path (leave empty for auto scene-relative path)
+## Format when empty: [SceneDir]/[SceneName]_TerrainData/[NodeName]_[UID]/
+@export var data_directory : String = "":
+	set(value):
+		data_directory = value
+
 ## Unique identifier for this terrain instance (auto-generated on first save)
 ## Prevents path collisions when nodes are recreated with same name
 @export_storage var _terrain_uid : String = ""
@@ -32,6 +31,9 @@ enum StorageMode { RUNTIME, BAKED }
 ## True after external storage has been initialized
 ## Used to detect when migration from embedded data is needed
 @export_storage var _storage_initialized : bool = false
+
+## Tracks the mode used during the last successful save for reporting purposes
+@export_storage var _last_storage_mode : StorageMode = StorageMode.RUNTIME
 
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var dimensions : Vector3i = Vector3i(33, 32, 33): # Total amount of height values in X and Z direction, and total height range
 	set(value):

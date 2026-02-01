@@ -115,7 +115,8 @@ static func save_all_chunks(terrain: MarchingSquaresTerrain) -> void:
 			saved_count += 1
 
 	if saved_count > 0:
-		_report_storage_size_change(dir_path, initial_size, saved_count)
+		_report_storage_size_change(terrain, dir_path, initial_size, saved_count)
+		terrain._last_storage_mode = terrain.storage_mode
 
 	# Clean up orphaned chunk directories that no longer exist in scene
 	cleanup_orphaned_chunk_files(terrain)
@@ -553,24 +554,29 @@ static func _delete_directory_recursive(dir_path: String) -> void:
 
 
 ## Report the storage size change after a save operation
-static func _report_storage_size_change(dir_path: String, initial_size: int, saved_count: int) -> void:
+static func _report_storage_size_change(terrain: MarchingSquaresTerrain, dir_path: String, initial_size: int, saved_count: int) -> void:
 	var final_size : int = MarchingSquaresFileUtils.get_directory_size_recursive(dir_path)
-	var diff : int = final_size - initial_size
-	var pct : float = 0.0
+	var size_difference_bytes : int = final_size - initial_size
+	var percentage_change : float = 0.0
 	
 	if initial_size > 0:
-		pct = (float(diff) / float(initial_size)) * 100.0
-	elif diff > 0:
-		pct = 100.0
+		percentage_change = (float(size_difference_bytes) / float(initial_size)) * 100.0
+	elif size_difference_bytes > 0:
+		percentage_change = 100.0
 	
-	var sign_str := "+" if diff >= 0 else ""
+	var sign_string := "+" if size_difference_bytes >= 0 else ""
+	
+	var previous_storage_mode_name : String = MarchingSquaresTerrain.StorageMode.keys()[terrain._last_storage_mode]
+	var current_storage_mode_name : String = MarchingSquaresTerrain.StorageMode.keys()[terrain.storage_mode]
 	
 	print("MSTDataHandler: Saved ", saved_count, " chunk(s) to ", dir_path)
-	print("MSTDataHandler: Storage Size: %s -> %s (%s%.2f%%)" % [
+	print("MSTDataHandler: Storage Size: %s (%s) -> %s (%s) (%s%.2f%%)" % [
 		String.humanize_size(initial_size), 
+		previous_storage_mode_name,
 		String.humanize_size(final_size), 
-		sign_str, 
-		pct
+		current_storage_mode_name,
+		sign_string, 
+		percentage_change
 	])
 
 #endregion
