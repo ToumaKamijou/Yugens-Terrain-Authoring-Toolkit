@@ -3,11 +3,19 @@ extends Node3D
 class_name MarchingSquaresTerrain
 
 
+enum StorageMode { RUNTIME, BAKED }
+
+
 ## Custom data directory path (leave empty for auto scene-relative path)
 ## Format when empty: [SceneDir]/[SceneName]_TerrainData/[NodeName]_[UID]/
 @export var data_directory : String = "":
 	set(value):
 		data_directory = value
+
+## The storage mode for terrain data. 
+## RUNTIME: Rebuilds mesh/collision from source data on load (Smallest files, higher load time)
+## BAKED: Saves and loads pre-built mesh/collision assets (Larger files, instant load)
+@export var storage_mode : StorageMode = StorageMode.RUNTIME
 
 ## Unique identifier for this terrain instance (auto-generated on first save)
 ## Prevents path collisions when nodes are recreated with same name

@@ -5,6 +5,11 @@ extends RefCounted
 
 const ChunkData = preload("res://addons/MarchingSquaresTerrain/resources/mst_chunk_data.gd")
 
+# Configuration for BAKED mode
+# If true, these components will be saved to disk. If false, they are generated at runtime.
+const BAKE_COLLISION : bool = false
+const BAKE_GRASS : bool = false
+
 
 #region UID Generation
 
