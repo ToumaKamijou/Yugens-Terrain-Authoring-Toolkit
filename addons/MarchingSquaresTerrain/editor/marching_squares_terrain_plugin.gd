@@ -126,6 +126,13 @@ var BRUSH_RADIUS_VISUAL : Mesh = preload("res://addons/MarchingSquaresTerrain/re
 var BRUSH_RADIUS_MATERIAL : ShaderMaterial = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/round_brush_radius_material.tres")
 @onready var falloff_curve : Curve = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/curve_falloff.tres")
 
+# Use script-wide variables to provide data to the physics process function
+var raycast_queued := false
+var ray_origin : Vector3
+var ray_dir : Vector3
+var ray_camera : Camera3D
+var queued_ray_result := {}
+
 
 func _enter_tree():
 	instance = self
@@ -208,6 +215,31 @@ func _ready():
 	BRUSH_RADIUS_MATERIAL.set_shader_parameter("falloff_visible", falloff)
 
 
+func _queue_raycast(origin: Vector3, dir: Vector3, cam: Camera3D) -> void:
+	ray_origin = origin
+	ray_dir = dir
+	ray_camera = cam
+	raycast_queued = true
+
+
+func _physics_process(delta: float) -> void:
+	# Raycast inside the physics process function to prevent
+	# crashes when "run physics on a different thread" is enabled.
+	if not raycast_queued:
+		return
+	raycast_queued = false
+	
+	var world_3d := ray_camera.get_world_3d()
+	var space_state := PhysicsServer3D.space_get_direct_state(world_3d.space)
+	
+	var ray_length := 10000.0 # Adjust ray length as needed
+	var end := ray_origin + ray_dir * ray_length
+	var collision_mask = 16 # only terrain
+	var query := PhysicsRayQueryParameters3D.create(ray_origin, end, collision_mask)
+	
+	queued_ray_result = space_state.intersect_ray(query)
+
+
 func _edit(object: Object) -> void:
 	if not is_initialized:
 		printerr("ERROR: [MarchingSquaresTerrainPlugin] plugin not yet initialized, calling _safe_initialize() as failsafe")
@@ -269,8 +301,8 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 	var editor_viewport = EditorInterface.get_editor_viewport_3d()
 	var mouse_pos = editor_viewport.get_mouse_position()	
 	
-	var ray_origin := camera.project_ray_origin(mouse_pos)
-	var ray_dir := camera.project_ray_normal(mouse_pos)
+	var _ray_origin := camera.project_ray_origin(mouse_pos)
+	var _ray_dir := camera.project_ray_normal(mouse_pos)
 	
 	var shift_held = Input.is_key_pressed(KEY_SHIFT)
 	
@@ -280,30 +312,25 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 		var draw_area_hovered: bool = false
 		
 		if is_setting and draw_height_set:
-			var local_ray_dir = ray_dir * terrain.transform
+			var local_ray_dir = _ray_dir * terrain.transform
 			var set_plane = Plane(Vector3(local_ray_dir.x, 0, local_ray_dir.z), base_position)
-			var set_position = set_plane.intersects_ray(terrain.to_local(ray_origin), local_ray_dir)
+			var set_position = set_plane.intersects_ray(terrain.to_local(_ray_origin), local_ray_dir)
 			if set_position:
 				brush_position = set_position
 		
 		# If there is any pattern and flatten is enabled, draw along that height plane instead of the terrain intersection
 		elif not current_draw_pattern.is_empty() and flatten:
 			var chunk_plane = Plane(Vector3.UP, Vector3(0, draw_height, 0))
-			draw_position = chunk_plane.intersects_ray(ray_origin, ray_dir)
+			draw_position = chunk_plane.intersects_ray(_ray_origin, _ray_dir)
 			if draw_position:
 				draw_position = terrain.to_local(draw_position)
 				draw_area_hovered = true
 		
 		else:
 			# Perform the raycast to check for intersection with a physics body (terrain)
-			var space_state = camera.get_world_3d().direct_space_state
-			var ray_length := 10000.0  # Adjust ray length as needed
-			var end := ray_origin + ray_dir * ray_length
-			var collision_mask = 16 # only terrain
-			var query := PhysicsRayQueryParameters3D.create(ray_origin, end, collision_mask)
-			var result = space_state.intersect_ray(query)
-			if result:
-				draw_position = terrain.to_local(result.position)
+			_queue_raycast(_ray_origin, _ray_dir, camera)
+			if queued_ray_result and queued_ray_result.has("position"):
+				draw_position = terrain.to_local(queued_ray_result.position)
 				draw_area_hovered = true
 		
 		# ALT to clear the current draw pattern. Don't clear while setting
@@ -389,7 +416,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 	
 	# Check for hovering over/clicking a new chunk
 	var chunk_plane = Plane(Vector3.UP, Vector3.ZERO)
-	var intersection = chunk_plane.intersects_ray(ray_origin, ray_dir)
+	var intersection = chunk_plane.intersects_ray(_ray_origin, _ray_dir)
 	
 	if intersection:
 		var chunk_x: int = floor(intersection.x / (terrain.dimensions.x * terrain.cell_size.x))

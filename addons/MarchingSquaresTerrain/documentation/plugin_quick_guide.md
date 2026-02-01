@@ -34,15 +34,15 @@ For community showcases, feature requests and bug reporting, please refer to the
 ### Vertex Paint Tool
 * Used to paint textures onto the terrain.
   * 16 textures in total of which 15 can be editted.
-    * The final 16th texture is used for turning terrain invisible.
-    * The first 6 textures can have grass.
-    * Texture names can be changed at will.
+	* The final 16th texture is used for turning terrain invisible.
+	* The first 6 textures can have grass.
+	* Texture names can be changed at will.
   * Texture presets can be used to quickly swap between texture pallets.
-    * They can be exported in the plugin via the right hand UI panel at the bottom.
+	* They can be exported in the plugin via the right hand UI panel at the bottom.
   * "Quick Paints" are a way to quickly set textures while moddeling the terrain.
-    * They can be accesed via any of the height based terrain brushes.
-    * You can make global or texture preset specific ones. 
-      * → Create a **MarchingSquaresQuickPaint** resource in their dedicated folders in the parent plugin folder.
+	* They can be accesed via any of the height based terrain brushes.
+	* You can make global or texture preset specific ones. 
+	  * → Create a **MarchingSquaresQuickPaint** resource in their dedicated folders in the parent plugin folder.
 
 ### Debug Brush Tool
 * Used to print the following data about selected cells:
@@ -59,7 +59,7 @@ For community showcases, feature requests and bug reporting, please refer to the
   * The "Blend Mode" dropdown menu allows you to set the terrain's texture blending mode to suit your liking.
   * Setting a "Noise Hmap" makes the base chunk height generation procedural instead of flat.
   * Setting the "Animation Fps" value to more than 0 makes the grass sprites move with limited fps.
-    * Keeping it at 0 gives the grass a smooth wind based effect.
+	* Keeping it at 0 gives the grass a smooth wind based effect.
   * "Ridge Threshold" controls how close grass sprites get spawned to lowering terrain(cliffs).
   * "Ledge Threshold" controls how close grass sprites get spawned to elevating terrain (walls).
 
