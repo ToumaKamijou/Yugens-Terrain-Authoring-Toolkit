@@ -23,6 +23,12 @@ enum StorageMode { RUNTIME, BAKED }
 ## Note: Manually setting a path locks the save location even if you rename the terrain node later.
 @export_dir var data_directory : String = "":
 	set(value):
+		if Engine.is_editor_hint() and value.is_empty():
+			var auto_path := MSTDataHandler.get_data_directory(self)
+			if not auto_path.is_empty():
+				data_directory = auto_path
+				notify_property_list_changed()
+				return
 		data_directory = value
 
 ## Unique identifier for this terrain instance (auto-generated on first save)
