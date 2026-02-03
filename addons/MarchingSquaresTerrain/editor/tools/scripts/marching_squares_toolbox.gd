@@ -12,6 +12,7 @@ var tools : Array[MarchingSquaresTool] = [
 	# Terrain visuals tools
 	preload("res://addons/MarchingSquaresTerrain/editor/tools/grass_mask_tool.tres"),
 	preload("res://addons/MarchingSquaresTerrain/editor/tools/vertex_paint_tool.tres"),
+	preload("res://addons/MarchingSquaresTerrain/editor/tools/populate_tool.tres"),
 	# General plugin tools
 	preload("res://addons/MarchingSquaresTerrain/editor/tools/debug_brush_tool.tres"),
 	preload("res://addons/MarchingSquaresTerrain/editor/tools/chunk_manager_tool.tres"),

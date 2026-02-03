@@ -101,6 +101,19 @@ var paint_walls : Dictionary = {
 	"default": false,
 }
 
+var planter : Dictionary = {
+	"name": "planter",
+	"type": "option",
+	"label": "Planter",
+	"default": 0,
+}
+
+var populate_terrain : Dictionary = {
+	"name": "populate_terrain",
+	"type": "populate_button",
+	"label": "Populate Terrain",
+}
+
 var chunk_management : Dictionary = {
 	"name": "chunk_management",
 	"type": "chunk",

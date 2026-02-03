@@ -14,6 +14,7 @@ enum SettingType {
 	SLIDER,
 	OPTION,
 	TEXT,
+	POPULATE_BUTTON,
 	CHUNK,
 	TERRAIN,
 	PRESET,
@@ -43,6 +44,7 @@ var settings : Dictionary = {}
 
 var last_setting_type : SettingType = SettingType.ERROR
 var selected_chunk : MarchingSquaresTerrainChunk
+var selected_planter : MarchingSquaresPopulator
 
 var hbox_container
 
@@ -77,6 +79,7 @@ func show_tool_attributes(tool_index: int) -> void:
 		"checkbox": SettingType.CHECKBOX,
 		"option": SettingType.OPTION,
 		"text": SettingType.TEXT,
+		"populate_button": SettingType.POPULATE_BUTTON,
 		"chunk": SettingType.CHUNK,
 		"terrain": SettingType.TERRAIN,
 		"preset": SettingType.PRESET,
@@ -110,6 +113,10 @@ func show_tool_attributes(tool_index: int) -> void:
 		new_attributes.append(attribute_list.quick_paint_selection)
 	if tool_attributes.paint_walls:
 		new_attributes.append(attribute_list.paint_walls)
+	if tool_attributes.planter:
+		new_attributes.append(attribute_list.planter)
+	if tool_attributes.populate_terrain:
+		new_attributes.append(attribute_list.populate_terrain)
 	if tool_attributes.chunk_management:
 		new_attributes.append(attribute_list.chunk_management)
 	if tool_attributes.terrain_settings:
@@ -209,6 +216,10 @@ func add_setting(p_params: Dictionary) -> void:
 			var option_button := OptionButton.new()
 			for option in options:
 				option_button.add_item(option)
+			if setting_name == "planter":
+				for child in plugin.current_terrain_node.get_children():
+					if child is MarchingSquaresPopulator:
+						option_button.add_item(str(child.name))
 			var default_value = p_params.get("default", 0) # Fallback base value
 			if saved_setting_value is not String and str(saved_setting_value) != "ERROR":
 				default_value = saved_setting_value
@@ -216,6 +227,8 @@ func add_setting(p_params: Dictionary) -> void:
 			
 			option_button.set_flat(true)
 			option_button.item_selected.connect(func(index): _on_setting_changed(setting_name, index))
+			if setting_name == "planter":
+				option_button.item_selected.connect(func(planter): _on_populator_selected(option_button.get_item_text(planter)))
 			option_button.set_custom_minimum_size(Vector2(65, 35))
 			
 			cont = CenterContainer.new()
@@ -234,6 +247,15 @@ func add_setting(p_params: Dictionary) -> void:
 			cont = CenterContainer.new()
 			cont.set_custom_minimum_size(Vector2(35, 35))
 			cont.add_child(line_edit, true)
+			hbox_container.add_child(cont, true)
+		SettingType.POPULATE_BUTTON:
+			var button = MarchingSquaresPopulateButton.new()
+			button.current_terrain_node = plugin.current_terrain_node
+			
+			cont = MarginContainer.new()
+			cont.add_theme_constant_override("margin_bottom", 2)
+			cont.set_custom_minimum_size(Vector2(65, 35))
+			cont.add_child(button, true)
 			hbox_container.add_child(cont, true)
 		SettingType.PRESET:
 			var preset_button := OptionButton.new()
@@ -335,12 +357,20 @@ func add_setting(p_params: Dictionary) -> void:
 		SettingType.CHUNK:
 			if plugin.current_terrain_node.get_child_count() == 0:
 				return
-			var chunks : Array = plugin.current_terrain_node.get_children()
+			var chunks : Array[MarchingSquaresTerrainChunk]
+			for child in plugin.current_terrain_node.get_children():
+				if child is MarchingSquaresTerrainChunk:
+					chunks.append(child)
 			var chunk_button := OptionButton.new()
 			for chunk in chunks:
 				chunk_button.add_item("Chunk " + str(chunk.chunk_coords))
 			chunk_button.selected = 0
-			selected_chunk = plugin.current_terrain_node.get_child(0)
+			for child in plugin.current_terrain_node.get_children():
+				if child is MarchingSquaresTerrainChunk:
+					selected_chunk = child
+					break
+				else:
+					continue
 			
 			var option_button := OptionButton.new()
 			option_button.set_flat(true)
@@ -542,6 +572,10 @@ func _get_setting_value(p_setting_name: String) -> Variant:
 			return plugin.current_quick_paint
 		"paint_walls":
 			return plugin.paint_walls_mode
+		"planter":
+			pass
+		"populate_terrain":
+			pass
 		"chunk_management":
 			pass
 		"terrain_settings":
@@ -564,7 +598,14 @@ func _on_chunk_selected(option_button: OptionButton, p_chunk: String) -> void:
 	var chunk : MarchingSquaresTerrainChunk = terrain.find_child(p_chunk)
 	
 	option_button.selected = chunk.merge_mode
-	selected_chunk = plugin.current_terrain_node.find_child(p_chunk)
+	selected_chunk = chunk
+
+
+func _on_populator_selected(p_populator: String) -> void:
+	var terrain := plugin.current_terrain_node
+	var populator : MarchingSquaresPopulator = terrain.find_child(p_populator)
+	
+	selected_planter = populator
 
 
 func _on_chunk_mode_changed(m_mode: int) -> void:

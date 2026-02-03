@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://demjm5kq2kdpa"]
+
+[ext_resource type="Script" uid="uid://dclwk65s0jbm4" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.gd" id="1_pvhvu"]
+
+[node name="FlowerPlanter" type="MultiMeshInstance3D" unique_id=478080145]
+layers = 32
+script = ExtResource("1_pvhvu")
+metadata/_custom_type_script = "uid://dclwk65s0jbm4"

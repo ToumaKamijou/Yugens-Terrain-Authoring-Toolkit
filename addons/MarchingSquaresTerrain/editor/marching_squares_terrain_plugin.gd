@@ -27,9 +27,10 @@ enum TerrainToolMode {
 	BRIDGE = 3,
 	GRASS_MASK = 4,
 	VERTEX_PAINTING = 5,
-	DEBUG_BRUSH = 6,
-	CHUNK_MANAGEMENT = 7,
-	TERRAIN_SETTINGS = 8,
+	POPULATE = 6,
+	DEBUG_BRUSH = 7,
+	CHUNK_MANAGEMENT = 8,
+	TERRAIN_SETTINGS = 9,
 }
 
 var BrushMode : Dictionary = {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800"
+   height="800"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="populate_world_tool.svg"
+   inkscape:export-filename="populate_world_tool.svg"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:export-bgcolor="#00000000">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="48"
+       height="48"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <title
+     id="title1">tree-structure-solid</title>
+  <g
+     id="Layer_2"
+     data-name="Layer 2">
+    <g
+       id="icons_Q2"
+       data-name="icons Q2">
+      <g
+         id="g1">
+        <rect
+           width="48"
+           height="48"
+           fill="none"
+           id="rect1"
+           x="0"
+           y="0" />
+        <path
+           d="m 26,30 h 16 a 2,2 0 0 0 2,-2 V 20 A 2,2 0 0 0 42,18 H 26 a 2,2 0 0 0 -2,2 v 2 h -8 v -8 h 6 a 2,2 0 0 0 2,-2 V 4 A 2,2 0 0 0 22,2 H 6 A 2,2 0 0 0 4,4 v 8 a 2,2 0 0 0 2,2 h 6 v 26 a 2,2 0 0 0 2,2 h 10 v 2 a 2,2 0 0 0 2,2 h 16 a 2,2 0 0 0 2,-2 V 36 A 2,2 0 0 0 42,34 H 26 a 2,2 0 0 0 -2,2 v 2 H 16 V 26 h 8 v 2 a 2,2 0 0 0 2,2 z"
+           id="path1"
+           style="fill:#cdcdcd;fill-opacity:1" />
+      </g>
+    </g>
+  </g>
+</svg>

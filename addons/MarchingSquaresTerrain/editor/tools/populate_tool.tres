@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="MarchingSquaresTool" format=3 uid="uid://bikg2xu4h6ulo"]
+
+[ext_resource type="Script" uid="uid://brkjbcthwswel" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tool.gd" id="1_i0i0y"]
+[ext_resource type="Script" uid="uid://b6jopat61dbd3" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tool_attribute_settings.gd" id="1_n4lht"]
+[ext_resource type="Texture2D" uid="uid://dqpq6uefp2ekf" path="res://addons/MarchingSquaresTerrain/editor/icons/populate_world_tool.svg" id="2_pkm8f"]
+
+[sub_resource type="Resource" id="Resource_pkm8f"]
+script = ExtResource("1_n4lht")
+brush_type = true
+size = true
+planter = true
+populate_terrain = true
+metadata/_custom_type_script = "uid://b6jopat61dbd3"
+
+[resource]
+script = ExtResource("1_i0i0y")
+icon = ExtResource("2_pkm8f")
+label = "Populate"
+tooltip = "Populate Tool
+
+Allows the user to populate the terrain with either a FlowerPlanter or VegetationPlanter custom node.
+
+[INFO]
+• The FlowerPlanter allows you to...
+* The VegetationPlanter allows you to..."
+attributes = SubResource("Resource_pkm8f")
+metadata/_custom_type_script = "uid://brkjbcthwswel"

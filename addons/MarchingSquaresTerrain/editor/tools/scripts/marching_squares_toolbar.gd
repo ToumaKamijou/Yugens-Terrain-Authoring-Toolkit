@@ -33,7 +33,7 @@ func _add_tools() -> void:
 	
 	alignment = FlowContainer.ALIGNMENT_CENTER
 	for i in range(tools.size()):
-		if i == 4 or i == 6 or i == 9:
+		if i == 4 or i == 7 or i == 10:
 			add_child(HSeparator.new())
 		var tool = tools[i]
 		var button := Button.new()

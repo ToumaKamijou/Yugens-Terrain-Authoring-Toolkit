@@ -21,6 +21,10 @@ class_name MarchingSquaresToolAttributeSettings
 @export var quick_paint_selection : bool = false
 @export var paint_walls : bool = false
 
+# Populate-related special attributes
+@export var planter : bool = false
+@export var populate_terrain : bool = false
+
 # Non-brush attributes
 @export var chunk_management : bool = false
 @export var terrain_settings : bool = false
