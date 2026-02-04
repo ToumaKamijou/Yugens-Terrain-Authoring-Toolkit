@@ -1,8 +1,53 @@
 @tool
 extends Node3D
-# Needs to be kept as a Node3D so that the 3d gizmo works. no 3d functionality is otherwise used, it is delegated to the chunks
 class_name MarchingSquaresTerrain
 
+
+enum StorageMode {
+	## Saves load time. Loads a pre-built visual mesh from disk.
+	## The collision mesh, grass etc are generated when the scene loads.
+	## (faster load, slightly larger files).
+	BAKED,
+	## Saves disk space. Generates everything from heightmaps when the scene loads.
+	## This is overkill for most games.
+	## (slower load, smallest files).
+	RUNTIME,
+}
+
+## The storage mode for terrain data. 
+@export var storage_mode : StorageMode = StorageMode.BAKED:
+	set(value):
+		if storage_mode != value:
+			storage_mode = value
+			# Mark all chunks dirty to force re-save of data/meshes
+			if chunks:
+				for chunk in chunks.values():
+					chunk.mark_dirty()
+			print_verbose("MST: Storage mode changed. All chunks marked for save.")
+
+## The folder where this terrain's data is saved. 
+## If left empty, it automatically fills with a folder name relative to your scene file.
+## Note: Manually setting a path locks the save location even if you rename the terrain node later.
+@export_dir var data_directory : String = "":
+	set(value):
+		if Engine.is_editor_hint() and value.is_empty():
+			var auto_path := MSTDataHandler.get_data_directory(self)
+			if not auto_path.is_empty():
+				data_directory = auto_path
+				notify_property_list_changed()
+				return
+		data_directory = value
+
+## Unique identifier for this terrain instance (auto-generated on first save)
+## Prevents path collisions when nodes are recreated with same name
+@export_storage var _terrain_uid : String = ""
+
+## True after external storage has been initialized
+## Used to detect when migration from embedded data is needed
+@export_storage var _storage_initialized : bool = false
+
+## Tracks the mode used during the last successful save for reporting purposes
+@export_storage var _last_storage_mode : StorageMode = StorageMode.BAKED
 
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var dimensions : Vector3i = Vector3i(33, 32, 33): # Total amount of height values in X and Z direction, and total height range
 	set(value):
@@ -419,28 +464,48 @@ func _init() -> void:
 	grass_mesh.material = base_grass_mesh.material.duplicate(true)
 
 
+func _notification(what: int) -> void:
+	# Save all dirty chunks to external storage before scene save
+	if what == NOTIFICATION_EDITOR_PRE_SAVE:
+		if Engine.is_editor_hint():
+			MSTDataHandler.save_all_chunks(self)
+
+
 func _enter_tree() -> void:
 	call_deferred("_deferred_enter_tree")
 
+func _initialize_data_directory() -> void:
+	if Engine.is_editor_hint() and data_directory.is_empty():
+		var auto_path := MSTDataHandler.get_data_directory(self)
+		if not auto_path.is_empty():
+			data_directory = auto_path
 
 func _deferred_enter_tree() -> void:
-	if not Engine.is_editor_hint():
-		return
+	_initialize_data_directory()
 	
 	# Apply all persisted textures/colors to this terrain's unique shader materials
 	# This is needed because _init() creates fresh duplicated materials that don't have
 	# the terrain's saved texture values - only the base resource defaults
 	force_batch_update()
-	
+
+	# Populate chunks dictionary from scene children
 	chunks.clear()
 	for chunk in get_children():
 		if chunk is MarchingSquaresTerrainChunk:
 			chunks[chunk.chunk_coords] = chunk
 			chunk.terrain_system = self
-			
 			chunk.grass_planter = null
-			
-			chunk.initialize_terrain(true)
+
+	# Load external data if storage was previously initialized
+	if _storage_initialized:
+		MSTDataHandler.load_terrain_data(self)
+	elif Engine.is_editor_hint() and MSTDataHandler.needs_migration(self):
+		# Auto-migrate embedded data to external storage (editor only)
+		MSTDataHandler.migrate_to_external_storage(self)
+
+	# Initialize all chunks (regenerate mesh/grass from loaded data)
+	for chunk in chunks.values():
+		chunk.initialize_terrain(true)
 
 
 func has_chunk(x: int, z: int) -> bool:

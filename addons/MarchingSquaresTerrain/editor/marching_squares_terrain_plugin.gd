@@ -6,6 +6,7 @@ class_name MarchingSquaresTerrainPlugin
 static var instance : MarchingSquaresTerrainPlugin
 
 const EMPTY_TEXTURE_PRESET : MarchingSquaresTexturePreset = preload("res://addons/MarchingSquaresTerrain/resources/empty_project.tres")
+const BrushPatternCalculator = preload("res://addons/MarchingSquaresTerrain/editor/utils/brush_pattern_calculator.gd")
 
 var gizmo_plugin := MarchingSquaresTerrainGizmoPlugin.new()
 var toolbar := MarchingSquaresToolbar.new()
@@ -479,6 +480,46 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 		return EditorPlugin.AFTER_GUI_INPUT_STOP
 	
 	return EditorPlugin.AFTER_GUI_INPUT_PASS
+
+
+# Calculates brush pattern and updates current_draw_pattern
+func update_draw_pattern(b_pos: Vector3):
+	var terrain_system : MarchingSquaresTerrain = current_terrain_node
+
+	var bounds = BrushPatternCalculator.calculate_bounds(b_pos, brush_size, terrain_system)
+	var max_distance : float = BrushPatternCalculator.calculate_max_distance(brush_size, current_brush_index)
+	var brush_pos : Vector2 = Vector2(b_pos.x, b_pos.z)
+
+	for chunk_z in range(bounds.chunk_tl.y, bounds.chunk_br.y + 1):
+		for chunk_x in range(bounds.chunk_tl.x, bounds.chunk_br.x + 1):
+			var cursor_chunk_coords : Vector2i = Vector2i(chunk_x, chunk_z)
+			if not terrain_system.chunks.has(cursor_chunk_coords):
+				continue
+
+			var cell_range : Dictionary = BrushPatternCalculator.get_cell_range_for_chunk(cursor_chunk_coords, bounds, terrain_system)
+
+			for z in range(cell_range.z_min, cell_range.z_max):
+				for x in range(cell_range.x_min, cell_range.x_max):
+					var cursor_cell_coords : Vector2i = Vector2i(x, z)
+					var world_pos : Vector2 = BrushPatternCalculator.cell_to_world_pos(cursor_chunk_coords, cursor_cell_coords, terrain_system)
+
+					var sample : float = BrushPatternCalculator.calculate_falloff_sample(
+						world_pos, brush_pos, brush_size, current_brush_index,
+						max_distance, falloff, falloff_curve
+					)
+
+					if sample < 0:
+						continue  # Outside brush
+
+					# Store largest sample
+					if not current_draw_pattern.has(cursor_chunk_coords):
+						current_draw_pattern[cursor_chunk_coords] = {}
+					if current_draw_pattern[cursor_chunk_coords].has(cursor_cell_coords):
+						var prev_sample = current_draw_pattern[cursor_chunk_coords][cursor_cell_coords]
+						if sample > prev_sample:
+							current_draw_pattern[cursor_chunk_coords][cursor_cell_coords] = sample
+					else:
+						current_draw_pattern[cursor_chunk_coords][cursor_cell_coords] = sample
 
 
 func draw_pattern(terrain: MarchingSquaresTerrain):

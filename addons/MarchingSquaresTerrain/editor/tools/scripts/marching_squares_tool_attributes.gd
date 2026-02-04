@@ -27,6 +27,8 @@ var terrain_settings_data : Dictionary = {
 	"blend_mode": "OptionButton",
 	"noise_hmap": "EditorResourcePicker",
 	"default_wall_texture": "OptionButton",
+	# Data storage settings
+	"data_directory": "FolderPicker",
 	# Grass settings
 	"animation_fps": "SpinBox",
 	"grass_subdivisions": "SpinBox",
@@ -496,10 +498,47 @@ func add_setting(p_params: Dictionary) -> void:
 							option_button.selected = plugin.current_terrain_node.get(setting)
 						option_button.item_selected.connect(func(index): _on_terrain_setting_changed(setting, index))
 						option_button.set_custom_minimum_size(Vector2(100, 35))
-						
+
 						ts_cont = CenterContainer.new()
 						ts_cont.set_custom_minimum_size(Vector2(100, 35))
 						ts_cont.add_child(option_button, true)
+						hbox.add_child(ts_cont, true)
+						vbox.add_child(hbox, true)
+					"LineEdit":
+						var line_edit := LineEdit.new()
+						line_edit.set_flat(true)
+						line_edit.text = str(plugin.current_terrain_node.get(setting))
+						line_edit.placeholder_text = "(auto - scene relative)"
+						line_edit.text_submitted.connect(func(new_text): _on_terrain_setting_changed(setting, new_text))
+						line_edit.set_custom_minimum_size(Vector2(200, 25))
+
+						ts_cont = CenterContainer.new()
+						ts_cont.set_custom_minimum_size(Vector2(210, 35))
+						ts_cont.add_child(line_edit, true)
+						hbox.add_child(ts_cont, true)
+						vbox.add_child(hbox, true)
+					"FolderPicker":
+						var folder_hbox := HBoxContainer.new()
+						folder_hbox.add_theme_constant_override("separation", 4)
+
+						var path_edit := LineEdit.new()
+						path_edit.set_flat(true)
+						path_edit.text = str(plugin.current_terrain_node.get(setting))
+						path_edit.placeholder_text = "(auto - scene relative)"
+						path_edit.text_submitted.connect(func(new_text): _on_terrain_setting_changed(setting, new_text))
+						path_edit.set_custom_minimum_size(Vector2(180, 25))
+						folder_hbox.add_child(path_edit, true)
+
+						var browse_btn := Button.new()
+						browse_btn.text = "..."
+						browse_btn.tooltip_text = "Browse for folder"
+						browse_btn.set_custom_minimum_size(Vector2(30, 25))
+						browse_btn.pressed.connect(func(): _open_folder_dialog(setting, path_edit))
+						folder_hbox.add_child(browse_btn, true)
+
+						ts_cont = CenterContainer.new()
+						ts_cont.set_custom_minimum_size(Vector2(220, 35))
+						ts_cont.add_child(folder_hbox, true)
 						hbox.add_child(ts_cont, true)
 						vbox.add_child(hbox, true)
 				if vbox.get_child_count() % 3 == 0:
@@ -557,6 +596,31 @@ func _on_setting_changed(p_setting_name: String, p_value: Variant) -> void:
 
 func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> void:
 	emit_signal("terrain_setting_changed", p_setting_name, p_value)
+
+
+func _open_folder_dialog(setting_name: String, path_edit: LineEdit) -> void:
+	var dialog := EditorFileDialog.new()
+	dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_DIR
+	dialog.access = EditorFileDialog.ACCESS_RESOURCES
+	dialog.title = "Select Data Directory"
+
+	# Set initial path from current value or project root
+	var current_path : String = path_edit.text
+	if current_path.is_empty():
+		dialog.current_dir = "res://"
+	else:
+		dialog.current_dir = current_path.get_base_dir()
+
+	dialog.dir_selected.connect(func(dir: String):
+		path_edit.text = dir
+		_on_terrain_setting_changed(setting_name, dir)
+		dialog.queue_free()
+	)
+	dialog.canceled.connect(func(): dialog.queue_free())
+
+	# Add to editor base control for proper modal behavior
+	EditorInterface.get_base_control().add_child(dialog)
+	dialog.popup_centered(Vector2i(600, 400))
 
 
 func _on_chunk_selected(option_button: OptionButton, p_chunk: String) -> void:

@@ -2,6 +2,8 @@
 extends MultiMeshInstance3D
 class_name MarchingSquaresGrassPlanter
 
+# Alpha values for grass sprites by texture ID (1-6)
+const GRASS_ALPHA_VALUES := [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 var _chunk : MarchingSquaresTerrainChunk
 var terrain_system : MarchingSquaresTerrain
@@ -148,116 +150,22 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 				var is_masked: bool = mask.r < 0.9999
 				var force_grass_on: bool = mask.g >= 0.9999  # Preset override: force grass regardless of texture
 				
-				var on_grass_tex: bool = false
 				var texture_id := _get_texture_id(color_0, color_1)
-				
-				if force_grass_on:
-					# Preset has_grass=true overrides texture setting
-					on_grass_tex = true
-				elif texture_id == 1: # Base grass
-					on_grass_tex = true
-				elif texture_id >= 2 and texture_id <= 6:
-					var has_grass : bool = false
-					match texture_id:
-						2:
-							if terrain_system.tex2_has_grass:
-								has_grass = true
-						3:
-							if terrain_system.tex3_has_grass:
-								has_grass = true
-						4:
-							if terrain_system.tex4_has_grass:
-								has_grass = true
-						5:
-							if terrain_system.tex5_has_grass:
-								has_grass = true
-						6:
-							if terrain_system.tex6_has_grass:
-								has_grass = true
-					if has_grass:
-						on_grass_tex = true
-					else:
-						on_grass_tex = false
-				else:
-					on_grass_tex = false
-				
+				var on_grass_tex := _has_grass_for_texture(texture_id, force_grass_on)
+
 				if on_grass_tex and not on_ledge and not is_masked:
-					var edge1 = b - a
-					var edge2 = c - a
-					var normal = edge1.cross(edge2).normalized()
-					
-					var right = Vector3.FORWARD.cross(normal).normalized()
-					var forward = normal.cross(Vector3.RIGHT).normalized()
-					
-					var instance_basis = Basis(right, forward, -normal)
-					
-					multimesh.set_instance_transform(index, Transform3D(instance_basis, p))
-					
-					var has_tex : bool = false
-					var material = terrain_system.terrain_material
-					var tex_scale : float = terrain_system.texture_scale_1
-					match texture_id:
-						2:
-							has_tex = true if material.get_shader_parameter("vc_tex_rg") != null else false
-							tex_scale = terrain_system.texture_scale_2
-						3:
-							has_tex = true if material.get_shader_parameter("vc_tex_rb") != null else false
-							tex_scale = terrain_system.texture_scale_3
-						4:
-							has_tex = true if material.get_shader_parameter("vc_tex_ra") != null else false
-							tex_scale = terrain_system.texture_scale_4
-						5:
-							has_tex = true if material.get_shader_parameter("vc_tex_gr") != null else false
-							tex_scale = terrain_system.texture_scale_5
-						6:
-							has_tex = true if material.get_shader_parameter("vc_tex_gg") != null else false
-							tex_scale = terrain_system.texture_scale_6
-						_: # Base grass
-							has_tex = true if material.get_shader_parameter("vc_tex_rr") != null else false
-					var terrain_image = null
-					if has_tex:
-						terrain_image = _get_terrain_image(texture_id)
-					
-					var instance_color : Color
-					if terrain_image:
-						var uv_x = clamp(p.x / (terrain_system.dimensions.x * terrain_system.cell_size.x), 0.0, 1.0)
-						var uv_y = clamp(p.z / (terrain_system.dimensions.z * terrain_system.cell_size.y), 0.0, 1.0)
-						
-						uv_x *= tex_scale
-						uv_y *= tex_scale
-						
-						uv_x = abs(fmod(uv_x, 1.0))
-						uv_y = abs(fmod(uv_y, 1.0))
-						
-						var px = int(uv_x * (terrain_image.get_width() - 1))
-						var py = int(uv_y * (terrain_image.get_height() - 1))
-						
-						instance_color = terrain_image.get_pixelv(Vector2(px, py))
-					match texture_id:
-						6:
-							instance_color.a = 1.0
-						5:
-							instance_color.a = 0.8
-						4:
-							instance_color.a = 0.6
-						3:
-							instance_color.a = 0.4
-						2:
-							instance_color.a = 0.2
-						_: # Base grass sprite
-							instance_color.a = 0.0
-					multimesh.set_instance_custom_data(index, instance_color)
+					_create_grass_instance(index, p, a, b, c, texture_id)
 				else:
-					multimesh.set_instance_transform(index, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3(9999, 9999, 9999)))
+					_hide_grass_instance(index)
 				index += 1
 			else:
 				point_index += 1
 	
-	# Fill remaining points with zero-sacaled transforms (invisible)
+	# Fill remaining points with hidden instances
 	while index < end_index:
 		if index >= multimesh.instance_count:
 			return
-		multimesh.set_instance_transform(index, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3(9999, 9999, 9999)))
+		_hide_grass_instance(index)
 		index += 1
 
 
@@ -325,3 +233,89 @@ func _get_texture_id(vc_col_0: Color, vc_col_1: Color) -> int:
 		elif vc_col_1.a > 0.9999:
 			id = 16;
 	return id;
+
+
+#region Grass Placement Helpers
+
+## Checks if the given texture ID should have grass placed on it
+func _has_grass_for_texture(texture_id: int, force_grass_on: bool) -> bool:
+	if force_grass_on:
+		return true
+	if texture_id == 1:
+		return true  # Base grass always has grass
+	if texture_id < 2 or texture_id > 6:
+		return false
+
+	# Data-driven lookup instead of match
+	var has_grass_flags := [
+		terrain_system.tex2_has_grass,
+		terrain_system.tex3_has_grass,
+		terrain_system.tex4_has_grass,
+		terrain_system.tex5_has_grass,
+		terrain_system.tex6_has_grass
+	]
+	return has_grass_flags[texture_id - 2]
+
+
+## Gets the texture scale for the given texture ID
+func _get_texture_scale(texture_id: int) -> float:
+	var scales := [
+		terrain_system.texture_scale_1,
+		terrain_system.texture_scale_2,
+		terrain_system.texture_scale_3,
+		terrain_system.texture_scale_4,
+		terrain_system.texture_scale_5,
+		terrain_system.texture_scale_6
+	]
+	var idx := clampi(texture_id - 1, 0, 5)
+	return scales[idx]
+
+
+## Gets the grass sprite alpha value for the given texture ID
+func _get_grass_alpha(texture_id: int) -> float:
+	var idx := clampi(texture_id - 1, 0, 5)
+	return GRASS_ALPHA_VALUES[idx]
+
+
+## Samples the terrain texture color at the given world position
+func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale: float) -> Color:
+	var terrain_image := _get_terrain_image(texture_id)
+	if not terrain_image:
+		return Color.WHITE
+
+	var uv_x := clamp(position.x / (terrain_system.dimensions.x * terrain_system.cell_size.x), 0.0, 1.0)
+	var uv_y := clamp(position.z / (terrain_system.dimensions.z * terrain_system.cell_size.y), 0.0, 1.0)
+
+	uv_x = abs(fmod(uv_x * tex_scale, 1.0))
+	uv_y = abs(fmod(uv_y * tex_scale, 1.0))
+
+	var px := int(uv_x * (terrain_image.get_width() - 1))
+	var py := int(uv_y * (terrain_image.get_height() - 1))
+
+	return terrain_image.get_pixelv(Vector2(px, py))
+
+
+## Creates a grass instance at the given position with proper transform and color
+func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:
+	var edge1 := b - a
+	var edge2 := c - a
+	var normal := edge1.cross(edge2).normalized()
+
+	var right := Vector3.FORWARD.cross(normal).normalized()
+	var forward := normal.cross(Vector3.RIGHT).normalized()
+	var instance_basis := Basis(right, forward, -normal)
+
+	multimesh.set_instance_transform(index, Transform3D(instance_basis, position))
+
+	var tex_scale := _get_texture_scale(texture_id)
+	var instance_color := _sample_terrain_texture_color(position, texture_id, tex_scale)
+	instance_color.a = _get_grass_alpha(texture_id)
+
+	multimesh.set_instance_custom_data(index, instance_color)
+
+
+## Hides a grass instance by setting it to zero scale at a far position
+func _hide_grass_instance(index: int) -> void:
+	multimesh.set_instance_transform(index, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3(9999, 9999, 9999)))
+
+#endregion

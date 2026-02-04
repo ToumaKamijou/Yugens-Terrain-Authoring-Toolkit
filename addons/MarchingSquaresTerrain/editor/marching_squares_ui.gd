@@ -7,6 +7,37 @@ const TOOLBAR : Script = preload("res://addons/MarchingSquaresTerrain/editor/too
 const TOOL_ATTRIBUTES : Script = preload("res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tool_attributes.gd")
 const TEXTURE_SETTINGS : Script = preload("res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_settings.gd")
 
+#region Texture Setting Property Maps
+# Property names that map directly to terrain properties with same name
+const TEXTURE_PROPERTIES := [
+	"ground_texture", "texture_2", "texture_3", "texture_4", "texture_5", "texture_6",
+	"texture_7", "texture_8", "texture_9", "texture_10", "texture_11",
+	"texture_12", "texture_13", "texture_14", "texture_15"
+]
+
+const GRASS_SPRITE_PROPERTIES := [
+	"grass_sprite", "grass_sprite_tex_2", "grass_sprite_tex_3",
+	"grass_sprite_tex_4", "grass_sprite_tex_5", "grass_sprite_tex_6"
+]
+
+const COLOR_PROPERTIES := [
+	"ground_color", "ground_color_2", "ground_color_3",
+	"ground_color_4", "ground_color_5", "ground_color_6"
+]
+
+const HAS_GRASS_PROPERTIES := [
+	"tex2_has_grass", "tex3_has_grass", "tex4_has_grass",
+	"tex5_has_grass", "tex6_has_grass"
+]
+
+const TEXTURE_SCALE_PROPERTIES := [
+	"texture_scale_1", "texture_scale_2", "texture_scale_3", "texture_scale_4",
+	"texture_scale_5", "texture_scale_6", "texture_scale_7", "texture_scale_8",
+	"texture_scale_9", "texture_scale_10", "texture_scale_11", "texture_scale_12",
+	"texture_scale_13", "texture_scale_14", "texture_scale_15"
+]
+#endregion
+
 var plugin : MarchingSquaresTerrainPlugin
 var toolbar : TOOLBAR
 var tool_attributes : TOOL_ATTRIBUTES
@@ -214,148 +245,26 @@ func _on_texture_setting_changed(p_setting_name: String, p_value: Variant) -> vo
 	if not terrain:
 		printerr("ERROR: [MarchingSquaresUI] No current terrain node to apply texture settings to")
 		return
-	match p_setting_name:
-		"ground_texture":
-			if p_value is Texture2D or p_value == null:
-				terrain.ground_texture = p_value
-		"grass_sprite":
-			if p_value is CompressedTexture2D or p_value == null:
-				terrain.grass_sprite = p_value
-		"ground_color":
-			if p_value is Color:
-				terrain.ground_color = p_value
-		"texture_2":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_2 = p_value
-		"grass_sprite_tex_2":
-			if p_value is CompressedTexture2D or p_value == null:
-				terrain.grass_sprite_tex_2 = p_value
-		"ground_color_2":
-			if p_value is Color:
-				terrain.ground_color_2 = p_value
-		"tex2_has_grass":
-			if p_value is bool:
-				terrain.tex2_has_grass = p_value
-		"texture_3":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_3 = p_value
-		"grass_sprite_tex_3":
-			if p_value is CompressedTexture2D or p_value == null:
-				terrain.grass_sprite_tex_3 = p_value
-		"ground_color_3":
-			if p_value is Color:
-				terrain.ground_color_3 = p_value
-		"tex3_has_grass":
-			if p_value is bool:
-				terrain.tex3_has_grass = p_value
-		"texture_4":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_4 = p_value
-		"grass_sprite_tex_4":
-			if p_value is CompressedTexture2D or p_value == null:
-				terrain.grass_sprite_tex_4 = p_value
-		"ground_color_4":
-			if p_value is Color:
-				terrain.ground_color_4 = p_value
-		"tex4_has_grass":
-			if p_value is bool:
-				terrain.tex4_has_grass = p_value
-		"texture_5":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_5 = p_value
-		"grass_sprite_tex_5":
-			if p_value is CompressedTexture2D or p_value == null:
-				terrain.grass_sprite_tex_5 = p_value
-		"ground_color_5":
-			if p_value is Color:
-				terrain.ground_color_5 = p_value
-		"tex5_has_grass":
-			if p_value is bool:
-				terrain.tex5_has_grass = p_value
-		"texture_6":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_6 = p_value
-		"grass_sprite_tex_6":
-			if p_value is CompressedTexture2D or p_value == null:
-				terrain.grass_sprite_tex_6 = p_value
-		"ground_color_6":
-			if p_value is Color:
-				terrain.ground_color_6 = p_value
-		"tex6_has_grass":
-			if p_value is bool:
-				terrain.tex6_has_grass = p_value
-		"texture_7":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_7 = p_value
-		"texture_8":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_8 = p_value
-		"texture_9":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_9 = p_value
-		"texture_10":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_10 = p_value
-		"texture_11":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_11 = p_value
-		"texture_12":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_12 = p_value
-		"texture_13":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_13 = p_value
-		"texture_14":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_14 = p_value
-		"texture_15":
-			if p_value is Texture2D or p_value == null:
-				terrain.texture_15 = p_value
-		# Per-texture UV scale handlers
-		"texture_scale_1":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_1 = float(p_value)
-		"texture_scale_2":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_2 = float(p_value)
-		"texture_scale_3":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_3 = float(p_value)
-		"texture_scale_4":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_4 = float(p_value)
-		"texture_scale_5":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_5 = float(p_value)
-		"texture_scale_6":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_6 = float(p_value)
-		"texture_scale_7":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_7 = float(p_value)
-		"texture_scale_8":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_8 = float(p_value)
-		"texture_scale_9":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_9 = float(p_value)
-		"texture_scale_10":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_10 = float(p_value)
-		"texture_scale_11":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_11 = float(p_value)
-		"texture_scale_12":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_12 = float(p_value)
-		"texture_scale_13":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_13 = float(p_value)
-		"texture_scale_14":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_14 = float(p_value)
-		"texture_scale_15":
-			if p_value is float or p_value is int:
-				terrain.texture_scale_15 = float(p_value)
-	
+
+	# Texture properties (Texture2D or null)
+	if p_setting_name in TEXTURE_PROPERTIES:
+		if p_value is Texture2D or p_value == null:
+			terrain.set(p_setting_name, p_value)
+	# Grass sprite properties (CompressedTexture2D or null)
+	elif p_setting_name in GRASS_SPRITE_PROPERTIES:
+		if p_value is CompressedTexture2D or p_value == null:
+			terrain.set(p_setting_name, p_value)
+	# Color properties
+	elif p_setting_name in COLOR_PROPERTIES:
+		if p_value is Color:
+			terrain.set(p_setting_name, p_value)
+	# Has grass flags (bool)
+	elif p_setting_name in HAS_GRASS_PROPERTIES:
+		if p_value is bool:
+			terrain.set(p_setting_name, p_value)
+	# Texture scale properties (float)
+	elif p_setting_name in TEXTURE_SCALE_PROPERTIES:
+		if p_value is float or p_value is int:
+			terrain.set(p_setting_name, float(p_value))
+
 	terrain.save_to_preset()
