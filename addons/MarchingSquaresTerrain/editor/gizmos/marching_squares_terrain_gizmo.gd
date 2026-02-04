@@ -116,7 +116,7 @@ func _redraw():
 		if terrain_plugin.mode == terrain_plugin.TerrainToolMode.VERTEX_PAINTING:
 			if terrain_plugin.paint_walls_mode:
 				add_mesh(terrain_plugin.BRUSH_RADIUS_VISUAL, null, brush_transform)
-		elif terrain_plugin.mode != terrain_plugin.TerrainToolMode.SMOOTH and terrain_plugin.mode != terrain_plugin.TerrainToolMode.GRASS_MASK and terrain_plugin.mode != terrain_plugin.TerrainToolMode.DEBUG_BRUSH:
+		elif terrain_plugin.mode != terrain_plugin.TerrainToolMode.SMOOTH and terrain_plugin.mode != terrain_plugin.TerrainToolMode.GRASS_MASK and terrain_plugin.mode != terrain_plugin.TerrainToolMode.DEBUG_BRUSH and terrain_plugin.mode != terrain_plugin.TerrainToolMode.POPULATE:
 			add_mesh(terrain_plugin.BRUSH_RADIUS_VISUAL, null, brush_transform)
 		
 		pos = terrain_plugin.brush_position

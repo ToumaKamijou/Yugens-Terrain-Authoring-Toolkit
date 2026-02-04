@@ -5,7 +5,6 @@ class_name MarchingSquaresFlowerPlanter
 
 
 var terrain_system : MarchingSquaresTerrain
-var populated_chunks : Array[MarchingSquaresTerrainChunk]
 
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var flower_mesh : QuadMesh = null:
 	set(value):
@@ -36,6 +35,17 @@ var populated_chunks : Array[MarchingSquaresTerrainChunk]
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var sprite_size : Vector2 = Vector2(1.0, 1.0):
 	set(value):
 		sprite_size = value
+		multimesh.mesh.size = value
+		multimesh.mesh.center_offset.y = value.y / 2
+@export_custom(PROPERTY_HINT_RANGE, "0, 2", PROPERTY_USAGE_STORAGE) var flower_subdivisions : int = 1:
+	set(value):
+		flower_subdivisions = value
+		multimesh.instance_count = (terrain_system.dimensions.x-1) * (terrain_system.dimensions.z-1) * flower_subdivisions * flower_subdivisions
+
+@export_storage var populated_chunks : Array[MarchingSquaresTerrainChunk]
+@export_storage var cell_data : Dictionary
+
+var cell_instance_ranges := {}
 
 
 func setup(redo: bool = true):
@@ -49,7 +59,13 @@ func setup(redo: bool = true):
 	
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
 	multimesh.use_custom_data = true
-	multimesh.instance_count = populated_chunks.size() * ((terrain_system.dimensions.x-1) * (terrain_system.dimensions.z-1) * terrain_system.grass_subdivisions * terrain_system.grass_subdivisions)
+	
+	var total_cells := 0
+	for chunk in populated_chunks:
+		if cell_data.has(chunk):
+			total_cells += cell_data[chunk].size()
+	multimesh.instance_count = total_cells * flower_subdivisions * flower_subdivisions
+	
 	if flower_mesh:
 		multimesh.mesh = flower_mesh
 	else:
@@ -64,3 +80,37 @@ func _init() -> void:
 	if not flower_mesh:
 		flower_mesh = fallback_flower_mesh.duplicate(true)
 		flower_mesh.material = fallback_flower_mesh.material.duplicate(true)
+
+
+func add_flowers_to_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> void:
+	if not cell_data.has(chunk):
+		cell_data[chunk] = {}
+		populated_chunks.append(chunk)
+	
+	if cell_data[chunk].has(cell):
+		return # Already populated
+
+
+func remove_flowers_from_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> void:
+	if not cell_data.has(chunk):
+		return
+	
+	cell_data[chunk].erase(cell)
+	
+	if cell_data[chunk].is_empty():
+		cell_data.erase(chunk)
+		populated_chunks.erase(chunk)
+
+
+func generate_flowers_for_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> void:
+	if not chunk.cell_geometry or not chunk.cell_geometry.has(cell):
+		return
+	
+	var current_cell_data = cell_data[chunk][cell]
+	
+	## TODO: Complete this function
+
+
+
+func _hide_instance(index: int) -> void:
+	multimesh.set_instance_transform(index, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3(999.9,999.9,999.9)))

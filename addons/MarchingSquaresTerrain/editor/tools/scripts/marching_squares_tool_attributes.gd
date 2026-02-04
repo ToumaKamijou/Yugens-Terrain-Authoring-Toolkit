@@ -44,7 +44,7 @@ var settings : Dictionary = {}
 
 var last_setting_type : SettingType = SettingType.ERROR
 var selected_chunk : MarchingSquaresTerrainChunk
-var selected_planter : MarchingSquaresPopulator
+var selected_populator : MarchingSquaresPopulator
 
 var hbox_container
 
@@ -220,6 +220,8 @@ func add_setting(p_params: Dictionary) -> void:
 				for child in plugin.current_terrain_node.get_children():
 					if child is MarchingSquaresPopulator:
 						option_button.add_item(str(child.name))
+						if plugin.current_populator == null:
+							plugin.current_populator = child
 			var default_value = p_params.get("default", 0) # Fallback base value
 			if saved_setting_value is not String and str(saved_setting_value) != "ERROR":
 				default_value = saved_setting_value
@@ -532,7 +534,7 @@ func add_setting(p_params: Dictionary) -> void:
 						ts_cont.add_child(option_button, true)
 						hbox.add_child(ts_cont, true)
 						vbox.add_child(hbox, true)
-				if vbox.get_child_count() % 3 == 0:
+				if vbox.get_child_count() % 3 == 0 and setting != terrain_settings_data.keys().back():
 					hbox_container.add_child(vbox)
 					hbox_container.add_child(VSeparator.new())
 					vbox = VBoxContainer.new()
@@ -605,7 +607,8 @@ func _on_populator_selected(p_populator: String) -> void:
 	var terrain := plugin.current_terrain_node
 	var populator : MarchingSquaresPopulator = terrain.find_child(p_populator)
 	
-	selected_planter = populator
+	selected_populator = populator
+	plugin.current_populator = populator
 
 
 func _on_chunk_mode_changed(m_mode: int) -> void:
@@ -626,8 +629,8 @@ func _make_vector_editor(type: String, value: Variant, setting_name: String) -> 
 	var hbox_cont := HBoxContainer.new()
 	
 	if type == "Vector2":
-		var spin_x := make_spinbox(value.x, 0.1)
-		var spin_y := make_spinbox(value.y, 0.1)
+		var spin_x := _make_spinbox(value.x, 0.1)
+		var spin_y := _make_spinbox(value.y, 0.1)
 		
 		var handler_x = func(v):
 			var updated_val = Vector2(v, spin_y.value)
@@ -643,9 +646,9 @@ func _make_vector_editor(type: String, value: Variant, setting_name: String) -> 
 		hbox_cont.add_child(spin_y)
 	
 	elif type == "Vector3i":
-		var spin_x := make_spinbox(value.x, 1.0)
-		var spin_y := make_spinbox(value.y, 1.0)
-		var spin_z := make_spinbox(value.z, 1.0)
+		var spin_x := _make_spinbox(value.x, 1.0)
+		var spin_y := _make_spinbox(value.y, 1.0)
+		var spin_z := _make_spinbox(value.z, 1.0)
 		
 		var handler_x = func(v):
 			var updated_val = Vector3i(int(v), int(spin_y.value), int(spin_z.value))
@@ -668,7 +671,7 @@ func _make_vector_editor(type: String, value: Variant, setting_name: String) -> 
 	return hbox_cont
 
 
-func make_spinbox(val: float, step: float) -> SpinBox:
+func _make_spinbox(val: float, step: float) -> SpinBox:
 	var spin_box := SpinBox.new()
 	spin_box.set_step(step)
 	spin_box.set_value(float(val))

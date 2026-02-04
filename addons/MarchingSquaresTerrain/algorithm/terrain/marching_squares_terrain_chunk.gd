@@ -1312,3 +1312,15 @@ func regenerate_all_cells():
 			needs_update[z][x] = true
 	
 	regenerate_mesh()
+
+
+func world_to_cell(world_pos: Vector3) -> Vector2i:
+	var local := to_local(world_pos)
+	
+	var x := int(floor(local.x / terrain_system.cell_size.x))
+	var z := int(floor(local.z / terrain_system.cell_size.y))
+	
+	x = clamp(x, 0, dimensions.x - 2)
+	z = clamp(z, 0, dimensions.z - 2)
+	
+	return Vector2i(x, z)

@@ -8,6 +8,10 @@ render_priority = 0
 shader = ExtResource("1_k1nnx")
 shader_parameter/flower_texture = ExtResource("2_j2ufq")
 shader_parameter/use_custom_color = false
+shader_parameter/should_billboard = true
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0
 
 [resource]
 material = SubResource("ShaderMaterial_r1y2f")

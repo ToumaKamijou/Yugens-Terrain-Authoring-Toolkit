@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res" id="3_30qmr"]
 
 [resource]
-render_priority = -1
+render_priority = -2
 shader = ExtResource("1_cywoj")
 shader_parameter/wall_threshold = 0.0
 shader_parameter/chunk_size = Vector3i(33, 32, 33)
@@ -16,7 +16,8 @@ shader_parameter/ground_albedo_3 = Color(0.72663283, 0.4819908, 0.8144531, 1)
 shader_parameter/ground_albedo_4 = Color(0.6833746, 0.58623713, 0.35598898, 1)
 shader_parameter/ground_albedo_5 = Color(0.48235673, 0.62252915, 0.2718495, 1)
 shader_parameter/ground_albedo_6 = Color(0.44313726, 0.44705883, 0.3647059, 1)
-shader_parameter/use_hard_square_edges = false
+shader_parameter/use_hard_textures = false
+shader_parameter/blend_mode = 0
 shader_parameter/blend_sharpness = 5.0
 shader_parameter/blend_noise_scale = 10.0
 shader_parameter/blend_noise_strength = 0.0

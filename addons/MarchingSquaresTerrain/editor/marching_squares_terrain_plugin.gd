@@ -47,7 +47,7 @@ var mode : TerrainToolMode = TerrainToolMode.BRUSH:
 	set(value):
 		mode = value
 		current_draw_pattern.clear()
-		if mode == TerrainToolMode.VERTEX_PAINTING:
+		if mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.DEBUG_BRUSH or mode == TerrainToolMode.POPULATE:
 			falloff = false
 			BRUSH_RADIUS_MATERIAL.set_shader_parameter("falloff_visible", false)
 
@@ -96,6 +96,11 @@ var vertex_color_idx : int = 0:
 		_set_vertex_colors(value)
 var vertex_color_0 : Color = Color(1.0, 0.0, 0.0, 0.0)
 var vertex_color_1 : Color = Color(1.0, 0.0, 0.0, 0.0)
+
+# Used to reference populator data in the populator tool
+var current_populator : MarchingSquaresPopulator = null
+
+var remove_flowers : bool = false
 
 # A dictionary with keys for each tile that is currently being drawn to with the brush 
 # In brush mode, the value is the height that preview was drawn to, aka the height BEFORE it is set
@@ -309,7 +314,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 	var shift_held = Input.is_key_pressed(KEY_SHIFT)
 	
 	# If not in a settings mode, perform terrain raycast
-	if mode == TerrainToolMode.BRUSH or mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.LEVEL or mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.BRIDGE or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.DEBUG_BRUSH:
+	if mode == TerrainToolMode.BRUSH or mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.LEVEL or mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.BRIDGE or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.DEBUG_BRUSH or mode == TerrainToolMode.POPULATE:
 		var draw_position
 		var draw_area_hovered: bool = false
 		
@@ -377,9 +382,9 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 					bridge_start_pos = brush_position
 				if mode == TerrainToolMode.SMOOTH and falloff == false:
 					falloff = true
-				if (mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.DEBUG_BRUSH) and falloff == true:
+				if (mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.DEBUG_BRUSH or mode == TerrainToolMode.POPULATE) and falloff == true:
 					falloff = false
-				if (mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.DEBUG_BRUSH) and flatten == true:
+				if (mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.DEBUG_BRUSH or mode == TerrainToolMode.POPULATE) and flatten == true:
 					flatten = false
 				if mode == TerrainToolMode.LEVEL and Input.is_key_pressed(KEY_CTRL):
 					height = brush_position.y
@@ -395,7 +400,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 					is_making_bridge = false
 				if is_drawing:
 					is_drawing = false
-					if mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.LEVEL or mode == TerrainToolMode.BRIDGE or mode == TerrainToolMode.DEBUG_BRUSH:
+					if mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.LEVEL or mode == TerrainToolMode.BRIDGE or mode == TerrainToolMode.DEBUG_BRUSH or mode == TerrainToolMode.POPULATE:
 						draw_pattern(terrain)
 						current_draw_pattern.clear()
 					if mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.VERTEX_PAINTING:
@@ -428,7 +433,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 		
 		if draw_area_hovered and event is InputEventMouseMotion:
 			brush_position = draw_position
-			if is_drawing and (mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.GRASS_MASK):
+			if is_drawing and (mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.POPULATE):
 				draw_pattern(terrain)
 				current_draw_pattern.clear()
 		
@@ -573,6 +578,9 @@ func draw_pattern(terrain: MarchingSquaresTerrain):
 					restore_value_cc = chunk.get_color_1(draw_cell_coords)
 				draw_value = vertex_color_0
 				draw_value_cc = vertex_color_1
+			elif mode == TerrainToolMode.POPULATE:
+				if current_populator == null:
+					return
 			elif mode == TerrainToolMode.DEBUG_BRUSH:
 				var g_pos := chunk.to_global(Vector3(float(draw_cell_coords.x), chunk.get_height(draw_cell_coords), float(draw_cell_coords.y)))
 				var normal := get_cell_normal(chunk, draw_cell_coords)
@@ -686,6 +694,12 @@ func draw_pattern(terrain: MarchingSquaresTerrain):
 		undo_redo.create_action("terrain grass mask draw")
 		undo_redo.add_do_method(self, "draw_grass_mask_pattern_action", terrain, pattern)
 		undo_redo.add_undo_method(self, "draw_grass_mask_pattern_action", terrain, restore_pattern)
+		undo_redo.commit_action()
+	elif mode == TerrainToolMode.POPULATE:
+		var action_name := "terrain flower mask draw" if current_populator is MarchingSquaresFlowerPlanter else "terrain vegetation mask draw"
+		undo_redo.create_action(action_name)
+		undo_redo.add_do_method(self, "draw_populator_mask_pattern_action", current_populator, remove_flowers, pattern)
+		undo_redo.add_undo_method(self, "draw_populator_mask_pattern_action", current_populator, remove_flowers, restore_pattern)
 		undo_redo.commit_action()
 	else:
 		# Handle BRUSH, LEVEL, SMOOTH, BRIDGE modes
@@ -1031,6 +1045,11 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 	# Regenerate mesh ONCE for each affected chunk (instead of 6 times!)
 	for chunk in affected_chunks.values():
 		chunk.regenerate_mesh()
+
+
+# Stores chunk and mask data for FlowerPlanters and VegetationPlanters directly in the instance
+func draw_populator_mask_pattern_action(terrain: MarchingSquaresTerrain, pattern: Dictionary , is_erase: bool) -> void:
+	pass ## TODO: Complete this function
 
 
 func _set_vertex_colors(vc_idx: int) -> void:
