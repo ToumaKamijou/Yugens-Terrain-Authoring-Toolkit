@@ -190,7 +190,8 @@ func _get_terrain_image(texture_id: int) -> Image:
 		return null
 	
 	var img : Image = terrain_texture.get_image()
-	img.decompress()
+	if img:
+		img.decompress()
 	return img
 
 
@@ -283,8 +284,8 @@ func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale
 	if not terrain_image:
 		return Color.WHITE
 
-	var uv_x := clamp(position.x / (terrain_system.dimensions.x * terrain_system.cell_size.x), 0.0, 1.0)
-	var uv_y := clamp(position.z / (terrain_system.dimensions.z * terrain_system.cell_size.y), 0.0, 1.0)
+	var uv_x : float = clamp(position.x / (terrain_system.dimensions.x * terrain_system.cell_size.x), 0.0, 1.0)
+	var uv_y : float = clamp(position.z / (terrain_system.dimensions.z * terrain_system.cell_size.y), 0.0, 1.0)
 
 	uv_x = abs(fmod(uv_x * tex_scale, 1.0))
 	uv_y = abs(fmod(uv_y * tex_scale, 1.0))

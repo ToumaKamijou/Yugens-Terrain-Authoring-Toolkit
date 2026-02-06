@@ -8,53 +8,61 @@ const BLEND_EDGE_SENSITIVITY : float = 1.25
 
 enum CellRotation {DEG0 = 0, DEG270 = 3, DEG180 = 2, DEG90 = 1}
 
-var ay: float: 
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _by
-			CellRotation.DEG180: return _dy
-			CellRotation.DEG270: return _cy
-			_: return _ay
+var pts : Array[Vector3]
+var uvs : Array[Vector2]
+var mids : Array[bool]
+var blends : Array[bool]
+var floors : Array[bool]
+var floor_mode : bool
 
-var by: float:
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _dy
-			CellRotation.DEG180: return _cy
-			CellRotation.DEG270: return _ay
-			_: return _by
-
-var dy: float:
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _cy
-			CellRotation.DEG180: return _ay
-			CellRotation.DEG270: return _by
-			_: return _dy
-
-var cy: float:
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _ay
-			CellRotation.DEG180: return _by
-			CellRotation.DEG270: return _dy
-			_: return _cy
+var ay: float
+var by: float
+var dy: float
+var cy: float
 
 var _ay: float
 var _by: float
 var _cy: float
 var _dy: float
 
-var ab: bool: 
-	get: return abs(ay-by) < merge_threshold  # top edge
-var bd: bool:
-	get: return abs(by-dy) < merge_threshold # right edge
-var cd: bool:
-	get: return abs(cy-dy) < merge_threshold # bottom edge
-var ac: bool:
-	get: return abs(ay-cy) < merge_threshold # left edge
+var ab: bool
+var bd: bool
+var cd: bool
+var ac: bool
 
-var rotation: CellRotation
+var rotation: CellRotation:
+	set(x):
+		match x:
+			CellRotation.DEG90: ay = _by
+			CellRotation.DEG180: ay = _dy
+			CellRotation.DEG270: ay = _cy
+			_: ay = _ay
+			
+		match x:
+			CellRotation.DEG90: by = _dy
+			CellRotation.DEG180: by = _cy
+			CellRotation.DEG270: by = _ay
+			_: by = _by
+			
+		match  x:
+			CellRotation.DEG90: dy = _cy
+			CellRotation.DEG180: dy = _ay
+			CellRotation.DEG270: dy = _by
+			_: dy = _dy
+			
+		match  x:
+			CellRotation.DEG90: cy = _ay
+			CellRotation.DEG180: cy = _by
+			CellRotation.DEG270: cy = _dy
+			_: cy = _cy
+		
+		ab = abs(ay-by) < merge_threshold  # top edge
+		bd = abs(by-dy) < merge_threshold # right edge
+		cd = abs(cy-dy) < merge_threshold # bottom edge
+		ac = abs(ay-cy) < merge_threshold # left edge
+		
+		rotation = x
+		
 
 var merge_threshold: float
 
@@ -71,6 +79,12 @@ func _init(chunk_: MarchingSquaresTerrainChunk, y_top_left: float, y_top_right: 
 	merge_threshold = merge_threshold_
 	rotation = 0
 
+func _reset_geometry_cache() -> void:
+	pts = []
+	uvs = []
+	mids = []
+	blends = []
+	floors = []
 
 func rotate(r: int) -> void:
 	rotation = (4 + r + rotation) % 4
@@ -94,11 +108,14 @@ func is_merged(a: float, b: float):
 	return abs(a - b) < merge_threshold
 
 
-func generate_geometry() -> void:
+func generate_geometry(cell_coords: Vector2i) -> void:
+	
+	_reset_geometry_cache()
 	# Case 0
 	# If all edges are connected, put a full floor here.
 	if all_edges_are_connected():
 		add_c0()
+		chunk.add_polygons(cell_coords, pts, uvs, mids, blends, floors)
 		return
 	
 	# Starting from the lowest corner, build the tile up
@@ -168,7 +185,7 @@ func generate_geometry() -> void:
 		elif is_lower(ay, by) and is_lower(ay, cy) and is_higher(dy, by) and cd:
 			add_c12()
 		
-		# Case 12: Clockwise upwards spiral with A as the highest lowest point and C as the highest. A is lower than B, B is lower than D, D is lower than C, and C is higher than A.
+		# Case 13: Clockwise upwards spiral with A as the highest lowest point and C as the highest. A is lower than B, B is lower than D, D is lower than C, and C is higher than A.
 		elif is_lower(ay, by) and is_lower(by, dy) and is_lower(dy, cy) and is_higher(cy, ay):
 			add_c13()
 		
@@ -202,7 +219,14 @@ func generate_geometry() -> void:
 	if not case_found:
 		#Invalid / unknown cell type. put a full floor here and hope it looks fine
 		add_c0()
+		
+	chunk.add_polygons(cell_coords, pts, uvs, mids, blends, floors)
 
+func start_floor() -> void:
+	floor_mode = true
+	
+func start_wall() -> void:
+	floor_mode = false
 
 func add_point(x: float, y: float, z: float, u: float, v: float, diag_midpoint: bool = false):
 	for i in range(rotation as int):
@@ -217,7 +241,12 @@ func add_point(x: float, y: float, z: float, u: float, v: float, diag_midpoint: 
 	var blend_cd : bool = abs(cy-dy) < blend_threshold
 	var cell_has_walls_for_blend : bool = not (blend_ab and blend_ac and blend_bd and blend_cd)
 	
-	chunk.add_point(x, y, z, u, v, diag_midpoint, cell_has_walls_for_blend)
+	pts.append(Vector3(x ,y, z))
+	uvs.append(Vector2(u, v))
+	mids.append(diag_midpoint)
+	blends.append(cell_has_walls_for_blend)
+	floors.append(floor_mode)
+	#chunk.add_point(x, y, z, u, v, diag_midpoint, cell_has_walls_for_blend)
 
 
 func add_c0() -> void:
@@ -276,7 +305,7 @@ func add_c8() -> void:
 
 func add_c9() -> void:
 	add_inner_corner(chunk, true, false, true)
-	chunk.start_floor()
+	start_floor()
 	
 	# D corner. B edge is connected, so use halfway point bewteen B and D
 	add_point(1, dy, 1, 0, 0)
@@ -298,7 +327,7 @@ func add_c9() -> void:
 	add_point(1, (by+dy)/2, 0.5, 0, 0)
 	
 	# Walls to upper corner
-	chunk.start_wall()
+	start_wall()
 	add_point(0, by, 0.5, 0, 0)
 	add_point(0.5, dy, 1, 0, 0)
 	add_point(0, cy, 0.5, 0, 0)
@@ -308,7 +337,7 @@ func add_c9() -> void:
 	add_point(0.5, dy, 1, 0, 0)
 	
 	# C upper floor
-	chunk.start_floor()
+	start_floor()
 	add_point(0, cy, 1, 0, 0)
 	add_point(0, cy, 0.5, 0, 1)
 	add_point(0.5, cy, 1, 0, 1)
@@ -318,7 +347,7 @@ func add_c10() -> void:
 	add_inner_corner(chunk, true, false, true)
 	
 	# D corner. C edge is connected, so use halfway point bewteen C and D
-	chunk.start_floor()
+	start_floor()
 	add_point(1, dy, 1, 0, 0)
 	add_point(0.5, (dy + cy) / 2, 1, 0, 0)
 	add_point(1, dy, 0.5, 0, 0)
@@ -338,7 +367,7 @@ func add_c10() -> void:
 	add_point(0.5, cy, 0, 0, 0)
 	
 	# Walls to upper corner
-	chunk.start_wall()
+	start_wall()
 	add_point(0.5, cy, 0, 0, 0)
 	add_point(0.5, by, 0, 0, 0)
 	add_point(1, dy, 0.5, 0, 0)
@@ -348,7 +377,7 @@ func add_c10() -> void:
 	add_point(0.5, by, 0, 0, 0)
 	
 	# B upper floor
-	chunk.start_floor()
+	start_floor()
 	add_point(1, by, 0, 0, 0)
 	add_point(1, by, 0.5, 0, 0)
 	add_point(0.5, by, 0, 0, 0)
@@ -401,7 +430,7 @@ func add_c17() -> void:
 	var edge_dy = (by + dy) / 2
 	
 	# Upper floor
-	chunk.start_floor()
+	start_floor()
 	add_point(0, ay, 0, 0, 0)
 	add_point(1, by, 0, 0, 0)
 	add_point(1, edge_by, 0.5, 0, 0)
@@ -411,13 +440,13 @@ func add_c17() -> void:
 	add_point(0, ay, 0, 0, 0)
 	
 	# Wall
-	chunk.start_wall()
+	start_wall()
 	add_point(0, cy, 0.5, 0, 0)
 	add_point(0, ay, 0.5, 0, 1)
 	add_point(1, edge_dy, 0.5, 1, 0)
 	
 	# Lower floor
-	chunk.start_floor()
+	start_floor()
 	add_point(0, cy, 0.5, 1, 0)
 	add_point(1, edge_dy, 0.5, 1, 0)
 	add_point(0, cy, 1, 0, 0)
@@ -433,7 +462,7 @@ func add_c18() -> void:
 	var edge_cy = (ay+cy)/2
 	
 	# Upper floor - use A and B edge for heights
-	chunk.start_floor()
+	start_floor()
 	add_point(0, ay, 0, 0, 0)
 	add_point(1, by, 0, 0, 0)
 	add_point(0, edge_ay, 0.5, 0, 0)
@@ -443,13 +472,13 @@ func add_c18() -> void:
 	add_point(1, by, 0, 0, 0)
 	
 	# Wall from left to right edge
-	chunk.start_wall()
+	start_wall()
 	add_point(1, by, 0.5, 1, 1)
 	add_point(1, dy, 0.5, 1, 0)
 	add_point(0, edge_ay, 0.5, 0, 0)
 	
 	# Lower floor - use C and D edge
-	chunk.start_floor()
+	start_floor()
 	add_point(0, edge_cy, 0.5, 1, 0)
 	add_point(1, dy, 0.5, 1, 0)
 	add_point(1, dy, 1, 0, 0)
@@ -460,7 +489,7 @@ func add_c18() -> void:
 
 
 func add_full_floor(chunk: MarchingSquaresTerrainChunk):
-	chunk.start_floor()
+	start_floor()
 	
 	add_point(0, ay, 0, 0, 0)
 	add_point(1, by, 0, 0, 0)
@@ -478,13 +507,13 @@ func add_outer_corner(chunk: MarchingSquaresTerrainChunk, floor_below: bool = tr
 	var edge_cy = bottom_height if flatten_bottom else cy
 	
 	if floor_above:
-		chunk.start_floor()
+		start_floor()
 		add_point(0, ay, 0, 0, 0)
 		add_point(0.5, ay, 0, 0, 1)
 		add_point(0, ay, 0.5, 0, 1)
 	
 	# Walls - bases will use B and C height, while cliff top will use A height.
-	chunk.start_wall()
+	start_wall()
 	add_point(0, edge_cy, 0.5, 0, 0)
 	add_point(0, ay, 0.5, 0, 1)
 	add_point(0.5, edge_by, 0, 1, 0)
@@ -494,7 +523,7 @@ func add_outer_corner(chunk: MarchingSquaresTerrainChunk, floor_below: bool = tr
 	add_point(0, ay, 0.5, 0, 1)
 	
 	if floor_below:
-		chunk.start_floor()
+		start_floor()
 		add_point(1, dy, 1,0,0)
 		add_point(0, cy, 1,0,0)
 		add_point(1, by, 0,0,0)	
@@ -520,7 +549,7 @@ func add_edge(chunk: MarchingSquaresTerrainChunk, floor_below: bool, floor_above
 	
 	# Upper floor - use A and B for heights
 	if floor_above:
-		chunk.start_floor()
+		start_floor()
 		add_point(a_x, edge_ay, 0, 1 if a_x > 0 else 0, 0)
 		add_point(b_x, edge_by, 0, 1 if b_x < 1 else 0, 0)
 		add_point(0, edge_ay, 0.5, -1 if b_x < 1 else (1 if a_x > 0 else 0), 1)
@@ -530,7 +559,7 @@ func add_edge(chunk: MarchingSquaresTerrainChunk, floor_below: bool, floor_above
 		add_point(b_x, edge_by, 0, 1 if b_x < 1 else 0, 0)
 	
 	# Wall from left to right edge
-	chunk.start_wall()
+	start_wall()
 	add_point(0, edge_cy, 0.5, 0, 0)
 	add_point(0, edge_ay, 0.5, 0, 1)
 	add_point(1, edge_dy, 0.5, 1, 0)
@@ -542,7 +571,7 @@ func add_edge(chunk: MarchingSquaresTerrainChunk, floor_below: bool, floor_above
 	# Lower floor - use C and D for height
 	# Only place a flat floor below if CD is connected
 	if floor_below:
-		chunk.start_floor()
+		start_floor()
 		add_point(0, cy, 0.5, 1, 0)
 		add_point(1, dy, 0.5, 1, 0)
 		add_point(0, cy, 1, 0, 0)
@@ -559,12 +588,12 @@ func add_inner_corner(chunk: MarchingSquaresTerrainChunk, lower_floor: bool = tr
 	
 	# Lower floor with height of point A
 	if lower_floor:
-		chunk.start_floor()
+		start_floor()
 		add_point(0, ay, 0, 0, 0)
 		add_point(0.5, ay, 0, 1, 0)
 		add_point(0, ay, 0.5, 1, 0)
 	
-	chunk.start_wall()
+	start_wall()
 	add_point(0, ay, 0.5, 1, 0)
 	add_point(0.5, ay, 0, 0, 0)
 	add_point(0, corner_cy, 0.5, 1, 1)
@@ -573,7 +602,7 @@ func add_inner_corner(chunk: MarchingSquaresTerrainChunk, lower_floor: bool = tr
 	add_point(0, corner_cy, 0.5, 1, 1)
 	add_point(0.5, ay, 0, 0, 0)
 	
-	chunk.start_floor()
+	start_floor()
 	if full_upper_floor:
 		add_point(1, dy, 1, 0, 0)
 		add_point(0, corner_cy, 1, 0, 0)
@@ -611,7 +640,7 @@ func add_inner_corner(chunk: MarchingSquaresTerrainChunk, lower_floor: bool = tr
 
 # Add a diagonal floor, using heights of B and C and connecting their points using passed heights.
 func add_diagonal_floor(chunk: MarchingSquaresTerrainChunk, b_y: float, c_y: float, a_cliff: bool, d_cliff: bool):
-	chunk.start_floor()
+	start_floor()
 	
 	add_point(1, b_y, 0, 0 ,0)
 	add_point(0, c_y, 1, 0 ,0)

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cms82rhb3g8ki"
+path="res://.godot/imported/c8.0.obj-c69c40d07e703a2cf44bc3569f4d9c92.mesh"
+
+[deps]
+
+files=["res://.godot/imported/c8.0.obj-c69c40d07e703a2cf44bc3569f4d9c92.mesh"]
+
+source_file="res://tests/expected_cell_geometry/c8.0.obj"
+dest_files=["res://.godot/imported/c8.0.obj-c69c40d07e703a2cf44bc3569f4d9c92.mesh", "res://.godot/imported/c8.0.obj-c69c40d07e703a2cf44bc3569f4d9c92.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

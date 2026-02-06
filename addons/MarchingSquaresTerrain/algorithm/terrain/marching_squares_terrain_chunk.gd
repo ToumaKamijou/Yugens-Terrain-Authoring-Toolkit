@@ -26,7 +26,7 @@ const MERGE_MODE = {
 			else:
 				grass_mat.set_shader_parameter("is_merge_round", false)
 			merge_threshold = MERGE_MODE[mode]
-			regenerate_all_cells()
+			regenerate_all_cells(true)
 @export_storage var height_map : Array # Stores the heights from the heightmap
 # Color maps are now ephemeral and created at runtime
 # Persisted via MSTDataHandler
@@ -42,6 +42,8 @@ var grass_planter : MarchingSquaresGrassPlanter = preload("res://addons/Marching
 
 var higher_poly_floors : bool = true
 
+var cell_generation_mutex : Mutex = Mutex.new()
+
 # Size of the 2 dimensional cell array (xz value) and y scale (y value)
 var dimensions : Vector3i:
 	get:
@@ -54,7 +56,6 @@ var cell_size : Vector2:
 var new_chunk : bool = false
 
 var st : SurfaceTool # The surfacetool used to construct the current terrain
-var cell_coords : Vector2i # cell coordinates currently being evaluated
 
 var cell_geometry : Dictionary = {} # Stores all generated tiles so that their geometry can quickly be reused
 
@@ -119,7 +120,7 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 		generate_grass_mask_map()
 
 	if not mesh and should_regenerate_mesh:
-		regenerate_mesh()
+		regenerate_mesh(true)
 	elif mesh:
 		if not _temp_collision_shapes.is_empty():
 			_recreate_collision_body()
@@ -226,7 +227,7 @@ func _exit_tree() -> void:
 		terrain_system.chunks.erase(chunk_coords)
 
 
-func regenerate_mesh():
+func regenerate_mesh(use_threads: bool = false):
 	st = SurfaceTool.new()
 	if mesh:
 		st.create_from(mesh, 0)
@@ -237,7 +238,7 @@ func regenerate_mesh():
 	
 	var start_time: int = Time.get_ticks_msec()
 	
-	if not find_child("GrassPlanter"):
+	if not get_node_or_null("GrassPlanter"):
 		grass_planter = get_node_or_null("GrassPlanter")
 		if not grass_planter:
 			grass_planter = MarchingSquaresGrassPlanter.new()
@@ -252,12 +253,12 @@ func regenerate_mesh():
 		grass_planter.setup(self)
 		if Engine.is_editor_hint():
 			grass_planter.owner = Engine.get_singleton("EditorInterface").get_edited_scene_root()
-		else:
+		elif is_inside_tree():
 			grass_planter.owner = get_tree().root
 	else:
 		grass_planter._chunk = self
 	
-	generate_terrain_cells()
+	generate_terrain_cells(use_threads)
 	
 	if new_chunk:
 		new_chunk = false
@@ -286,13 +287,15 @@ func regenerate_mesh():
 	print_verbose("Generated terrain in "+str(elapsed_time)+"ms")
 
 
-func generate_terrain_cells():
+func generate_terrain_cells(use_threads: bool):
 	if not cell_geometry:
 		cell_geometry = {}
 	
+	var thread_pool := MarchingSquaresThreadPool.new(max(1, OS.get_processor_count()))
+	
 	for z in range(dimensions.z - 1):
 		for x in range(dimensions.x - 1):
-			cell_coords = Vector2i(x, z)
+			var cell_coords = Vector2i(x, z)
 			
 			# If geometry did not change, copy already generated geometry and skip this cell
 			if not needs_update[z][x]:
@@ -341,7 +344,7 @@ func generate_terrain_cells():
 			cell_is_boundary = (cell_max_height - cell_min_height) > merge_threshold
 			
 			# Calculate the 2 dominant textures for this cell
-			calculate_cell_material_pair(color_map_0, color_map_1)
+			calculate_cell_material_pair(cell_coords, color_map_0, color_map_1)
 			
 			if cell_is_boundary:
 				# Identify corners at each height level for height-based color sampling
@@ -393,10 +396,18 @@ func generate_terrain_cells():
 				cell_wall_lower_color_1 = wall_corner_colors_1[min_idx]
 				cell_wall_upper_color_1 = wall_corner_colors_1[max_idx]
 				
-			cell.generate_geometry()
-			if grass_planter and grass_planter.terrain_system:
-				grass_planter.generate_grass_on_cell(cell_coords)
-
+			var work_load := func():
+				cell.generate_geometry(cell_coords)
+				if grass_planter and grass_planter.terrain_system:
+					grass_planter.generate_grass_on_cell(cell_coords)
+			if use_threads:
+				thread_pool.enqueue(work_load)
+			else:
+				work_load.call()
+	
+	if use_threads:
+		thread_pool.start()
+		thread_pool.wait()
 
 #region Color Interpolation Helpers
 
@@ -412,15 +423,15 @@ func _get_color_sources(is_floor: bool, is_ridge: bool) -> Array[PackedColorArra
 
 
 ## Calculates color for diagonal midpoint vertices
-func _calc_diagonal_color(source_map: PackedColorArray) -> Color:
+func _calc_diagonal_color(cell_coords: Vector2i, source_map: PackedColorArray) -> Color:
 	if terrain_system.blend_mode == 1:
 		# Hard edge mode uses same color as cell's top-left corner
 		return source_map[cell_coords.y * dimensions.x + cell_coords.x]
 
 	# Smooth blend mode - lerp diagonal corners for smoother effect
 	var idx := cell_coords.y * dimensions.x + cell_coords.x
-	var ad_color := lerp(source_map[idx], source_map[idx + dimensions.x + 1], 0.5)
-	var bc_color := lerp(source_map[idx + 1], source_map[idx + dimensions.x], 0.5)
+	var ad_color : Color = lerp(source_map[idx], source_map[idx + dimensions.x + 1], 0.5)
+	var bc_color : Color = lerp(source_map[idx + 1], source_map[idx + dimensions.x], 0.5)
 	var result := Color(min(ad_color.r, bc_color.r), min(ad_color.g, bc_color.g), min(ad_color.b, bc_color.b), min(ad_color.a, bc_color.a))
 	if ad_color.r > 0.99 or bc_color.r > 0.99: result.r = 1.0
 	if ad_color.g > 0.99 or bc_color.g > 0.99: result.g = 1.0
@@ -430,14 +441,14 @@ func _calc_diagonal_color(source_map: PackedColorArray) -> Color:
 
 
 ## Calculates height-based color for boundary cells (prevents color bleeding between heights)
-func _calc_boundary_color(y: float, source_map: PackedColorArray, lower_color: Color, upper_color: Color) -> Color:
+func _calc_boundary_color(cell_coords: Vector2i, y: float, source_map: PackedColorArray, lower_color: Color, upper_color: Color) -> Color:
 	if terrain_system.blend_mode == 1:
 		# Hard edge mode uses cell's corner color
 		return source_map[cell_coords.y * dimensions.x + cell_coords.x]
 
 	# HEIGHT-BASED SAMPLING for smooth blend mode
 	var height_range := cell_max_height - cell_min_height
-	var height_factor := clamp((y - cell_min_height) / height_range, 0.0, 1.0)
+	var height_factor : float = clamp((y - cell_min_height) / height_range, 0.0, 1.0)
 
 	# Sharp bands: < lower_thresh = lower color, > upper_thresh = upper color, middle = blend
 	var color: Color
@@ -453,10 +464,10 @@ func _calc_boundary_color(y: float, source_map: PackedColorArray, lower_color: C
 
 
 ## Calculates bilinearly interpolated color for flat cells
-func _calc_bilinear_color(x: float, z: float, source_map: PackedColorArray) -> Color:
+func _calc_bilinear_color(cell_coords: Vector2i, x: float, z: float, source_map: PackedColorArray) -> Color:
 	var idx := cell_coords.y * dimensions.x + cell_coords.x
-	var ab_color := lerp(source_map[idx], source_map[idx + 1], x)
-	var cd_color := lerp(source_map[idx + dimensions.x], source_map[idx + dimensions.x + 1], x)
+	var ab_color : Color = lerp(source_map[idx], source_map[idx + 1], x)
+	var cd_color : Color = lerp(source_map[idx + dimensions.x], source_map[idx + dimensions.x + 1], x)
 
 	if terrain_system.blend_mode != 1:
 		return get_dominant_color(lerp(ab_color, cd_color, z))  # Mixed triangles
@@ -465,6 +476,7 @@ func _calc_bilinear_color(x: float, z: float, source_map: PackedColorArray) -> C
 
 ## selects the appropriate color interpolation method
 func _interpolate_vertex_color(
+	cell_coords: Vector2i,
 	x: float, y: float, z: float,
 	source_map: PackedColorArray,
 	diag_midpoint: bool,
@@ -476,19 +488,34 @@ func _interpolate_vertex_color(
 		return Color(1.0, 0.0, 0.0, 0.0)
 
 	if diag_midpoint:
-		return _calc_diagonal_color(source_map)
+		return _calc_diagonal_color(cell_coords, source_map)
 
 	if cell_is_boundary:
-		return _calc_boundary_color(y, source_map, lower_color, upper_color)
+		return _calc_boundary_color(cell_coords, y, source_map, lower_color, upper_color)
 
-	return _calc_bilinear_color(x, z, source_map)
+	return _calc_bilinear_color(cell_coords, x, z, source_map)
 
 #endregion
 
 
+func add_polygons(cell_coords: Vector2i, pts:Array[Vector3], uvs: Array[Vector2], diag_mids: Array[bool], blends: Array[bool], floors: Array[bool]):
+		assert(pts.size() % 3 == 0)
+		assert(pts.size() == uvs.size())
+		assert(pts.size() == diag_mids.size())
+		assert(pts.size() == blends.size())
+		
+		cell_generation_mutex.lock()
+		for i in range(pts.size()):
+			if floor_mode and not floors[i]:
+				_start_wall()
+			elif not floor_mode and floors[i]:
+				_start_floor()
+			_add_point(cell_coords, pts[i].x, pts[i].y, pts[i].z, uvs[i].x, uvs[i].y, diag_mids[i], blends[i])
+		cell_generation_mutex.unlock()
+
 # Adds a point. Coordinates are relative to the top-left corner (not mesh origin relative)
 # UV.x is closeness to the bottom of an edge. UV.Y is closeness to the edge of a cliff
-func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, diag_midpoint: bool = false, cell_has_walls_for_blend: bool = false):
+func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float, uv_y: float, diag_midpoint: bool = false, cell_has_walls_for_blend: bool = false):
 	# UV - used for ledge detection. X = closeness to top terrace, Y = closeness to bottom of terrace
 	# Walls will always have UV of 1, 1
 	var uv := Vector2(uv_x, uv_y) if floor_mode else Vector2(1, 1)
@@ -506,12 +533,12 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, diag_midp
 	# Calculate vertex colors using appropriate interpolation method
 	var lower_0 : Color = cell_wall_lower_color_0 if use_wall_colors else cell_floor_lower_color_0
 	var upper_0 : Color = cell_wall_upper_color_0 if use_wall_colors else cell_floor_upper_color_0
-	var color_0 := _interpolate_vertex_color(x, y, z, source_map_0, diag_midpoint, lower_0, upper_0)
+	var color_0 := _interpolate_vertex_color(cell_coords, x, y, z, source_map_0, diag_midpoint, lower_0, upper_0)
 	st.set_color(color_0)
 
 	var lower_1 : Color = cell_wall_lower_color_1 if use_wall_colors else cell_floor_lower_color_1
 	var upper_1 : Color = cell_wall_upper_color_1 if use_wall_colors else cell_floor_upper_color_1
-	var color_1 := _interpolate_vertex_color(x, y, z, source_map_1, diag_midpoint, lower_1, upper_1)
+	var color_1 := _interpolate_vertex_color(cell_coords, x, y, z, source_map_1, diag_midpoint, lower_1, upper_1)
 	st.set_custom(0, color_1)
 
 	# is_ridge already calculated above
@@ -521,7 +548,7 @@ func add_point(x: float, y: float, z: float, uv_x: float, uv_y: float, diag_midp
 	
 	# Use edge connection to determine blending path
 	# Avoid issues on weird Cliffs vs Slopes blending giving each a different path
-	var mat_blend : Color = calculate_material_blend_data(x, z, source_map_0, source_map_1)
+	var mat_blend : Color = calculate_material_blend_data(cell_coords, x, z, source_map_0, source_map_1)
 	if cell_has_walls_for_blend and floor_mode:
 		mat_blend.a = 2.0 
 	st.set_custom(2, mat_blend)
@@ -610,7 +637,7 @@ func texture_index_to_colors(idx: int) -> Array[Color]:
 
 
 # Calculate 2 dominant textures for current cell 
-func calculate_cell_material_pair(source_map_0: PackedColorArray, source_map_1: PackedColorArray) -> void:
+func calculate_cell_material_pair(cell_coords: Vector2i, source_map_0: PackedColorArray, source_map_1: PackedColorArray) -> void:
 	var tex_a : int = get_texture_index_from_colors(
 		source_map_0[cell_coords.y * dimensions.x + cell_coords.x],
 		source_map_1[cell_coords.y * dimensions.x + cell_coords.x])
@@ -644,7 +671,7 @@ func calculate_cell_material_pair(source_map_0: PackedColorArray, source_map_1: 
 # G: mat_c / 15.0
 # B: weight_a (0.0 to 1.0)
 # A: weight_b (0.0 to 1.0), or 2.0 to signal use_vertex_colors
-func calculate_material_blend_data(vert_x: float, vert_z: float, source_map_0: PackedColorArray, source_map_1: PackedColorArray) -> Color:
+func calculate_material_blend_data(cell_coords: Vector2i, vert_x: float, vert_z: float, source_map_0: PackedColorArray, source_map_1: PackedColorArray) -> Color:
 	var tex_a : int = get_texture_index_from_colors(
 		source_map_0[cell_coords.y * dimensions.x + cell_coords.x],
 		source_map_1[cell_coords.y * dimensions.x + cell_coords.x])
@@ -701,12 +728,12 @@ func calculate_material_blend_data(vert_x: float, vert_z: float, source_map_0: P
 # If true, currently making floor geometry. if false, currently making wall geometry.
 var floor_mode : bool = true
 
-func start_floor():
+func _start_floor():
 	floor_mode = true
 	st.set_smooth_group(0)
 
 
-func start_wall():
+func _start_wall():
 	floor_mode = false
 	st.set_smooth_group(-1)
 
@@ -883,9 +910,9 @@ func _recreate_collision_body() -> void:
 			col_shape.owner = scene_root
 
 
-func regenerate_all_cells():
+func regenerate_all_cells(use_threads: bool):
 	for z in range(dimensions.z-1):
 		for x in range(dimensions.x-1):
 			needs_update[z][x] = true
 	
-	regenerate_mesh()
+	regenerate_mesh(use_threads)

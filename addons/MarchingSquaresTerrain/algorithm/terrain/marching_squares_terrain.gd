@@ -66,12 +66,12 @@ enum StorageMode {
 			terrain_material.set_shader_parameter("use_hard_textures", false)
 		terrain_material.set_shader_parameter("blend_mode", value)
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.regenerate_all_cells()
+			chunk.regenerate_all_cells(true)
 @export_custom(PROPERTY_HINT_RANGE, "9, 32", PROPERTY_USAGE_STORAGE) var extra_collision_layer : int = 9:
 	set(value):
 		extra_collision_layer = value
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.regenerate_all_cells()
+			chunk.regenerate_all_cells(true)
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wall_threshold : float = 0.0: # Determines on what part of the terrain's mesh are walls
 	set(value):
 		wall_threshold = value
@@ -139,7 +139,7 @@ enum StorageMode {
 	set(value):
 		use_ridge_texture = value
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.regenerate_all_cells()
+			chunk.regenerate_all_cells(true)
 
 # Vertex painting texture settings
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var texture_2 : Texture2D = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res"):
