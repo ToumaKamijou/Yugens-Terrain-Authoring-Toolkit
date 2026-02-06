@@ -15,53 +15,54 @@ var blends : Array[bool]
 var floors : Array[bool]
 var floor_mode : bool
 
-var ay: float: 
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _by
-			CellRotation.DEG180: return _dy
-			CellRotation.DEG270: return _cy
-			_: return _ay
-
-var by: float:
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _dy
-			CellRotation.DEG180: return _cy
-			CellRotation.DEG270: return _ay
-			_: return _by
-
-var dy: float:
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _cy
-			CellRotation.DEG180: return _ay
-			CellRotation.DEG270: return _by
-			_: return _dy
-
-var cy: float:
-	get:
-		match  rotation:
-			CellRotation.DEG90: return _ay
-			CellRotation.DEG180: return _by
-			CellRotation.DEG270: return _dy
-			_: return _cy
+var ay: float
+var by: float
+var dy: float
+var cy: float
 
 var _ay: float
 var _by: float
 var _cy: float
 var _dy: float
 
-var ab: bool: 
-	get: return abs(ay-by) < merge_threshold  # top edge
-var bd: bool:
-	get: return abs(by-dy) < merge_threshold # right edge
-var cd: bool:
-	get: return abs(cy-dy) < merge_threshold # bottom edge
-var ac: bool:
-	get: return abs(ay-cy) < merge_threshold # left edge
+var ab: bool
+var bd: bool
+var cd: bool
+var ac: bool
 
-var rotation: CellRotation
+var rotation: CellRotation:
+	set(x):
+		match x:
+			CellRotation.DEG90: ay = _by
+			CellRotation.DEG180: ay = _dy
+			CellRotation.DEG270: ay = _cy
+			_: ay = _ay
+			
+		match x:
+			CellRotation.DEG90: by = _dy
+			CellRotation.DEG180: by = _cy
+			CellRotation.DEG270: by = _ay
+			_: by = _by
+			
+		match  x:
+			CellRotation.DEG90: dy = _cy
+			CellRotation.DEG180: dy = _ay
+			CellRotation.DEG270: dy = _by
+			_: dy = _dy
+			
+		match  x:
+			CellRotation.DEG90: cy = _ay
+			CellRotation.DEG180: cy = _by
+			CellRotation.DEG270: cy = _dy
+			_: cy = _cy
+		
+		ab = abs(ay-by) < merge_threshold  # top edge
+		bd = abs(by-dy) < merge_threshold # right edge
+		cd = abs(cy-dy) < merge_threshold # bottom edge
+		ac = abs(ay-cy) < merge_threshold # left edge
+		
+		rotation = x
+		
 
 var merge_threshold: float
 
