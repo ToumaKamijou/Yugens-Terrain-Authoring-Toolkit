@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://bnuwpq828vtns"]
+
+[ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="1_3k6wl"]
+[ext_resource type="Script" uid="uid://bjw0ah7g8vsxt" path="res://tests/profiler/profile_runtime.gd" id="1_w5c3p"]
+[ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="2_w5c3p"]
+[ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="3_7apbj"]
+[ext_resource type="Script" uid="uid://gn4m0g2wphro" path="res://tests/profiler/frame_timer.gd" id="5_7apbj"]
+[ext_resource type="Script" uid="uid://mygochhag1fj" path="res://tests/profiler/frame_graph.gd" id="6_x4rc3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3k6wl"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_or4gs"]
+sky_material = SubResource("ProceduralSkyMaterial_3k6wl")
+
+[sub_resource type="Environment" id="Environment_w5c3p"]
+background_mode = 2
+sky = SubResource("Sky_or4gs")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="ProfileRuntime_tscn" type="Node3D" unique_id=1573690514]
+script = ExtResource("1_w5c3p")
+
+[node name="MarchingSquaresTerrain" type="Node3D" parent="." unique_id=872010631]
+script = ExtResource("1_3k6wl")
+storage_mode = 1
+data_directory = "res://tests/profiler/profile_runtime.tscn_TerrainData/MarchingSquaresTerrain_a999d868/"
+_terrain_uid = "a999d868"
+_storage_initialized = true
+_last_storage_mode = 1
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (0, -1)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=738810538 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -1)" unique_id=1889927182]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -2)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1939829894 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -128)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -2)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -2)" unique_id=858529838]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -3)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=890336525 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -192)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -3)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -3)" unique_id=651417753]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -4)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1314689459 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -256)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -4)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -4)" unique_id=1731713210]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -5)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=581440248 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -320)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -5)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -5)" unique_id=1187608123]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -6)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1924964391 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -384)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -6)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -6)" unique_id=306522738]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -7)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=2114928619 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -448)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -7)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -7)" unique_id=1724899338]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -8)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=732950253 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -512)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -8)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -8)" unique_id=44777121]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -9)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=667313597 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -576)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -9)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -9)" unique_id=1881859559]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="Chunk (0, -10)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1862698629 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -640)
+script = ExtResource("2_w5c3p")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -10)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -10)" unique_id=635793756]
+cast_shadow = 0
+script = ExtResource("3_7apbj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1575148518]
+environment = SubResource("Environment_w5c3p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=104382479]
+transform = Transform3D(-0.033855144, 0.6042938, -0.7960419, 0.53061336, 0.6858396, 0.49806985, 0.8469377, -0.4055283, -0.34386548, 0, 20.11702, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1569001321]
+transform = Transform3D(1, 0, 0, 0, 0.8622398, 0.5065004, 0, -0.5065004, 0.8622398, 30, 10, 4)
+
+[node name="FrameTimer" type="Node" parent="." unique_id=982386516]
+script = ExtResource("5_7apbj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=220182812]
+
+[node name="Label" type="RichTextLabel" parent="CanvasLayer" unique_id=1709736285]
+offset_left = 16.0
+offset_top = 27.0
+offset_right = 1101.0
+offset_bottom = 429.0
+theme_override_font_sizes/normal_font_size = 72
+text = "Average FPS: TBA"
+
+[node name="Graph" type="Control" parent="CanvasLayer" unique_id=1338039880]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 211.0
+offset_top = 600.0
+offset_right = 1676.0
+offset_bottom = 1000.0
+script = ExtResource("6_x4rc3")

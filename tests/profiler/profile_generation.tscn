@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bxnhq3u8scdih"]
 
-[ext_resource type="Script" uid="uid://dp6ah7cd1ld2s" path="res://tests/profiler/profiler.gd" id="1_2nn5h"]
+[ext_resource type="Script" uid="uid://dp6ah7cd1ld2s" path="res://tests/profiler/profiler_generation.gd" id="1_2nn5h"]
 [ext_resource type="Script" uid="uid://5nabck00de3q" path="res://tests/profiler/profiler_test.gd" id="1_4yhsi"]
 
 [node name="Node2D" type="Node2D" unique_id=128439069]
