@@ -1,14 +1,14 @@
 extends Node2D
 
 
-@onready var test : MarchingSquaresGenerationBenchmarkTests = $Test
+@onready var test  = $Test
 @onready var label : RichTextLabel = $Label
 
 
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-	test.disable_non_threaded = true
-	test.test_done.connect(_show_times)
+	test.benchmark.disable_non_threaded = true
+	test.benchmark.test_done.connect(_show_times)
 
 
 func _show_times(t: float, nt: float) -> void:
