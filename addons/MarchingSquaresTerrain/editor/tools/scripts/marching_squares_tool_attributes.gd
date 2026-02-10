@@ -6,8 +6,8 @@ class_name MarchingSquaresToolAttributes
 signal setting_changed(setting: String, value: Variant)
 signal terrain_setting_changed(setting: String, value: Variant)
 
-const TEXTURE_PRESETS_PATH : String= "res://addons/MarchingSquaresTerrain/resources/texture presets/"
-const GLOBAL_QUICK_PAINTS_PATH : String = "res://addons/MarchingSquaresTerrain/resources/quick paints/global/"
+const TEXTURE_PRESETS_PATH : String= "res://addons/MarchingSquaresTerrain/resources/texture_presets/"
+const GLOBAL_QUICK_PAINTS_PATH : String = "res://addons/MarchingSquaresTerrain/resources/quick_paints/global/"
 
 enum SettingType {
 	CHECKBOX,
@@ -27,8 +27,6 @@ var terrain_settings_data : Dictionary = {
 	"blend_mode": "OptionButton",
 	"noise_hmap": "EditorResourcePicker",
 	"default_wall_texture": "OptionButton",
-	# Data storage settings
-	"data_directory": "FolderPicker",
 	# Grass settings
 	"animation_fps": "SpinBox",
 	"grass_subdivisions": "SpinBox",
@@ -590,19 +588,11 @@ func _get_setting_value(p_setting_name: String) -> Variant:
 	return "ERROR"
 
 
-func _on_setting_changed(p_setting_name: String, p_value: Variant) -> void:
-	emit_signal("setting_changed", p_setting_name, p_value)
-
-
-func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> void:
-	emit_signal("terrain_setting_changed", p_setting_name, p_value)
-
-
 func _open_folder_dialog(setting_name: String, path_edit: LineEdit) -> void:
 	var dialog := EditorFileDialog.new()
 	dialog.file_mode = EditorFileDialog.FILE_MODE_OPEN_DIR
 	dialog.access = EditorFileDialog.ACCESS_RESOURCES
-	dialog.title = "Select Data Directory"
+	dialog.title = "Select Directory"
 
 	# Set initial path from current value or project root
 	var current_path : String = path_edit.text
@@ -621,6 +611,15 @@ func _open_folder_dialog(setting_name: String, path_edit: LineEdit) -> void:
 	# Add to editor base control for proper modal behavior
 	EditorInterface.get_base_control().add_child(dialog)
 	dialog.popup_centered(Vector2i(600, 400))
+
+#region on-signal functions
+
+func _on_setting_changed(p_setting_name: String, p_value: Variant) -> void:
+	emit_signal("setting_changed", p_setting_name, p_value)
+
+
+func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> void:
+	emit_signal("terrain_setting_changed", p_setting_name, p_value)
 
 
 func _on_chunk_selected(option_button: OptionButton, p_chunk: String) -> void:
@@ -644,6 +643,9 @@ func _on_chunk_mode_changed(m_mode: int) -> void:
 		"SPHERICAL":
 			selected_chunk.merge_mode = MarchingSquaresTerrainChunk.Mode.SPHERICAL
 
+#endregion
+
+#region UI-helpers
 
 func _make_vector_editor(type: String, value: Variant, setting_name: String) -> HBoxContainer:
 	var hbox_cont := HBoxContainer.new()
@@ -709,3 +711,5 @@ func _make_editor_name(var_name: String) -> String:
 func _hide_textures(texture_node: Node) -> void:
 	var texture_button := texture_node.get_child(0) as Button
 	texture_button.visible = false
+
+#endregion

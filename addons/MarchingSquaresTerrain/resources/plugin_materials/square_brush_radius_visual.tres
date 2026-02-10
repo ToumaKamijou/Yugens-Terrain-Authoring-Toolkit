@@ -1,0 +1,7 @@
+[gd_resource type="PlaneMesh" format=3 uid="uid://b6uwsa1vjeb4"]
+
+[ext_resource type="Material" uid="uid://daofaifmtbyak" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/square_brush_radius_material.tres" id="1_k6yrt"]
+
+[resource]
+material = ExtResource("1_k6yrt")
+size = Vector2(1, 1)

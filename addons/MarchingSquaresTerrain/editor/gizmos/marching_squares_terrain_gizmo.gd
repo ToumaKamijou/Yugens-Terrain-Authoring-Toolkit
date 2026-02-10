@@ -1,7 +1,7 @@
 extends EditorNode3DGizmo
 class_name MarchingSquaresTerrainGizmo
 
-const BrushPatternCalculator = preload("res://addons/MarchingSquaresTerrain/editor/utils/brush_pattern_calculator.gd")
+const BrushPatternCalculator = preload("uid://bli1mnri3jwpa")
 
 var lines : PackedVector3Array = PackedVector3Array()
 

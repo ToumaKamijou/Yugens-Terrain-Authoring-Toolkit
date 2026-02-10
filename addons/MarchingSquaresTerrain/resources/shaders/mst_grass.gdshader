@@ -5,47 +5,59 @@ render_mode diffuse_toon, depth_draw_opaque;
 // Wind animations (Change this to fit your needs!)
 // Texture albedo matching
 
-group_uniforms Albedo;
-uniform sampler2D grass_texture : source_color, filter_nearest;
-uniform vec3 grass_base_color : source_color = vec3(0.392, 0.471, 0.318);
-uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0;
-uniform bool use_base_color = false;
-uniform bool is_merge_round = false;
-group_uniforms;
-
-group_uniforms extra_grass;
-uniform sampler2D grass_texture_2 : source_color, filter_nearest;
-uniform bool use_grass_tex_2 = true;
-uniform bool use_base_color_2 = false;
+group_uniforms Visuals.Albedo;
+uniform vec3 grass_color_1 : source_color = vec3(0.392, 0.471, 0.318);
 uniform vec3 grass_color_2 : source_color = vec3(0.322, 0.482, 0.384);
-uniform sampler2D grass_texture_3 : source_color, filter_nearest;
-uniform bool use_grass_tex_3 = true;
-uniform bool use_base_color_3 = false;
 uniform vec3 grass_color_3 : source_color = vec3(0.373, 0.424, 0.294);
-uniform sampler2D grass_texture_4 : source_color, filter_nearest;
-uniform bool use_grass_tex_4 = true;
-uniform bool use_base_color_4 = false;
 uniform vec3 grass_color_4 : source_color = vec3(0.392, 0.475, 0.255);
-uniform sampler2D grass_texture_5 : source_color, filter_nearest;
-uniform bool use_grass_tex_5 = true;
-uniform bool use_base_color_5 = false;
 uniform vec3 grass_color_5 : source_color = vec3(0.29, 0.494, 0.365);
-uniform sampler2D grass_texture_6 : source_color, filter_nearest;
-uniform bool use_grass_tex_6 = true;
-uniform bool use_base_color_6 = false;
 uniform vec3 grass_color_6 : source_color = vec3(0.443, 0.447, 0.365);
 group_uniforms;
 
-group_uniforms Animation;
-uniform sampler2D wind_texture : source_color;
-uniform vec2 wind_direction = vec2(1.0, 1.0);
-uniform float wind_scale = 0.1;
-uniform float wind_speed = 1.0;
+group_uniforms Visuals.Textures;
+uniform sampler2D grass_texture_1 : source_color, filter_nearest;
+uniform sampler2D grass_texture_2 : source_color, filter_nearest;
+uniform sampler2D grass_texture_3 : source_color, filter_nearest;
+uniform sampler2D grass_texture_4 : source_color, filter_nearest;
+uniform sampler2D grass_texture_5 : source_color, filter_nearest;
+uniform sampler2D grass_texture_6 : source_color, filter_nearest;
+group_uniforms;
+
+group_uniforms Visuals.Texture_Mode;
+uniform bool use_grass_tex_2 = true;
+uniform bool use_grass_tex_3 = true;
+uniform bool use_grass_tex_4 = true;
+uniform bool use_grass_tex_5 = true;
+uniform bool use_grass_tex_6 = true;
+group_uniforms;
+
+group_uniforms Visuals.Color_Mode;
+uniform bool use_base_color_1 = false;
+uniform bool use_base_color_2 = false;
+uniform bool use_base_color_3 = false;
+uniform bool use_base_color_4 = false;
+uniform bool use_base_color_5 = false;
+uniform bool use_base_color_6 = false;
+group_uniforms;
+
+group_uniforms Animations.Settings;
 uniform bool animate_active = true;
 uniform float fps : hint_range(0.0, 30.0, 1.0)= 0.0;
 group_uniforms;
 
-group_uniforms Shading;
+group_uniforms Animations.Wind;
+uniform sampler2D wind_texture : source_color;
+uniform vec2 wind_direction = vec2(1.0, 1.0);
+uniform float wind_scale = 0.1;
+uniform float wind_speed = 1.0;
+group_uniforms;
+
+group_uniforms Effects.Experimental;
+uniform bool is_merge_round = false;
+uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0; // Used for rounding merge thresholds
+group_uniforms;
+
+group_uniforms CellShading;
 uniform vec4 shadow_color : source_color;
 uniform int bands : hint_range(1, 10) = 5;
 uniform float shadow_intensity : hint_range(-1.0, 0.5, 0.05) = 0.0;
@@ -88,7 +100,7 @@ void vertex() {
 			VERTEX += vec3(wind, 0.0, 0.0) * bend_factor;
 		}
 	}
-
+	// Billboarding: this needs to happen AFTER other animations
 	vec3 cam_z = normalize(CAMERA_DIRECTION_WORLD);
 	vec3 cam_y = vec3(0.0, 1.0, 0.0);
 	vec3 cam_x = normalize(cross(cam_y, cam_z));
@@ -100,19 +112,19 @@ void vertex() {
 	vec3 world_position = instance_origin + billboarded_vertex;
 	POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(world_position, 1.0);
 
+	// Setting varyins
 	model_origin = (MODELVIEW_MATRIX * vec4(0.,0.,0.,1.)).xyz;
 	instance_color = INSTANCE_CUSTOM.rgb;
 	instance_sprite_id = INSTANCE_CUSTOM.a;
 	instance_id = INSTANCE_ID;
-
 	vec3 world_normal = normalize((MODEL_MATRIX * vec4(NORMAL, 0.0)).xyz);
 	vertex_normal = world_normal;
 }
 
 void fragment() {
 	ALPHA_SCISSOR_THRESHOLD = 0.5;
-	vec4 grass_tex = texture(grass_texture, UV);
-	vec3 grass_color = use_base_color ? grass_base_color : instance_color * grass_base_color;
+	vec4 grass_tex = texture(grass_texture_1, UV);
+	vec3 grass_color = use_base_color_1 ? grass_color_1 : instance_color * grass_color_1;
 
 	int tex_id = 1;
 	if (instance_sprite_id > 0.9) {

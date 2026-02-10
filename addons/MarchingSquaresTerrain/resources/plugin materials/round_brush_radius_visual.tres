@@ -1,8 +1,0 @@
-[gd_resource type="CylinderMesh" format=3 uid="uid://cg3lvmu68oaaa"]
-
-[ext_resource type="Material" uid="uid://dtevocyixqsgv" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/round_brush_radius_material.tres" id="1_jqffj"]
-
-[resource]
-material = ExtResource("1_jqffj")
-height = 0.001
-rings = 1

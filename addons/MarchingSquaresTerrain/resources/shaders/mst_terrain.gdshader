@@ -1,47 +1,22 @@
 shader_type spatial;
 render_mode diffuse_toon, depth_draw_opaque, alpha_to_coverage, cull_disabled;
 
-group_uniforms Albedo;
-uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0;
+group_uniforms Terrain.Properties;
 uniform ivec3 chunk_size = ivec3(33, 32, 33);
 uniform vec2 cell_size = vec2(2.0, 2.0);
-uniform vec4 ground_albedo : source_color = vec4(0.392, 0.471, 0.318, 1.0);
-uniform vec4 ground_albedo_2 : source_color = vec4(0.322, 0.482, 0.384, 1.0);
-uniform vec4 ground_albedo_3 : source_color = vec4(0.373, 0.424, 0.294, 1.0);
-uniform vec4 ground_albedo_4 : source_color = vec4(0.392, 0.475, 0.255, 1.0);
-uniform vec4 ground_albedo_5 : source_color = vec4(0.29, 0.494, 0.365, 1.0);
-uniform vec4 ground_albedo_6 : source_color = vec4(0.443, 0.447, 0.365, 1.0);
+uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0; // Experimental feature (used for rounding merge thresholds)
 group_uniforms;
 
-group_uniforms Blending;
-// true = Original behavior (single material, hard edges, works with "Perfect Square Tiles")
-// false = Smooth blending between materials (works with "Mixed Triangles")
-uniform bool use_hard_textures = false;
-uniform int blend_mode = 0;
-uniform float blend_sharpness : hint_range(0.0, 10.0, 0.1) = 5.0;
-uniform float blend_noise_scale : hint_range(0.0, 50.0, 1.0) = 10.0;
-uniform float blend_noise_strength : hint_range(0.0, 1.0, 0.05) = 0.0;
+group_uniforms Visuals.Albedo;
+uniform vec4 tex_albedo_1 : source_color = vec4(0.392, 0.471, 0.318, 1.0);
+uniform vec4 tex_albedo_2 : source_color = vec4(0.322, 0.482, 0.384, 1.0);
+uniform vec4 tex_albedo_3 : source_color = vec4(0.373, 0.424, 0.294, 1.0);
+uniform vec4 tex_albedo_4 : source_color = vec4(0.392, 0.475, 0.255, 1.0);
+uniform vec4 tex_albedo_5 : source_color = vec4(0.29, 0.494, 0.365, 1.0);
+uniform vec4 tex_albedo_6 : source_color = vec4(0.443, 0.447, 0.365, 1.0);
 group_uniforms;
 
-group_uniforms Texture_Scales;
-uniform float texture_scale_1 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_2 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_3 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_4 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_5 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_6 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_7 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_8 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_9 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_10 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_11 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_12 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_13 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_14 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_15 : hint_range(0.1, 20.0, 0.1) = 1.0;
-group_uniforms;
-
-group_uniforms Vertex_Colors;
+group_uniforms Visuals.Vertex_Painting;
 uniform sampler2D vc_tex_rr : source_color, filter_nearest;
 uniform sampler2D vc_tex_rg : source_color, filter_nearest;
 uniform sampler2D vc_tex_rb : source_color, filter_nearest;
@@ -60,7 +35,35 @@ uniform sampler2D vc_tex_ab : source_color, filter_nearest;
 uniform sampler2D vc_tex_aa : source_color, filter_nearest;
 group_uniforms;
 
-group_uniforms Shading;
+group_uniforms Visuals.Texture_Scales;
+uniform float tex_scale_1 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_2 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_3 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_4 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_5 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_6 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_7 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_8 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_9 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_10 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_11 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_12 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_13 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_14 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_15 : hint_range(0.1, 20.0, 0.1) = 1.0;
+group_uniforms;
+
+group_uniforms Effects.Blending;
+// true = Original behavior (single material, hard edges, works with "Perfect Square Tiles")
+// false = Smooth blending between materials (works with "Mixed Triangles")
+uniform bool use_hard_textures = false;
+uniform int blend_mode = 0;
+uniform float blend_sharpness : hint_range(0.0, 10.0, 0.1) = 5.0;
+uniform float blend_noise_scale : hint_range(0.0, 50.0, 1.0) = 10.0;
+uniform float blend_noise_strength : hint_range(0.0, 1.0, 0.05) = 0.0;
+group_uniforms;
+
+group_uniforms CellShading;
 uniform vec4 shadow_color : source_color;
 uniform int bands : hint_range(1, 10) = 5;
 uniform float shadow_intensity : hint_range(-1.0, 0.5, 0.05) = 0.00;
@@ -131,21 +134,21 @@ int get_material_index(vec4 vc_col_0, vec4 vc_col_1) {
 // Get per-texture UV scale
 float get_texture_scale(int index) {
 	switch(index) {
-		case 0: return texture_scale_1;
-		case 1: return texture_scale_2;
-		case 2: return texture_scale_3;
-		case 3: return texture_scale_4;
-		case 4: return texture_scale_5;
-		case 5: return texture_scale_6;
-		case 6: return texture_scale_7;
-		case 7: return texture_scale_8;
-		case 8: return texture_scale_9;
-		case 9: return texture_scale_10;
-		case 10: return texture_scale_11;
-		case 11: return texture_scale_12;
-		case 12: return texture_scale_13;
-		case 13: return texture_scale_14;
-		case 14: return texture_scale_15;
+		case 0: return tex_scale_1;
+		case 1: return tex_scale_2;
+		case 2: return tex_scale_3;
+		case 3: return tex_scale_4;
+		case 4: return tex_scale_5;
+		case 5: return tex_scale_6;
+		case 6: return tex_scale_7;
+		case 7: return tex_scale_8;
+		case 8: return tex_scale_9;
+		case 9: return tex_scale_10;
+		case 10: return tex_scale_11;
+		case 11: return tex_scale_12;
+		case 12: return tex_scale_13;
+		case 13: return tex_scale_14;
+		case 14: return tex_scale_15;
 		default: return 1.0;
 	}
 }
@@ -158,12 +161,12 @@ vec4 sample_material_by_index(int index, vec2 base_uv) {
 	vec2 uv = base_uv * scale;
 	vec4 result;
 	switch(index) {
-		case 0: result = texture(vc_tex_rr, uv) * ground_albedo; break;
-		case 1: result = texture(vc_tex_rg, uv) * ground_albedo_2; break;
-		case 2: result = texture(vc_tex_rb, uv) * ground_albedo_3; break;
-		case 3: result = texture(vc_tex_ra, uv) * ground_albedo_4; break;
-		case 4: result = texture(vc_tex_gr, uv) * ground_albedo_5; break;
-		case 5: result = texture(vc_tex_gg, uv) * ground_albedo_6; break;
+		case 0: result = texture(vc_tex_rr, uv) * tex_albedo_1; break;
+		case 1: result = texture(vc_tex_rg, uv) * tex_albedo_2; break;
+		case 2: result = texture(vc_tex_rb, uv) * tex_albedo_3; break;
+		case 3: result = texture(vc_tex_ra, uv) * tex_albedo_4; break;
+		case 4: result = texture(vc_tex_gr, uv) * tex_albedo_5; break;
+		case 5: result = texture(vc_tex_gg, uv) * tex_albedo_6; break;
 		case 6: result = texture(vc_tex_gb, uv); break;
 		case 7: result = texture(vc_tex_ga, uv); break;
 		case 8: result = texture(vc_tex_br, uv); break;
@@ -174,7 +177,7 @@ vec4 sample_material_by_index(int index, vec2 base_uv) {
 		case 13: result = texture(vc_tex_ag, uv); break;
 		case 14: result = texture(vc_tex_ab, uv); break;
 		case 15: result = texture(vc_tex_aa, uv); break;  // VOID: fully transparent, no color contribution to blending
-		default: result = texture(vc_tex_rr, uv) * ground_albedo; break;
+		default: result = texture(vc_tex_rr, uv) * tex_albedo_1; break;
 	}
 	return result;
 }

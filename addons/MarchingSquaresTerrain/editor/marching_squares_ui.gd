@@ -3,11 +3,11 @@ extends Node
 class_name MarchingSquaresUI
 
 
-const TOOLBAR : Script = preload("res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_toolbar.gd")
-const TOOL_ATTRIBUTES : Script = preload("res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tool_attributes.gd")
-const TEXTURE_SETTINGS : Script = preload("res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_settings.gd")
+const TOOLBAR : Script = preload("uid://3d77dnetkeik")
+const TOOL_ATTRIBUTES : Script = preload("uid://buxevb44hutjm")
+const TEXTURE_SETTINGS : Script = preload("uid://blvx0jk6wxk5p")
 
-#region Texture Setting Property Maps
+#region texture setting property maps
 # Property names that map directly to terrain properties with same name
 const TEXTURE_PROPERTIES := [
 	"ground_texture", "texture_2", "texture_3", "texture_4", "texture_5", "texture_6",
@@ -108,6 +108,7 @@ func set_visible(is_visible: bool) -> void:
 		tool_attributes.show()
 		_on_tool_changed(active_tool)
 
+#region on-signal functions
 
 func _on_tool_changed(tool_index: int) -> void:
 	active_tool = tool_index
@@ -268,3 +269,5 @@ func _on_texture_setting_changed(p_setting_name: String, p_value: Variant) -> vo
 			terrain.set(p_setting_name, float(p_value))
 
 	terrain.save_to_preset()
+
+#endregion

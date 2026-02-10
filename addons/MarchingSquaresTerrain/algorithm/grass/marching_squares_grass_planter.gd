@@ -2,6 +2,7 @@
 extends MultiMeshInstance3D
 class_name MarchingSquaresGrassPlanter
 
+
 # Alpha values for grass sprites by texture ID (1-6)
 const GRASS_ALPHA_VALUES := [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
@@ -14,7 +15,7 @@ func setup(chunk: MarchingSquaresTerrainChunk, redo: bool = true):
 	terrain_system = _chunk.terrain_system
 	
 	if not _chunk or not terrain_system:
-		printerr("ERROR: SETUP FAILED - no chunk or terrain system found for GrassPlanter")
+		printerr("SETUP FAILED - no chunk or terrain system found for GrassPlanter")
 		return
 	
 	if (redo and multimesh) or !multimesh:
@@ -36,11 +37,11 @@ func setup(chunk: MarchingSquaresTerrainChunk, redo: bool = true):
 func regenerate_all_cells() -> void:
 	# Safety checks:
 	if not _chunk:
-		printerr("ERROR: _chunk not set while regenerating cells")
+		printerr("_chunk not set while regenerating cells")
 		return
 	
 	if not terrain_system:
-		printerr("ERROR: terrain_system not set while regenerating cells")
+		printerr("terrain_system not set while regenerating cells")
 		return
 	
 	if not multimesh:
@@ -57,25 +58,25 @@ func regenerate_all_cells() -> void:
 func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 	# Safety checks:
 	if not _chunk:
-		printerr("ERROR: MarchingSquaresGrassPlanter couldn't find a reference to _chunk")
+		printerr("MarchingSquaresGrassPlanter couldn't find a reference to _chunk")
 		return
 	
 	if not terrain_system:
-		printerr("ERROR: MarchingSquaresGrassPlanter couldn't find a reference to terrain_system")
+		printerr("MarchingSquaresGrassPlanter couldn't find a reference to terrain_system")
 		return
 	
 	if not _chunk.cell_geometry:
-		printerr("ERROR: MarchingSquaresGrassPlanter couldn't find a reference to cell_geometry")
+		printerr("MarchingSquaresGrassPlanter couldn't find a reference to cell_geometry")
 		return
 	
 	if not _chunk.cell_geometry.has(cell_coords):
-		printerr("ERROR: MarchingSquaresGrassPlanter couldn't find a reference to cell_coords")
+		printerr("MarchingSquaresGrassPlanter couldn't find a reference to cell_coords")
 		return
 	
 	var cell_geometry = _chunk.cell_geometry[cell_coords]
 	
 	if not cell_geometry.has("verts") or not cell_geometry.has("uvs") or not cell_geometry.has("colors_0") or not cell_geometry.has("colors_1") or not cell_geometry.has("grass_mask") or not cell_geometry.has("is_floor"):
-		printerr("ERROR: [MarchingSquaresGrassPlanter] cell_geometry doesn't have one of the following required data: 1) verts, 2) uvs, 3) colors, 4) grass_mask, 5) is_floor")
+		printerr("[MarchingSquaresGrassPlanter] cell_geometry doesn't have one of the following required data: 1) verts, 2) uvs, 3) colors, 4) grass_mask, 5) is_floor")
 		return
 	
 	var points: PackedVector2Array = []
@@ -168,6 +169,7 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 		_hide_grass_instance(index)
 		index += 1
 
+#region grass property getters
 
 func _get_terrain_image(texture_id: int) -> Image:
 	var terrain_texture : Texture2D = null
@@ -186,7 +188,6 @@ func _get_terrain_image(texture_id: int) -> Image:
 		_: # Base grass
 			terrain_texture = material.get_shader_parameter("vc_tex_rr")
 	if terrain_texture == null:
-		printerr("ERROR: [MarchingSquaresGrassPlanter] couldn't find the terrain's ShaderMaterial texture " + str(texture_id))
 		return null
 	
 	var img : Image = terrain_texture.get_image()
@@ -234,9 +235,6 @@ func _get_texture_id(vc_col_0: Color, vc_col_1: Color) -> int:
 		elif vc_col_1.a > 0.9999:
 			id = 16;
 	return id;
-
-
-#region Grass Placement Helpers
 
 ## Checks if the given texture ID should have grass placed on it
 func _has_grass_for_texture(texture_id: int, force_grass_on: bool) -> bool:
@@ -295,6 +293,9 @@ func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale
 
 	return terrain_image.get_pixelv(Vector2(px, py))
 
+#endregion
+
+#region grass placement helpers
 
 ## Creates a grass instance at the given position with proper transform and color
 func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:

@@ -5,15 +5,17 @@ class_name MarchingSquaresTerrainPlugin
 
 static var instance : MarchingSquaresTerrainPlugin
 
-const EMPTY_TEXTURE_PRESET : MarchingSquaresTexturePreset = preload("res://addons/MarchingSquaresTerrain/resources/empty_project.tres")
-const BrushPatternCalculator = preload("res://addons/MarchingSquaresTerrain/editor/utils/brush_pattern_calculator.gd")
+const EMPTY_TEXTURE_PRESET : MarchingSquaresTexturePreset = preload("uid://db4scsn2nqqyu")
+const BrushPatternCalculator = preload("uid://bli1mnri3jwpa")
+
+var vp_texture_names = preload("uid://dd7fens03aosa")
 
 var gizmo_plugin := MarchingSquaresTerrainGizmoPlugin.new()
 var toolbar := MarchingSquaresToolbar.new()
 var tool_attributes := MarchingSquaresToolAttributes.new()
 var active_tool : int = 0
 
-var UI : Script = preload("res://addons/MarchingSquaresTerrain/editor/marching_squares_ui.gd")
+var UI : Script = preload("uid://bmedudg6sllf8")
 var ui : MarchingSquaresUI
 
 var is_initialized : bool = false
@@ -21,6 +23,31 @@ var initialization_error : String = ""
 
 var current_terrain_node : MarchingSquaresTerrain
 
+# Flag to prevent _set_new_textures() when syncing preset from terrain node
+var _syncing_from_terrain : bool = false
+
+#region brush variables
+var BrushMode : Dictionary = {
+	"0" = preload("uid://cg3lvmu68oaaa"),
+	"1" = preload("uid://b6uwsa1vjeb4"),
+}
+
+var BrushMat : Dictionary = {
+	"0" = preload("uid://dtevocyixqsgv"),
+	"1" = preload("uid://daofaifmtbyak"),
+}
+
+var current_brush_index : int = 0
+
+var brush_position : Vector3
+
+const BRUSH_VISUAL : Mesh = preload("uid://ch6cb07rh0m3l")
+var BRUSH_RADIUS_VISUAL : Mesh = preload("uid://cg3lvmu68oaaa")
+var BRUSH_RADIUS_MATERIAL : ShaderMaterial = preload("uid://dtevocyixqsgv")
+@onready var falloff_curve : Curve = preload("uid://c0bexjsfvvcxb")
+#endregion
+
+#region tool_mode vars
 enum TerrainToolMode {
 	BRUSH = 0,
 	LEVEL = 1,
@@ -33,16 +60,6 @@ enum TerrainToolMode {
 	TERRAIN_SETTINGS = 8,
 }
 
-var BrushMode : Dictionary = {
-	"0" = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/round_brush_radius_visual.tres"),
-	"1" = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/square_brush_radius_visual.tres"),
-}
-
-var BrushMat : Dictionary = {
-	"0" = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/round_brush_radius_material.tres"),
-	"1" = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/square_brush_radius_material.tres"),
-}
-
 var mode : TerrainToolMode = TerrainToolMode.BRUSH:
 	set(value):
 		mode = value
@@ -50,16 +67,9 @@ var mode : TerrainToolMode = TerrainToolMode.BRUSH:
 		if mode == TerrainToolMode.VERTEX_PAINTING:
 			falloff = false
 			BRUSH_RADIUS_MATERIAL.set_shader_parameter("falloff_visible", false)
+#endregion
 
-var vp_texture_names = preload("res://addons/MarchingSquaresTerrain/resources/texture_names.tres")
-
-var current_brush_index : int = 0
-
-var is_chunk_plane_hovered : bool
-var current_hovered_chunk : Vector2i
-
-var brush_position : Vector3
-
+#region tool attribute vars
 # Tool attribute variables
 var brush_size : float = 15.0
 var ease_value : float = -1.0 # No ease
@@ -70,8 +80,6 @@ var falloff : bool = true
 
 var should_mask_grass : bool = false
 
-# Flag to prevent _set_new_textures() when syncing preset from terrain node
-var _syncing_from_terrain : bool = false
 
 # Currently selected preset for vertex textures (DOES change the global terrain)
 var current_texture_preset : MarchingSquaresTexturePreset = EMPTY_TEXTURE_PRESET.duplicate():
@@ -88,7 +96,6 @@ var current_quick_paint : MarchingSquaresQuickPaint = null
 var paint_walls_mode : bool = false:
 	set(value):
 		paint_walls_mode = value
-		
 
 var vertex_color_idx : int = 0:
 	set(value):
@@ -96,13 +103,17 @@ var vertex_color_idx : int = 0:
 		_set_vertex_colors(value)
 var vertex_color_0 : Color = Color(1.0, 0.0, 0.0, 0.0)
 var vertex_color_1 : Color = Color(1.0, 0.0, 0.0, 0.0)
+#endregion
 
+#region draw-related vars
 # A dictionary with keys for each tile that is currently being drawn to with the brush 
 # In brush mode, the value is the height that preview was drawn to, aka the height BEFORE it is set
 # In ground texture mode, the value is the color of the point BEFORE the draw
 var current_draw_pattern : Dictionary
 
 var terrain_hovered : bool
+var is_chunk_plane_hovered : bool
+var current_hovered_chunk : Vector2i
 
 # True if the mouse is currently held down to draw
 var is_drawing : bool
@@ -121,18 +132,16 @@ var bridge_start_pos : Vector3
 
 # The point where the height drag started
 var base_position : Vector3
+#endregion
 
-const BRUSH_VISUAL : Mesh = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/brush_visual.tres")
-var BRUSH_RADIUS_VISUAL : Mesh = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/round_brush_radius_visual.tres")
-var BRUSH_RADIUS_MATERIAL : ShaderMaterial = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/round_brush_radius_material.tres")
-@onready var falloff_curve : Curve = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/curve_falloff.tres")
-
+#region raycast variables
 # Use script-wide variables to provide data to the physics process function
 var raycast_queued := false
 var ray_origin : Vector3
 var ray_dir : Vector3
 var ray_camera : Camera3D
 var queued_ray_result := {}
+#endregion
 
 
 func _enter_tree():
@@ -165,10 +174,10 @@ func _safe_initialize() -> bool:
 		initialization_error = "No tree detected while initializing"
 		return false
 	
-	var terrain_script := preload("res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd")
-	var chunk_script := preload("res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd")
-	var terrain_icon := preload("res://addons/MarchingSquaresTerrain/editor/icons/Marching_Squares_Terrain_Icon.svg")
-	var chunk_icon := preload("res://addons/MarchingSquaresTerrain/editor/icons/Marching_Squares_Terrain_Chunk_Icon.svg")
+	var terrain_script := preload("uid://cddg1xr5hye1d")
+	var chunk_script := preload("uid://cql4d8s5t5xcx")
+	var terrain_icon := preload("uid://jfugomwkrm54")
+	var chunk_icon := preload("uid://dj8y22ded0j8r")
 	
 	if terrain_script and chunk_script:
 		add_custom_type("MarchingSquaresTerrain", "Node3D", terrain_script, terrain_icon)
@@ -240,6 +249,7 @@ func _physics_process(delta: float) -> void:
 	
 	queued_ray_result = space_state.intersect_ray(query)
 
+#region input-handlers
 
 func _edit(object: Object) -> void:
 	if not is_initialized:
@@ -481,6 +491,9 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 	
 	return EditorPlugin.AFTER_GUI_INPUT_PASS
 
+#endregion
+
+#region draw-related functions
 
 # Calculates brush pattern and updates current_draw_pattern
 func update_draw_pattern(b_pos: Vector3):
@@ -1072,6 +1085,9 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 	for chunk in affected_chunks.values():
 		chunk.regenerate_mesh()
 
+#endregion
+
+#region vertex/texture setters and getters
 
 func _set_vertex_colors(vc_idx: int) -> void:
 	match vc_idx:
@@ -1139,7 +1155,7 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 					var tex : Texture2D = _preset.new_textures.terrain_textures[i_tex]
 					match i_tex:
 						0:
-							current_terrain_node.ground_texture = tex
+							current_terrain_node.texture_1 = tex
 						1:
 							current_terrain_node.texture_2 = tex
 						2:
@@ -1209,7 +1225,7 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 						continue
 					match i_grass_tex:
 						0:
-							current_terrain_node.grass_sprite = tex
+							current_terrain_node.grass_sprite_tex_1 = tex
 						1:
 							current_terrain_node.grass_sprite_tex_2 = tex
 						2:
@@ -1227,17 +1243,17 @@ func _set_new_textures(_preset: MarchingSquaresTexturePreset) -> void:
 						continue
 					match i_grass_col:
 						0:
-							current_terrain_node.ground_color = col
+							current_terrain_node.texture_albedo_1 = col
 						1:
-							current_terrain_node.ground_color_2 = col
+							current_terrain_node.texture_albedo_2 = col
 						2:
-							current_terrain_node.ground_color_3 = col
+							current_terrain_node.texture_albedo_3 = col
 						3:
-							current_terrain_node.ground_color_4 = col
+							current_terrain_node.texture_albedo_4 = col
 						4:
-							current_terrain_node.ground_color_5 = col
+							current_terrain_node.texture_albedo_5 = col
 						5:
-							current_terrain_node.ground_color_6 = col
+							current_terrain_node.texture_albedo_6 = col
 			4: # has_grass
 				for i_has_grass in range(_preset.new_textures.has_grass.size()):
 					var val : bool = _preset.new_textures.has_grass[i_has_grass]
@@ -1289,3 +1305,5 @@ func get_cell_normal(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> Vect
 	
 	var normal := Vector3(-sx, 1.0, -sz).normalized()
 	return normal
+
+#endregion

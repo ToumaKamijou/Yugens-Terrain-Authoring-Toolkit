@@ -3,7 +3,7 @@ extends Resource
 class_name MarchingSquaresQuickPaint
 
 
-const TEXTURE_NAMES = preload("res://addons/MarchingSquaresTerrain/resources/texture_names.tres")
+const TEXTURE_NAMES = preload("uid://dd7fens03aosa")
 
 @export var paint_name : String = "New Paint"
 

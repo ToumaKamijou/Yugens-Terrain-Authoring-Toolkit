@@ -28,6 +28,7 @@ const MERGE_MODE = {
 			merge_threshold = MERGE_MODE[mode]
 			regenerate_all_cells(true)
 @export_storage var height_map : Array # Stores the heights from the heightmap
+#region cell_geometry storage
 # Color maps are now ephemeral and created at runtime
 # Persisted via MSTDataHandler
 var color_map_0 : PackedColorArray # Stores the colors from vertex_color_0 (ground)
@@ -35,15 +36,19 @@ var color_map_1 : PackedColorArray # Stores the colors from vertex_color_1 (grou
 var wall_color_map_0 : PackedColorArray # Stores the colors for wall vertices (slot encoding channel 0)
 var wall_color_map_1 : PackedColorArray # Stores the colors for wall vertices (slot encoding channel 1)
 var grass_mask_map : PackedColorArray # Stores if a cell should have grass or not
+#endregion
 
 var merge_threshold : float = MERGE_MODE[Mode.POLYHEDRON]
 
-var grass_planter : MarchingSquaresGrassPlanter = preload("res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.tscn").instantiate()
+var grass_planter : MarchingSquaresGrassPlanter = preload("uid://b0dc71ti1ofmh").instantiate()
 
 var higher_poly_floors : bool = true
 
+var global_position_cached : Vector3 = position
+
 var cell_generation_mutex : Mutex = Mutex.new()
 
+#region chunk variables
 # Size of the 2 dimensional cell array (xz value) and y scale (y value)
 var dimensions : Vector3i:
 	get:
@@ -54,11 +59,13 @@ var cell_size : Vector2:
 		return terrain_system.cell_size
 
 var new_chunk : bool = false
+#endregion
 
 var st : SurfaceTool # The surfacetool used to construct the current terrain
 
 var cell_geometry : Dictionary = {} # Stores all generated tiles so that their geometry can quickly be reused
 
+#region cell variables
 # Cell height range for boundary detection (height-based color sampling)
 var cell_min_height : float
 var cell_max_height : float
@@ -77,23 +84,26 @@ var cell_is_boundary : bool = false
 var cell_mat_a : int = 0
 var cell_mat_b : int = 0
 var cell_mat_c : int = 0
-
+#endregion
 
 var needs_update : Array[Array] # Stores which tiles need to be updated because one of their corners' heights was changed.
 var _skip_save_on_exit : bool = false # Set to true when chunk is removed temporarily (undo/redo)
 var _data_dirty : bool = false # Set to true when source data changes, triggers save in MSTDataHandler
 
+#region temporary storage vars
 # Temporary storage for ephemeral resources during scene save
 var _temp_mesh : ArrayMesh
 var _temp_grass_multimesh : MultiMesh
 var _temp_collision_shapes : Array[ConcavePolygonShape3D] = []  #old scenes may have duplicates
 var _temp_height_map : Array  # Source data - saved to external storage, not scene file
+#endregion
 
+#region blend option vars
 # Terrain blend options to allow for smooth color and height blend influence at transitions and at different heights 
 var lower_thresh : float = 0.3 # Sharp bands: < 0.3 = lower color
 var upper_thresh : float = 0.7 #, > 0.7 = upper color, middle = blend
 var blend_zone = upper_thresh - lower_thresh
-
+#endregion
 
 # Called by TerrainSystem parent
 func initialize_terrain(should_regenerate_mesh: bool = true):
@@ -291,6 +301,7 @@ func generate_terrain_cells(use_threads: bool):
 	if not cell_geometry:
 		cell_geometry = {}
 	
+	global_position_cached = position
 	var thread_pool := MarchingSquaresThreadPool.new(max(1, OS.get_processor_count()))
 	
 	for z in range(dimensions.z - 1):
@@ -409,7 +420,7 @@ func generate_terrain_cells(use_threads: bool):
 		thread_pool.start()
 		thread_pool.wait()
 
-#region Color Interpolation Helpers
+#region color interpolation Helpers
 
 ## Returns [source_map_0, source_map_1] based on floor/wall/ridge state
 func _get_color_sources(is_floor: bool, is_ridge: bool) -> Array[PackedColorArray]:
@@ -497,7 +508,6 @@ func _interpolate_vertex_color(
 
 #endregion
 
-
 func add_polygons(cell_coords: Vector2i, pts:Array[Vector3], uvs: Array[Vector2], diag_mids: Array[bool], blends: Array[bool], floors: Array[bool]):
 		assert(pts.size() % 3 == 0)
 		assert(pts.size() == uvs.size())
@@ -560,7 +570,7 @@ func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float
 		uv2 = Vector2(vert.x, vert.z) / cell_size
 	else:
 		# This avoids is_inside_tree() errors when inactive scene tabs are loaded
-		var chunk_pos : Vector3 = global_position if is_inside_tree() else position
+		var chunk_pos : Vector3 = global_position_cached if is_inside_tree() else position
 		var global_pos = vert + chunk_pos
 		uv2 = (Vector2(global_pos.x, global_pos.y) + Vector2(global_pos.z, global_pos.y))
 	
@@ -576,6 +586,7 @@ func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float
 	cell_geometry[cell_coords]["mat_blend"].append(mat_blend)
 	cell_geometry[cell_coords]["is_floor"].append(floor_mode)
 
+#region cell_geometry helpers and calculation functions
 
 func get_dominant_color(c: Color) -> Color:
 	var max_val := c.r
@@ -724,6 +735,7 @@ func calculate_material_blend_data(cell_coords: Vector2i, vert_x: float, vert_z:
 	
 	return Color(packed_mats, float(cell_mat_c) / 15.0, weight_mat_a, weight_mat_b)
 
+#endregion
 
 # If true, currently making floor geometry. if false, currently making wall geometry.
 var floor_mode : bool = true
@@ -737,6 +749,7 @@ func _start_wall():
 	floor_mode = false
 	st.set_smooth_group(-1)
 
+#region cell_geometry generators (on being empty)
 
 func generate_height_map():
 	height_map = []
@@ -786,6 +799,9 @@ func generate_grass_mask_map():
 		for x in range(dimensions.x):
 			grass_mask_map[z*dimensions.x + x] = Color(1.0, 1.0, 1.0, 1.0)
 
+#endregion
+
+#region cell_geometry getters
 
 func get_height(cc: Vector2i) -> float:
 	return height_map[cc.y][cc.x]
@@ -810,6 +826,9 @@ func get_wall_color_1(cc: Vector2i) -> Color:
 func get_grass_mask(cc: Vector2i) -> Color:
 	return grass_mask_map[cc.y*dimensions.x + cc.x]
 
+#endregion
+
+#region cell_geometry setters
 
 # Draw to height.
 # Returns the coordinates of all additional chunks affected by this height change.
@@ -868,6 +887,7 @@ func draw_grass_mask(x: int, z: int, masked: Color):
 	notify_needs_update(z-1, x)
 	notify_needs_update(z-1, x-1)
 
+#endregion
 
 func notify_needs_update(z: int, x: int):
 	if z < 0 or z >= terrain_system.dimensions.z-1 or x < 0 or x >= terrain_system.dimensions.x-1:

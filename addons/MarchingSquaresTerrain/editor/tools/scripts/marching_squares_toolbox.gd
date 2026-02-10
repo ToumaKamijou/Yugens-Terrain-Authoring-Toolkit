@@ -5,15 +5,15 @@ class_name MarchingSquaresToolbox
 
 var tools : Array[MarchingSquaresTool] = [
 	# Landscaping tools
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/brush_tool.tres"),
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/level_tool.tres"),
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/smooth_tool.tres"),
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/bridge_tool.tres"),
+	preload("uid://bffrekor2ywbf"), # Brush tool
+	preload("uid://s20yvwyymlxn"), # Level tool
+	preload("uid://bsitspr8c32u6"), # Smooth tool
+	preload("uid://b0bj3ba8e7y17"), # Bridge tool
 	# Terrain visuals tools
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/grass_mask_tool.tres"),
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/vertex_paint_tool.tres"),
+	preload("uid://c3rtgj17vcsk6"), # Grass mask tool
+	preload("uid://bhf01bmk6l3gv"), # Vertex paint tool
 	# General plugin tools
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/debug_brush_tool.tres"),
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/chunk_manager_tool.tres"),
-	preload("res://addons/MarchingSquaresTerrain/editor/tools/terrain_settings_tool.tres"),
+	preload("uid://ktb4desoyt1j"), # Debug brush tool
+	preload("uid://ups2hlmespdm"), # Chunk manager tool
+	preload("uid://vh1ngh2y52b8"), # Terrain settings tool
 ]
