@@ -118,7 +118,7 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 		grass_planter = get_node_or_null("GrassPlanter")
 		if grass_planter:
 			grass_planter._chunk = self
-
+	
 	# Generate maps if not loaded from external storage (works for both editor and runtime)
 	if not height_map:
 		generate_height_map()
@@ -128,7 +128,7 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 		generate_wall_color_maps()
 	if not grass_mask_map:
 		generate_grass_mask_map()
-
+	
 	if not mesh and should_regenerate_mesh:
 		regenerate_mesh(true)
 	elif mesh:
@@ -146,7 +146,7 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 					for _child in child.get_children():
 						if _child is CollisionShape3D:
 							_child.set_visible(false)
-
+	
 	grass_planter.setup(self, true)
 	grass_planter.regenerate_all_cells()
 
@@ -154,22 +154,22 @@ func initialize_terrain(should_regenerate_mesh: bool = true):
 func _notification(what: int) -> void:
 	if not Engine.is_editor_hint():
 		return
-
+	
 	match what:
 		NOTIFICATION_EDITOR_PRE_SAVE:
 			# Store height_map and clear - source data saved to external storage, not scene
 			_temp_height_map = height_map
 			height_map = []
-
+			
 			# Store mesh and clear to prevent serialization
 			_temp_mesh = mesh
 			mesh = null
-
+			
 			# Store grass multimesh and clear
 			if grass_planter and grass_planter.multimesh:
 				_temp_grass_multimesh = grass_planter.multimesh
 				grass_planter.multimesh = null
-
+			
 			# Handle ALL collision bodies (old scenes may have multiple duplicates!)
 			_temp_collision_shapes.clear()
 			var bodies_to_free : Array[StaticBody3D] = []
@@ -185,27 +185,27 @@ func _notification(what: int) -> void:
 			# Free all bodies (after iteration to avoid modifying while iterating)
 			for body in bodies_to_free:
 				body.queue_free()
-
+		
 		NOTIFICATION_EDITOR_POST_SAVE:
 			# Restore height_map
 			if _temp_height_map:
 				height_map = _temp_height_map
 				_temp_height_map = []
-
+			
 			# Restore mesh
 			if _temp_mesh:
 				mesh = _temp_mesh
 				_temp_mesh = null
-
+			
 			# Restore grass multimesh
 			if _temp_grass_multimesh and grass_planter:
 				grass_planter.multimesh = _temp_grass_multimesh
 				_temp_grass_multimesh = null
-
+			
 			# Recreate ONE collision body (only need one, even if old scene had duplicates)
 			if not _temp_collision_shapes.is_empty():
 				call_deferred("_recreate_collision_body")
-
+		
 		NOTIFICATION_PREDELETE:
 			# Safety cleanup - clear owner on ALL collision nodes
 			for child in get_children():
@@ -222,7 +222,7 @@ func _exit_tree() -> void:
 	_temp_mesh = null
 	_temp_grass_multimesh = null
 	_temp_collision_shapes.clear()
-
+	
 	# Clear owner on ALL collision nodes to prevent serialization edge cases
 	if Engine.is_editor_hint():
 		for child in get_children():
@@ -231,7 +231,7 @@ func _exit_tree() -> void:
 				for shape_child in child.get_children():
 					if shape_child is CollisionShape3D:
 						shape_child.owner = null
-
+	
 	# Only erase if terrain_system still has THIS chunk at chunk_coords
 	if terrain_system and terrain_system.chunks.get(chunk_coords) == self:
 		terrain_system.chunks.erase(chunk_coords)
@@ -423,11 +423,11 @@ func generate_terrain_cells(use_threads: bool):
 #region color interpolation Helpers
 
 ## Returns [source_map_0, source_map_1] based on floor/wall/ridge state
-func _get_color_sources(is_floor: bool, is_ridge: bool) -> Array[PackedColorArray]:
-	var use_wall_colors := (not is_floor) or is_ridge
-	if terrain_system.blend_mode == 1 and is_floor and not is_ridge:
+func _get_color_sources(is_floor: bool, is_ridge: bool, is_ledge: bool) -> Array[PackedColorArray]:
+	var use_wall_colors := not is_floor
+	if terrain_system.blend_mode == 1 and is_floor and not is_ridge and not is_ledge:
 		use_wall_colors = false  # Only force floor colors for non-ridge floor vertices
-
+	
 	var src_0 : PackedColorArray = wall_color_map_0 if use_wall_colors else color_map_0
 	var src_1 : PackedColorArray = wall_color_map_1 if use_wall_colors else color_map_1
 	return [src_0, src_1]
@@ -438,7 +438,7 @@ func _calc_diagonal_color(cell_coords: Vector2i, source_map: PackedColorArray) -
 	if terrain_system.blend_mode == 1:
 		# Hard edge mode uses same color as cell's top-left corner
 		return source_map[cell_coords.y * dimensions.x + cell_coords.x]
-
+	
 	# Smooth blend mode - lerp diagonal corners for smoother effect
 	var idx := cell_coords.y * dimensions.x + cell_coords.x
 	var ad_color : Color = lerp(source_map[idx], source_map[idx + dimensions.x + 1], 0.5)
@@ -456,11 +456,11 @@ func _calc_boundary_color(cell_coords: Vector2i, y: float, source_map: PackedCol
 	if terrain_system.blend_mode == 1:
 		# Hard edge mode uses cell's corner color
 		return source_map[cell_coords.y * dimensions.x + cell_coords.x]
-
+	
 	# HEIGHT-BASED SAMPLING for smooth blend mode
 	var height_range := cell_max_height - cell_min_height
 	var height_factor : float = clamp((y - cell_min_height) / height_range, 0.0, 1.0)
-
+	
 	# Sharp bands: < lower_thresh = lower color, > upper_thresh = upper color, middle = blend
 	var color: Color
 	if height_factor < lower_thresh:
@@ -470,7 +470,7 @@ func _calc_boundary_color(cell_coords: Vector2i, y: float, source_map: PackedCol
 	else:
 		var blend_factor : float = (height_factor - lower_thresh) / blend_zone
 		color = lerp(lower_color, upper_color, blend_factor)
-
+	
 	return get_dominant_color(color)
 
 
@@ -479,7 +479,7 @@ func _calc_bilinear_color(cell_coords: Vector2i, x: float, z: float, source_map:
 	var idx := cell_coords.y * dimensions.x + cell_coords.x
 	var ab_color : Color = lerp(source_map[idx], source_map[idx + 1], x)
 	var cd_color : Color = lerp(source_map[idx + dimensions.x], source_map[idx + dimensions.x + 1], x)
-
+	
 	if terrain_system.blend_mode != 1:
 		return get_dominant_color(lerp(ab_color, cd_color, z))  # Mixed triangles
 	return source_map[idx]  # Perfect square tiles
@@ -497,13 +497,13 @@ func _interpolate_vertex_color(
 	if new_chunk:
 		source_map[cell_coords.y * dimensions.x + cell_coords.x] = Color(1.0, 0.0, 0.0, 0.0)
 		return Color(1.0, 0.0, 0.0, 0.0)
-
+	
 	if diag_midpoint:
 		return _calc_diagonal_color(cell_coords, source_map)
-
+	
 	if cell_is_boundary:
 		return _calc_boundary_color(cell_coords, y, source_map, lower_color, upper_color)
-
+	
 	return _calc_bilinear_color(cell_coords, x, z, source_map)
 
 #endregion
@@ -523,6 +523,7 @@ func add_polygons(cell_coords: Vector2i, pts:Array[Vector3], uvs: Array[Vector2]
 			_add_point(cell_coords, pts[i].x, pts[i].y, pts[i].z, uvs[i].x, uvs[i].y, diag_mids[i], blends[i])
 		cell_generation_mutex.unlock()
 
+
 # Adds a point. Coordinates are relative to the top-left corner (not mesh origin relative)
 # UV.x is closeness to the bottom of an edge. UV.Y is closeness to the edge of a cliff
 func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float, uv_y: float, diag_midpoint: bool = false, cell_has_walls_for_blend: bool = false):
@@ -530,30 +531,31 @@ func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float
 	# Walls will always have UV of 1, 1
 	var uv := Vector2(uv_x, uv_y) if floor_mode else Vector2(1, 1)
 	st.set_uv(uv)
-
+	
 	# Detect ridge BEFORE selecting color maps (ridge needs wall colors, not ground colors)
-	var is_ridge := floor_mode and terrain_system.use_ridge_texture and (uv.y > 1.0 - terrain_system.ridge_threshold)
-
+	var is_ridge := floor_mode and (uv.y > 1.0 - terrain_system.ridge_threshold)
+	var is_ledge := floor_mode and (uv.x > 1.0 - terrain_system.ledge_threshold)
+	
 	# Get color source maps based on floor/wall/ridge state
-	var sources := _get_color_sources(floor_mode, is_ridge)
+	var sources := _get_color_sources(floor_mode, is_ridge, is_ledge)
 	var source_map_0 : PackedColorArray = sources[0]
 	var source_map_1 : PackedColorArray = sources[1]
 	var use_wall_colors := (source_map_0 == wall_color_map_0)
-
+	
 	# Calculate vertex colors using appropriate interpolation method
 	var lower_0 : Color = cell_wall_lower_color_0 if use_wall_colors else cell_floor_lower_color_0
 	var upper_0 : Color = cell_wall_upper_color_0 if use_wall_colors else cell_floor_upper_color_0
 	var color_0 := _interpolate_vertex_color(cell_coords, x, y, z, source_map_0, diag_midpoint, lower_0, upper_0)
 	st.set_color(color_0)
-
+	
 	var lower_1 : Color = cell_wall_lower_color_1 if use_wall_colors else cell_floor_lower_color_1
 	var upper_1 : Color = cell_wall_upper_color_1 if use_wall_colors else cell_floor_upper_color_1
 	var color_1 := _interpolate_vertex_color(cell_coords, x, y, z, source_map_1, diag_midpoint, lower_1, upper_1)
 	st.set_custom(0, color_1)
-
-	# is_ridge already calculated above
+	
 	var g_mask: Color = grass_mask_map[cell_coords.y*dimensions.x + cell_coords.x]
 	g_mask.g = 1.0 if is_ridge else 0.0
+	g_mask.b = 1.0 if is_ledge else 0.0
 	st.set_custom(1, g_mask)
 	
 	# Use edge connection to determine blending path
@@ -892,7 +894,7 @@ func draw_grass_mask(x: int, z: int, masked: Color):
 func notify_needs_update(z: int, x: int):
 	if z < 0 or z >= terrain_system.dimensions.z-1 or x < 0 or x >= terrain_system.dimensions.x-1:
 		return
-
+	
 	needs_update[z][x] = true
 
 
@@ -906,22 +908,22 @@ func _recreate_collision_body() -> void:
 	if not is_inside_tree() or _temp_collision_shapes.is_empty():
 		_temp_collision_shapes.clear()
 		return
-
+	
 	# Only create ONE body with the FIRST shape
 	var shape : ConcavePolygonShape3D = _temp_collision_shapes[0]
 	_temp_collision_shapes.clear()
-
+	
 	var body := StaticBody3D.new()
 	body.collision_layer = 17
 	if terrain_system:
 		body.set_collision_layer_value(terrain_system.extra_collision_layer, true)
-
+	
 	var col_shape := CollisionShape3D.new()
 	col_shape.shape = shape
 	col_shape.visible = false
 	body.add_child(col_shape)
 	add_child(body)
-
+	
 	# Set owner for editor visibility at first, but we clear it later
 	if Engine.is_editor_hint():
 		var scene_root = Engine.get_singleton("EditorInterface").get_edited_scene_root()

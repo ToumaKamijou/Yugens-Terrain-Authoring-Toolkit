@@ -231,6 +231,9 @@ func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> vo
 		"use_ridge_texture":
 			if p_value is bool:
 				terrain.use_ridge_texture = p_value
+		"use_ledge_texture":
+			if p_value is bool:
+				terrain.use_ledge_texture = p_value
 		"default_wall_texture":
 			if p_value is int:
 				terrain.default_wall_texture = p_value

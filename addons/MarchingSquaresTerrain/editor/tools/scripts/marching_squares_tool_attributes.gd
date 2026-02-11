@@ -31,10 +31,11 @@ var terrain_settings_data : Dictionary = {
 	"animation_fps": "SpinBox",
 	"grass_subdivisions": "SpinBox",
 	"grass_size": "Vector2",
+	"extra_collision_layer": "OptionButton",
 	"use_ridge_texture": "CheckBox",
+	"use_ledge_texture": "CheckBox",
 	"ridge_threshold": "EditorSpinSlider",
 	"ledge_threshold": "EditorSpinSlider",
-	"extra_collision_layer": "OptionButton",
 }
 
 var plugin : MarchingSquaresTerrainPlugin

@@ -82,21 +82,26 @@ enum StorageMode {
 		grass_mat.set_shader_parameter("wall_threshold", value)
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
 			chunk.grass_planter.regenerate_all_cells()
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ledge_threshold: float = 0.25:
-	set(value):
-		ledge_threshold = value
-		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.grass_planter.regenerate_all_cells()
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var use_ridge_texture: bool = false:
-	set(value):
-		use_ridge_texture = value
-		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.regenerate_all_cells(true)
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ridge_threshold: float = 1.0:
 	set(value):
 		ridge_threshold = value
+		terrain_material.set_shader_parameter("ridge_threshhold", value)
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
 			chunk.grass_planter.regenerate_all_cells()
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ledge_threshold: float = 1.0:
+	set(value):
+		ledge_threshold = value
+		terrain_material.set_shader_parameter("ledge_threshhold", value)
+		for chunk: MarchingSquaresTerrainChunk in chunks.values():
+			chunk.grass_planter.regenerate_all_cells()
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var use_ridge_texture: bool = true:
+	set(value):
+		use_ridge_texture = value
+		terrain_material.set_shader_parameter("use_ridge_texture", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var use_ledge_texture: bool = true:
+	set(value):
+		use_ledge_texture = value
+		terrain_material.set_shader_parameter("use_ledge_texture", value)
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var noise_hmap : Noise # used to generate smooth initial heights for more natrual looking terrain. if null, initial terrain will be flat
 
 # Grass settings

@@ -4,14 +4,7 @@
 [ext_resource type="Script" uid="uid://6pvgykbbdsmg" path="res://scripts/demo_scene.gd" id="1_rcx4y"]
 [ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="3_0450b"]
 [ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="4_0xhur"]
-[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="4_j2hbo"]
-[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_leaf_sprite.png" id="5_54x3k"]
 [ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="5_rcx4y"]
-[ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="6_h78w1"]
-[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="7_bvinl"]
-[ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="8_7mabo"]
-[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="9_77stx"]
-[ext_resource type="Script" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="10_52i7q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e28qv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -26,56 +19,6 @@ sky = SubResource("Sky_or4gs")
 ambient_light_source = 3
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="Texture2D" id="Texture2D_vynns"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_p1dug"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_38l2j"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_ta716"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_1nue7"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_iuhot"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_vk8tc"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_11ep3"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Texture2D" id="Texture2D_fpfsv"]
-resource_local_to_scene = false
-resource_name = ""
-
-[sub_resource type="Resource" id="Resource_38l2j"]
-script = ExtResource("4_j2hbo")
-metadata/_custom_type_script = "uid://dqeuj3gddfm65"
-
-[sub_resource type="Resource" id="Resource_658wv"]
-script = ExtResource("6_h78w1")
-terrain_textures = Array[Texture2D]([ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("8_7mabo"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
-
-[sub_resource type="Resource" id="Resource_j2hbo"]
-script = ExtResource("10_52i7q")
-preset_name = "Empty Project"
-new_tex_names = SubResource("Resource_38l2j")
-new_textures = SubResource("Resource_658wv")
 
 [node name="DemoScene" type="Node3D" unique_id=1884493277]
 script = ExtResource("1_rcx4y")
@@ -113,27 +56,17 @@ size = 55.0
 near = 0.003
 far = 1200.0
 
-[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=424027971]
+[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=509906977]
 script = ExtResource("3_0450b")
-data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_49ea0a73/"
-_terrain_uid = "49ea0a73"
+data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_33b1a577/"
+_terrain_uid = "33b1a577"
 _storage_initialized = true
-texture_7 = SubResource("Texture2D_vynns")
-texture_8 = SubResource("Texture2D_p1dug")
-texture_9 = SubResource("Texture2D_38l2j")
-texture_10 = SubResource("Texture2D_ta716")
-texture_11 = SubResource("Texture2D_1nue7")
-texture_12 = SubResource("Texture2D_iuhot")
-texture_13 = SubResource("Texture2D_vk8tc")
-texture_14 = SubResource("Texture2D_11ep3")
-texture_15 = SubResource("Texture2D_fpfsv")
-current_texture_preset = SubResource("Resource_j2hbo")
 metadata/_custom_type_script = "uid://cddg1xr5hye1d"
 
-[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1890286079 node_paths=PackedStringArray("terrain_system")]
+[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=831207995 node_paths=PackedStringArray("terrain_system")]
 script = ExtResource("4_0xhur")
 terrain_system = NodePath("..")
 
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=507324189]
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=1820789153]
 cast_shadow = 0
 script = ExtResource("5_rcx4y")

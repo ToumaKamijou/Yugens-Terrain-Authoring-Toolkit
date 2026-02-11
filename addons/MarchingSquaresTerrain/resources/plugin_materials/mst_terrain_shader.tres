@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://ltkimbmrvpyo" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_terrain.gdshader" id="1_0jm5n"]
 [ext_resource type="Texture2D" uid="uid://csvthlqhb8g5j" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/void_texture.tres" id="2_4xgnr"]
+[ext_resource type="Texture2D" uid="uid://85iqlmnoua0e" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/rl_noise_texture.tres" id="2_rv4si"]
 [ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="3_rv4si"]
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="4_8w1sl"]
 
@@ -44,6 +45,13 @@ shader_parameter/blend_mode = 0
 shader_parameter/blend_sharpness = 5.0
 shader_parameter/blend_noise_scale = 10.0
 shader_parameter/blend_noise_strength = 0.0
+shader_parameter/use_ridge_texture = true
+shader_parameter/use_ledge_texture = true
+shader_parameter/ridge_threshold = 1.0
+shader_parameter/ledge_threshold = 1.0
+shader_parameter/rl_noise_texture = ExtResource("2_rv4si")
+shader_parameter/rl_noise_tile_size = 0.075
+shader_parameter/rl_noise_strength = 10.0
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/bands = 5
 shader_parameter/shadow_intensity = 0.0
