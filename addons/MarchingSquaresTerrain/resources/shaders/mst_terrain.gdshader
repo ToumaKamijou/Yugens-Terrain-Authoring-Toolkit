@@ -92,6 +92,7 @@ varying vec3 world_pos;
 // Ridge & Ledge varyings for noise texture calculations
 varying vec4 ridge_blend_factor;
 varying vec4 ledge_blend_factor;
+varying vec4 custom3; // Holds the wall texture index info in the r channel
 
 // Hard edges mode: flat material index (no interpolation)
 varying flat int material_index;
@@ -309,6 +310,7 @@ float get_world_noise(vec3 world_position, float tile_size) {
 void vertex() {
 	vertex_normal = NORMAL;
 	custom1 = CUSTOM1;
+	custom3 = CUSTOM3;
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 
 	// Calculate ridge and ledge blend factors
@@ -441,40 +443,40 @@ void fragment() {
 		ALBEDO = floor_color.rgb;
 		ALPHA = floor_color.a;
 	}
-	// Wall rendering with dual-mode support
-	vec3 abs_normal = abs(vertex_normal);
+	else {
+		// Wall rendering with dual-mode support
+		vec3 abs_normal = abs(vertex_normal);
 
-	vec3 tri_weights = vec3(abs_normal.x, 0.0, abs_normal.z);
-	tri_weights /= (tri_weights.x + tri_weights.z);
+		vec3 tri_weights = vec3(abs_normal.x, 0.0, abs_normal.z);
+		tri_weights /= (tri_weights.x + tri_weights.z);
 
-	// Divide by cell_size to match floor UV coordinate system
-	// Floor UV2 = vert.xz / cell_size, so walls need the same normalization
-	vec2 uv_x = (vertex_pos.zy / cell_size.yx) * tiling_factor_wall;
-	vec2 uv_z = (vertex_pos.xy / cell_size) * tiling_factor_wall;
+		// Divide by cell_size to match floor UV coordinate system
+		// Floor UV2 = vert.xz / cell_size, so walls need the same normalization
+		vec2 uv_x = (vertex_pos.zy / cell_size.yx) * tiling_factor_wall;
+		vec2 uv_z = (vertex_pos.xy / cell_size) * tiling_factor_wall;
 
-	vec4 wall_mat_x, wall_mat_z;
+		vec4 wall_mat_x, wall_mat_z;
 
-	float effective_sharpness = blend_sharpness;
-	if (use_hard_textures) {
-		// (like blend mode) (solves triangules at ridges, but introduce it at the borders)
-		wall_mat_x = blend_wall_materials(uv_x, vc_color_0, vc_color_1, effective_sharpness);
-		wall_mat_z = blend_wall_materials(uv_z, vc_color_0, vc_color_1, effective_sharpness);
-	} else {
-		// Soft blend: blend wall materials based on vertex colors
-		effective_sharpness = blend_sharpness;
-		if (blend_noise_strength > 0.0) {
-			float n = noise(world_pos.xz * blend_noise_scale);
-			effective_sharpness = mix(blend_sharpness, blend_sharpness * (0.5 + n), blend_noise_strength);
-			}
-		wall_mat_x = blend_wall_materials(uv_x, vc_color_0, vc_color_1, effective_sharpness);
-		wall_mat_z = blend_wall_materials(uv_z, vc_color_0, vc_color_1, effective_sharpness);
-	}
+		float effective_sharpness = blend_sharpness;
+		if (use_hard_textures) {
+			// (like blend mode) (solves triangules at ridges, but introduce it at the borders)
+			wall_mat_x = blend_wall_materials(uv_x, vc_color_0, vc_color_1, effective_sharpness);
+			wall_mat_z = blend_wall_materials(uv_z, vc_color_0, vc_color_1, effective_sharpness);
+		} else {
+			// Soft blend: blend wall materials based on vertex colors
+			effective_sharpness = blend_sharpness;
+			if (blend_noise_strength > 0.0) {
+				float n = noise(world_pos.xz * blend_noise_scale);
+				effective_sharpness = mix(blend_sharpness, blend_sharpness * (0.5 + n), blend_noise_strength);
+				}
+			wall_mat_x = blend_wall_materials(uv_x, vc_color_0, vc_color_1, effective_sharpness);
+			wall_mat_z = blend_wall_materials(uv_z, vc_color_0, vc_color_1, effective_sharpness);
+		}
 
-	vec3 texture_x = wall_mat_x.rgb * tri_weights.x;
-	vec3 texture_z = wall_mat_z.rgb * tri_weights.z;
-	wall_color = texture_x + texture_z;
+		vec3 texture_x = wall_mat_x.rgb * tri_weights.x;
+		vec3 texture_z = wall_mat_z.rgb * tri_weights.z;
+		wall_color = texture_x + texture_z;
 
-	if (is_floor == false) {
 		ALBEDO = texture_x + texture_z;
 		ALPHA = wall_mat_x.a;
 	}
@@ -488,7 +490,8 @@ void fragment() {
 			float noise_variation = (blend_noise - 0.5) * rl_noise_strength;
 			mixed_blend_factor = step(ledge_threshold + noise_variation, max(UV.x, UV.y));
 		}
-		mixed_triplanar_color = mix(floor_color.rgb, wall_color, mixed_blend_factor);
+		vec3 rl_wall_color = sample_material_by_index(int(custom3.r), UV * tiling_factor_wall).rgb;
+		mixed_triplanar_color = mix(floor_color.rgb, rl_wall_color, mixed_blend_factor);
 		ALBEDO = mixed_triplanar_color;
 	}
 	else if (use_ridge_texture && custom1.g > 0.5 && is_floor == true) {
@@ -497,7 +500,8 @@ void fragment() {
 			float noise_variation = (blend_noise - 0.5) * rl_noise_strength;
 			mixed_blend_factor = step(ridge_threshold + noise_variation, max(UV.x, UV.y));
 		}
-		mixed_triplanar_color = mix(floor_color.rgb, wall_color, mixed_blend_factor);
+		vec3 rl_wall_color = sample_material_by_index(int(custom3.r), UV * tiling_factor_wall).rgb;
+		mixed_triplanar_color = mix(floor_color.rgb, rl_wall_color, mixed_blend_factor);
 		ALBEDO = mixed_triplanar_color;
 	}
 }

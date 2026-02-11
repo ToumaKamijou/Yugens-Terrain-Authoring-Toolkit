@@ -466,6 +466,7 @@ enum StorageMode {
 
 var void_texture := preload("uid://csvthlqhb8g5j")
 var placeholder_wind_texture := preload("uid://dk1t5hy2tiil7") # Change to your own texture
+var placeholder_rl_noise_texture := preload("uid://85iqlmnoua0e") # Change to your own texture
 
 var terrain_material : ShaderMaterial = null
 var grass_mesh : QuadMesh = null 
@@ -657,6 +658,8 @@ func _ensure_textures() -> void:
 		
 	if grass_mat.get_shader_parameter("wind_texture") == null:
 		grass_mat.set_shader_parameter("wind_texture", placeholder_wind_texture)
+	if terrain_material.get_shader_parameter("rl_noise_texture") == null:
+		terrain_material.set_shader_parameter("rl_noise_texture", placeholder_rl_noise_texture)
 
 
 # Applies all shader parameters and regenerates grass once

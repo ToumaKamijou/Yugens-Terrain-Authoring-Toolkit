@@ -245,6 +245,7 @@ func regenerate_mesh(use_threads: bool = false):
 	st.set_custom_format(0, SurfaceTool.CUSTOM_RGBA_FLOAT)
 	st.set_custom_format(1, SurfaceTool.CUSTOM_RGBA_FLOAT)
 	st.set_custom_format(2, SurfaceTool.CUSTOM_RGBA_FLOAT)  
+	st.set_custom_format(3, SurfaceTool.CUSTOM_R_FLOAT)
 	
 	var start_time: int = Time.get_ticks_msec()
 	
@@ -318,6 +319,7 @@ func generate_terrain_cells(use_threads: bool):
 				var grass_mask = cell_geometry[cell_coords]["grass_mask"]
 				var mat_blend = cell_geometry[cell_coords]["mat_blend"]
 				var is_floor = cell_geometry[cell_coords]["is_floor"]
+				var rl_color = cell_geometry[cell_coords]["rl_color"]
 				for i in range(len(verts)):
 					st.set_smooth_group(0 if is_floor[i] == true else -1)
 					st.set_uv(uvs[i])
@@ -326,6 +328,7 @@ func generate_terrain_cells(use_threads: bool):
 					st.set_custom(0, colors_1[i])
 					st.set_custom(1, grass_mask[i])
 					st.set_custom(2, mat_blend[i])
+					st.set_custom(3, rl_color[i])
 					st.add_vertex(verts[i])
 				continue
 			
@@ -343,6 +346,7 @@ func generate_terrain_cells(use_threads: bool):
 				"grass_mask": PackedColorArray(),
 				"mat_blend": PackedColorArray(),
 				"is_floor": [],
+				"rl_color": PackedColorArray(),
 			}
 			
 			var cell := MarchingSquaresTerrainCell.new(self, height_map[z][x], height_map[z][x+1], height_map[z+1][x], height_map[z+1][x+1], merge_threshold)
@@ -422,15 +426,15 @@ func generate_terrain_cells(use_threads: bool):
 
 #region color interpolation Helpers
 
-## Returns [source_map_0, source_map_1] based on floor/wall/ridge state
-func _get_color_sources(is_floor: bool, is_ridge: bool, is_ledge: bool) -> Array[PackedColorArray]:
+## Returns [source_map_0, source_map_1] based on floor state
+func _get_color_sources(is_floor: bool) -> Array[PackedColorArray]:
 	var use_wall_colors := not is_floor
-	if terrain_system.blend_mode == 1 and is_floor and not is_ridge and not is_ledge:
-		use_wall_colors = false  # Only force floor colors for non-ridge floor vertices
 	
 	var src_0 : PackedColorArray = wall_color_map_0 if use_wall_colors else color_map_0
 	var src_1 : PackedColorArray = wall_color_map_1 if use_wall_colors else color_map_1
-	return [src_0, src_1]
+	var rl_src_0 : PackedColorArray = wall_color_map_0
+	var rl_src_1 : PackedColorArray = wall_color_map_1
+	return [src_0, src_1, rl_src_0, rl_src_1]
 
 
 ## Calculates color for diagonal midpoint vertices
@@ -537,9 +541,11 @@ func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float
 	var is_ledge := floor_mode and (uv.x > 1.0 - terrain_system.ledge_threshold)
 	
 	# Get color source maps based on floor/wall/ridge state
-	var sources := _get_color_sources(floor_mode, is_ridge, is_ledge)
+	var sources := _get_color_sources(floor_mode)
 	var source_map_0 : PackedColorArray = sources[0]
 	var source_map_1 : PackedColorArray = sources[1]
+	var rl_source_map_0 : PackedColorArray = sources[2]
+	var rl_source_map_1 : PackedColorArray = sources[3]
 	var use_wall_colors := (source_map_0 == wall_color_map_0)
 	
 	# Calculate vertex colors using appropriate interpolation method
@@ -565,6 +571,17 @@ func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float
 		mat_blend.a = 2.0 
 	st.set_custom(2, mat_blend)
 	
+		# Calculate vertex colors using appropriate interpolation method
+	var rl_lower_0 : Color = cell_wall_lower_color_0
+	var rl_upper_0 : Color = cell_wall_upper_color_0
+	var rl_color_0 := _interpolate_vertex_color(cell_coords, x, y, z, rl_source_map_0, diag_midpoint, rl_lower_0, rl_upper_0)
+	var rl_lower_1 : Color = cell_wall_lower_color_1
+	var rl_upper_1 : Color = cell_wall_upper_color_1
+	var rl_color_1 := _interpolate_vertex_color(cell_coords, x, y, z, rl_source_map_1, diag_midpoint, rl_lower_1, rl_upper_1)
+	
+	var rl_color := Color(get_texture_index_from_colors(rl_color_0, rl_color_1), 0.0, 0.0, 0.0)
+	st.set_custom(3, rl_color)
+	
 	#same calculations from here
 	var vert = Vector3((cell_coords.x+x) * cell_size.x, y, (cell_coords.y+z) * cell_size.y)
 	var uv2
@@ -587,6 +604,7 @@ func _add_point(cell_coords: Vector2i, x: float, y: float, z: float, uv_x: float
 	cell_geometry[cell_coords]["grass_mask"].append(g_mask)
 	cell_geometry[cell_coords]["mat_blend"].append(mat_blend)
 	cell_geometry[cell_coords]["is_floor"].append(floor_mode)
+	cell_geometry[cell_coords]["rl_color"].append(rl_color)
 
 #region cell_geometry helpers and calculation functions
 

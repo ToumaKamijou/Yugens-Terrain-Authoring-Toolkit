@@ -50,23 +50,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 32)
 script = ExtResource("1_0xhur")
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraPivot" unique_id=1065357724]
-transform = Transform3D(0.70710677, 0.35355338, -0.6123724, 0, 0.8660254, 0.5, 0.70710677, -0.35355338, 0.6123724, -44.251278, 36.13102, 44.251278)
+transform = Transform3D(0.70710677, 0.35355338, -0.6123724, 0, 0.8660254, 0.5, 0.70710677, -0.35355338, 0.6123724, -80.03439, 65.34781, 80.03439)
 projection = 1
 size = 55.0
 near = 0.003
 far = 1200.0
 
-[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=509906977]
+[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=216699866]
 script = ExtResource("3_0450b")
-data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_33b1a577/"
-_terrain_uid = "33b1a577"
+data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_30836e0d/"
+_terrain_uid = "30836e0d"
 _storage_initialized = true
 metadata/_custom_type_script = "uid://cddg1xr5hye1d"
 
-[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=831207995 node_paths=PackedStringArray("terrain_system")]
+[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=714840171 node_paths=PackedStringArray("terrain_system")]
 script = ExtResource("4_0xhur")
 terrain_system = NodePath("..")
 
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=1820789153]
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=1033475208]
 cast_shadow = 0
 script = ExtResource("5_rcx4y")
