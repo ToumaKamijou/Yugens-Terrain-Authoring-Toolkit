@@ -40,12 +40,15 @@ func blend_colors(vertex: Vector3, uv: Vector2, diag_midpoint: bool = false) -> 
 	var cell_has_walls_for_blend : bool = not (blend_ab and blend_ac and blend_bd and blend_cd)
 	
 	# Detect ridge BEFORE selecting color maps (ridge needs wall colors, not ground colors)
-	var is_ridge := cell.floor_mode and chunk.terrain_system.use_ridge_texture and (uv.y > 1.0 - chunk.terrain_system.ridge_threshold)
+	var is_ridge := cell.floor_mode and (uv.y > 0.0)
+	var is_ledge := cell.floor_mode and (uv.x > 0.0)
 
 	# Get color source maps based on floor/wall/ridge state
-	var sources := _get_color_sources(cell.floor_mode, is_ridge)
+	var sources := _get_color_sources(cell.floor_mode)
 	var source_map_0 : PackedColorArray = sources[0]
 	var source_map_1 : PackedColorArray = sources[1]
+	var rl_source_map_0 : PackedColorArray = sources[2]
+	var rl_source_map_1 : PackedColorArray = sources[3]
 	var use_wall_colors := (source_map_0 == chunk.wall_color_map_0)
 
 	# Calculate vertex colors using appropriate interpolation method
@@ -57,10 +60,21 @@ func blend_colors(vertex: Vector3, uv: Vector2, diag_midpoint: bool = false) -> 
 	var upper_1 : Color = cell_wall_upper_color_1 if use_wall_colors else cell_floor_upper_color_1
 	colors["color_1"] = _interpolate_vertex_color(vertex.x, vertex.y, vertex.z, source_map_1, diag_midpoint, lower_1, upper_1)
 
-	# is_ridge already calculated above
+	# is_ridge & is_ledge are already calculated above
 	var g_mask: Color = Color(chunk.grass_mask_map[cell.cell_coords.y*chunk.dimensions.x + cell.cell_coords.x])
 	g_mask.g = 1.0 if is_ridge else 0.0
+	g_mask.b = 1.0 if is_ledge else 0.0
 	colors["grass_mask"] = g_mask
+
+	# Calculate and store the closest wall color to the ridge/ledge
+	var rl_lower_0 : Color = cell_wall_lower_color_0
+	var rl_upper_0 : Color = cell_wall_upper_color_0
+	var rl_color_0 := _interpolate_vertex_color(vertex.x, vertex.y, vertex.z, rl_source_map_0, diag_midpoint, rl_lower_0, rl_upper_0)
+	var rl_lower_1 : Color = cell_wall_lower_color_1
+	var rl_upper_1 : Color = cell_wall_upper_color_1
+	var rl_color_1 := _interpolate_vertex_color(vertex.x, vertex.y, vertex.z, rl_source_map_1, diag_midpoint, rl_lower_1, rl_upper_1)
+	var rl_color := Color(get_texture_index_from_colors(rl_color_0, rl_color_1), 0.0, 0.0, 0.0)
+	colors["rl_color"] = rl_color
 	
 	# Use edge connection to determine blending path
 	# Avoid issues on weird Cliffs vs Slopes blending giving each a different path
@@ -69,7 +83,8 @@ func blend_colors(vertex: Vector3, uv: Vector2, diag_midpoint: bool = false) -> 
 		mat_blend.a = 2.0 
 	colors["mat_blend"] = mat_blend
 	return colors
-		
+
+
 func calculate_corner_colors():
 	# Calculate cell height range for boundary detection (height-based color sampling)
 	cell_min_height = min(cell.ay, cell.by, cell.cy, cell.dy)
@@ -136,18 +151,17 @@ func calculate_corner_colors():
 
 #region color interpolation Helpers
 
-
 #region cell_geometry helpers and calculation functions
 
 ## Returns [source_map_0, source_map_1] based on floor/wall/ridge state
-func _get_color_sources(is_floor: bool, is_ridge: bool) -> Array[PackedColorArray]:
-	var use_wall_colors := (not is_floor) or is_ridge
-	if chunk.terrain_system.blend_mode == 1 and is_floor and not is_ridge:
-		use_wall_colors = false  # Only force floor colors for non-ridge floor vertices
+func _get_color_sources(is_floor: bool) -> Array[PackedColorArray]:
+	var use_wall_colors := not is_floor
 
 	var src_0 : PackedColorArray = chunk.wall_color_map_0 if use_wall_colors else chunk.color_map_0
 	var src_1 : PackedColorArray = chunk.wall_color_map_1 if use_wall_colors else chunk.color_map_1
-	return [src_0, src_1]
+	var rl_src_0 : PackedColorArray = chunk.wall_color_map_0
+	var rl_src_1 : PackedColorArray = chunk.wall_color_map_1
+	return [src_0, src_1, rl_src_0, rl_src_1]
 
 
 ## Calculates color for diagonal midpoint vertices
@@ -371,4 +385,3 @@ func calculate_material_blend_data(vert_x: float, vert_z: float, source_map_0: P
 	return Color(packed_mats, float(cell_mat_c) / 15.0, weight_mat_a, weight_mat_b)
 
 #endregion
-	

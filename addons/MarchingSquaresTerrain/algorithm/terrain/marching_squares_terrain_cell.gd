@@ -18,6 +18,7 @@ var g_masks : Array[Color]
 var mat_blends : Array[Color]
 var cell_coords : Vector2i
 var floors : Array[bool]
+var rl_colors : Array[Color]
 
 var floor_mode : bool
 
@@ -126,7 +127,7 @@ func generate_geometry(cell_coords_: Vector2i) -> void:
 	# If all edges are connected, put a full floor here.
 	if all_edges_are_connected():
 		add_c0()
-		chunk.add_polygons(cell_coords, pts, uvs, uv2s, color_0s, color_1s, g_masks, mat_blends, floors)
+		chunk.add_polygons(cell_coords, pts, uvs, uv2s, color_0s, color_1s, g_masks, mat_blends, floors, rl_colors)
 		return
 	
 	# Starting from the lowest corner, build the tile up
@@ -231,7 +232,7 @@ func generate_geometry(cell_coords_: Vector2i) -> void:
 		#Invalid / unknown cell type. put a full floor here and hope it looks fine
 		add_c0()
 		
-	chunk.add_polygons(cell_coords, pts, uvs, uv2s, color_0s, color_1s, g_masks, mat_blends, floors)
+	chunk.add_polygons(cell_coords, pts, uvs, uv2s, color_0s, color_1s, g_masks, mat_blends, floors, rl_colors)
 
 func start_floor() -> void:
 	floor_mode = true
@@ -269,6 +270,7 @@ func add_point(x: float, y: float, z: float, u: float, v: float, diag_midpoint: 
 	color_1s.append(colors["color_1"])
 	mat_blends.append(colors["mat_blend"])
 	floors.append(floor_mode)
+	rl_colors.append(colors["rl_color"])
 
 
 func add_c0() -> void:
@@ -697,4 +699,3 @@ func add_diagonal_floor(chunk: MarchingSquaresTerrainChunk, b_y: float, c_y: flo
 	add_point(0, c_y, 1, 0, 0)
 	add_point(1, b_y, 0.5, 0 if d_cliff else 1, 1 if d_cliff else 0)
 	add_point(0.5, c_y, 1, 0 if d_cliff else 1, 1 if d_cliff else 0)
-	
