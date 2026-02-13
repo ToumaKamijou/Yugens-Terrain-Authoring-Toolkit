@@ -5,14 +5,20 @@ class_name MarchingSquaresTerrainCell
 # < 1.0 = more aggressive wall detection 
 # > 1.0 = less aggressive / more slope blend
 const BLEND_EDGE_SENSITIVITY : float = 1.25
+const higher_poly_floors : bool = true
 
 enum CellRotation {DEG0 = 0, DEG270 = 3, DEG180 = 2, DEG90 = 1}
 
 var pts : Array[Vector3]
 var uvs : Array[Vector2]
-var mids : Array[bool]
-var blends : Array[bool]
+var uv2s : Array[Vector2]
+var color_0s : Array[Color]
+var color_1s : Array[Color]
+var g_masks : Array[Color]
+var mat_blends : Array[Color]
+var cell_coords : Vector2i
 var floors : Array[bool]
+
 var floor_mode : bool
 
 var ay: float
@@ -67,10 +73,12 @@ var rotation: CellRotation:
 var merge_threshold: float
 
 var chunk: MarchingSquaresTerrainChunk
+var color_helper: MarchingSquaresTerrainVertexColorHelper
 
 
-func _init(chunk_: MarchingSquaresTerrainChunk, y_top_left: float, y_top_right: float, y_bottom_left: float, y_bottom_right: float, merge_threshold_: float) -> void:
+func _init(chunk_: MarchingSquaresTerrainChunk, color_helper_: MarchingSquaresTerrainVertexColorHelper, y_top_left: float, y_top_right: float, y_bottom_left: float, y_bottom_right: float, merge_threshold_: float) -> void:
 	chunk = chunk_
+	color_helper = color_helper_
 	_ay = y_top_left
 	_by = y_top_right
 	_cy = y_bottom_left
@@ -82,9 +90,9 @@ func _init(chunk_: MarchingSquaresTerrainChunk, y_top_left: float, y_top_right: 
 func _reset_geometry_cache() -> void:
 	pts = []
 	uvs = []
-	mids = []
-	blends = []
-	floors = []
+	uv2s = []
+	color_0s = []
+	color_1s = []
 
 func rotate(r: int) -> void:
 	rotation = (4 + r + rotation) % 4
@@ -108,14 +116,17 @@ func is_merged(a: float, b: float):
 	return abs(a - b) < merge_threshold
 
 
-func generate_geometry(cell_coords: Vector2i) -> void:
+func generate_geometry(cell_coords_: Vector2i) -> void:
+	cell_coords = cell_coords_
 	
 	_reset_geometry_cache()
+	color_helper.calculate_corner_colors()
+	
 	# Case 0
 	# If all edges are connected, put a full floor here.
 	if all_edges_are_connected():
 		add_c0()
-		chunk.add_polygons(cell_coords, pts, uvs, mids, blends, floors)
+		chunk.add_polygons(cell_coords, pts, uvs, uv2s, color_0s, color_1s, g_masks, mat_blends, floors)
 		return
 	
 	# Starting from the lowest corner, build the tile up
@@ -220,7 +231,7 @@ func generate_geometry(cell_coords: Vector2i) -> void:
 		#Invalid / unknown cell type. put a full floor here and hope it looks fine
 		add_c0()
 		
-	chunk.add_polygons(cell_coords, pts, uvs, mids, blends, floors)
+	chunk.add_polygons(cell_coords, pts, uvs, uv2s, color_0s, color_1s, g_masks, mat_blends, floors)
 
 func start_floor() -> void:
 	floor_mode = true
@@ -234,19 +245,30 @@ func add_point(x: float, y: float, z: float, u: float, v: float, diag_midpoint: 
 		x = 1 - z
 		z = temp
 	
-	var blend_threshold : float = merge_threshold * BLEND_EDGE_SENSITIVITY # We can tweak the BLEND_EDGE_SENSITIVITY to allow more "agressive" Cliff vs Slope detection
-	var blend_ab : bool = abs(ay-by) < blend_threshold
-	var blend_ac : bool = abs(ay-cy) < blend_threshold
-	var blend_bd : bool = abs(by-dy) < blend_threshold
-	var blend_cd : bool = abs(cy-dy) < blend_threshold
-	var cell_has_walls_for_blend : bool = not (blend_ab and blend_ac and blend_bd and blend_cd)
+	# UV - used for ledge detection. X = closeness to top terrace, Y = closeness to bottom of terrace
+	# Walls will always have UV of 1, 1
+	var uv := Vector2(u, v) if floor_mode else Vector2(1, 1)
+		
+	# same calculations from here
+	var vert = Vector3((cell_coords.x+x) * chunk.cell_size.x, y, (cell_coords.y+z) * chunk.cell_size.y)
+	var uv2 : Vector2
+	if floor_mode:
+		uv2 = Vector2(vert.x, vert.z) / chunk.cell_size
+	else:
+		# This avoids is_inside_tree() errors when inactive scene tabs are loaded
+		var chunk_pos : Vector3 = chunk.global_position_cached
+		var global_pos = vert + chunk_pos
+		uv2 = (Vector2(global_pos.x, global_pos.y) + Vector2(global_pos.z, global_pos.y))
 	
-	pts.append(Vector3(x ,y, z))
-	uvs.append(Vector2(u, v))
-	mids.append(diag_midpoint)
-	blends.append(cell_has_walls_for_blend)
+	pts.append(vert)
+	uvs.append(uv)
+	uv2s.append(uv2)
+	var colors := color_helper.blend_colors(Vector3(x,y,z), uv)
+	g_masks.append(colors["grass_mask"])
+	color_0s.append(colors["color_0"])
+	color_1s.append(colors["color_1"])
+	mat_blends.append(colors["mat_blend"])
 	floors.append(floor_mode)
-	#chunk.add_point(x, y, z, u, v, diag_midpoint, cell_has_walls_for_blend)
 
 
 func add_c0() -> void:
@@ -490,14 +512,32 @@ func add_c18() -> void:
 
 func add_full_floor(chunk: MarchingSquaresTerrainChunk):
 	start_floor()
+	if higher_poly_floors:
+		var ey = (ay+by+cy+dy)/4
 	
-	add_point(0, ay, 0, 0, 0)
-	add_point(1, by, 0, 0, 0)
-	add_point(0, cy, 1, 0, 0)
-	
-	add_point(1, dy, 1, 0, 0)
-	add_point(0, cy, 1, 0, 0)
-	add_point(1, by, 0, 0, 0)
+		add_point(0, ay, 0, 0, 0)
+		add_point(1, by, 0, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+		
+		add_point(1, by, 0, 0, 0)
+		add_point(1, dy, 1, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+		
+		add_point(1, dy, 1, 0, 0)
+		add_point(0, cy, 1, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+		
+		add_point(0, cy, 1, 0, 0)
+		add_point(0, ay, 0, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+	else:
+		add_point(0, ay, 0, 0, 0)
+		add_point(1, by, 0, 0, 0)
+		add_point(0, cy, 1, 0, 0)
+		
+		add_point(1, dy, 1, 0, 0)
+		add_point(0, cy, 1, 0, 0)
+		add_point(1, by, 0, 0, 0)
 
 
 # Add an outer corner, where A is the raised corner.
@@ -657,3 +697,4 @@ func add_diagonal_floor(chunk: MarchingSquaresTerrainChunk, b_y: float, c_y: flo
 	add_point(0, c_y, 1, 0, 0)
 	add_point(1, b_y, 0.5, 0 if d_cliff else 1, 1 if d_cliff else 0)
 	add_point(0.5, c_y, 1, 0 if d_cliff else 1, 1 if d_cliff else 0)
+	

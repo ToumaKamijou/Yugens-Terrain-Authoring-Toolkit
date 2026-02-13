@@ -145,8 +145,8 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 				var uv = uvs[i]*u + uvs[i+1]*v + uvs[i+2]*(1-u-v)
 				var on_ledge: bool = uv.x > 1-_chunk.terrain_system.ledge_threshold or uv.y > 1-_chunk.terrain_system.ridge_threshold
 				
-				var color_0 = _chunk.get_dominant_color(colors_0[i]*u + colors_0[i+1]*v + colors_0[i+2]*(1-u-v))
-				var color_1 = _chunk.get_dominant_color(colors_1[i]*u + colors_1[i+1]*v + colors_1[i+2]*(1-u-v))
+				var color_0 = MarchingSquaresTerrainVertexColorHelper.get_dominant_color(colors_0[i]*u + colors_0[i+1]*v + colors_0[i+2]*(1-u-v))
+				var color_1 = MarchingSquaresTerrainVertexColorHelper.get_dominant_color(colors_1[i]*u + colors_1[i+1]*v + colors_1[i+2]*(1-u-v))
 				
 				# Check grass mask first - green channel forces grass ON, red channel masks grass OFF
 				var mask = grass_mask[i]*u + grass_mask[i+1]*v + grass_mask[i+2]*(1-u-v)

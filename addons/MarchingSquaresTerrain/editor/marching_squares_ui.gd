@@ -21,8 +21,8 @@ const GRASS_SPRITE_PROPERTIES := [
 ]
 
 const COLOR_PROPERTIES := [
-	"ground_color", "ground_color_2", "ground_color_3",
-	"ground_color_4", "ground_color_5", "ground_color_6"
+	"texture_albedo_1", "texture_albedo_2", "texture_albedo_3",
+	"texture_albedo_4", "texture_albedo_5", "texture_albedo_6"
 ]
 
 const HAS_GRASS_PROPERTIES := [
