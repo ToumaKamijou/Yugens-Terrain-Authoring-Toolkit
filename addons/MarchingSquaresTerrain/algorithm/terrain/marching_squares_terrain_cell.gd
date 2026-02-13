@@ -5,6 +5,7 @@ class_name MarchingSquaresTerrainCell
 # < 1.0 = more aggressive wall detection 
 # > 1.0 = less aggressive / more slope blend
 const BLEND_EDGE_SENSITIVITY : float = 1.25
+const higher_poly_floors : bool = true
 
 enum CellRotation {DEG0 = 0, DEG270 = 3, DEG180 = 2, DEG90 = 1}
 
@@ -511,7 +512,25 @@ func add_c18() -> void:
 
 func add_full_floor(chunk: MarchingSquaresTerrainChunk):
 	start_floor()
+	if higher_poly_floors:
+		var ey = (ay+by+cy+dy)/4
 	
+		add_point(0, ay, 0, 0, 0)
+		add_point(1, by, 0, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+		
+		add_point(1, by, 0, 0, 0)
+		add_point(1, dy, 1, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+		
+		add_point(1, dy, 1, 0, 0)
+		add_point(0, cy, 1, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+		
+		add_point(0, cy, 1, 0, 0)
+		add_point(0, ay, 0, 0, 0)
+		add_point(0.5, ey, 0.5, 0, 0, true)
+	else:
 	add_point(0, ay, 0, 0, 0)
 	add_point(1, by, 0, 0, 0)
 	add_point(0, cy, 1, 0, 0)
