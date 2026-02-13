@@ -92,7 +92,7 @@ varying vec3 world_pos;
 // Ridge & Ledge varyings for noise texture calculations
 varying vec4 ridge_blend_factor;
 varying vec4 ledge_blend_factor;
-varying vec4 custom3; // Holds the wall texture index info in the r channel
+varying flat vec4 custom3; // Holds the wall texture index info in the r channel
 
 // Hard edges mode: flat material index (no interpolation)
 varying flat int material_index;
