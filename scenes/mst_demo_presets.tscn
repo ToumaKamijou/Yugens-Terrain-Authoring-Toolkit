@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://6pvgykbbdsmg" path="res://scripts/demo_scene.gd" id="1_apsli"]
 [ext_resource type="Script" uid="uid://bhr82jo0k7guh" path="res://scripts/rotating_camera.gd" id="2_klgru"]
 [ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="3_dk8t2"]
-[ext_resource type="Resource" uid="uid://r6ss2ilkekoq" path="res://addons/MarchingSquaresTerrain/resources/texture presets/example_flat_toon.tres" id="4_tm8h6"]
+[ext_resource type="Resource" uid="uid://r6ss2ilkekoq" path="res://addons/MarchingSquaresTerrain/resources/texture_presets/example_flat_toon.tres" id="4_tm8h6"]
 [ext_resource type="Shader" uid="uid://ltkimbmrvpyo" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_terrain.gdshader" id="5_8u2c4"]
 [ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="5_tm8h6"]
-[ext_resource type="Texture2D" uid="uid://csvthlqhb8g5j" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/void_texture.tres" id="6_n52ak"]
+[ext_resource type="Texture2D" uid="uid://csvthlqhb8g5j" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/void_texture.tres" id="6_n52ak"]
 [ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="7_n52ak"]
 [ext_resource type="Shader" uid="uid://0fijvq5fdcep" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_grass.gdshader" id="9_8jcab"]
-[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png" id="10_6m51i"]
-[ext_resource type="Texture2D" uid="uid://dk1t5hy2tiil7" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/wind_noise_texture.tres" id="11_n8yor"]
+[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_leaf_sprite.png" id="10_6m51i"]
+[ext_resource type="Texture2D" uid="uid://dk1t5hy2tiil7" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wind_noise_texture.tres" id="11_n8yor"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e28qv"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

@@ -3,8 +3,8 @@ extends Resource
 class_name MarchingSquaresTextureList
 
 
-const GRASS_TEXTURE : Texture2D = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_terrain_noise.res")
-const GRASS_SPRITE : Texture2D = preload("res://addons/MarchingSquaresTerrain/resources/plugin materials/grass_leaf_sprite.png")
+const GRASS_TEXTURE : Texture2D = preload("uid://dbnc04k3n0sro")
+const GRASS_SPRITE : Texture2D = preload("uid://cxvnfgy865wsk")
 
 @export var terrain_textures : Array[Texture2D] = [
 	GRASS_TEXTURE, GRASS_TEXTURE, GRASS_TEXTURE, GRASS_TEXTURE,

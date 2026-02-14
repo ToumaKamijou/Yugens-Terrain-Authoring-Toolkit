@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bxnhq3u8scdih"]
+
+[ext_resource type="Script" uid="uid://dp6ah7cd1ld2s" path="res://tests/profiler/profiler_generation.gd" id="1_2nn5h"]
+[ext_resource type="Script" uid="uid://5nabck00de3q" path="res://tests/profiler/profiler_test.gd" id="1_4yhsi"]
+
+[node name="Node2D" type="Node2D" unique_id=128439069]
+script = ExtResource("1_2nn5h")
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=1517116944]
+offset_right = 1085.0
+offset_bottom = 402.0
+theme_override_font_sizes/normal_font_size = 72
+text = "0
+0"
+
+[node name="Test" type="Node" parent="." unique_id=1305735281]
+script = ExtResource("1_4yhsi")

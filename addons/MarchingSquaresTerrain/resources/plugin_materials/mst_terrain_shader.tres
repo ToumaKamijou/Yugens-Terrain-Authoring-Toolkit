@@ -1,0 +1,57 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bahbybbjwkhlg"]
+
+[ext_resource type="Shader" uid="uid://ltkimbmrvpyo" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_terrain.gdshader" id="1_0jm5n"]
+[ext_resource type="Texture2D" uid="uid://csvthlqhb8g5j" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/void_texture.tres" id="2_4xgnr"]
+[ext_resource type="Texture2D" uid="uid://85iqlmnoua0e" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/rl_noise_texture.tres" id="2_rv4si"]
+[ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="3_rv4si"]
+[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="4_8w1sl"]
+
+[resource]
+render_priority = -1
+shader = ExtResource("1_0jm5n")
+shader_parameter/chunk_size = Vector3i(33, 32, 33)
+shader_parameter/cell_size = Vector2(2, 2)
+shader_parameter/wall_threshold = 0.0
+shader_parameter/tex_albedo_1 = Color(0.392, 0.471, 0.318, 1)
+shader_parameter/tex_albedo_2 = Color(0.322, 0.482, 0.384, 1)
+shader_parameter/tex_albedo_3 = Color(0.373, 0.424, 0.294, 1)
+shader_parameter/tex_albedo_4 = Color(0.392, 0.475, 0.255, 1)
+shader_parameter/tex_albedo_5 = Color(0.29, 0.494, 0.365, 1)
+shader_parameter/tex_albedo_6 = Color(0.443, 0.447, 0.365, 1)
+shader_parameter/vc_tex_rr = ExtResource("4_8w1sl")
+shader_parameter/vc_tex_rg = ExtResource("4_8w1sl")
+shader_parameter/vc_tex_rb = ExtResource("4_8w1sl")
+shader_parameter/vc_tex_ra = ExtResource("4_8w1sl")
+shader_parameter/vc_tex_gr = ExtResource("4_8w1sl")
+shader_parameter/vc_tex_gg = ExtResource("3_rv4si")
+shader_parameter/vc_tex_aa = ExtResource("2_4xgnr")
+shader_parameter/tex_scale_1 = 1.0
+shader_parameter/tex_scale_2 = 1.0
+shader_parameter/tex_scale_3 = 1.0
+shader_parameter/tex_scale_4 = 1.0
+shader_parameter/tex_scale_5 = 1.0
+shader_parameter/tex_scale_6 = 1.0
+shader_parameter/tex_scale_7 = 1.0
+shader_parameter/tex_scale_8 = 1.0
+shader_parameter/tex_scale_9 = 1.0
+shader_parameter/tex_scale_10 = 1.0
+shader_parameter/tex_scale_11 = 1.0
+shader_parameter/tex_scale_12 = 1.0
+shader_parameter/tex_scale_13 = 1.0
+shader_parameter/tex_scale_14 = 1.0
+shader_parameter/tex_scale_15 = 1.0
+shader_parameter/use_hard_textures = false
+shader_parameter/blend_mode = 0
+shader_parameter/blend_sharpness = 5.0
+shader_parameter/blend_noise_scale = 10.0
+shader_parameter/blend_noise_strength = 0.0
+shader_parameter/use_ridge_texture = true
+shader_parameter/use_ledge_texture = true
+shader_parameter/ridge_threshold = 1.0
+shader_parameter/ledge_threshold = 0.25
+shader_parameter/rl_noise_texture = ExtResource("2_rv4si")
+shader_parameter/rl_noise_tile_size = 0.075
+shader_parameter/rl_noise_strength = 10.0
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0

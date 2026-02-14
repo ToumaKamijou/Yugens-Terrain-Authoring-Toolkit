@@ -1,47 +1,22 @@
 shader_type spatial;
 render_mode diffuse_toon, depth_draw_opaque, alpha_to_coverage, cull_disabled;
 
-group_uniforms Albedo;
-uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0;
+group_uniforms Terrain.Properties;
 uniform ivec3 chunk_size = ivec3(33, 32, 33);
 uniform vec2 cell_size = vec2(2.0, 2.0);
-uniform vec4 ground_albedo : source_color = vec4(0.392, 0.471, 0.318, 1.0);
-uniform vec4 ground_albedo_2 : source_color = vec4(0.322, 0.482, 0.384, 1.0);
-uniform vec4 ground_albedo_3 : source_color = vec4(0.373, 0.424, 0.294, 1.0);
-uniform vec4 ground_albedo_4 : source_color = vec4(0.392, 0.475, 0.255, 1.0);
-uniform vec4 ground_albedo_5 : source_color = vec4(0.29, 0.494, 0.365, 1.0);
-uniform vec4 ground_albedo_6 : source_color = vec4(0.443, 0.447, 0.365, 1.0);
+uniform float wall_threshold : hint_range(0.0, 0.5) = 0.0; // Experimental feature (used for rounding merge thresholds)
 group_uniforms;
 
-group_uniforms Blending;
-// true = Original behavior (single material, hard edges, works with "Perfect Square Tiles")
-// false = Smooth blending between materials (works with "Mixed Triangles")
-uniform bool use_hard_textures = false;
-uniform int blend_mode = 0;
-uniform float blend_sharpness : hint_range(0.0, 10.0, 0.1) = 5.0;
-uniform float blend_noise_scale : hint_range(0.0, 50.0, 1.0) = 10.0;
-uniform float blend_noise_strength : hint_range(0.0, 1.0, 0.05) = 0.0;
+group_uniforms Visuals.Albedo;
+uniform vec4 tex_albedo_1 : source_color = vec4(0.392, 0.471, 0.318, 1.0);
+uniform vec4 tex_albedo_2 : source_color = vec4(0.322, 0.482, 0.384, 1.0);
+uniform vec4 tex_albedo_3 : source_color = vec4(0.373, 0.424, 0.294, 1.0);
+uniform vec4 tex_albedo_4 : source_color = vec4(0.392, 0.475, 0.255, 1.0);
+uniform vec4 tex_albedo_5 : source_color = vec4(0.29, 0.494, 0.365, 1.0);
+uniform vec4 tex_albedo_6 : source_color = vec4(0.443, 0.447, 0.365, 1.0);
 group_uniforms;
 
-group_uniforms Texture_Scales;
-uniform float texture_scale_1 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_2 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_3 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_4 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_5 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_6 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_7 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_8 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_9 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_10 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_11 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_12 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_13 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_14 : hint_range(0.1, 20.0, 0.1) = 1.0;
-uniform float texture_scale_15 : hint_range(0.1, 20.0, 0.1) = 1.0;
-group_uniforms;
-
-group_uniforms Vertex_Colors;
+group_uniforms Visuals.Vertex_Painting;
 uniform sampler2D vc_tex_rr : source_color, filter_nearest;
 uniform sampler2D vc_tex_rg : source_color, filter_nearest;
 uniform sampler2D vc_tex_rb : source_color, filter_nearest;
@@ -60,7 +35,50 @@ uniform sampler2D vc_tex_ab : source_color, filter_nearest;
 uniform sampler2D vc_tex_aa : source_color, filter_nearest;
 group_uniforms;
 
-group_uniforms Shading;
+group_uniforms Visuals.Texture_Scales;
+uniform float tex_scale_1 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_2 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_3 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_4 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_5 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_6 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_7 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_8 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_9 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_10 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_11 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_12 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_13 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_14 : hint_range(0.1, 20.0, 0.1) = 1.0;
+uniform float tex_scale_15 : hint_range(0.1, 20.0, 0.1) = 1.0;
+group_uniforms;
+
+group_uniforms Effects.Blending;
+// true = Original behavior (single material, hard edges, works with "Perfect Square Tiles")
+// false = Smooth blending between materials (works with "Mixed Triangles")
+uniform bool use_hard_textures = false;
+uniform int blend_mode = 0;
+uniform float blend_sharpness : hint_range(0.0, 10.0, 0.1) = 5.0;
+uniform float blend_noise_scale : hint_range(0.0, 50.0, 1.0) = 10.0;
+uniform float blend_noise_strength : hint_range(0.0, 1.0, 0.05) = 0.0;
+group_uniforms;
+
+group_uniforms Effects.Ridge_Ledge_Texture;
+// Used for wall textures continuing onto floors
+uniform bool use_ridge_texture = true;
+uniform bool use_ledge_texture = true;
+uniform float ridge_threshold : hint_range(0.0, 1.0) = 1.0;
+uniform float ledge_threshold : hint_range(0.0, 1.0) = 1.0;
+uniform sampler2D rl_noise_texture : source_color, filter_nearest;
+uniform float rl_noise_tile_size : hint_range(0.01, 1.0) = 0.075;
+uniform float rl_noise_strength : hint_range(0.0, 10.0) = 10.0;
+group_uniforms;
+
+group_uniforms Effects.Hanging_Floor_Texture;
+// Used for floor textures continuing onto walls
+group_uniforms;
+
+group_uniforms CellShading;
 uniform vec4 shadow_color : source_color;
 uniform int bands : hint_range(1, 10) = 5;
 uniform float shadow_intensity : hint_range(-1.0, 0.5, 0.05) = 0.00;
@@ -68,8 +86,13 @@ group_uniforms;
 
 // Shared varyings
 varying vec3 vertex_normal;
-varying vec4 custom1;
+varying vec3 custom1;
+varying flat float nearest_wall_color_idx;
 varying vec3 world_pos;
+
+// Ridge & Ledge varyings for noise texture calculations
+varying vec4 ridge_blend_factor;
+varying vec4 ledge_blend_factor;
 
 // Hard edges mode: flat material index (no interpolation)
 varying flat int material_index;
@@ -131,21 +154,21 @@ int get_material_index(vec4 vc_col_0, vec4 vc_col_1) {
 // Get per-texture UV scale
 float get_texture_scale(int index) {
 	switch(index) {
-		case 0: return texture_scale_1;
-		case 1: return texture_scale_2;
-		case 2: return texture_scale_3;
-		case 3: return texture_scale_4;
-		case 4: return texture_scale_5;
-		case 5: return texture_scale_6;
-		case 6: return texture_scale_7;
-		case 7: return texture_scale_8;
-		case 8: return texture_scale_9;
-		case 9: return texture_scale_10;
-		case 10: return texture_scale_11;
-		case 11: return texture_scale_12;
-		case 12: return texture_scale_13;
-		case 13: return texture_scale_14;
-		case 14: return texture_scale_15;
+		case 0: return tex_scale_1;
+		case 1: return tex_scale_2;
+		case 2: return tex_scale_3;
+		case 3: return tex_scale_4;
+		case 4: return tex_scale_5;
+		case 5: return tex_scale_6;
+		case 6: return tex_scale_7;
+		case 7: return tex_scale_8;
+		case 8: return tex_scale_9;
+		case 9: return tex_scale_10;
+		case 10: return tex_scale_11;
+		case 11: return tex_scale_12;
+		case 12: return tex_scale_13;
+		case 13: return tex_scale_14;
+		case 14: return tex_scale_15;
 		default: return 1.0;
 	}
 }
@@ -158,12 +181,12 @@ vec4 sample_material_by_index(int index, vec2 base_uv) {
 	vec2 uv = base_uv * scale;
 	vec4 result;
 	switch(index) {
-		case 0: result = texture(vc_tex_rr, uv) * ground_albedo; break;
-		case 1: result = texture(vc_tex_rg, uv) * ground_albedo_2; break;
-		case 2: result = texture(vc_tex_rb, uv) * ground_albedo_3; break;
-		case 3: result = texture(vc_tex_ra, uv) * ground_albedo_4; break;
-		case 4: result = texture(vc_tex_gr, uv) * ground_albedo_5; break;
-		case 5: result = texture(vc_tex_gg, uv) * ground_albedo_6; break;
+		case 0: result = texture(vc_tex_rr, uv) * tex_albedo_1; break;
+		case 1: result = texture(vc_tex_rg, uv) * tex_albedo_2; break;
+		case 2: result = texture(vc_tex_rb, uv) * tex_albedo_3; break;
+		case 3: result = texture(vc_tex_ra, uv) * tex_albedo_4; break;
+		case 4: result = texture(vc_tex_gr, uv) * tex_albedo_5; break;
+		case 5: result = texture(vc_tex_gg, uv) * tex_albedo_6; break;
 		case 6: result = texture(vc_tex_gb, uv); break;
 		case 7: result = texture(vc_tex_ga, uv); break;
 		case 8: result = texture(vc_tex_br, uv); break;
@@ -174,7 +197,7 @@ vec4 sample_material_by_index(int index, vec2 base_uv) {
 		case 13: result = texture(vc_tex_ag, uv); break;
 		case 14: result = texture(vc_tex_ab, uv); break;
 		case 15: result = texture(vc_tex_aa, uv); break;  // VOID: fully transparent, no color contribution to blending
-		default: result = texture(vc_tex_rr, uv) * ground_albedo; break;
+		default: result = texture(vc_tex_rr, uv) * tex_albedo_1; break;
 	}
 	return result;
 }
@@ -278,10 +301,25 @@ vec4 blend_wall_materials(vec2 uv, vec4 vc0, vec4 vc1, float sharpness) {
 	return wall_color;
 }
 
+float get_world_noise(vec3 world_position, float tile_size) {
+	// Use world XZ coordinates for consistent noise regardless of view angle
+	vec2 noise_uv = world_position.xz * tile_size;
+	return texture(rl_noise_texture, noise_uv).r;
+}
+
 void vertex() {
 	vertex_normal = NORMAL;
-	custom1 = CUSTOM1;
+	custom1 = CUSTOM1.rgb;
+	nearest_wall_color_idx = CUSTOM1.a;
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+
+	// Calculate ridge and ledge blend factors
+	vec2 rl_uv = UV;
+	float rl_factor = max(rl_uv.x, rl_uv.y);
+	float r_blend_factor = step(ridge_threshold, rl_factor);
+	float l_blend_factor = step(ledge_threshold, rl_factor);
+	ridge_blend_factor = vec4(r_blend_factor, 0.0, 0.0, 0.0);
+	ledge_blend_factor = vec4(l_blend_factor, 0.0, 0.0, 0.0);
 
 	// Hard edges calculate material index here (flat = no interpolation)
 	material_index = get_material_index(COLOR, CUSTOM0);
@@ -302,16 +340,23 @@ void vertex() {
 
 void fragment() {
 	ALPHA_SCISSOR_THRESHOLD = 0.5;
+	vec4 vertex_pos = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
+
 	vec2 tiling_factor_floor = vec2(1.0 / float(chunk_size.x), 1.0 / float(chunk_size.z));
 	vec2 tiling_factor_wall = vec2(1.0 / float(chunk_size.x), 1.0 / float(chunk_size.y));
-	float is_ridge = custom1.g;
-	bool is_floor = dot(vertex_normal, vec3(0.0, 1.0, 0.0)) > wall_threshold && is_ridge < 0.5;
+	bool is_floor = dot(vertex_normal, vec3(0.0, 1.0, 0.0)) > wall_threshold;
 
+	// Usd for wall/ridge/ledge calculations
+	vec3 abs_normal = abs(vertex_normal);
+	vec3 tri_weights = vec3(abs_normal.x, 0.0, abs_normal.z);
+	tri_weights /= (tri_weights.x + tri_weights.z);
+
+	vec4 floor_color;
+	vec3 wall_color;
 	if (is_floor) {
 		vec2 floor_uv = UV2 * tiling_factor_floor;
-		vec4 floor_color;
 
-		//use per-cell material to prevent provoking vertex triangule artefac at ridge boundaries
+		//use per-cell material to prevent provoking vertex triangule artefact at ridge and ledge boundaries
 		if (use_hard_textures) {
 			// Use mat_indices.x (cell_mat_a) instead of vertex-based material_index
 			// floor triangles always use floor material
@@ -404,13 +449,7 @@ void fragment() {
 		ALPHA = floor_color.a;
 	}
 	else {
-		// Wall/Ridge rendering with dual-mode support
-		vec4 vertex_pos = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
-		vec3 abs_normal = abs(vertex_normal);
-
-		vec3 tri_weights = vec3(abs_normal.x, 0.0, abs_normal.z);
-		tri_weights /= (tri_weights.x + tri_weights.z);
-
+		// Wall rendering with dual-mode support
 		// Divide by cell_size to match floor UV coordinate system
 		// Floor UV2 = vert.xz / cell_size, so walls need the same normalization
 		vec2 uv_x = (vertex_pos.zy / cell_size.yx) * tiling_factor_wall;
@@ -429,16 +468,43 @@ void fragment() {
 			if (blend_noise_strength > 0.0) {
 				float n = noise(world_pos.xz * blend_noise_scale);
 				effective_sharpness = mix(blend_sharpness, blend_sharpness * (0.5 + n), blend_noise_strength);
-			}
+				}
 			wall_mat_x = blend_wall_materials(uv_x, vc_color_0, vc_color_1, effective_sharpness);
 			wall_mat_z = blend_wall_materials(uv_z, vc_color_0, vc_color_1, effective_sharpness);
 		}
 
 		vec3 texture_x = wall_mat_x.rgb * tri_weights.x;
 		vec3 texture_z = wall_mat_z.rgb * tri_weights.z;
+		wall_color = texture_x + texture_z;
 
 		ALBEDO = texture_x + texture_z;
 		ALPHA = wall_mat_x.a;
+	}
+
+	float blend_noise = get_world_noise(vertex_pos.xyz, rl_noise_tile_size);
+	float mixed_blend_factor = 0.0;
+	vec3 mixed_triplanar_color;
+	if (use_ledge_texture && custom1.b > 0.5 && is_floor == true) {
+		mixed_blend_factor = ledge_blend_factor.x;
+		if (rl_noise_strength > 0.0) {
+			float noise_variation = (blend_noise - 0.5) * rl_noise_strength;
+			mixed_blend_factor = step(ledge_threshold + noise_variation, max(UV.x, UV.y));
+		}
+		vec3 rl_wall_color_x = sample_material_by_index(int(nearest_wall_color_idx), (vertex_pos.zy / cell_size.yx) * tiling_factor_wall).rgb * tri_weights.x;
+		vec3 rl_wall_color_z = sample_material_by_index(int(nearest_wall_color_idx), (vertex_pos.xy / cell_size) * tiling_factor_wall).rgb * tri_weights.z;
+		mixed_triplanar_color = mix(floor_color.rgb, rl_wall_color_x + rl_wall_color_z, mixed_blend_factor);
+		ALBEDO = mixed_triplanar_color;
+	}
+	else if (use_ridge_texture && custom1.g > 0.5 && is_floor == true) {
+		mixed_blend_factor = ridge_blend_factor.x;
+		if (rl_noise_strength > 0.0) {
+			float noise_variation = (blend_noise - 0.5) * rl_noise_strength;
+			mixed_blend_factor = step(ridge_threshold + noise_variation, max(UV.x, UV.y));
+		}
+		vec3 rl_wall_color_x = sample_material_by_index(int(nearest_wall_color_idx), (vertex_pos.zy / cell_size.yx) * tiling_factor_wall).rgb * tri_weights.x;
+		vec3 rl_wall_color_z = sample_material_by_index(int(nearest_wall_color_idx), (vertex_pos.xy / cell_size) * tiling_factor_wall).rgb * tri_weights.z;
+		mixed_triplanar_color = mix(floor_color.rgb, rl_wall_color_x + rl_wall_color_z, mixed_blend_factor);
+		ALBEDO = mixed_triplanar_color;
 	}
 }
 

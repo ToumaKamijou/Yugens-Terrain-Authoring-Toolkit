@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dtevocyixqsgv"]
+
+[ext_resource type="Shader" uid="uid://j0q04ynsxcwy" path="res://addons/MarchingSquaresTerrain/resources/shaders/round_brush_radius_visual.gdshader" id="1_130ci"]
+[ext_resource type="Curve" uid="uid://c0bexjsfvvcxb" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/curve_falloff.tres" id="2_a4had"]
+
+[sub_resource type="CurveTexture" id="CurveTexture_fttfv"]
+curve = ExtResource("2_a4had")
+
+[resource]
+render_priority = 11
+shader = ExtResource("1_130ci")
+shader_parameter/curve_texture = SubResource("CurveTexture_fttfv")
+shader_parameter/falloff_visible = false

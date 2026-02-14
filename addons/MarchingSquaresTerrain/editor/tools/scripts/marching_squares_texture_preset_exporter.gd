@@ -3,8 +3,8 @@ extends Button
 class_name MarchingSquaresTexturePresetExporter
 
 
-const PRESET_DIR = "res://addons/MarchingSquaresTerrain/resources/texture presets/"
-const TEXTURE_NAMES = preload("res://addons/MarchingSquaresTerrain/resources/texture_names.tres")
+const PRESET_DIR = "res://addons/MarchingSquaresTerrain/resources/texture_presets/"
+const TEXTURE_NAMES = preload("uid://dd7fens03aosa")
 
 var current_terrain_node : MarchingSquaresTerrain
 
@@ -117,7 +117,7 @@ func _get_current_texture_data() -> MarchingSquaresTextureList:
 					var tex : Texture2D = Texture2D.new()
 					match i_tex:
 						0:
-							tex = current_terrain_node.ground_texture
+							tex = current_terrain_node.texture_1
 						1:
 							tex = current_terrain_node.texture_2
 						2:
@@ -187,7 +187,7 @@ func _get_current_texture_data() -> MarchingSquaresTextureList:
 					var tex : Texture2D = Texture2D.new()
 					match i_grass_tex:
 						0:
-							tex = current_terrain_node.grass_sprite
+							tex = current_terrain_node.grass_sprite_tex_1
 						1:
 							tex = current_terrain_node.grass_sprite_tex_2
 						2:
@@ -205,17 +205,17 @@ func _get_current_texture_data() -> MarchingSquaresTextureList:
 					var col : Color = Color.PURPLE
 					match i_grass_col:
 						0:
-							col = current_terrain_node.ground_color
+							col = current_terrain_node.texture_albedo_1
 						1:
-							col = current_terrain_node.ground_color_2
+							col = current_terrain_node.texture_albedo_2
 						2:
-							col = current_terrain_node.ground_color_3
+							col = current_terrain_node.texture_albedo_3
 						3:
-							col = current_terrain_node.ground_color_4
+							col = current_terrain_node.texture_albedo_4
 						4:
-							col = current_terrain_node.ground_color_5
+							col = current_terrain_node.texture_albedo_5
 						5:
-							col = current_terrain_node.ground_color_6
+							col = current_terrain_node.texture_albedo_6
 					if col != null:
 						new_texture_list.grass_colors[i_grass_col] = col
 			3: # has_grass
