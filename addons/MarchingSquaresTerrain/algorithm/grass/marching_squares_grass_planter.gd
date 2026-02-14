@@ -77,8 +77,8 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 	
 	var cell_geometry = _chunk.cell_geometry[cell_coords]
 	
-	if not cell_geometry.has("verts") or not cell_geometry.has("uvs") or not cell_geometry.has("colors_0") or not cell_geometry.has("colors_1") or not cell_geometry.has("grass_mask") or not cell_geometry.has("is_floor"):
-		printerr("[MarchingSquaresGrassPlanter] cell_geometry doesn't have one of the following required data: 1) verts, 2) uvs, 3) colors, 4) grass_mask, 5) is_floor")
+	if not cell_geometry.has("verts") or not cell_geometry.has("uvs") or not cell_geometry.has("color_0s") or not cell_geometry.has("color_1s") or not cell_geometry.has("custom_1_values") or not cell_geometry.has("is_floor"):
+		printerr("[MarchingSquaresGrassPlanter] cell_geometry doesn't have one of the following required data: 1) verts, 2) uvs, 3) colors, 4) custom_1_values, 5) is_floor")
 		return
 	
 	var points: PackedVector2Array = []
@@ -96,9 +96,9 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 	
 	var verts: PackedVector3Array = cell_geometry["verts"]
 	var uvs: PackedVector2Array = cell_geometry["uvs"]
-	var colors_0: PackedColorArray = cell_geometry["colors_0"]
-	var colors_1: PackedColorArray = cell_geometry["colors_1"]
-	var grass_mask: PackedColorArray = cell_geometry["grass_mask"]
+	var color_0s: PackedColorArray = cell_geometry["color_0s"]
+	var color_1s: PackedColorArray = cell_geometry["color_1s"]
+	var custom_1_values: PackedColorArray = cell_geometry["custom_1_values"]
 	var is_floor: Array = cell_geometry["is_floor"]
 	
 	for i in range(0, len(verts), 3):
@@ -143,20 +143,20 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 				
 				# Don't place grass on ledges
 				var uv = uvs[i]*u + uvs[i+1]*v + uvs[i+2]*(1-u-v)
-				var on_ledge: bool = uv.x > 1-_chunk.terrain_system.ledge_threshold or uv.y > 1-_chunk.terrain_system.ridge_threshold
+				var on_ledge_or_ridge: bool = uv.y > 0.0 or uv.x > 0.5
 				
-				var color_0 = MarchingSquaresTerrainVertexColorHelper.get_dominant_color(colors_0[i]*u + colors_0[i+1]*v + colors_0[i+2]*(1-u-v))
-				var color_1 = MarchingSquaresTerrainVertexColorHelper.get_dominant_color(colors_1[i]*u + colors_1[i+1]*v + colors_1[i+2]*(1-u-v))
+				var color_0 = MarchingSquaresTerrainVertexColorHelper.get_dominant_color(color_0s[i]*u + color_0s[i+1]*v + color_0s[i+2]*(1-u-v))
+				var color_1 = MarchingSquaresTerrainVertexColorHelper.get_dominant_color(color_1s[i]*u + color_1s[i+1]*v + color_1s[i+2]*(1-u-v))
 				
 				# Check grass mask first - green channel forces grass ON, red channel masks grass OFF
-				var mask = grass_mask[i]*u + grass_mask[i+1]*v + grass_mask[i+2]*(1-u-v)
+				var mask = custom_1_values[i]*u + custom_1_values[i+1]*v + custom_1_values[i+2]*(1-u-v)
 				var is_masked: bool = mask.r < 0.9999
 				var force_grass_on: bool = mask.g >= 0.9999  # Preset override: force grass regardless of texture
 				
 				var texture_id := _get_texture_id(color_0, color_1)
 				var on_grass_tex := _has_grass_for_texture(texture_id, force_grass_on)
 
-				if on_grass_tex and not on_ledge and not is_masked:
+				if on_grass_tex and not on_ledge_or_ridge and not is_masked:
 					_create_grass_instance(index, p, a, b, c, texture_id)
 				else:
 					_hide_grass_instance(index)

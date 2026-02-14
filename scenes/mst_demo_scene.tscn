@@ -70,7 +70,7 @@ metadata/_custom_type_script = "uid://dqeuj3gddfm65"
 [sub_resource type="Resource" id="Resource_658wv"]
 script = ExtResource("6_h78w1")
 terrain_textures = Array[Texture2D]([ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("8_7mabo"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
-texture_scales = Array[float]([1.0, 1.0, 1.0, 1.0, 0.9, 1.0, 0.9, 0.9, 0.9, 0.9, 1.0, 1.0, 0.7, 1.0, 1.0])
+texture_scales = Array[float]([1.0, 1.0, 0.9, 0.9, 0.9, 1.0, 1.0, 0.9, 0.9, 0.9, 1.0, 1.0, 0.7, 1.0, 1.0])
 
 [sub_resource type="Resource" id="Resource_j2hbo"]
 script = ExtResource("10_52i7q")
@@ -128,8 +128,9 @@ texture_12 = SubResource("Texture2D_iuhot")
 texture_13 = SubResource("Texture2D_vk8tc")
 texture_14 = SubResource("Texture2D_11ep3")
 texture_15 = SubResource("Texture2D_fpfsv")
+texture_scale_3 = 0.9
+texture_scale_4 = 0.9
 texture_scale_5 = 0.9
-texture_scale_7 = 0.9
 texture_scale_8 = 0.9
 texture_scale_9 = 0.9
 texture_scale_10 = 0.9
@@ -137,10 +138,10 @@ texture_scale_13 = 0.7
 current_texture_preset = SubResource("Resource_j2hbo")
 metadata/_custom_type_script = "uid://cddg1xr5hye1d"
 
-[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=584245953 node_paths=PackedStringArray("terrain_system")]
+[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=2071820066 node_paths=PackedStringArray("terrain_system")]
 script = ExtResource("4_0xhur")
 terrain_system = NodePath("..")
 
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=997376342]
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=197222320]
 cast_shadow = 0
 script = ExtResource("5_rcx4y")

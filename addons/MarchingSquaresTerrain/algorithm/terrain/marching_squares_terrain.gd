@@ -82,21 +82,22 @@ enum StorageMode {
 		grass_mat.set_shader_parameter("wall_threshold", value)
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
 			chunk.grass_planter.regenerate_all_cells()
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ledge_threshold: float = 0.25:
-	set(value):
-		ledge_threshold = value
-		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.grass_planter.regenerate_all_cells()
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var use_ridge_texture: bool = false:
-	set(value):
-		use_ridge_texture = value
-		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.regenerate_all_cells(true)
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ridge_threshold: float = 1.0:
 	set(value):
 		ridge_threshold = value
-		for chunk: MarchingSquaresTerrainChunk in chunks.values():
-			chunk.grass_planter.regenerate_all_cells()
+		terrain_material.set_shader_parameter("ridge_threshold", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var ledge_threshold: float = 1.0:
+	set(value):
+		ledge_threshold = value
+		terrain_material.set_shader_parameter("ledge_threshold", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var use_ridge_texture: bool = true:
+	set(value):
+		use_ridge_texture = value
+		terrain_material.set_shader_parameter("use_ridge_texture", value)
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var use_ledge_texture: bool = true:
+	set(value):
+		use_ledge_texture = value
+		terrain_material.set_shader_parameter("use_ledge_texture", value)
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var noise_hmap : Noise # used to generate smooth initial heights for more natrual looking terrain. if null, initial terrain will be flat
 
 # Grass settings
@@ -461,6 +462,7 @@ enum StorageMode {
 
 var void_texture := preload("uid://csvthlqhb8g5j")
 var placeholder_wind_texture := preload("uid://dk1t5hy2tiil7") # Change to your own texture
+var placeholder_rl_noise_texture := preload("uid://85iqlmnoua0e") # Change to your own texture
 
 var terrain_material : ShaderMaterial = null
 var grass_mesh : QuadMesh = null 
@@ -652,6 +654,8 @@ func _ensure_textures() -> void:
 		
 	if grass_mat.get_shader_parameter("wind_texture") == null:
 		grass_mat.set_shader_parameter("wind_texture", placeholder_wind_texture)
+	if terrain_material.get_shader_parameter("rl_noise_texture") == null:
+		terrain_material.set_shader_parameter("rl_noise_texture", placeholder_rl_noise_texture)
 
 
 # Applies all shader parameters and regenerates grass once

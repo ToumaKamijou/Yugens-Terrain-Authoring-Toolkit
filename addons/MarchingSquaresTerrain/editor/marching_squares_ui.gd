@@ -10,13 +10,13 @@ const TEXTURE_SETTINGS : Script = preload("uid://blvx0jk6wxk5p")
 #region texture setting property maps
 # Property names that map directly to terrain properties with same name
 const TEXTURE_PROPERTIES := [
-	"ground_texture", "texture_2", "texture_3", "texture_4", "texture_5", "texture_6",
-	"texture_7", "texture_8", "texture_9", "texture_10", "texture_11",
-	"texture_12", "texture_13", "texture_14", "texture_15"
+	"texture_1", "texture_2", "texture_3", "texture_4", "texture_5",
+	"texture_6", "texture_7", "texture_8", "texture_9", "texture_10",
+	"texture_11", "texture_12", "texture_13", "texture_14", "texture_15"
 ]
 
 const GRASS_SPRITE_PROPERTIES := [
-	"grass_sprite", "grass_sprite_tex_2", "grass_sprite_tex_3",
+	"grass_sprite_tex_1", "grass_sprite_tex_2", "grass_sprite_tex_3",
 	"grass_sprite_tex_4", "grass_sprite_tex_5", "grass_sprite_tex_6"
 ]
 
@@ -31,10 +31,9 @@ const HAS_GRASS_PROPERTIES := [
 ]
 
 const TEXTURE_SCALE_PROPERTIES := [
-	"texture_scale_1", "texture_scale_2", "texture_scale_3", "texture_scale_4",
-	"texture_scale_5", "texture_scale_6", "texture_scale_7", "texture_scale_8",
-	"texture_scale_9", "texture_scale_10", "texture_scale_11", "texture_scale_12",
-	"texture_scale_13", "texture_scale_14", "texture_scale_15"
+	"texture_scale_1", "texture_scale_2", "texture_scale_3", "texture_scale_4", "texture_scale_5",
+	"texture_scale_6", "texture_scale_7", "texture_scale_8", "texture_scale_9", "texture_scale_10",
+	"texture_scale_11", "texture_scale_12", "texture_scale_13", "texture_scale_14", "texture_scale_15"
 ]
 #endregion
 
@@ -231,6 +230,9 @@ func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> vo
 		"use_ridge_texture":
 			if p_value is bool:
 				terrain.use_ridge_texture = p_value
+		"use_ledge_texture":
+			if p_value is bool:
+				terrain.use_ledge_texture = p_value
 		"default_wall_texture":
 			if p_value is int:
 				terrain.default_wall_texture = p_value
