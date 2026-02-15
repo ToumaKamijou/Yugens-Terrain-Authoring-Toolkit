@@ -33,17 +33,26 @@ float randf_from_id(float id) {
 }
 
 void vertex() {
+	float rand_angle = randf_from_id(float(INSTANCE_ID)) * TAU;
+	float s = sin(rand_angle);
+	float c = cos(rand_angle);
+	if (should_billboard) {
+		VERTEX.y -= 1.0;
+		
+		mat2 rand_rot = mat2(vec2(c, s), vec2(-s,  c));
+		VERTEX.xy *= rand_rot;
+		
+		VERTEX.y += 0.75;
+	}
+	else {
+		mat2 rand_rot = mat2(vec2(c, -s), vec2(s,  c));
+		VERTEX.xz *= rand_rot;
+	}
 	if (animate_active && VERTEX.y > 0.0) {
 		float left_to_right_mult = 0.2;
 		// Individual sprite movement animations
 		if (fps > 0.0) {
-			float seed = dot(vec2(VERTEX.xz), vec2(12.9898, 78.233)) + float(INSTANCE_ID);
-			float time_offset = fract(sin(seed) * 43758.5453);
-			float quantized_time = floor(TIME * fps * time_offset) / fps;
-
-			float sway = sin(quantized_time) * left_to_right_mult;
-
-			VERTEX.x += sway;
+			// Insert custom logic here for rotated sprites
 		}
 		else {
 			// Wind animations (make sure you apply a texture in the shader parameters)
@@ -75,12 +84,6 @@ void vertex() {
 		POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(world_position, 1.0);
 	}
 	else {
-		float rand_angle = randf_from_id(float(INSTANCE_ID)) * TAU;
-		float s = sin(rand_angle);
-		float c = cos(rand_angle);
-		mat2 rand_rot = mat2(vec2(c, -s), vec2(s,  c));
-		VERTEX.xz *= rand_rot;
-		
 		vec3 instance_origin = (MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 		POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(instance_origin + VERTEX, 1.0);
 	}

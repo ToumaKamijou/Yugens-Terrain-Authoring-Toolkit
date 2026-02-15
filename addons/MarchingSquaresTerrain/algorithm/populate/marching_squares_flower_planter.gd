@@ -25,9 +25,11 @@ var terrain_system : MarchingSquaresTerrain
 		if value == true:
 			flower_mesh.orientation = PlaneMesh.FACE_Z
 			flower_mat.set_shader_parameter("should_billboard", true)
+			multimesh.mesh.center_offset.y = multimesh.mesh.size.y
 		else:
 			flower_mesh.orientation = PlaneMesh.FACE_Y
 			flower_mat.set_shader_parameter("should_billboard", false)
+			multimesh.mesh.center_offset.y = multimesh.mesh.size.y / 2
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var flower_sprite : CompressedTexture2D = preload("uid://ld4ildjiaxlw"):
 	set(value):
 		flower_sprite = value
@@ -37,7 +39,10 @@ var terrain_system : MarchingSquaresTerrain
 	set(value):
 		sprite_size = value
 		multimesh.mesh.size = value
-		multimesh.mesh.center_offset.y = value.y / 2
+		if should_billboard:
+			multimesh.mesh.center_offset.y = value
+		else:
+			multimesh.mesh.center_offset.y = value.y / 2
 @export_custom(PROPERTY_HINT_RANGE, "0, 2", PROPERTY_USAGE_STORAGE) var flower_subdivisions : int = 1:
 	set(value):
 		flower_subdivisions = value
@@ -104,7 +109,10 @@ func regenerate_flowers() -> void:
 		for cell in cell_data[chunk]:
 			index = generate_flowers_on_cell(chunk, cell, index)
 	
-	multimesh.mesh.center_offset.y = multimesh.mesh.size.y / 2
+	if should_billboard:
+		multimesh.mesh.center_offset.y = multimesh.mesh.size.y
+	else:
+		multimesh.mesh.center_offset.y = multimesh.mesh.size.y / 2
 
 
 func add_flowers_to_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> void:
