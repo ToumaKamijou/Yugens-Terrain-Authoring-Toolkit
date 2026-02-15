@@ -48,8 +48,8 @@ group_uniforms;
 group_uniforms Animations.Wind;
 uniform sampler2D wind_texture : source_color;
 uniform vec2 wind_direction = vec2(1.0, 1.0);
-uniform float wind_scale = 0.1;
-uniform float wind_speed = 1.0;
+uniform float wind_scale = 0.02;
+uniform float wind_speed = 0.15;
 group_uniforms;
 
 group_uniforms Effects.Experimental;
@@ -68,7 +68,6 @@ varying vec3 vertex_normal;
 varying vec3 instance_color;
 varying float instance_sprite_id;
 varying flat int instance_id;
-varying float wind_color;
 
 void vertex() {
 	if (animate_active && VERTEX.y > 0.0) {
@@ -92,7 +91,6 @@ void vertex() {
 			vec2 wind_uv = (world_pos.xy * wind_scale) + scroll;
 
 			float wind_value = texture(wind_texture, wind_uv).r;
-			wind_color = wind_value;
 
 			float wind = wind_value * left_to_right_mult;
 

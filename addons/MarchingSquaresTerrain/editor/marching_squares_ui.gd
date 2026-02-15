@@ -202,6 +202,9 @@ func _on_setting_changed(p_setting_name: String, p_value: Variant) -> void:
 		"paint_walls":
 			if p_value is bool:
 				plugin.paint_walls_mode = p_value
+		"remove_selection":
+			if p_value is bool:
+				plugin.remove_selection = p_value
 
 
 func _on_terrain_setting_changed(p_setting_name: String, p_value: Variant) -> void:

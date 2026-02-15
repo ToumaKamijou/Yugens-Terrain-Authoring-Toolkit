@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://nm6bsrx1aie5" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="1_k1nnx"]
 [ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/round_leaf.png" id="2_j2ufq"]
+[ext_resource type="Texture2D" uid="uid://dk1t5hy2tiil7" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wind_noise_texture.tres" id="3_ioj3g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r1y2f"]
 render_priority = 0
@@ -12,6 +13,12 @@ shader_parameter/should_billboard = true
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/bands = 5
 shader_parameter/shadow_intensity = 0.0
+shader_parameter/animate_active = true
+shader_parameter/fps = 0.0
+shader_parameter/wind_texture = ExtResource("3_ioj3g")
+shader_parameter/wind_direction = Vector2(1, 1)
+shader_parameter/wind_scale = 0.02
+shader_parameter/wind_speed = 0.15
 
 [resource]
 material = SubResource("ShaderMaterial_r1y2f")

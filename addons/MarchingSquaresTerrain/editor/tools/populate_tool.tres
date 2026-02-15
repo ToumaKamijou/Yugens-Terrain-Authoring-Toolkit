@@ -9,6 +9,7 @@ script = ExtResource("1_n4lht")
 brush_type = true
 size = true
 planter = true
+remove_selection = true
 populate_terrain = true
 metadata/_custom_type_script = "uid://b6jopat61dbd3"
 

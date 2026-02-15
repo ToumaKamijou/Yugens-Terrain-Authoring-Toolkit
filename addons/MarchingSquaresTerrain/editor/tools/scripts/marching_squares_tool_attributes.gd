@@ -117,6 +117,8 @@ func show_tool_attributes(tool_index: int) -> void:
 		new_attributes.append(attribute_list.paint_walls)
 	if tool_attributes.planter:
 		new_attributes.append(attribute_list.planter)
+	if tool_attributes.remove_selection:
+		new_attributes.append(attribute_list.remove_selection)
 	if tool_attributes.populate_terrain:
 		new_attributes.append(attribute_list.populate_terrain)
 	if tool_attributes.chunk_management:
@@ -615,6 +617,8 @@ func _get_setting_value(p_setting_name: String) -> Variant:
 			return plugin.paint_walls_mode
 		"planter":
 			pass
+		"remove_selection":
+			return plugin.remove_selection
 		"populate_terrain":
 			pass
 		"chunk_management":

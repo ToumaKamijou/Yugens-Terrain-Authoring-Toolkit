@@ -156,7 +156,7 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 				
 				var texture_id := _get_texture_id(color_0, color_1)
 				var on_grass_tex := _has_grass_for_texture(texture_id, force_grass_on)
-
+				
 				if on_grass_tex and not on_ledge_or_ridge and not is_masked:
 					_create_grass_instance(index, p, a, b, c, texture_id)
 				else:
@@ -301,7 +301,7 @@ func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale
 #region grass placement helpers
 
 ## Creates a grass instance at the given position with proper transform and color
-func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:
+func _create_grass_instance(index: int, instance_position: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:
 	var edge1 := b - a
 	var edge2 := c - a
 	var normal := edge1.cross(edge2).normalized()
@@ -310,10 +310,10 @@ func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector
 	var forward := normal.cross(Vector3.RIGHT).normalized()
 	var instance_basis := Basis(right, forward, -normal)
 
-	multimesh.set_instance_transform(index, Transform3D(instance_basis, position))
+	multimesh.set_instance_transform(index, Transform3D(instance_basis, instance_position))
 
 	var tex_scale := _get_texture_scale(texture_id)
-	var instance_color := _sample_terrain_texture_color(position, texture_id, tex_scale)
+	var instance_color := _sample_terrain_texture_color(instance_position, texture_id, tex_scale)
 	instance_color.a = _get_grass_alpha(texture_id)
 
 	multimesh.set_instance_custom_data(index, instance_color)

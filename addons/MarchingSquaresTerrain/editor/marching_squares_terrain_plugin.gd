@@ -109,7 +109,7 @@ var vertex_color_1 : Color = Color(1.0, 0.0, 0.0, 0.0)
 # Used to reference populator data in the populator tool
 var current_populator : MarchingSquaresPopulator = null
 
-var remove_flowers : bool = false
+var remove_selection : bool = false
 
 #region draw-related vars
 # A dictionary with keys for each tile that is currently being drawn to with the brush 
@@ -752,8 +752,8 @@ func draw_pattern(terrain: MarchingSquaresTerrain):
 	elif mode == TerrainToolMode.POPULATE:
 		var action_name := "terrain flower mask draw" if current_populator is MarchingSquaresFlowerPlanter else "terrain vegetation mask draw"
 		undo_redo.create_action(action_name)
-		undo_redo.add_do_method(self, "draw_populator_mask_pattern_action", terrain, pattern, remove_flowers)
-		undo_redo.add_undo_method(self, "draw_populator_mask_pattern_action", terrain, restore_pattern, remove_flowers)
+		undo_redo.add_do_method(self, "draw_populator_mask_pattern_action", terrain, pattern, remove_selection)
+		undo_redo.add_undo_method(self, "draw_populator_mask_pattern_action", terrain, restore_pattern, remove_selection)
 		undo_redo.commit_action()
 	else:
 		# Handle BRUSH, LEVEL, SMOOTH, BRIDGE modes

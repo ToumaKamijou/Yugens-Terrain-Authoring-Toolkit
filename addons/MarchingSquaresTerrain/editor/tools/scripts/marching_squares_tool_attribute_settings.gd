@@ -23,6 +23,7 @@ class_name MarchingSquaresToolAttributeSettings
 
 # Populate-related special attributes
 @export var planter : bool = false
+@export var remove_selection : bool = false
 @export var populate_terrain : bool = false
 
 # Non-brush attributes

@@ -108,6 +108,13 @@ var planter : Dictionary = {
 	"default": 0,
 }
 
+var remove_selection : Dictionary = {
+	"name": "remove_selection",
+	"type": "checkbox",
+	"label": "Remove Selection",
+	"default": false,
+}
+
 var populate_terrain : Dictionary = {
 	"name": "populate_terrain",
 	"type": "populate_button",

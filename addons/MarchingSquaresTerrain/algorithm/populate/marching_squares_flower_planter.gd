@@ -40,6 +40,9 @@ var terrain_system : MarchingSquaresTerrain
 @export_custom(PROPERTY_HINT_RANGE, "0, 2", PROPERTY_USAGE_STORAGE) var flower_subdivisions : int = 1:
 	set(value):
 		flower_subdivisions = value
+		if Engine.is_editor_hint():
+			setup(false)
+			regenerate_flowers()
 
 @export_storage var planted_chunks : Dictionary = {} 
 var populated_chunks : Array[MarchingSquaresTerrainChunk]
@@ -265,7 +268,8 @@ func _create_flower_instance(index: int, instance_position: Vector3, a: Vector3,
 	if color_gradient:
 		var color_idx := rng.randi_range(0, color_gradient.get_width() - 1)
 		var gradient_img := color_gradient.get_image()
-		var instance_color := gradient_img.get_pixel(color_idx, 0)
+		var instance_color := gradient_img.get_pixelv(Vector2i(color_idx, 0))
+		instance_color *= instance_color
 		multimesh.set_instance_custom_data(index, instance_color)
 
 
