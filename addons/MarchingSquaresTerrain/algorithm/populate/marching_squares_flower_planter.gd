@@ -3,6 +3,7 @@
 extends MarchingSquaresPopulator
 class_name MarchingSquaresFlowerPlanter
 
+## TODO: Add size variations for the sprites
 
 var terrain_system : MarchingSquaresTerrain
 
@@ -275,3 +276,4 @@ func _create_flower_instance(index: int, instance_position: Vector3, a: Vector3,
 
 func _hide_flower_instance(index: int) -> void:
 	multimesh.set_instance_transform(index, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3.ZERO))
+	multimesh.set_instance_custom_data(index, Color(0,0,0,0))

@@ -226,7 +226,17 @@ func add_setting(p_params: Dictionary) -> void:
 						option_button.add_item(str(child.name))
 						if plugin.current_populator == null:
 							plugin.current_populator = child
-			var default_value = p_params.get("default", 0) # Fallback base value
+			var default_value
+			if setting_name == "planter" and selected_populator:
+				var index : int = -1
+				for child in plugin.current_terrain_node.get_children():
+					if child is MarchingSquaresPopulator:
+						index += 1
+						if child == selected_populator:
+							default_value = index
+							break
+			else:
+				default_value = p_params.get("default", 0) # Fallback base value
 			if saved_setting_value is not String and str(saved_setting_value) != "ERROR":
 				default_value = saved_setting_value
 			option_button.selected = default_value

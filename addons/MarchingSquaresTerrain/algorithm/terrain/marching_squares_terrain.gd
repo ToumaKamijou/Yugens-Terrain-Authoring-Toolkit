@@ -573,6 +573,18 @@ func remove_chunk(x: int, z: int):
 	var chunk: MarchingSquaresTerrainChunk = chunks[chunk_coords]
 	chunks.erase(chunk_coords)  # Use chunk_coords, not chunk object
 	chunk.free()
+	
+	if not Engine.is_editor_hint():
+		return
+	
+	for child in get_children():
+		if child is MarchingSquaresFlowerPlanter:
+			if child.planted_chunks.has(chunk_coords):
+				child.planted_chunks.erase(chunk_coords)
+				child.populated_chunks.erase(chunk)
+				child.cell_data.erase(chunk_coords)
+				child.setup(false)
+				child.regenerate_flowers()
 
 
 # Remove a chunk but still keep it in memory (so that undo can restore it)
@@ -583,6 +595,18 @@ func remove_chunk_from_tree(x: int, z: int):
 	chunk._skip_save_on_exit = true  # Prevent mesh save during undo/redo
 	remove_child(chunk)
 	chunk.owner = null
+	
+	if not Engine.is_editor_hint():
+		return
+	
+	for child in get_children():
+		if child is MarchingSquaresFlowerPlanter:
+			if child.planted_chunks.has(chunk_coords):
+				child.planted_chunks.erase(chunk_coords)
+				child.populated_chunks.erase(chunk)
+				child.cell_data.erase(chunk_coords)
+				child.setup(false)
+				child.regenerate_flowers()
 
 
 func add_chunk(coords: Vector2i, chunk: MarchingSquaresTerrainChunk, regenerate_mesh: bool = true):

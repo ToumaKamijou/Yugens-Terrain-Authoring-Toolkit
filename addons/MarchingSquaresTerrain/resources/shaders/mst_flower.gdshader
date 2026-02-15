@@ -26,7 +26,7 @@ uniform float wind_speed = 0.15;
 group_uniforms;
 
 varying vec3 model_origin;
-varying vec3 instance_color;
+varying vec4 instance_color;
 
 float randf_from_id(float id) {
 	return fract(sin(id * 12.9898) * 43758.5453);
@@ -86,7 +86,7 @@ void vertex() {
 	}
 	
 	model_origin = (MODELVIEW_MATRIX * vec4(0.,0.,0.,1.)).xyz;
-	instance_color = INSTANCE_CUSTOM.rgb;
+	instance_color = INSTANCE_CUSTOM;
 	if (should_billboard == false)
 		instance_color *= 5.0;
 }
@@ -94,10 +94,10 @@ void vertex() {
 void fragment() {
 	ALPHA_SCISSOR_THRESHOLD = 0.5;
 	vec4 flower_tex = texture(flower_texture, UV);
-	vec3 flower_color = use_custom_color ? flower_tex.rgb * instance_color : flower_tex.rgb;
+	vec3 flower_color = use_custom_color ? flower_tex.rgb * instance_color.rgb : flower_tex.rgb;
 	
 	ALBEDO = flower_color;
-	ALPHA = flower_tex.a;
+	ALPHA = flower_tex.a * instance_color.a;
 	
 	if (ALPHA < 0.1) discard;
 	
