@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dk1t5hy2tiil7" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wind_noise_texture.tres" id="3_1bgk7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fa4te"]
-render_priority = 0
+render_priority = -1
 shader = ExtResource("1_jmvec")
 shader_parameter/grass_color_1 = Color(0.392, 0.471, 0.318, 1)
 shader_parameter/grass_color_2 = Color(0.322, 0.482, 0.384, 1)

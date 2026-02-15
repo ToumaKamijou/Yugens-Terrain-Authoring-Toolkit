@@ -1,4 +1,4 @@
-@icon("res://addons/MarchingSquaresTerrain/editor/icons/3D_planters_icon.png")
+@icon("uid://sx50shr1w2g0")
 @tool
 extends MultiMeshInstance3D
 class_name MarchingSquaresGrassPlanter
@@ -105,7 +105,7 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 	for i in range(0, len(verts), 3):
 		if i+2 >= len(verts):
 			continue # skip incomplete triangle
-		# only place grass on floors
+		# Only place grass on floors
 		if not is_floor[i]:
 			continue
 		
@@ -142,7 +142,7 @@ func generate_grass_on_cell(cell_coords: Vector2i) -> void:
 				points.remove_at(point_index)
 				var p = a*(1-u-v) + b*u + c*v
 				
-				# Don't place grass on ledges
+				# Don't place grass on ledge or ridges
 				var uv = uvs[i]*u + uvs[i+1]*v + uvs[i+2]*(1-u-v)
 				var on_ledge_or_ridge: bool = uv.y > 0.0 or uv.x > 0.5
 				

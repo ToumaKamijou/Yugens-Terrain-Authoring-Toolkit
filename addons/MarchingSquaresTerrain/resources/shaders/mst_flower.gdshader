@@ -1,10 +1,9 @@
 shader_type spatial;
 render_mode diffuse_toon, depth_draw_opaque;
 
-
 group_uniforms Albedo;
 uniform sampler2D flower_texture : source_color, filter_nearest;
-uniform bool use_custom_color = false;
+uniform bool use_custom_color = true;
 uniform bool should_billboard = true;
 group_uniforms;
 
@@ -18,7 +17,7 @@ varying vec3 model_origin;
 varying vec3 instance_color;
 
 void vertex() {
-	// Add wind animations that connec to the grass fps here!!!
+	// Add wind animations that connect to the grass fps here!!!
 
 	if (should_billboard) {
 		vec3 cam_z = normalize(CAMERA_DIRECTION_WORLD);
@@ -31,6 +30,10 @@ void vertex() {
 		vec3 instance_origin = (MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 		vec3 world_position = instance_origin + billboarded_vertex;
 		POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(world_position, 1.0);
+	}
+	else {
+		vec3 instance_origin = (MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+		POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(instance_origin + VERTEX, 1.0);
 	}
 	
 	model_origin = (MODELVIEW_MATRIX * vec4(0.,0.,0.,1.)).xyz;
@@ -47,7 +50,8 @@ void fragment() {
 	
 	if (ALPHA < 0.1) discard;
 	
-	LIGHT_VERTEX = model_origin;
+	if (should_billboard)
+		LIGHT_VERTEX = model_origin;
 }
 
 void light() {

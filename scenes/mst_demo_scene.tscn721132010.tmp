@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://sydb48gksm6o"]
+
+[ext_resource type="Script" uid="uid://bhr82jo0k7guh" path="res://scripts/rotating_camera.gd" id="1_0xhur"]
+[ext_resource type="Script" uid="uid://6pvgykbbdsmg" path="res://scripts/demo_scene.gd" id="1_rcx4y"]
+[ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="3_0450b"]
+[ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="4_0xhur"]
+[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="4_j2hbo"]
+[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_leaf_sprite.png" id="5_54x3k"]
+[ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="5_rcx4y"]
+[ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="6_h78w1"]
+[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="7_bvinl"]
+[ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="8_7mabo"]
+[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="9_77stx"]
+[ext_resource type="Script" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="10_52i7q"]
+[ext_resource type="PackedScene" uid="uid://demjm5kq2kdpa" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.tscn" id="13_7mabo"]
+[ext_resource type="Shader" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="14_77stx"]
+[ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/round_leaf.png" id="15_52i7q"]
+[ext_resource type="Script" uid="uid://dclwk65s0jbm4" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.gd" id="16_52i7q"]
+[ext_resource type="PackedScene" uid="uid://dee37o2xm1nye" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_vegetation_planter.tscn" id="17_dgrna"]
+[ext_resource type="Script" uid="uid://d1xxp48rg1510" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_vegetation_planter.gd" id="18_dpacv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e28qv"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_or4gs"]
+sky_material = SubResource("ProceduralSkyMaterial_e28qv")
+
+[sub_resource type="Environment" id="Environment_xpbee"]
+background_mode = 2
+sky = SubResource("Sky_or4gs")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Texture2D" id="Texture2D_vynns"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_p1dug"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_38l2j"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_ta716"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_1nue7"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_iuhot"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_vk8tc"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_11ep3"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_fpfsv"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Resource" id="Resource_38l2j"]
+script = ExtResource("4_j2hbo")
+metadata/_custom_type_script = "uid://dqeuj3gddfm65"
+
+[sub_resource type="Resource" id="Resource_658wv"]
+script = ExtResource("6_h78w1")
+terrain_textures = Array[Texture2D]([ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("8_7mabo"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
+
+[sub_resource type="Resource" id="Resource_52i7q"]
+script = ExtResource("10_52i7q")
+preset_name = "Empty Project"
+new_tex_names = SubResource("Resource_38l2j")
+new_textures = SubResource("Resource_658wv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4s4e"]
+render_priority = 0
+shader = ExtResource("14_77stx")
+shader_parameter/flower_texture = ExtResource("15_52i7q")
+shader_parameter/use_custom_color = false
+shader_parameter/should_billboard = true
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_jwa66"]
+material = SubResource("ShaderMaterial_y4s4e")
+center_offset = Vector3(0, 0.5, 0)
+
+[sub_resource type="MultiMesh" id="MultiMesh_bvqfd"]
+transform_format = 1
+use_custom_data = true
+instance_count = 175
+mesh = SubResource("QuadMesh_jwa66")
+buffer = PackedFloat32Array(-1, 0, 0, 32.80638, 0, 0, 1, 0, 0, 1, 0, 25.513702, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 34.517845, 0, 0, 1, 0, 0, 1, 0, 25.037558, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.8159, 0, 0, 1, 0, 0, 1, 0, 24.311863, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.42295, 0, 0, 1, 0, 0, 1, 0, 25.034351, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.430195, 0, 0, 1, 0, 0, 1, 0, 27.689896, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.81156, 0, 0, 1, 0, 0, 1, 0, 26.543877, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 34.093914, 0, 0, 1, 0, 0, 1, 0, 27.825817, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.03221, 0, 0, 1, 0, 0, 1, 0, 27.019302, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.61405, 0, 0, 1, 0, 0, 1, 0, 26.793612, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.72298, 0, 0, 1, 0, 0, 1, 0, 26.622875, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.968561, 0, 0, 1, 0, 0, 1, 0, 28.882486, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.12381, 0, 0, 1, 0, 0, 1, 0, 29.668625, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.049557, 0, 0, 1, 0, 0, 1, 0, 28.377316, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.27162, 0, 0, 1, 0, 0, 1, 0, 28.29256, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.724884, 0, 0, 1, 0, 0, 1, 0, 28.004704, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.638195, 0, 0, 1, 0, 0, 1, 0, 29.43464, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.741283, 0, 0, 1, 0, 0, 1, 0, 28.33459, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.355045, 0, 0, 1, 0, 0, 1, 0, 31.755539, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.222836, 0, 0, 1, 0, 0, 1, 0, 30.472042, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 32.892876, 0, 0, 1, 0, 0, 1, 0, 31.432356, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.85389, 0, 0, 1, 0, 0, 1, 0, 31.914087, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.901608, 0, 0, 1, 0, 0, 1, 0, 30.85385, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 39.119434, 0, 0, 1, 0, 0, 1, 0, 31.079891, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.572556, 0, 0, 1, 0, 0, 1, 0, 31.689348, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 43.718422, 0, 0, 1, 0, 0, 1, 0, 30.568504, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.258892, 0, 0, 1, 0, 0, 1, 0, 32.92634, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.354506, 0, 0, 1, 0, 0, 1, 0, 32.827263, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.291775, 0, 0, 1, 0, 0, 1, 0, 32.619617, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 34.07486, 0, 0, 1, 0, 0, 1, 0, 33.958794, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.286312, 0, 0, 1, 0, 0, 1, 0, 33.76002, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.759857, 0, 0, 1, 0, 0, 1, 0, 33.726784, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.79016, 0, 0, 1, 0, 0, 1, 0, 32.282043, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 42.620937, 0, 0, 1, 0, 0, 1, 0, 32.997875, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.307034, 0, 0, 1, 0, 0, 1, 0, 34.058224, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.303085, 0, 0, 1, 0, 0, 1, 0, 35.682213, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 34.794765, 0, 0, 1, 0, 0, 1, 0, 34.869198, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.57019, 0, 0, 1, 0, 0, 1, 0, 35.05832, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 39.21559, 0, 0, 1, 0, 0, 1, 0, 35.26104, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.543823, 0, 0, 1, 0, 0, 1, 0, 34.439117, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 31.28718, 0, 0, 1, 0, 0, 1, 0, 37.025482, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.204727, 0, 0, 1, 0, 0, 1, 0, 37.672417, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.642105, 0, 0, 1, 0, 0, 1, 0, 37.656662, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.451485, 0, 0, 1, 0, 0, 1, 0, 37.41172, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 39.54773, 0, 0, 1, 0, 0, 1, 0, 37.0037, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.439888, 0, 0, 1, 0, 0, 1, 0, 37.03047, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.8804, 0, 0, 1, 0, 0, 1, 0, 38.080902, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.05545, 0, 0, 1, 0, 0, 1, 0, 39.590942, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.344906, 0, 0, 1, 0, 0, 1, 0, 24.429016, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.669285, 0, 0, 1, 0, 0, 1, 0, 27.894432, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.010033, 0, 0, 1, 0, 0, 1, 0, 34.125244, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 26.983835, 0, 0, 1, 0, 0, 1, 0, 28.750122, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.301632, 0, 0, 1, 0, 0, 1, 0, 30.965132, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 32.87342, 0, 0, 1, 0, 0, 1, 0, 23.034704, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.692074, 0, 0, 1, 0, 0, 1, 0, 24.291378, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.765034, 0, 0, 1, 0, 0, 1, 0, 27.73885, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 26.005451, 0, 0, 1, 0, 0, 1, 0, 33.15765, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 24.36578, 0, 0, 1, 0, 0, 1, 0, 28.938015, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 24.207176, 0, 0, 1, 0, 0, 1, 0, 31.59933, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.322054, 0, 0, 1, 0, 0, 1, 0, 33.56595, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.508007, 0, 0, 1, 0, 0, 1, 0, 34.12826, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.829151, 0, 0, 1, 0, 0, 1, 0, 34.657738, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.524628, 0, 0, 1, 0, 0, 1, 0, 37.074207, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.539238, 0, 0, 1, 0, 0, 1, 0, 36.824898, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.92863, 0, 0, 1, 0, 0, 1, 0, 36.248573, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.688549, 0, 0, 1, 0, 0, 1, 0, 39.37732, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.938272, 0, 0, 1, 0, 0, 1, 0, 38.02894, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.138134, 0, 0, 1, 0, 0, 1, 0, 38.262512, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.4007, 0, 0, 1, 0, 0, 1, 0, 38.060535, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 22.16851, 0, 0, 1, 0, 0, 1, 0, 32.385204, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 23.855595, 0, 0, 1, 0, 0, 1, 0, 34.555595, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 22.61498, 0, 0, 1, 0, 0, 1, 0, 37.466934, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.166536, 0, 0, 1, 0, 0, 1, 0, 39.09511, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 26.30616, 0, 0, 1, 0, 0, 1, 0, 40.328598, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.523989, 0, 0, 1, 0, 0, 1, 0, 40.06018, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 31.952492, 0, 0, 1, 0, 0, 1, 0, 41.812008, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.31055, 0, 0, 1, 0, 0, 1, 0, 41.459667, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 22.95591, 0, 0, 1, 0, 0, 1, 0, 39.878487, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 22.504446, 0, 0, 1, 0, 0, 1, 0, 41.90557, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.256617, 0, 0, 1, 0, 0, 1, 0, 40.319763, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 24.97593, 0, 0, 1, 0, 0, 1, 0, 43.9019, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 26.05545, 0, 0, 1, 0, 0, 1, 0, 42.596252, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.059023, 0, 0, 1, 0, 0, 1, 0, 42.452766, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.62907, 0, 0, 1, 0, 0, 1, 0, 43.377872, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 32.681114, 0, 0, 1, 0, 0, 1, 0, 42.02954, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 21.074186, 0, 0, 1, 0, 0, 1, 0, 39.823402, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 20.330261, 0, 0, 1, 0, 0, 1, 0, 41.43742, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 34.233124, 0, 0, 1, 0, 0, 1, 0, 41.96826, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 21.575565, 0, 0, 1, 0, 0, 1, 0, 42.065994, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 23.93478, 0, 0, 1, 0, 0, 1, 0, 42.386494, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.503246, 0, 0, 1, 0, 0, 1, 0, 42.57871, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 22.843285, 0, 0, 1, 0, 0, 1, 0, 45.66868, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.35746, 0, 0, 1, 0, 0, 1, 0, 45.40293, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.128082, 0, 0, 1, 0, 0, 1, 0, 44.820908, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.745235, 0, 0, 1, 0, 0, 1, 0, 45.1857, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 31.566807, 0, 0, 1, 0, 0, 1, 0, 45.052635, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 32.063957, 0, 0, 1, 0, 0, 1, 0, 45.79837, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 24.543179, 0, 0, 1, 0, 0, 1, 0, 47.034103, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.906776, 0, 0, 1, 0, 0, 1, 0, 46.425323, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.880424, 0, 0, 1, 0, 0, 1, 0, 46.88238, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 31.036175, 0, 0, 1, 0, 0, 1, 0, 46.28626, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 21.433601, 0, 0, 1, 0, 0, 1, 0, 45.082493, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.131435, 0, 0, 1, 0, 0, 1, 0, 44.59827, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 22.308662, 0, 0, 1, 0, 0, 1, 0, 47.460495, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.105515, 0, 0, 1, 0, 0, 1, 0, 47.91594, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.617397, 0, 0, 1, 0, 0, 1, 0, 46.152668, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 23.038673, 0, 0, 1, 0, 0, 1, 0, 48.88832, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.91388, 0, 0, 1, 0, 0, 1, 0, 48.642002, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.367527, 0, 0, 1, 0, 0, 1, 0, 49.83624, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.384895, 0, 0, 1, 0, 0, 1, 0, 48.446175, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.12007, 0, 0, 1, 0, 0, 1, 0, 49.45179, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.91366, 0, 0, 1, 0, 0, 1, 0, 48.749825, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 26.66465, 0, 0, 1, 0, 0, 1, 0, 50.441673, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 28.18856, 0, 0, 1, 0, 0, 1, 0, 51.930313, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.354656, 0, 0, 1, 0, 0, 1, 0, 51.808865, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.42794, 0, 0, 1, 0, 0, 1, 0, 45.870804, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.852257, 0, 0, 1, 0, 0, 1, 0, 46.66749, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.103607, 0, 0, 1, 0, 0, 1, 0, 48.808197, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.594757, 0, 0, 1, 0, 0, 1, 0, 48.123817, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 25.847523, 0, 0, 1, 0, 0, 1, 0, 51.32305, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 32.80051, 0, 0, 1, 0, 0, 1, 0, 50.562923, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.050926, 0, 0, 1, 0, 0, 1, 0, 51.70584, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 27.005655, 0, 0, 1, 0, 0, 1, 0, 52.694603, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.703514, 0, 0, 1, 0, 0, 1, 0, 52.45161, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.844187, 0, 0, 1, 0, 0, 1, 0, 53.849762, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 32.030266, 0, 0, 1, 0, 0, 1, 0, 52.858994, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.21502, 0, 0, 1, 0, 0, 1, 0, 50.10978, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.56835, 0, 0, 1, 0, 0, 1, 0, 53.77658, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.842834, 0, 0, 1, 0, 0, 1, 0, 53.605774, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 29.42997, 0, 0, 1, 0, 0, 1, 0, 55.276802, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.482635, 0, 0, 1, 0, 0, 1, 0, 55.66307, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.4923, 0, 0, 1, 0, 0, 1, 0, 54.232334, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.305958, 0, 0, 1, 0, 0, 1, 0, 55.701572, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.022957, 0, 0, 1, 0, 0, 1, 0, 47.12326, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.113834, 0, 0, 1, 0, 0, 1, 0, 48.387142, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.424927, 0, 0, 1, 0, 0, 1, 0, 51.11788, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.040756, 0, 0, 1, 0, 0, 1, 0, 52.1678, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.367897, 0, 0, 1, 0, 0, 1, 0, 54.68772, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 39.84015, 0, 0, 1, 0, 0, 1, 0, 55.376495, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 30.166695, 0, 0, 1, 0, 0, 1, 0, 57.115746, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 33.130127, 0, 0, 1, 0, 0, 1, 0, 57.900063, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 35.66255, 0, 0, 1, 0, 0, 1, 0, 56.140076, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.17015, 0, 0, 1, 0, 0, 1, 0, 44.91445, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.220276, 0, 0, 1, 0, 0, 1, 0, 47.600304, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.84091, 0, 0, 1, 0, 0, 1, 0, 48.714653, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 42.050743, 0, 0, 1, 0, 0, 1, 0, 48.661148, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.112953, 0, 0, 1, 0, 0, 1, 0, 51.661568, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 43.80442, 0, 0, 1, 0, 0, 1, 0, 50.091873, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.767624, 0, 0, 1, 0, 0, 1, 0, 53.017765, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.47233, 0, 0, 1, 0, 0, 1, 0, 54.32659, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.232803, 0, 0, 1, 0, 0, 1, 0, 56.31095, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 39.508034, 0, 0, 1, 0, 0, 1, 0, 57.021576, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 37.334663, 0, 0, 1, 0, 0, 1, 0, 43.284637, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.574142, 0, 0, 1, 0, 0, 1, 0, 44.091843, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 43.472157, 0, 0, 1, 0, 0, 1, 0, 47.846798, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 43.19297, 0, 0, 1, 0, 0, 1, 0, 52.64621, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.517258, 0, 0, 1, 0, 0, 1, 0, 42.072792, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 42.525772, 0, 0, 1, 0, 0, 1, 0, 44.922424, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 45.34391, 0, 0, 1, 0, 0, 1, 0, 48.363243, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 45.89843, 0, 0, 1, 0, 0, 1, 0, 50.891853, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 45.20054, 0, 0, 1, 0, 0, 1, 0, 52.913063, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 42.923893, 0, 0, 1, 0, 0, 1, 0, 54.398975, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.94345, 0, 0, 1, 0, 0, 1, 0, 57.597206, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.164425, 0, 0, 1, 0, 0, 1, 0, 43.162167, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 44.551937, 0, 0, 1, 0, 0, 1, 0, 47.379513, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 44.367004, 0, 0, 1, 0, 0, 1, 0, 55.929695, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 43.11116, 0, 0, 1, 0, 0, 1, 0, 57.20372, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 45.464355, 0, 0, 1, 0, 0, 1, 0, 56.933136, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 34.26789, 0, 0, 1, 0, 0, 1, 0, 58.770256, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.709663, 0, 0, 1, 0, 0, 1, 0, 58.060043, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.92237, 0, 0, 1, 0, 0, 1, 0, 59.70533, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 40.33402, 0, 0, 1, 0, 0, 1, 0, 59.664112, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 42.819138, 0, 0, 1, 0, 0, 1, 0, 59.85975, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 38.243645, 0, 0, 1, 0, 0, 1, 0, 60.392143, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 36.26219, 0, 0, 1, 0, 0, 1, 0, 61.26879, 0.4249097, 0.63105136, 0.8854879, 1, -1, 0, 0, 41.379288, 0, 0, 1, 0, 0, 1, 0, 61.930923, 0.4249097, 0.63105136, 0.8854879, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e7xnk"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_cfjee"]
+transform_format = 1
+mesh = SubResource("BoxMesh_e7xnk")
+
+[node name="DemoScene" type="Node3D" unique_id=1884493277]
+script = ExtResource("1_rcx4y")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1526914094]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=984976091]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=1766244256]
+environment = SubResource("Environment_xpbee")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1721565852]
+transform = Transform3D(-0.033855144, 0.6042938, -0.7960419, 0.53061336, 0.6858396, 0.49806985, 0.8469377, -0.4055283, -0.34386548, 0, 20.11702, 0)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1792096186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 32)
+script = ExtResource("1_0xhur")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraPivot" unique_id=1065357724]
+transform = Transform3D(0.70710677, 0.35355338, -0.6123724, 0, 0.8660254, 0.5, 0.70710677, -0.35355338, 0.6123724, -44.251278, 36.13102, 44.251278)
+projection = 1
+size = 55.0
+near = 0.003
+far = 1200.0
+
+[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=424027971]
+script = ExtResource("3_0450b")
+data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_49ea0a73/"
+_terrain_uid = "49ea0a73"
+_storage_initialized = true
+texture_7 = SubResource("Texture2D_vynns")
+texture_8 = SubResource("Texture2D_p1dug")
+texture_9 = SubResource("Texture2D_38l2j")
+texture_10 = SubResource("Texture2D_ta716")
+texture_11 = SubResource("Texture2D_1nue7")
+texture_12 = SubResource("Texture2D_iuhot")
+texture_13 = SubResource("Texture2D_vk8tc")
+texture_14 = SubResource("Texture2D_11ep3")
+texture_15 = SubResource("Texture2D_fpfsv")
+current_texture_preset = SubResource("Resource_52i7q")
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=420513646 node_paths=PackedStringArray("terrain_system")]
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=69065926]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (0, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1141612222 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, -1)" unique_id=527157087]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=846678192 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 0)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, 0)" unique_id=802210089]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1661252296 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 0)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, 0)" unique_id=1898893381]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (0, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=804728449 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 1)" unique_id=703117492]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=972187884 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, -1)" unique_id=1616862473]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1036110961 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, -1)" unique_id=1448076218]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=618320521 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, 1)" unique_id=879356142]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1617234791 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, 1)" unique_id=409403045]
+cast_shadow = 0
+scr

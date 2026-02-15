@@ -752,8 +752,8 @@ func draw_pattern(terrain: MarchingSquaresTerrain):
 	elif mode == TerrainToolMode.POPULATE:
 		var action_name := "terrain flower mask draw" if current_populator is MarchingSquaresFlowerPlanter else "terrain vegetation mask draw"
 		undo_redo.create_action(action_name)
-		undo_redo.add_do_method(self, "draw_populator_mask_pattern_action", current_populator, remove_flowers, pattern)
-		undo_redo.add_undo_method(self, "draw_populator_mask_pattern_action", current_populator, remove_flowers, restore_pattern)
+		undo_redo.add_do_method(self, "draw_populator_mask_pattern_action", terrain, pattern, remove_flowers)
+		undo_redo.add_undo_method(self, "draw_populator_mask_pattern_action", terrain, restore_pattern, remove_flowers)
 		undo_redo.commit_action()
 	else:
 		# Handle BRUSH, LEVEL, SMOOTH, BRIDGE modes
@@ -1102,12 +1102,51 @@ func apply_composite_pattern_action(terrain: MarchingSquaresTerrain, patterns: D
 
 #endregion
 
-#region vertex/texture setters and getters
-
 # Stores chunk and mask data for FlowerPlanters and VegetationPlanters directly in the instance
 func draw_populator_mask_pattern_action(terrain: MarchingSquaresTerrain, pattern: Dictionary , is_erase: bool) -> void:
-	pass ## TODO: Complete this function
+	if current_populator == null:
+		printerr("No valid populator selected")
+		return
+	elif current_populator is MarchingSquaresFlowerPlanter:
+		var flower_planter := current_populator as MarchingSquaresFlowerPlanter
+		for chunk_coords in pattern:
+			if not terrain.chunks.has(chunk_coords):
+				continue
+			
+			var chunk : MarchingSquaresTerrainChunk = terrain.chunks[chunk_coords]
+			for cell_coords in pattern[chunk_coords]:
+				if is_erase:
+					flower_planter.remove_flowers_from_cell(chunk, cell_coords)
+					continue
+				else:
+					flower_planter.add_flowers_to_cell(chunk, cell_coords)
+				
+				flower_planter.cell_data[chunk][cell_coords] = _get_flower_cell_data(chunk, cell_coords)
+		
+		flower_planter.setup(false)
+		flower_planter.regenerate_flowers()
+	elif current_populator is MarchingSquaresVegetationPlanter:
+		pass
+	else:
+		printerr("Couldn't identify a known populator type to draw to")
+		return
 
+
+func _get_flower_cell_data(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> Dictionary:
+	if not chunk.cell_geometry or not chunk.cell_geometry.has(cell):
+		return {}
+	
+	var cell_data_copy := {}
+	var geo_data = chunk.cell_geometry[cell]
+	
+	cell_data_copy["verts"] = geo_data["verts"]
+	cell_data_copy["uvs"] = geo_data["uvs"]
+	cell_data_copy["custom_1_values"] = geo_data["custom_1_values"]
+	cell_data_copy["is_floor"] = geo_data["is_floor"]
+	
+	return cell_data_copy
+
+#region vertex/texture setters and getters
 
 func _set_vertex_colors(vc_idx: int) -> void:
 	match vc_idx:

@@ -1,0 +1,221 @@
+[gd_scene format=3 uid="uid://sydb48gksm6o"]
+
+[ext_resource type="Script" uid="uid://bhr82jo0k7guh" path="res://scripts/rotating_camera.gd" id="1_0xhur"]
+[ext_resource type="Script" uid="uid://6pvgykbbdsmg" path="res://scripts/demo_scene.gd" id="1_rcx4y"]
+[ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="3_0450b"]
+[ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="4_0xhur"]
+[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="4_j2hbo"]
+[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_leaf_sprite.png" id="5_54x3k"]
+[ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="5_rcx4y"]
+[ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="6_h78w1"]
+[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="7_bvinl"]
+[ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="8_7mabo"]
+[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="9_77stx"]
+[ext_resource type="Script" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="10_52i7q"]
+[ext_resource type="PackedScene" uid="uid://dee37o2xm1nye" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_vegetation_planter.tscn" id="13_h78w1"]
+[ext_resource type="PackedScene" uid="uid://demjm5kq2kdpa" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.tscn" id="14_77stx"]
+[ext_resource type="Shader" uid="uid://nm6bsrx1aie5" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="15_52i7q"]
+[ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/round_leaf.png" id="16_dgrna"]
+[ext_resource type="Script" uid="uid://dclwk65s0jbm4" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.gd" id="17_dpacv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e28qv"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_or4gs"]
+sky_material = SubResource("ProceduralSkyMaterial_e28qv")
+
+[sub_resource type="Environment" id="Environment_xpbee"]
+background_mode = 2
+sky = SubResource("Sky_or4gs")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Texture2D" id="Texture2D_vynns"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_p1dug"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_38l2j"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_ta716"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_1nue7"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_iuhot"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_vk8tc"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_11ep3"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_fpfsv"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Resource" id="Resource_38l2j"]
+script = ExtResource("4_j2hbo")
+metadata/_custom_type_script = "uid://dqeuj3gddfm65"
+
+[sub_resource type="Resource" id="Resource_658wv"]
+script = ExtResource("6_h78w1")
+terrain_textures = Array[Texture2D]([ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("8_7mabo"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
+
+[sub_resource type="Resource" id="Resource_52i7q"]
+script = ExtResource("10_52i7q")
+preset_name = "Empty Project"
+new_tex_names = SubResource("Resource_38l2j")
+new_textures = SubResource("Resource_658wv")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7mabo"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_77stx"]
+transform_format = 1
+mesh = SubResource("BoxMesh_7mabo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4s4e"]
+render_priority = 0
+shader = ExtResource("15_52i7q")
+shader_parameter/flower_texture = ExtResource("16_dgrna")
+shader_parameter/use_custom_color = true
+shader_parameter/should_billboard = true
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_jwa66"]
+material = SubResource("ShaderMaterial_y4s4e")
+center_offset = Vector3(0, 0.5, 0)
+
+[sub_resource type="MultiMesh" id="MultiMesh_bvqfd"]
+transform_format = 1
+use_custom_data = true
+instance_count = 21
+mesh = SubResource("QuadMesh_jwa66")
+buffer = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="DemoScene" type="Node3D" unique_id=1884493277]
+script = ExtResource("1_rcx4y")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1526914094]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=984976091]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=1766244256]
+environment = SubResource("Environment_xpbee")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1721565852]
+transform = Transform3D(-0.033855144, 0.6042938, -0.7960419, 0.53061336, 0.6858396, 0.49806985, 0.8469377, -0.4055283, -0.34386548, 0, 20.11702, 0)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1792096186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 32)
+script = ExtResource("1_0xhur")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraPivot" unique_id=1065357724]
+transform = Transform3D(0.70710677, 0.35355338, -0.6123724, 0, 0.8660254, 0.5, 0.70710677, -0.35355338, 0.6123724, -44.251278, 36.13102, 44.251278)
+projection = 1
+size = 55.0
+near = 0.003
+far = 1200.0
+
+[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=424027971]
+script = ExtResource("3_0450b")
+data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_49ea0a73/"
+_terrain_uid = "49ea0a73"
+_storage_initialized = true
+texture_7 = SubResource("Texture2D_vynns")
+texture_8 = SubResource("Texture2D_p1dug")
+texture_9 = SubResource("Texture2D_38l2j")
+texture_10 = SubResource("Texture2D_ta716")
+texture_11 = SubResource("Texture2D_1nue7")
+texture_12 = SubResource("Texture2D_iuhot")
+texture_13 = SubResource("Texture2D_vk8tc")
+texture_14 = SubResource("Texture2D_11ep3")
+texture_15 = SubResource("Texture2D_fpfsv")
+current_texture_preset = SubResource("Resource_52i7q")
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (0, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1141612222 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, -1)" unique_id=527157087]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=846678192 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 0)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, 0)" unique_id=802210089]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1661252296 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 0)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, 0)" unique_id=1898893381]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (0, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=804728449 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 1)" unique_id=703117492]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=972187884 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, -1)" unique_id=1616862473]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1036110961 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/Sub

@@ -1,13 +1,13 @@
 [gd_resource type="QuadMesh" format=3 uid="uid://ds5vman6g5424"]
 
 [ext_resource type="Shader" uid="uid://nm6bsrx1aie5" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="1_k1nnx"]
-[ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin materials/round_leaf.png" id="2_j2ufq"]
+[ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/round_leaf.png" id="2_j2ufq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_r1y2f"]
 render_priority = 0
 shader = ExtResource("1_k1nnx")
 shader_parameter/flower_texture = ExtResource("2_j2ufq")
-shader_parameter/use_custom_color = false
+shader_parameter/use_custom_color = true
 shader_parameter/should_billboard = true
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 shader_parameter/bands = 5

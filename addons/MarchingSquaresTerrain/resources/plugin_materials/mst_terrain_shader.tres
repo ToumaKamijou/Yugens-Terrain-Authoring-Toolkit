@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="4_8w1sl"]
 
 [resource]
-render_priority = -1
+render_priority = -2
 shader = ExtResource("1_0jm5n")
 shader_parameter/chunk_size = Vector3i(33, 32, 33)
 shader_parameter/cell_size = Vector2(2, 2)

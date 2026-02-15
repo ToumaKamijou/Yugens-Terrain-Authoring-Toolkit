@@ -1,11 +1,10 @@
-@icon("res://addons/MarchingSquaresTerrain/editor/icons/3D_planters_icon.png")
+@icon("uid://sx50shr1w2g0")
 @tool
 extends MarchingSquaresPopulator
 class_name MarchingSquaresVegetationPlanter
 
 
 var terrain_system : MarchingSquaresTerrain
-var populated_chunks : Array[MarchingSquaresTerrainChunk]
 
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var vegetation_mesh : Variant = null:
 	set(value):
@@ -15,10 +14,12 @@ var populated_chunks : Array[MarchingSquaresTerrainChunk]
 	set(value):
 		mesh_size = value
 
+var populated_chunks : Array[MarchingSquaresTerrainChunk]
+
 
 func setup(redo: bool = true):
 	if not terrain_system:
-		printerr("ERROR: SETUP FAILED - no terrain system found for VegetationPlanter")
+		printerr("SETUP FAILED - no terrain system found for VegetationPlanter")
 		return
 	
 	if (redo and multimesh) or not multimesh:
@@ -34,3 +35,7 @@ func setup(redo: bool = true):
 	multimesh.mesh.size = mesh_size
 	
 	cast_shadow = SHADOW_CASTING_SETTING_ON
+
+
+func rebuild_cell_data() -> void:
+	pass

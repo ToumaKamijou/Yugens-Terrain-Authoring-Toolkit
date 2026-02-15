@@ -491,11 +491,13 @@ func _notification(what: int) -> void:
 func _enter_tree() -> void:
 	call_deferred("_deferred_enter_tree")
 
+
 func _initialize_data_directory() -> void:
 	if Engine.is_editor_hint() and data_directory.is_empty():
 		var auto_path := MSTDataHandler.get_data_directory(self)
 		if not auto_path.is_empty():
 			data_directory = auto_path
+
 
 func _deferred_enter_tree() -> void:
 	_initialize_data_directory()
@@ -504,25 +506,32 @@ func _deferred_enter_tree() -> void:
 	# This is needed because _init() creates fresh duplicated materials that don't have
 	# the terrain's saved texture values - only the base resource defaults
 	force_batch_update()
-
+	
 	# Populate chunks dictionary from scene children
 	chunks.clear()
-	for chunk in get_children():
-		if chunk is MarchingSquaresTerrainChunk:
-			chunks[chunk.chunk_coords] = chunk
-			chunk.terrain_system = self
-			chunk.grass_planter = null
-
+	for child in get_children():
+		if child is MarchingSquaresTerrainChunk:
+			chunks[child.chunk_coords] = child
+			child.terrain_system = self
+			child.grass_planter = null
+		elif child is MarchingSquaresPopulator: # Prep the populators
+			child.terrain_system = self
+	
 	# Load external data if storage was previously initialized
 	if _storage_initialized:
 		MSTDataHandler.load_terrain_data(self)
 	elif Engine.is_editor_hint() and MSTDataHandler.needs_migration(self):
 		# Auto-migrate embedded data to external storage (editor only)
 		MSTDataHandler.migrate_to_external_storage(self)
-
-	# Initialize all chunks (regenerate mesh/grass from loaded data)
+	
+	# Initialize all chunks and populators (regenerate meshes from loaded data)
 	for chunk in chunks.values():
 		chunk.initialize_terrain(true)
+	for child in get_children():
+		if child is MarchingSquaresPopulator:
+			child.rebuild_cell_data()
+			if child is MarchingSquaresFlowerPlanter:
+				child.regenerate_flowers()
 
 
 func has_chunk(x: int, z: int) -> bool:

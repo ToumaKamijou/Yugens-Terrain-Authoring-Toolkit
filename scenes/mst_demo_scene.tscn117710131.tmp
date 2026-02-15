@@ -1,0 +1,248 @@
+[gd_scene format=3 uid="uid://sydb48gksm6o"]
+
+[ext_resource type="Script" uid="uid://bhr82jo0k7guh" path="res://scripts/rotating_camera.gd" id="1_0xhur"]
+[ext_resource type="Script" uid="uid://6pvgykbbdsmg" path="res://scripts/demo_scene.gd" id="1_rcx4y"]
+[ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="3_0450b"]
+[ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="4_0xhur"]
+[ext_resource type="Script" uid="uid://dqeuj3gddfm65" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_names.gd" id="4_j2hbo"]
+[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_leaf_sprite.png" id="5_54x3k"]
+[ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="5_rcx4y"]
+[ext_resource type="Script" uid="uid://c5yuywww81uee" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_list.gd" id="6_h78w1"]
+[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="7_bvinl"]
+[ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="8_7mabo"]
+[ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="9_77stx"]
+[ext_resource type="Script" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="10_52i7q"]
+[ext_resource type="PackedScene" uid="uid://demjm5kq2kdpa" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.tscn" id="13_7mabo"]
+[ext_resource type="Shader" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="14_77stx"]
+[ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/round_leaf.png" id="15_52i7q"]
+[ext_resource type="Script" uid="uid://dclwk65s0jbm4" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.gd" id="16_dgrna"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e28qv"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_or4gs"]
+sky_material = SubResource("ProceduralSkyMaterial_e28qv")
+
+[sub_resource type="Environment" id="Environment_xpbee"]
+background_mode = 2
+sky = SubResource("Sky_or4gs")
+ambient_light_source = 3
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Texture2D" id="Texture2D_vynns"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_p1dug"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_38l2j"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_ta716"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_1nue7"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_iuhot"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_vk8tc"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_11ep3"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Texture2D" id="Texture2D_fpfsv"]
+resource_local_to_scene = false
+resource_name = ""
+
+[sub_resource type="Resource" id="Resource_38l2j"]
+script = ExtResource("4_j2hbo")
+metadata/_custom_type_script = "uid://dqeuj3gddfm65"
+
+[sub_resource type="Resource" id="Resource_658wv"]
+script = ExtResource("6_h78w1")
+terrain_textures = Array[Texture2D]([ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("7_bvinl"), ExtResource("8_7mabo"), SubResource("Texture2D_vynns"), SubResource("Texture2D_p1dug"), SubResource("Texture2D_38l2j"), SubResource("Texture2D_ta716"), SubResource("Texture2D_1nue7"), SubResource("Texture2D_iuhot"), SubResource("Texture2D_vk8tc"), SubResource("Texture2D_11ep3"), SubResource("Texture2D_fpfsv")])
+
+[sub_resource type="Resource" id="Resource_52i7q"]
+script = ExtResource("10_52i7q")
+preset_name = "Empty Project"
+new_tex_names = SubResource("Resource_38l2j")
+new_textures = SubResource("Resource_658wv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpacv"]
+render_priority = 0
+shader = ExtResource("14_77stx")
+shader_parameter/flower_texture = ExtResource("15_52i7q")
+shader_parameter/use_custom_color = false
+shader_parameter/should_billboard = true
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_y4s4e"]
+material = SubResource("ShaderMaterial_dpacv")
+center_offset = Vector3(0, 0.5, 0)
+
+[sub_resource type="MultiMesh" id="MultiMesh_jwa66"]
+transform_format = 1
+use_custom_data = true
+instance_count = 125
+mesh = SubResource("QuadMesh_y4s4e")
+buffer = PackedFloat32Array(1.1715727, 5.171573, 0, 0, 0, 0.005, 0.02262055, 0.17633066, -4.485282, -0.485281, 0, 0, 0, 0, -0.03630502, 0.014706258, 2.4692657, 4.304482, 0, 0, 0, 0.005, 0.036138184, 0.15155663, -0.59220314, -3.0865536, 0, 0, 0, 0, 0.004247884, -0.059615817, 4, 4, 0, 0, 0, 0.005, 0.052083332, 0.14285715, 4, -4, 0, 0, 0, 0, 0.052083332, -0.08571429, 90, 4, 0, 0, 0, 0.005, 0.9479167, 0.14285715, 90, -4, 0, 0, 0, 0, 0.9479167, -0.08571429, 91.53073, 4.3044825, 0, 0, 0, 0.005, 0.96386176, 0.15155664, 94.5922, -3.0865536, 0, 0, 0, 0, 0.9957521, -0.059615817, 92.82843, 5.1715727, 0, 0, 0, 0.005, 0.9773795, 0.17633064, 98.48528, -0.4852829, 0, 0, 0, 0, 1.0363051, 0.014706203, 93.69552, 6.4692664, 0, 0, 0, 0.005, 0.98641163, 0.2134076, 101.086555, 3.4077988, 0, 0, 0, 0, 1.0634016, 0.1259371, 94, 8.000001, 0, 0, 0, 0.005, 0.9895833, 0.25714287, 102, 8.000002, 0, 0, 0, 0, 1.0729166, 0.2571429, 94, 33, 0, 0, 0, 0.005, 0.9895833, 0.9714286, 102, 33.000004, 0, 0, 0, 0, 1.0729166, 0.9714287, 93.69552, 34.530735, 0, 0, 0, 0.005, 0.98641163, 1.0151639, 101.086555, 37.592205, 0, 0, 0, 0, 1.0634016, 1.1026344, 92.82843, 35.828426, 0, 0, 0, 0.005, 0.9773795, 1.0522407, 98.48528, 41.485283, 0, 0, 0, 0, 1.0363051, 1.2138653, 91.53073, 36.69552, 0, 0, 0, 0.005, 0.96386176, 1.0770148, 94.5922, 44.086555, 0, 0, 0, 0, 0.9957521, 1.2881873, 90, 37, 0, 0, 0, 0.005, 0.9479167, 1.0857143, 89.99999, 45, 0, 0, 0, 0, 0.94791657, 1.3142858, 3.9999986, 37, 0, 0, 0, 0.005, 0.052083317, 1.0857143, 3.999996, 45, 0, 0, 0, 0, 0.052083295, 1.3142858, 2.4692645, 36.69552, 0, 0, 0, 0.005, 0.036138173, 1.0770148, -0.59220695, 44.08655, 0, 0, 0, 0, 0.004247844, 1.2881871, 1.1715736, 35.828426, 0, 0, 0, 0.005, 0.022620559, 1.0522407, -4.485279, 41.485283, 0, 0, 0, 0, -0.03630499, 1.2138653, 0.30448198, 34.530735, 0, 0, 0, 0.005, 0.013588354, 1.0151639, -7.0865536, 37.5922, 0, 0, 0, 0, -0.0634016, 1.1026343, 0, 33, 0, 0, 0, 0.005, 0.010416667, 0.9714286, -8, 33, 0, 0, 0, 0, -0.072916664, 0.9714286, 0, 7.9999995, 0, 0, 0, 0.005, 0.010416667, 0.25714287, 0.30448198, 6.4692664, 0, 0, 0, 0.005, 0.013588354, 0.2134076, 1.1715727, 5.171573, 0, 0, 0, 0.005, 0.02262055, 0.17633066, 2.4692657, 4.304482, 0, 0, 0, 0.005, 0.036138184, 0.15155663, 4, 4, 0, 0, 0, 0.005, 0.052083332, 0.14285715, 90, 4, 0, 0, 0, 0.005, 0.9479167, 0.14285715, 91.53073, 4.3044825, 0, 0, 0, 0.005, 0.96386176, 0.15155664, 92.82843, 5.1715727, 0, 0, 0, 0.005, 0.9773795, 0.17633064, 93.69552, 6.4692664, 0, 0, 0, 0.005, 0.98641163, 0.2134076, 94, 8.000001, 0, 0, 0, 0.005, 0.9895833, 0.25714287, 94, 33, 0, 0, 0, 0.005, 0.9895833, 0.9714286, 93.69552, 34.530735, 0, 0, 0, 0.005, 0.98641163, 1.0151639, 92.82843, 35.828426, 0, 0, 0, 0.005, 0.9773795, 1.0522407, 91.53073, 36.69552, 0, 0, 0, 0.005, 0.96386176, 1.0770148, 90, 37, 0, 0, 0, 0.005, 0.9479167, 1.0857143, 3.9999986, 37, 0, 0, 0, 0.005, 0.052083317, 1.0857143, 2.4692645, 36.69552, 0, 0, 0, 0.005, 0.036138173, 1.0770148, 1.1715736, 35.828426, 0, 0, 0, 0.005, 0.022620559, 1.0522407, 0.30448198, 34.530735, 0, 0, 0, 0.005, 0.013588354, 1.0151639, 0, 33, 0, 0, 0, 0.005, 0.010416667, 0.9714286, 1, 4.9999995, 0.2576, 0.2576, 0.2576, 1, 0.020833334, 0.17142856, 1.304482, 3.4692664, 0.2576, 0.2576, 0.2576, 1, 0.02400502, 0.12769333, 2.1715727, 2.1715732, 0.2576, 0.2576, 0.2576, 1, 0.033037215, 0.090616375, 3.4692657, 1.304482, 0.2576, 0.2576, 0.2576, 1, 0.046554852, 0.065842345, 5, 1, 0.2576, 0.2576, 0.2576, 1, 0.0625, 0.057142857, 89, 1, 0.2576, 0.2576, 0.2576, 1, 0.9375, 0.057142857, 90.53073, 1.3044822, 0.2576, 0.2576, 0.2576, 1, 0.95344514, 0.06584235, 91.82843, 2.1715724, 0.2576, 0.2576, 0.2576, 1, 0.9669628, 0.09061635, 92.69552, 3.4692664, 0.2576, 0.2576, 0.2576, 1, 0.975995, 0.12769333, 93, 5.0000005, 0.2576, 0.2576, 0.2576, 1, 0.9791667, 0.17142859, 93, 28, 0.2576, 0.2576, 0.2576, 1, 0.9791667, 0.82857144, 92.69552, 29.530735, 0.2576, 0.2576, 0.2576, 1, 0.975995, 0.8723067, 91.82843, 30.828426, 0.2576, 0.2576, 0.2576, 1, 0.9669628, 0.9093836, 90.53073, 31.695518, 0.2576, 0.2576, 0.2576, 1, 0.95344514, 0.93415767, 89, 32, 0.2576, 0.2576, 0.2576, 1, 0.9375, 0.94285715, 4.9999986, 32, 0.2576, 0.2576, 0.2576, 1, 0.062499985, 0.94285715, 3.4692645, 31.695517, 0.2576, 0.2576, 0.2576, 1, 0.046554837, 0.93415767, 2.1715736, 30.828428, 0.2576, 0.2576, 0.2576, 1, 0.033037227, 0.90938365, 1.304482, 29.530735, 0.2576, 0.2576, 0.2576, 1, 0.02400502, 0.8723067, 1, 28, 0.2576, 0.2576, 0.2576, 1, 0.020833334, 0.82857144, 1, 4.9999995, 0.2576, 0.2576, 0.2576, 1, 0.020833334, 0.17142856, 1, 4.9999995, 0.2576, 0.2576, 0.2576, 0, 0.020833334, 0.17142856, 1.304482, 3.4692664, 0.2576, 0.2576, 0.2576, 1, 0.02400502, 0.12769333, 1.304482, 3.4692664, 0.2576, 0.2576, 0.2576, 0, 0.02400502, 0.12769333, 2.1715727, 2.1715732, 0.2576, 0.2576, 0.2576, 1, 0.033037215, 0.090616375, 2.1715727, 2.1715732, 0.2576, 0.2576, 0.2576, 0, 0.033037215, 0.090616375, 3.4692657, 1.304482, 0.2576, 0.2576, 0.2576, 1, 0.046554852, 0.065842345, 3.4692657, 1.304482, 0.2576, 0.2576, 0.2576, 0, 0.046554852, 0.065842345, 5, 1, 0.2576, 0.2576, 0.2576, 1, 0.0625, 0.057142857, 5, 1, 0.2576, 0.2576, 0.2576, 0, 0.0625, 0.057142857, 89, 1, 0.2576, 0.2576, 0.2576, 1, 0.9375, 0.057142857, 89, 1, 0.2576, 0.2576, 0.2576, 0, 0.9375, 0.057142857, 90.53073, 1.3044822, 0.2576, 0.2576, 0.2576, 1, 0.95344514, 0.06584235, 90.53073, 1.3044822, 0.2576, 0.2576, 0.2576, 0, 0.95344514, 0.06584235, 91.82843, 2.1715724, 0.2576, 0.2576, 0.2576, 1, 0.9669628, 0.09061635, 91.82843, 2.1715724, 0.2576, 0.2576, 0.2576, 0, 0.9669628, 0.09061635, 92.69552, 3.4692664, 0.2576, 0.2576, 0.2576, 1, 0.975995, 0.12769333, 92.69552, 3.4692664, 0.2576, 0.2576, 0.2576, 0, 0.975995, 0.12769333, 93, 5.0000005, 0.2576, 0.2576, 0.2576, 1, 0.9791667, 0.17142859, 93, 5.0000005, 0.2576, 0.2576, 0.2576, 0, 0.9791667, 0.17142859, 93, 28, 0.2576, 0.2576, 0.2576, 1, 0.9791667, 0.82857144, 93, 28, 0.2576, 0.2576, 0.2576, 0, 0.9791667, 0.82857144, 92.69552, 29.530735, 0.2576, 0.2576, 0.2576, 1, 0.975995, 0.8723067, 92.69552, 29.530735, 0.2576, 0.2576, 0.2576, 0, 0.975995, 0.8723067, 91.82843, 30.828426, 0.2576, 0.2576, 0.2576, 1, 0.9669628, 0.9093836, 91.82843, 30.828426, 0.2576, 0.2576, 0.2576, 0, 0.9669628, 0.9093836, 90.53073, 31.695518, 0.2576, 0.2576, 0.2576, 1, 0.95344514, 0.93415767, 90.53073, 31.695518, 0.2576, 0.2576, 0.2576, 0, 0.95344514, 0.93415767, 89, 32, 0.2576, 0.2576, 0.2576, 1, 0.9375, 0.94285715, 89, 32, 0.2576, 0.2576, 0.2576, 0, 0.9375, 0.94285715, 4.9999986, 32, 0.2576, 0.2576, 0.2576, 1, 0.062499985, 0.94285715, 4.9999986, 32, 0.2576, 0.2576, 0.2576, 0, 0.062499985, 0.94285715, 3.4692645, 31.695517, 0.2576, 0.2576, 0.2576, 1, 0.046554837, 0.93415767, 3.4692645, 31.695517, 0.2576, 0.2576, 0.2576, 0, 0.046554837, 0.93415767, 2.1715736, 30.828428, 0.2576, 0.2576, 0.2576, 1, 0.033037227, 0.90938365, 2.1715736, 30.828428, 0.2576, 0.2576, 0.2576, 0, 0.033037227, 0.90938365, 1.304482, 29.530735, 0.2576, 0.2576, 0.2576, 1, 0.02400502, 0.8723067, 1.304482, 29.530735, 0.2576, 0.2576, 0.2576, 0, 0.02400502, 0.8723067, 1, 28, 0.2576, 0.2576, 0.2576, 1, 0.020833334, 0.82857144, 1, 28, 0.2576, 0.2576, 0.2576, 0, 0.020833334, 0.82857144, 0.5, 4.9999995, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.17142856, 0.5, 4.9999995, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.17142856, 0.8425422, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.12222642, 0.8425422, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.12222642, 1.8180194, 1.8180199, 0.28175, 0.28175, 0.28175, 1, 0.02935437, 0.080514856, 1.8180194, 1.8180199, 0.28175, 0.28175, 0.28175, 1, 0.02935437, 0.080514856, 3.277924, 0.8425422, 0.28175, 0.28175, 0.28175, 1, 0.04456171, 0.052644063, 3.277924, 0.8425422, 0.28175, 0.28175, 0.28175, 1, 0.04456171, 0.052644063, 5, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.0625, 0.042857144, 5, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.0625, 0.042857144, 89, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.042857144, 89, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.042857144, 90.72208, 0.84254265, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.052644074, 90.72208, 0.84254265, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.052644074, 92.18198, 1.8180189, 0.28175, 0.28175, 0.28175, 1, 0.9706456, 0.080514826, 92.18198, 1.8180189, 0.28175, 0.28175, 0.28175, 1, 0.9706456, 0.080514826, 93.157455, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.12222642, 93.157455, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.12222642, 93.5, 5.000001, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.1714286, 93.5, 5.000001, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.1714286, 93.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.82857144, 93.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.82857144, 93.157455, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.8777736, 93.157455, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.8777736, 92.181984, 31.18198, 0.28175, 0.28175, 0.28175, 1, 0.97064567, 0.91948515, 92.181984, 31.18198, 0.28175, 0.28175, 0.28175, 1, 0.97064567, 0.91948515, 90.72208, 32.15746, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.947356, 90.72208, 32.15746, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.947356, 89, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.95714283, 89, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.95714283, 4.9999986, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.062499985, 0.95714283, 4.9999986, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.062499985, 0.95714283, 3.2779224, 32.157455, 0.28175, 0.28175, 0.28175, 1, 0.044561695, 0.94735587, 3.2779224, 32.157455, 0.28175, 0.28175, 0.28175, 1, 0.044561695, 0.94735587, 1.8180203, 31.181982, 0.28175, 0.28175, 0.28175, 1, 0.029354379, 0.9194853, 1.8180203, 31.181982, 0.28175, 0.28175, 0.28175, 1, 0.029354379, 0.9194853, 0.8425422, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.8777736, 0.8425422, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.8777736, 0.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.82857144, 0.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.82857144, 1.5, 4.9999995, 0.2576, 0.2576, 0.2576, 1, 0.026041666, 0.17142856, 0.5, 4.9999995, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.17142856, 1.7664218, 3.660608, 0.2576, 0.2576, 0.2576, 1, 0.028816894, 0.13316023, 0.8425422, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.12222642, 2.525126, 2.5251265, 0.2576, 0.2576, 0.2576, 1, 0.036720064, 0.1007179, 1.8180194, 1.8180199, 0.28175, 0.28175, 0.28175, 1, 0.02935437, 0.080514856, 3.6606073, 1.7664218, 0.2576, 0.2576, 0.2576, 1, 0.048547994, 0.079040624, 3.277924, 0.8425422, 0.28175, 0.28175, 0.28175, 1, 0.04456171, 0.052644063, 5, 1.5, 0.2576, 0.2576, 0.2576, 1, 0.0625, 0.071428575, 5, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.0625, 0.042857144, 89, 1.5, 0.2576, 0.2576, 0.2576, 1, 0.9375, 0.071428575, 89, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.042857144, 90.33939, 1.766422, 0.2576, 0.2576, 0.2576, 1, 0.951452, 0.07904063, 90.72208, 0.84254265, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.052644074, 91.47488, 2.525126, 0.2576, 0.2576, 0.2576, 1, 0.96327996, 0.10071789, 92.18198, 1.8180189, 0.28175, 0.28175, 0.28175, 1, 0.9706456, 0.080514826, 92.23358, 3.660608, 0.2576, 0.2576, 0.2576, 1, 0.9711831, 0.13316023, 93.157455, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.12222642, 92.5, 5.0000005, 0.2576, 0.2576, 0.2576, 1, 0.9739583, 0.17142859, 93.5, 5.000001, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.1714286, 92.5, 28, 0.2576, 0.2576, 0.2576, 1, 0.9739583, 0.82857144, 93.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.82857144, 92.23358, 29.339394, 0.2576, 0.2576, 0.2576, 1, 0.9711831, 0.8668398, 93.157455, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.8777736, 91.47488, 30.474874, 0.2576, 0.2576, 0.2576, 1, 0.96327996, 0.89928216, 92.181984, 31.18198, 0.28175, 0.28175, 0.28175, 1, 0.97064567, 0.91948515, 90.33939, 31.233578, 0.2576, 0.2576, 0.2576, 1, 0.951452, 0.92095935, 90.72208, 32.15746, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.947356, 89, 31.5, 0.2576, 0.2576, 0.2576, 1, 0.9375, 0.9285714, 89, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.95714283, 4.999999, 31.5, 0.2576, 0.2576, 0.2576, 1, 0.06249999, 0.9285714, 4.9999986, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.062499985, 0.95714283, 3.6606064, 31.233578, 0.2576, 0.2576, 0.2576, 1, 0.048547983, 0.92095935, 3.2779224, 32.157455, 0.28175, 0.28175, 0.28175, 1, 0.044561695, 0.94735587, 2.525127, 30.474874, 0.2576, 0.2576, 0.2576, 1, 0.03672007, 0.89928216, 1.8180203, 31.181982, 0.28175, 0.28175, 0.28175, 1, 0.029354379, 0.9194853, 1.7664218, 29.339392, 0.2576, 0.2576, 0.2576, 1, 0.028816894, 0.86683977, 0.8425422, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.8777736, 1.5, 28, 0.2576, 0.2576, 0.2576, 1, 0.026041666, 0.82857144, 0.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.82857144, 0.5, 4.9999995, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.17142856, -0.5, 4.9999995, 0.28175, 0.28175, 0.28175, 0, 0.0052083335, 0.17142856, 0.8425422, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.12222642, -0.08133745, 2.8952413, 0.28175, 0.28175, 0.28175, 0, 0.009569402, 0.11129261, 1.8180194, 1.8180199, 0.28175, 0.28175, 0.28175, 1, 0.02935437, 0.080514856, 1.1109123, 1.110913, 0.28175, 0.28175, 0.28175, 0, 0.02198867, 0.0603118, 3.277924, 0.8425422, 0.28175, 0.28175, 0.28175, 1, 0.04456171, 0.052644063, 2.8952403, -0.08133745, 0.28175, 0.28175, 0.28175, 0, 0.04057542, 0.026247501, 5, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.0625, 0.042857144, 5, -0.5, 0.28175, 0.28175, 0.28175, 0, 0.0625, 0.014285714, 89, 0.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.042857144, 89, -0.5, 0.28175, 0.28175, 0.28175, 0, 0.9375, 0.014285714, 90.72208, 0.84254265, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.052644074, 91.10476, -0.081336975, 0.28175, 0.28175, 0.28175, 0, 0.95942456, 0.026247514, 92.18198, 1.8180189, 0.28175, 0.28175, 0.28175, 1, 0.9706456, 0.080514826, 92.889084, 1.1109121, 0.28175, 0.28175, 0.28175, 0, 0.9780113, 0.060311776, 93.157455, 3.2779245, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.12222642, 94.08134, 2.8952413, 0.28175, 0.28175, 0.28175, 0, 0.9904306, 0.11129261, 93.5, 5.000001, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.1714286, 94.5, 5.000001, 0.28175, 0.28175, 0.28175, 0, 0.9947917, 0.1714286, 93.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.984375, 0.82857144, 94.5, 28.000002, 0.28175, 0.28175, 0.28175, 0, 0.9947917, 0.8285715, 93.157455, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.9808068, 0.8777736, 94.08134, 30.104761, 0.28175, 0.28175, 0.28175, 0, 0.9904306, 0.88870746, 92.181984, 31.18198, 0.28175, 0.28175, 0.28175, 1, 0.97064567, 0.91948515, 92.889084, 31.889088, 0.28175, 0.28175, 0.28175, 0, 0.9780113, 0.9396882, 90.72208, 32.15746, 0.28175, 0.28175, 0.28175, 1, 0.9554383, 0.947356, 91.10476, 33.081337, 0.28175, 0.28175, 0.28175, 0, 0.95942456, 0.9737525, 89, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.9375, 0.95714283, 89, 33.5, 0.28175, 0.28175, 0.28175, 0, 0.9375, 0.98571426, 4.9999986, 32.5, 0.28175, 0.28175, 0.28175, 1, 0.062499985, 0.95714283, 4.999998, 33.5, 0.28175, 0.28175, 0.28175, 0, 0.06249998, 0.98571426, 3.2779224, 32.157455, 0.28175, 0.28175, 0.28175, 1, 0.044561695, 0.94735587, 2.8952386, 33.081337, 0.28175, 0.28175, 0.28175, 0, 0.040575404, 0.9737525, 1.8180203, 31.181982, 0.28175, 0.28175, 0.28175, 1, 0.029354379, 0.9194853, 1.1109138, 31.889088, 0.28175, 0.28175, 0.28175, 0, 0.021988684, 0.9396882, 0.8425422, 29.722076, 0.28175, 0.28175, 0.28175, 1, 0.019193148, 0.8777736, -0.08133745, 30.10476, 0.28175, 0.28175, 0.28175, 0, 0.009569402, 0.8887074, 0.5, 28, 0.28175, 0.28175, 0.28175, 1, 0.015625, 0.82857144, -0.5, 28, 0.28175, 0.28175, 0.28175, 0, 0.0052083335, 0.82857144, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="DemoScene" type="Node3D" unique_id=1884493277]
+script = ExtResource("1_rcx4y")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1526914094]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=984976091]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=1766244256]
+environment = SubResource("Environment_xpbee")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=1721565852]
+transform = Transform3D(-0.033855144, 0.6042938, -0.7960419, 0.53061336, 0.6858396, 0.49806985, 0.8469377, -0.4055283, -0.34386548, 0, 20.11702, 0)
+shadow_enabled = true
+
+[node name="CameraPivot" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=1792096186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 0, 32)
+script = ExtResource("1_0xhur")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/CameraPivot" unique_id=1065357724]
+transform = Transform3D(0.70710677, 0.35355338, -0.6123724, 0, 0.8660254, 0.5, 0.70710677, -0.35355338, 0.6123724, -44.251278, 36.13102, 44.251278)
+projection = 1
+size = 55.0
+near = 0.003
+far = 1200.0
+
+[node name="MarchingSquaresTerrain" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=424027971]
+script = ExtResource("3_0450b")
+data_directory = "res://scenes/mst_demo_scene_TerrainData/MarchingSquaresTerrain_49ea0a73/"
+_terrain_uid = "49ea0a73"
+_storage_initialized = true
+texture_7 = SubResource("Texture2D_vynns")
+texture_8 = SubResource("Texture2D_p1dug")
+texture_9 = SubResource("Texture2D_38l2j")
+texture_10 = SubResource("Texture2D_ta716")
+texture_11 = SubResource("Texture2D_1nue7")
+texture_12 = SubResource("Texture2D_iuhot")
+texture_13 = SubResource("Texture2D_vk8tc")
+texture_14 = SubResource("Texture2D_11ep3")
+texture_15 = SubResource("Texture2D_fpfsv")
+current_texture_preset = SubResource("Resource_52i7q")
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (0, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=420513646 node_paths=PackedStringArray("terrain_system")]
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 0)" unique_id=69065926]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (0, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1141612222 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, -1)" unique_id=527157087]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=846678192 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 0)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, 0)" unique_id=802210089]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, 0)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1661252296 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 0)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, 0)" unique_id=1898893381]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (0, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=804728449 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(0, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (0, 1)" unique_id=703117492]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=972187884 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, -1)" unique_id=1616862473]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, -1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1036110961 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, -64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, -1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, -1)" unique_id=1448076218]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (-1, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=618320521 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (-1, 1)" unique_id=879356142]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="Chunk (1, 1)" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=1617234791 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 64)
+script = ExtResource("4_0xhur")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, 1)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain/Chunk (1, 1)" unique_id=409403045]
+cast_shadow = 0
+script = ExtResource("5_rcx4y")
+
+[node name="FlowerPlanter" type="MultiMeshInstance3D" parent="SubViewportContainer/SubViewport/MarchingSquaresTerrain" unique_id=478080145 instance=ExtResource("13_7mabo")]
+layers = 32
+cast_
