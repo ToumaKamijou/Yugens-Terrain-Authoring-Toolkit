@@ -411,10 +411,10 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 					is_making_bridge = false
 				if is_drawing:
 					is_drawing = false
-					if mode != TerrainToolMode.SMOOTH:
+					if mode != TerrainToolMode.SMOOTH and mode != TerrainToolMode.BRUSH:
 						draw_pattern(terrain)
 						current_draw_pattern.clear()
-					else:
+					elif mode == TerrainToolMode.SMOOTH:
 						current_draw_pattern.clear()
 				if is_setting:
 					is_setting = false
