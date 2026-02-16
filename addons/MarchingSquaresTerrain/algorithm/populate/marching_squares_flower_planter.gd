@@ -40,9 +40,9 @@ var terrain_system : MarchingSquaresTerrain
 		sprite_size = value
 		multimesh.mesh.size = value
 		if should_billboard:
-			multimesh.mesh.center_offset.y = value
+			multimesh.mesh.center_offset.y = value.y
 		else:
-			multimesh.mesh.center_offset.y = value.y / 2
+			multimesh.mesh.center_offset.y = 0.75
 @export_custom(PROPERTY_HINT_RANGE, "0, 2", PROPERTY_USAGE_STORAGE) var flower_subdivisions : int = 1:
 	set(value):
 		flower_subdivisions = value
@@ -92,10 +92,6 @@ func _init() -> void:
 
 
 func regenerate_flowers() -> void:
-	if not populated_chunks:
-		printerr("No populated chunks set while regenerating cells")
-		return
-	
 	if not cell_data:
 		printerr("No cell data set while regenerating cells")
 		return
@@ -233,6 +229,21 @@ func generate_flowers_on_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i
 	return end_index
 
 
+func recalculate_cells_in_pattern(pattern: Dictionary) -> void:
+	for chunk_coords : Vector2i in pattern.keys():
+		var chunk = terrain_system.chunks.get(chunk_coords)
+		if not chunk:
+			continue
+		
+		if not cell_data.has(chunk):
+			continue
+		
+		var chunk_cells : Dictionary = cell_data[chunk]
+		
+		for cell_coords in chunk_cells.keys():
+			chunk_cells[cell_coords] = _get_flower_cell_data(chunk, cell_coords)
+
+
 func rebuild_cell_data() -> void:
 	populated_chunks.clear()
 	cell_data.clear()
@@ -244,7 +255,7 @@ func rebuild_cell_data() -> void:
 			
 			cell_data[chunk_node] = {}
 			for cell in planted_chunks[chunk_coords]:
-				cell_data[chunk_node][cell] = _get_flower_cell_data(chunk_node, cell)
+				cell_data[chunk_node][cell] = _get_flower_cell_data(chunk_node, cell)	
 
 
 func _get_flower_cell_data(chunk: MarchingSquaresTerrainChunk, cell: Vector2i) -> Dictionary:
