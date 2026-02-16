@@ -411,10 +411,10 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 					is_making_bridge = false
 				if is_drawing:
 					is_drawing = false
-					if mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.LEVEL or mode == TerrainToolMode.BRIDGE or mode == TerrainToolMode.DEBUG_BRUSH or mode == TerrainToolMode.POPULATE:
+					if mode != TerrainToolMode.SMOOTH:
 						draw_pattern(terrain)
 						current_draw_pattern.clear()
-					if mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.VERTEX_PAINTING:
+					else:
 						current_draw_pattern.clear()
 				if is_setting:
 					is_setting = false
@@ -444,7 +444,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 		
 		if draw_area_hovered and event is InputEventMouseMotion:
 			brush_position = draw_position
-			if is_drawing and (mode == TerrainToolMode.SMOOTH or mode == TerrainToolMode.VERTEX_PAINTING or mode == TerrainToolMode.GRASS_MASK or mode == TerrainToolMode.POPULATE):
+			if is_drawing and mode == TerrainToolMode.SMOOTH:
 				draw_pattern(terrain)
 				current_draw_pattern.clear()
 		
@@ -759,7 +759,7 @@ func draw_pattern(terrain: MarchingSquaresTerrain):
 		# Handle BRUSH, LEVEL, SMOOTH, BRIDGE modes
 		if current_quick_paint:
 			# QUICK PAINT MODE: Apply all changes as ONE atomic undo/redo action
-			# This fixes the issue where 6 separate actions are 
+			# This fixes the issue where 6 separate actions are created
 			_set_vertex_colors(current_quick_paint.wall_texture_slot)
 			
 			var wall_color_pattern := {}
