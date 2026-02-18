@@ -46,6 +46,8 @@ var global_position_cached : Vector3 = Vector3.ZERO
 
 var cell_generation_mutex : Mutex = Mutex.new()
 
+var bake_material : ShaderMaterial = preload("uid://cbbvkbnwmr2em")
+
 #region chunk variables
 # Size of the 2 dimensional cell array (xz value) and y scale (y value)
 var dimensions : Vector3i:
@@ -272,11 +274,16 @@ func regenerate_mesh(use_threads: bool = false):
 		baker.polygon_texture_resolution = terrain_system.polygon_texture_resolution
 		baker.finished.connect(func(mesh_: Mesh, original: MeshInstance3D, img: Image):
 			mesh = mesh_
-			var mat := StandardMaterial3D.new()
-			mat.albedo_texture = ImageTexture.create_from_image(img)
-			mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
-			mat.diffuse_mode = BaseMaterial3D.DIFFUSE_BURLEY
-			mat.specular_mode = BaseMaterial3D.SPECULAR_TOON
+			var mat : Material
+			if terrain_system.bake_material_override: 
+				mat = terrain_system.bake_material_override.duplicate()
+			else:
+				mat = bake_material.duplicate()
+			
+			if mat is StandardMaterial3D:
+				mat.albedo_texture = ImageTexture.create_from_image(img)
+			elif mat is ShaderMaterial:
+				mat.set_shader_parameter("texture_albedo", ImageTexture.create_from_image(img))
 			mesh.surface_set_material(0, mat)
 		)
 		baker.bake_geometry_texture(self, get_tree())

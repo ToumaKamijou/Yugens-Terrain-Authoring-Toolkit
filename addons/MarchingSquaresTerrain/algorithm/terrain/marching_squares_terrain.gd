@@ -50,6 +50,9 @@ enum StorageMode {
 ## when using high-res textures. Higher values increase the baking time and memory usage
 @export var polygon_texture_resolution: int = 32
 
+## Use this to override the material of the baked 
+@export var bake_material_override: Material
+
 ## Unique identifier for this terrain instance (auto-generated on first save)
 ## Prevents path collisions when nodes are recreated with same name
 @export_storage var _terrain_uid : String = ""
