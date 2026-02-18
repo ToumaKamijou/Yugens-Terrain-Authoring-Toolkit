@@ -11,18 +11,13 @@ const BAKE_COLLISION : bool = false
 const BAKE_GRASS : bool = false
 
 
-#region UID Generation
-
-## Generate a unique terrain ID (called once on first save)
+## Generate a unique terrain ID (called once on first save).
 static func generate_terrain_uid() -> String:
 	return "%08x" % (randi() ^ int(Time.get_unix_time_from_system()))
 
-#endregion
-
-
 #region Directory Management
 
-## Ensure directory exists, create if needed
+## Ensure directory exists, create one if needed.
 static func ensure_directory_exists(path: String) -> bool:
 	if DirAccess.dir_exists_absolute(path):
 		return true
@@ -35,7 +30,7 @@ static func ensure_directory_exists(path: String) -> bool:
 	return true
 
 
-## Get the resolved data directory path for a terrain node
+## Get the resolved data directory path for the terrain node.
 ## Path format: [SceneDir]/[SceneName]_TerrainData/[NodeName]_[data_UID]/
 static func get_data_directory(terrain: MarchingSquaresTerrain) -> String:
 	var dir_path := terrain.data_directory
@@ -67,7 +62,7 @@ static func get_data_directory(terrain: MarchingSquaresTerrain) -> String:
 	return dir_path
 
 
-## Check if metadata.res exists for a chunk
+## Check if metadata.res exists for a chunk.
 static func metadata_exists(terrain: MarchingSquaresTerrain, coords: Vector2i) -> bool:
 	var dir_path := get_data_directory(terrain)
 	if dir_path.is_empty():
@@ -80,8 +75,8 @@ static func metadata_exists(terrain: MarchingSquaresTerrain, coords: Vector2i) -
 
 #region Save Operations
 
-## Save all dirty chunks to external .res files
-## Called from terrain._notification(NOTIFICATION_EDITOR_PRE_SAVE)
+## Save all dirty chunks to external .res files.
+## Called from terrain._notification(NOTIFICATION_EDITOR_PRE_SAVE).
 static func save_all_chunks(terrain: MarchingSquaresTerrain) -> void:
 	var dir_path := get_data_directory(terrain)
 	if dir_path.is_empty():
@@ -127,7 +122,7 @@ static func save_all_chunks(terrain: MarchingSquaresTerrain) -> void:
 	terrain._storage_initialized = true
 
 
-## Save chunk data to external file
+## Save chunk data to external file.
 static func save_chunk_resources(terrain: MarchingSquaresTerrain, chunk: MarchingSquaresTerrainChunk) -> void:
 	var dir_path := get_data_directory(terrain)
 	if dir_path.is_empty():
@@ -165,7 +160,7 @@ static func save_chunk_resources(terrain: MarchingSquaresTerrain, chunk: Marchin
 
 #region Load Operations
 
-## Load all terrain data from external files
+## Load all terrain data from external files.
 static func load_terrain_data(terrain: MarchingSquaresTerrain) -> void:
 	var dir_path := get_data_directory(terrain)
 	if dir_path.is_empty():
@@ -198,7 +193,7 @@ static func load_terrain_data(terrain: MarchingSquaresTerrain) -> void:
 		load_chunk_from_directory(terrain, coords)
 
 
-## Load a single chunk's source data from metadata file
+## Load a single chunk's source data from metadata file.
 static func load_chunk_from_directory(terrain: MarchingSquaresTerrain, coords: Vector2i) -> void:
 	var dir_path := get_data_directory(terrain)
 	var chunk_name := "chunk_%d_%d" % [coords.x, coords.y]
@@ -223,8 +218,8 @@ static func load_chunk_from_directory(terrain: MarchingSquaresTerrain, coords: V
 
 #region Data Export 
 
-## Export chunk state to MSTChunkData for external storage
-## Converts color maps to compact byte arrays
+## Export chunk state to MSTChunkData for external storage.
+## Converts color maps to compact byte arrays.
 static func export_chunk_data(chunk: MarchingSquaresTerrainChunk) -> MSTChunkData:
 	var data := MSTChunkData.new()
 	data.chunk_coords = chunk.chunk_coords
@@ -273,8 +268,8 @@ static func export_chunk_data(chunk: MarchingSquaresTerrainChunk) -> MSTChunkDat
 
 #region Data Import 
 
-## Restore chunk state from MSTChunkData (loaded from external file)
-## Expands compact byte arrays back to color arrays for runtime use
+## Restore chunk state from MSTChunkData (loaded from external file).
+## Expands compact byte arrays back to color arrays for runtime use.
 static func import_chunk_data(chunk: MarchingSquaresTerrainChunk, data: MSTChunkData) -> void:
 	if not data:
 		printerr("MSTDataHandler: import_chunk_data called with null data")
@@ -331,7 +326,7 @@ static func import_chunk_data(chunk: MarchingSquaresTerrainChunk, data: MSTChunk
 
 #region Migration
 
-## Check if this terrain needs migration from embedded to external storage
+## Check if this terrain needs migration from embedded to external storage.
 static func needs_migration(terrain: MarchingSquaresTerrain) -> bool:
 	# If already initialized with external storage, no migration needed
 	if terrain._storage_initialized:
@@ -352,8 +347,8 @@ static func needs_migration(terrain: MarchingSquaresTerrain) -> bool:
 	return false
 
 
-## Migrate existing embedded data to external storage
-## Marks all chunks dirty and triggers save
+## Migrate existing embedded data to external storage.
+## Marks all chunks as dirty and triggers save.
 static func migrate_to_external_storage(terrain: MarchingSquaresTerrain) -> void:
 	print("MSTDataHandler: Migrating to external storage...")
 
@@ -371,7 +366,7 @@ static func migrate_to_external_storage(terrain: MarchingSquaresTerrain) -> void
 
 #region Cleanup
 
-## Clean up orphaned chunk directories that no longer exist in the scene
+## Clean up orphaned chunk directories that no longer exist in the scene.
 static func cleanup_orphaned_chunk_files(terrain: MarchingSquaresTerrain) -> void:
 	var dir_path := get_data_directory(terrain)
 	if dir_path.is_empty():
@@ -403,7 +398,7 @@ static func cleanup_orphaned_chunk_files(terrain: MarchingSquaresTerrain) -> voi
 		print_verbose("MSTDataHandler: Cleaned up orphaned chunk at ", orphaned_dir)
 
 
-## Delete a chunk directory and all its contents
+## Delete a chunk directory and all its contents.
 static func _delete_chunk_directory(chunk_dir: String) -> void:
 	var dir := DirAccess.open(chunk_dir)
 	if not dir:
@@ -430,8 +425,8 @@ static func _delete_chunk_directory(chunk_dir: String) -> void:
 
 #region Color Conversion Helpers
 
-## Convert Color pair to texture index (0-15)
-## Uses the 4×4 vertex color channel encoding system
+## Convert Color pair to texture index (0-15).
+## Uses the 4×4 vertex color channel encoding system.
 static func _colors_to_texture_idx(c0: Color, c1: Color) -> int:
 	var c0_idx := 0
 	var c0_max := c0.r
@@ -448,8 +443,8 @@ static func _colors_to_texture_idx(c0: Color, c1: Color) -> int:
 	return c0_idx * 4 + c1_idx
 
 
-## Convert texture index (0-15) to Color pair
-## Reverses the encoding: index / 4 = c0 channel, index % 4 = c1 channel
+## Convert texture index (0-15) to Color pair.
+## Reverses the encoding: index / 4 = c0 channel, index % 4 = c1 channel.
 static func _texture_idx_to_colors(idx: int) -> Array:
 	var c0 := Color(0, 0, 0, 0)
 	var c1 := Color(0, 0, 0, 0)
@@ -475,8 +470,8 @@ static func _texture_idx_to_colors(idx: int) -> Array:
 
 #region Terrain Directory Cleanup
 
-## Clean up terrain data directories for terrains that no longer exist in the scene
-## Called during save to prevent disk bloat from deleted terrains
+## Clean up terrain data directories for terrains that no longer exist in the scene.
+## Called during save to prevent disk bloat from deleted terrains.
 static func cleanup_orphaned_terrain_directories(terrain: MarchingSquaresTerrain) -> void:
 	var tree := terrain.get_tree()
 	if not tree:
@@ -524,7 +519,7 @@ static func cleanup_orphaned_terrain_directories(terrain: MarchingSquaresTerrain
 		print("MSTDataHandler: Cleaned up orphaned terrain data at ", orphaned_dir)
 
 
-## Recursively collect terrain UIDs from scene tree
+## Recursively collect terrain UIDs from scene tree.
 static func _collect_terrain_uids_recursive(node: Node, uids: Array[String]) -> void:
 	if node is MarchingSquaresTerrain and not node._terrain_uid.is_empty():
 		if not uids.has(node._terrain_uid):
@@ -534,7 +529,7 @@ static func _collect_terrain_uids_recursive(node: Node, uids: Array[String]) -> 
 		_collect_terrain_uids_recursive(child, uids)
 
 
-## Delete a directory and all its contents recursively
+## Delete a directory and all its contents recursively.
 static func _delete_directory_recursive(dir_path: String) -> void:
 	var dir := DirAccess.open(dir_path)
 	if not dir:
@@ -553,7 +548,7 @@ static func _delete_directory_recursive(dir_path: String) -> void:
 	DirAccess.remove_absolute(dir_path.trim_suffix("/"))
 
 
-## Report the storage size change after a save operation
+## Report the storage size change after a save operation.
 static func _report_storage_size_change(terrain: MarchingSquaresTerrain, dir_path: String, initial_size: int, saved_count: int) -> void:
 	var final_size : int = MarchingSquaresFileUtils.get_directory_size_recursive(dir_path)
 	var size_difference_bytes : int = final_size - initial_size

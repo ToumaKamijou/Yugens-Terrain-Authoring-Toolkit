@@ -152,10 +152,10 @@ func calculate_corner_colors():
 
 #region cell_geometry helpers and calculation functions
 
-## Returns [source_map_0, source_map_1] based on floor/wall/ridge state
+## Returns 4 source_maps based on floor/wall[0][1] state, and for setting ridge/ledge[2][3] textures.
 func _get_color_sources(is_floor: bool) -> Array[PackedColorArray]:
 	var use_wall_colors := not is_floor
-
+	
 	var src_0 : PackedColorArray = chunk.wall_color_map_0 if use_wall_colors else chunk.color_map_0
 	var src_1 : PackedColorArray = chunk.wall_color_map_1 if use_wall_colors else chunk.color_map_1
 	var rl_src_0 : PackedColorArray = chunk.wall_color_map_0
@@ -163,7 +163,7 @@ func _get_color_sources(is_floor: bool) -> Array[PackedColorArray]:
 	return [src_0, src_1, rl_src_0, rl_src_1]
 
 
-## Calculates color for diagonal midpoint vertices
+## Calculates color for diagonal midpoint vertices.
 func _calc_diagonal_color(source_map: PackedColorArray) -> Color:
 	if chunk.terrain_system.blend_mode == 1:
 		# Hard edge mode uses same color as cell's top-left corner
@@ -181,7 +181,7 @@ func _calc_diagonal_color(source_map: PackedColorArray) -> Color:
 	return result
 
 
-## Calculates height-based color for boundary cells (prevents color bleeding between heights)
+## Calculates height-based color for boundary cells (prevents color bleeding between heights).
 func _calc_boundary_color(y: float, source_map: PackedColorArray, lower_color: Color, upper_color: Color) -> Color:
 	if chunk.terrain_system.blend_mode == 1:
 		# Hard edge mode uses cell's corner color
@@ -204,7 +204,7 @@ func _calc_boundary_color(y: float, source_map: PackedColorArray, lower_color: C
 	return get_dominant_color(color)
 
 
-## Calculates bilinearly interpolated color for flat cells
+## Calculates bilinearly interpolated color for flat cells.
 func _calc_bilinear_color(x: float, z: float, source_map: PackedColorArray) -> Color:
 	var idx := cell.cell_coords.y * chunk.dimensions.x + cell.cell_coords.x
 	var ab_color : Color = lerp(source_map[idx], source_map[idx + 1], x)
@@ -215,7 +215,7 @@ func _calc_bilinear_color(x: float, z: float, source_map: PackedColorArray) -> C
 	return source_map[idx]  # hard squares/hard triangles
 
 
-## selects the appropriate color interpolation method
+## Selects the appropriate color interpolation method.
 func _interpolate_vertex_color(
 	x: float, y: float, z: float,
 	source_map: PackedColorArray,

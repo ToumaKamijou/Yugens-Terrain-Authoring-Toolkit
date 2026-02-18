@@ -238,7 +238,7 @@ func _get_texture_id(vc_col_0: Color, vc_col_1: Color) -> int:
 			id = 16;
 	return id;
 
-## Checks if the given texture ID should have grass placed on it
+## Checks if the given texture ID should have grass placed on it.
 func _has_grass_for_texture(texture_id: int, force_grass_on: bool) -> bool:
 	if force_grass_on:
 		return true
@@ -258,7 +258,7 @@ func _has_grass_for_texture(texture_id: int, force_grass_on: bool) -> bool:
 	return has_grass_flags[texture_id - 2]
 
 
-## Gets the texture scale for the given texture ID
+## Gets the texture scale for the given texture ID.
 func _get_texture_scale(texture_id: int) -> float:
 	var scales := [
 		terrain_system.texture_scale_1,
@@ -272,13 +272,13 @@ func _get_texture_scale(texture_id: int) -> float:
 	return scales[idx]
 
 
-## Gets the grass sprite alpha value for the given texture ID
+## Gets the grass sprite alpha value for the given texture ID.
 func _get_grass_alpha(texture_id: int) -> float:
 	var idx := clampi(texture_id - 1, 0, 5)
 	return GRASS_ALPHA_VALUES[idx]
 
 
-## Samples the terrain texture color at the given world position
+## Samples the terrain texture color at the given world position.
 func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale: float) -> Color:
 	var terrain_image := _get_terrain_image(texture_id)
 	if not terrain_image:
@@ -314,7 +314,7 @@ func _format_needs_conversion(fmt: Image.Format) -> bool:
 
 #region grass placement helpers
 
-## Creates a grass instance at the given position with proper transform and color
+## Creates a grass instance at the given position with proper transform and color.
 func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:
 	var edge1 := b - a
 	var edge2 := c - a
@@ -333,7 +333,7 @@ func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector
 	multimesh.set_instance_custom_data(index, instance_color)
 
 
-## Hides a grass instance by setting it to zero scale at a far position
+## Hides a grass instance by scaling it to zero.
 func _hide_grass_instance(index: int) -> void:
 	multimesh.set_instance_transform(index, Transform3D(Basis.from_scale(Vector3.ZERO), Vector3.ZERO))
 

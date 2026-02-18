@@ -572,12 +572,12 @@ func notify_needs_update(z: int, x: int):
 	needs_update[z][x] = true
 
 
-## Mark chunk as having modified source data - triggers save in MSTDataHandler
+## Mark chunk as having modified source data - triggers save in MSTDataHandler.
 func mark_dirty() -> void:
 	_data_dirty = true
 
 
-## Recreate collision body after scene save (deferred call for proper physics refresh)
+## Recreate collision body after scene save (deferred call for proper physics refresh).
 func _recreate_collision_body() -> void:
 	if not is_inside_tree() or _temp_collision_shapes.is_empty():
 		_temp_collision_shapes.clear()
