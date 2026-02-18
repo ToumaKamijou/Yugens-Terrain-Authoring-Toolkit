@@ -5,7 +5,7 @@ class_name MarchingSquaresTerrain
 
 enum StorageMode {
 	## Saves load time. Loads a pre-built visual mesh from disk.
-	## The collision mesh, grass etc are generated when the scene loads.
+	## The collision mesh, grass etc. are generated when the scene loads.
 	## (faster load, slightly larger files).
 	BAKED,
 	## Saves disk space. Generates everything from heightmaps when the scene loads.
@@ -14,6 +14,7 @@ enum StorageMode {
 	RUNTIME,
 }
 
+@export_category("Storage Options")
 ## The storage mode for terrain data. 
 @export var storage_mode : StorageMode = StorageMode.BAKED:
 	set(value):
@@ -37,16 +38,30 @@ enum StorageMode {
 				notify_property_list_changed()
 				return
 		data_directory = value
+		
+@export_category("Runtime Baking")
 
-## Unique identifier for this terrain instance (auto-generated on first save)
-## Prevents path collisions when nodes are recreated with same name
+## If this option is true, the textures will be baked into a texture atlas
+## at runtime. This will improve rendering performance, but increase cost of generation
+## slightly.
+@export var enable_runtime_texture_baking: bool = true
+
+## The resolution used per polygon when baking the texture atlas. Increase this value
+## when using high-res textures. Higher values increase the baking time and memory usage.
+@export var polygon_texture_resolution: int = 32
+
+## Used for overriding the material of the baked terrain texture.
+@export var bake_material_override: Material
+
+## Unique identifier for this terrain instance (auto-generated on first save).
+## Prevents path collisions when nodes are recreated with the same name.
 @export_storage var _terrain_uid : String = ""
 
-## True after external storage has been initialized
-## Used to detect when migration from embedded data is needed
+## True after external storage has been initialized.
+## Used to detect when migration from embedded data is needed.
 @export_storage var _storage_initialized : bool = false
 
-## Tracks the mode used during the last successful save for reporting purposes
+## Tracks the mode used during the last successful save for reporting purposes.
 @export_storage var _last_storage_mode : StorageMode = StorageMode.BAKED
 
 #region global terrain settings

@@ -46,6 +46,8 @@ var global_position_cached : Vector3 = Vector3.ZERO
 
 var cell_generation_mutex : Mutex = Mutex.new()
 
+var bake_material : ShaderMaterial = preload("uid://cbbvkbnwmr2em")
+
 #region chunk variables
 # Size of the 2 dimensional cell array (xz value) and y scale (y value)
 var dimensions : Vector3i:
@@ -219,8 +221,7 @@ func regenerate_mesh(use_threads: bool = false):
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	st.set_custom_format(0, SurfaceTool.CUSTOM_RGBA_FLOAT)
 	st.set_custom_format(1, SurfaceTool.CUSTOM_RGBA_FLOAT)
-	st.set_custom_format(2, SurfaceTool.CUSTOM_RGBA_FLOAT)  
-	st.set_custom_format(3, SurfaceTool.CUSTOM_R_FLOAT)
+	st.set_custom_format(2, SurfaceTool.CUSTOM_RGBA_FLOAT)
 	
 	var start_time: int = Time.get_ticks_msec()
 	
@@ -267,7 +268,25 @@ func regenerate_mesh(use_threads: bool = false):
 	
 	var elapsed_time: int = Time.get_ticks_msec() - start_time
 	print_verbose("Generated terrain in "+str(elapsed_time)+"ms")
-
+	
+	if not Engine.is_editor_hint() and terrain_system.enable_runtime_texture_baking:
+		var baker = MarchingSquaresGeometryBaker.new()
+		baker.polygon_texture_resolution = terrain_system.polygon_texture_resolution
+		baker.finished.connect(func(mesh_: Mesh, original: MeshInstance3D, img: Image):
+			mesh = mesh_
+			var mat : Material
+			if terrain_system.bake_material_override: 
+				mat = terrain_system.bake_material_override.duplicate()
+			else:
+				mat = bake_material.duplicate()
+			
+			if mat is StandardMaterial3D:
+				mat.albedo_texture = ImageTexture.create_from_image(img)
+			elif mat is ShaderMaterial:
+				mat.set_shader_parameter("texture_albedo", ImageTexture.create_from_image(img))
+			mesh.surface_set_material(0, mat)
+		)
+		baker.bake_geometry_texture(self, get_tree())
 
 func generate_terrain_cells(use_threads: bool):
 	if not cell_geometry:
@@ -376,7 +395,7 @@ func add_polygons(
 
 # Adds a point. Coordinates are relative to the top-left corner (not mesh origin relative)
 # UV.x is closeness to the bottom of an edge. UV.Y is closeness to the edge of a cliff
-func _add_point(cell_coords: Vector2i, vert: Vector3, uv: Vector2, uv2: Vector2, color_0: Color, color_1: Color, custom_1_value: Color, mat_blend, is_floor: bool):
+func _add_point(cell_coords: Vector2i, vert: Vector3, uv: Vector2, uv2: Vector2, color_0: Color, color_1: Color, custom_1_value: Color, mat_blend: Color, is_floor: bool):
 	st.set_color(color_0)
 	st.set_custom(0, color_1)
 	st.set_custom(1, custom_1_value)
@@ -553,12 +572,12 @@ func notify_needs_update(z: int, x: int):
 	needs_update[z][x] = true
 
 
-## Mark chunk as having modified source data - triggers save in MSTDataHandler
+## Mark chunk as having modified source data - triggers save in MSTDataHandler.
 func mark_dirty() -> void:
 	_data_dirty = true
 
 
-## Recreate collision body after scene save (deferred call for proper physics refresh)
+## Recreate collision body after scene save (deferred call for proper physics refresh).
 func _recreate_collision_body() -> void:
 	if not is_inside_tree() or _temp_collision_shapes.is_empty():
 		_temp_collision_shapes.clear()
