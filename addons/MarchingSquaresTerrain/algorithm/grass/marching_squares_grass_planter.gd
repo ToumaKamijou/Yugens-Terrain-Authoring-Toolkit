@@ -292,8 +292,23 @@ func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale
 
 	var px := int(uv_x * (terrain_image.get_width() - 1))
 	var py := int(uv_y * (terrain_image.get_height() - 1))
+	var color := terrain_image.get_pixelv(Vector2(px, py))
+	if _format_needs_conversion(terrain_image.get_format()):
+		return color.srgb_to_linear()
+	return color
 
-	return terrain_image.get_pixelv(Vector2(px, py))
+func _format_needs_conversion(fmt: Image.Format) -> bool:
+	match(fmt):
+		Image.FORMAT_RGB8, \
+		Image.FORMAT_RGBA8, \
+		Image.FORMAT_DXT1, \
+		Image.FORMAT_DXT3, \
+		Image.FORMAT_DXT5, \
+		Image.FORMAT_BPTC_RGBA, \
+		Image.FORMAT_ETC2_RGB8 , \
+		Image.FORMAT_ETC2_RGBA8 , \
+		Image.FORMAT_ETC2_RGB8A1 : return true
+	return false
 
 #endregion
 
