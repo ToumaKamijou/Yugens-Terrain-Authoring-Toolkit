@@ -366,14 +366,14 @@ func generate_terrain_cells(use_threads: bool):
 
 func add_polygons(
 	cell_coords : Vector2i, 
-	pts : Array[Vector3],
-	uvs : Array[Vector2],
-	uv2s : Array[Vector2],
-	color_0s : Array[Color],
-	color_1s : Array[Color],
-	custom_1_values : Array[Color],
-	mat_blends : Array[Color],
-	floors : Array[bool],
+	pts : PackedVector3Array,
+	uvs : PackedVector2Array,
+	uv2s : PackedVector2Array,
+	color_0s : PackedColorArray,
+	color_1s : PackedColorArray,
+	custom_1_values : PackedColorArray,
+	mat_blends : PackedColorArray,
+	floors : PackedByteArray,
 	):
 		assert(pts.size() % 3 == 0)
 		assert(pts.size() == uvs.size())

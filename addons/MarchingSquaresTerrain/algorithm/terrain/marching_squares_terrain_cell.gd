@@ -9,15 +9,15 @@ const higher_poly_floors : bool = true
 
 enum CellRotation {DEG0 = 0, DEG270 = 3, DEG180 = 2, DEG90 = 1}
 
-var pts : Array[Vector3]
-var uvs : Array[Vector2]
-var uv2s : Array[Vector2]
-var color_0s : Array[Color]
-var color_1s : Array[Color]
-var custom_1_values : Array[Color]
-var mat_blends : Array[Color]
+var pts : PackedVector3Array
+var uvs : PackedVector2Array
+var uv2s : PackedVector2Array
+var color_0s : PackedColorArray
+var color_1s : PackedColorArray
+var custom_1_values : PackedColorArray
+var mat_blends : PackedColorArray
+var floors : PackedByteArray
 var cell_coords : Vector2i
-var floors : Array[bool]
 
 var floor_mode : bool
 
