@@ -2,48 +2,29 @@ extends Object
 class_name MarchingSquaresThreadPool
 
 var max_threads: int = 4
-var threads: Array = []
 var job_queue: Array = []
 
-var queue_mutex := Mutex.new()
-var running := false
-
+var task_id := -1
 
 func _init(p_max_threads := 4):
 	max_threads = p_max_threads
 
 
 func start():
-	running = true
-	for i in range(max_threads):
-		var t := Thread.new()
-		threads.append(t)
-		t.start(_worker_loop)
+	if task_id != -1:
+		push_error("Already running")
+		return
+	task_id = WorkerThreadPool.add_group_task(_worker_loop, job_queue.size())
+
 
 func wait():
-	for t in threads:
-		if t.is_started():
-			t.wait_to_finish()
-
+	WorkerThreadPool.wait_for_group_task_completion(task_id)
 
 func enqueue(job: Callable):
-	if running:
+	if task_id != -1:
 		push_error("Can't enque on running pool")
 		return
-	queue_mutex.lock()
 	job_queue.append(job)
-	queue_mutex.unlock()
 
-
-func _worker_loop():
-	while running:
-		queue_mutex.lock()
-		if job_queue.size() == 0:
-			running = false
-			queue_mutex.unlock()
-			break
-		else:
-			var job : Callable = job_queue.pop_front()
-			queue_mutex.unlock()
-			job.call()	
-		
+func _worker_loop(i: int):
+	job_queue[i].call()

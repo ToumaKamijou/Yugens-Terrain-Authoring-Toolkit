@@ -276,8 +276,10 @@ func get_texture_index_from_colors(c0: Color, c1: Color) -> int:
 
 # Convert texture index (0-15) back to color pair 
 func texture_index_to_colors(idx: int) -> Array[Color]:
+	@warning_ignore_start("integer_division")
 	var c0_channel : int = idx / 4
 	var c1_channel : int = idx % 4
+	@warning_ignore_restore("integer_division")
 	var c0 := Color(0, 0, 0, 0)
 	var c1 := Color(0, 0, 0, 0)
 	match c0_channel:

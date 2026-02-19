@@ -9,15 +9,15 @@ const higher_poly_floors : bool = true
 
 enum CellRotation {DEG0 = 0, DEG270 = 3, DEG180 = 2, DEG90 = 1}
 
-var pts : Array[Vector3]
-var uvs : Array[Vector2]
-var uv2s : Array[Vector2]
-var color_0s : Array[Color]
-var color_1s : Array[Color]
-var custom_1_values : Array[Color]
-var mat_blends : Array[Color]
+var pts : PackedVector3Array
+var uvs : PackedVector2Array
+var uv2s : PackedVector2Array
+var color_0s : PackedColorArray
+var color_1s : PackedColorArray
+var custom_1_values : PackedColorArray
+var mat_blends : PackedColorArray
+var floors : PackedByteArray
 var cell_coords : Vector2i
-var floors : Array[bool]
 
 var floor_mode : bool
 
@@ -85,7 +85,7 @@ func _init(chunk_: MarchingSquaresTerrainChunk, color_helper_: MarchingSquaresTe
 	_dy = y_bottom_right
 	
 	merge_threshold = merge_threshold_
-	rotation = 0
+	rotation = 0 as CellRotation
 
 func _reset_geometry_cache() -> void:
 	pts = []
@@ -95,7 +95,7 @@ func _reset_geometry_cache() -> void:
 	color_1s = []
 
 func rotate(r: int) -> void:
-	rotation = (4 + r + rotation) % 4
+	rotation = ((4 + r + rotation) % 4) as CellRotation
 
 
 func all_edges_are_connected() -> bool:
@@ -133,7 +133,7 @@ func generate_geometry(cell_coords_: Vector2i) -> void:
 	var case_found: bool
 	for rot in range(4):
 		# Use the rotation of the corner - the amount of counter-clockwise rotations for it to become the top-left corner, which is just its index in the point lists.
-		rotation = rot
+		rotation = rot as CellRotation
 		
 		# if none of the branches are hit, this will be set to false at the last else statement.
 		# opted for this instead of putting a break in every branch, that would take up space
@@ -239,7 +239,7 @@ func start_floor() -> void:
 func start_wall() -> void:
 	floor_mode = false
 
-func add_point(x: float, y: float, z: float, u: float, v: float, diag_midpoint: bool = false):
+func add_point(x: float, y: float, z: float, u: float, v: float):
 	for i in range(rotation as int):
 		var temp := x
 		x = 1 - z
@@ -272,61 +272,61 @@ func add_point(x: float, y: float, z: float, u: float, v: float, diag_midpoint: 
 
 
 func add_c0() -> void:
-	add_full_floor(chunk)
+	add_full_floor()
 
 
 func add_c1() -> void:
-	add_outer_corner(chunk, true, true)
+	add_outer_corner(true, true)
 
 
 func add_c2() -> void:
-	add_edge(chunk, true, true)
+	add_edge(true, true)
 
 
 func add_c3() -> void:
-	add_edge(chunk, true, true, 0.5, 1)
-	add_outer_corner(chunk, false, true, true, by)
+	add_edge(true, true, 0.5, 1)
+	add_outer_corner(false, true, true, by)
 
 
 func add_c4() -> void:
-	add_edge(chunk, true, true, 0, 0.5)
+	add_edge(true, true, 0, 0.5)
 	rotate(1)
-	add_outer_corner(chunk, false, true, true, cy)
+	add_outer_corner(false, true, true, cy)
 
 
 func add_c5() -> void:
-	add_inner_corner(chunk, true, false)
-	add_diagonal_floor(chunk, by, cy, true, true)
+	add_inner_corner(true, false)
+	add_diagonal_floor(by, cy, true, true)
 	rotate(2)
-	add_inner_corner(chunk, true, false)
+	add_inner_corner(true, false)
 
 
 func add_c6() -> void:
-	add_inner_corner(chunk ,true, false, true)
-	add_diagonal_floor(chunk, cy, cy, true, true)
+	add_inner_corner(true, false, true)
+	add_diagonal_floor(cy, cy, true, true)
 	
 	# opposite lower floor
 	rotate(2)
-	add_inner_corner(chunk, true, false, true)
+	add_inner_corner(true, false, true)
 	
 	# higher corner B
 	rotate(-1)
-	add_outer_corner(chunk, false, true)
+	add_outer_corner(false, true)
 
 
 func add_c7() -> void:
-	add_inner_corner(chunk, true, true)
+	add_inner_corner(true, true)
 
 
 func add_c8() -> void:
-	add_inner_corner(chunk, true, false)
-	add_diagonal_floor(chunk, by, cy, true, false)
+	add_inner_corner(true, false)
+	add_diagonal_floor(by, cy, true, false)
 	rotate(2)
-	add_outer_corner(chunk, false, true)
+	add_outer_corner(false, true)
 
 
 func add_c9() -> void:
-	add_inner_corner(chunk, true, false, true)
+	add_inner_corner(true, false, true)
 	start_floor()
 	
 	# D corner. B edge is connected, so use halfway point bewteen B and D
@@ -366,7 +366,7 @@ func add_c9() -> void:
 
 
 func add_c10() -> void:
-	add_inner_corner(chunk, true, false, true)
+	add_inner_corner(true, false, true)
 	
 	# D corner. C edge is connected, so use halfway point bewteen C and D
 	start_floor()
@@ -406,45 +406,45 @@ func add_c10() -> void:
 
 
 func add_c11() -> void:
-	add_inner_corner(chunk, true, false, true, true, false)
+	add_inner_corner(true, false, true, true, false)
 	rotate(1)
-	add_edge(chunk, false, true)
+	add_edge(false, true)
 
 
 func add_c12() -> void:
-	add_inner_corner(chunk, true, false, true, false, true)
+	add_inner_corner(true, false, true, false, true)
 	rotate(2)
-	add_edge(chunk, false, true)
+	add_edge(false, true)
 
 
 func add_c13() -> void:
-	add_inner_corner(chunk, true, false, true, false, true)
+	add_inner_corner(true, false, true, false, true)
 	rotate(2)
-	add_edge(chunk, false, true, 0, 0.5)
+	add_edge(false, true, 0, 0.5)
 	rotate(1)
-	add_outer_corner(chunk, false, true, true, cy)
+	add_outer_corner(false, true, true, cy)
 
 
 func add_c14() -> void:
-	add_inner_corner(chunk, true, false, true, true, false)
+	add_inner_corner(true, false, true, true, false)
 	rotate(1)
-	add_edge(chunk, false, true, 0.5, 1)
-	add_outer_corner(chunk, false, true, true, by)
+	add_edge(false, true, 0.5, 1)
+	add_outer_corner(false, true, true, by)
 
 
 func add_c15() -> void:
-	add_inner_corner(chunk, true, false, true, false, true)
+	add_inner_corner(true, false, true, false, true)
 	rotate(2)
-	add_edge(chunk, false, true, 0.5, 1)
-	add_outer_corner(chunk, false, true, true, by)
+	add_edge(false, true, 0.5, 1)
+	add_outer_corner(false, true, true, by)
 
 
 func add_c16() -> void:
-	add_inner_corner(chunk, true, false, true, true, false)
+	add_inner_corner(true, false, true, true, false)
 	rotate(1)
-	add_edge(chunk, false, true, 0, 0.5)
+	add_edge(false, true, 0, 0.5)
 	rotate(1)
-	add_outer_corner(chunk, false, true, true, cy)
+	add_outer_corner(false, true, true, cy)
 
 
 func add_c17() -> void:
@@ -510,26 +510,26 @@ func add_c18() -> void:
 	add_point(1, dy, 1, 0, 0)
 
 
-func add_full_floor(chunk: MarchingSquaresTerrainChunk):
+func add_full_floor():
 	start_floor()
 	if higher_poly_floors:
 		var ey = (ay+by+cy+dy)/4
 	
 		add_point(0, ay, 0, 0, 0)
 		add_point(1, by, 0, 0, 0)
-		add_point(0.5, ey, 0.5, 0, 0, true)
+		add_point(0.5, ey, 0.5, 0, 0)
 		
 		add_point(1, by, 0, 0, 0)
 		add_point(1, dy, 1, 0, 0)
-		add_point(0.5, ey, 0.5, 0, 0, true)
+		add_point(0.5, ey, 0.5, 0, 0)
 		
 		add_point(1, dy, 1, 0, 0)
 		add_point(0, cy, 1, 0, 0)
-		add_point(0.5, ey, 0.5, 0, 0, true)
+		add_point(0.5, ey, 0.5, 0, 0)
 		
 		add_point(0, cy, 1, 0, 0)
 		add_point(0, ay, 0, 0, 0)
-		add_point(0.5, ey, 0.5, 0, 0, true)
+		add_point(0.5, ey, 0.5, 0, 0)
 	else:
 		add_point(0, ay, 0, 0, 0)
 		add_point(1, by, 0, 0, 0)
@@ -542,7 +542,7 @@ func add_full_floor(chunk: MarchingSquaresTerrainChunk):
 
 # Add an outer corner, where A is the raised corner.
 # if flatten_bottom is true, then bottom_height is used for the lower height of the wall
-func add_outer_corner(chunk: MarchingSquaresTerrainChunk, floor_below: bool = true, floor_above: bool = true, flatten_bottom: bool = false, bottom_height: float = -1):
+func add_outer_corner(floor_below: bool = true, floor_above: bool = true, flatten_bottom: bool = false, bottom_height: float = -1):
 	var edge_by = bottom_height if flatten_bottom else by
 	var edge_cy = bottom_height if flatten_bottom else cy
 	
@@ -580,7 +580,7 @@ func add_outer_corner(chunk: MarchingSquaresTerrainChunk, floor_below: bool = tr
 # Add an edge, where AB is the raised edge.
 # a_x is the x coordinate that the top-left of the uper floor connects to
 # b_x is the x coordinate that the top-right of the upper floor connects to
-func add_edge(chunk: MarchingSquaresTerrainChunk, floor_below: bool, floor_above: bool, a_x: float = 0, b_x: float = 1):
+func add_edge(floor_below: bool, floor_above: bool, a_x: float = 0, b_x: float = 1):
 	# If A and B are out of merge distance, use the lower of the two
 	var edge_ay = ay if ab else min(ay, by)
 	var edge_by = by if ab else min(ay, by)
@@ -622,7 +622,7 @@ func add_edge(chunk: MarchingSquaresTerrainChunk, floor_below: bool, floor_above
 
 
 # Add an inner corner, where A is the lowered corner.
-func add_inner_corner(chunk: MarchingSquaresTerrainChunk, lower_floor: bool = true, full_upper_floor: bool = true, flatten: bool = false, bd_floor: bool = false, cd_floor: bool = false):
+func add_inner_corner(lower_floor: bool = true, full_upper_floor: bool = true, flatten: bool = false, bd_floor: bool = false, cd_floor: bool = false):
 	var corner_by = min(by, cy) if flatten else by
 	var corner_cy = min(by, cy) if flatten else cy
 	
@@ -679,7 +679,7 @@ func add_inner_corner(chunk: MarchingSquaresTerrainChunk, lower_floor: bool = tr
 
 
 # Add a diagonal floor, using heights of B and C and connecting their points using passed heights.
-func add_diagonal_floor(chunk: MarchingSquaresTerrainChunk, b_y: float, c_y: float, a_cliff: bool, d_cliff: bool):
+func add_diagonal_floor(b_y: float, c_y: float, a_cliff: bool, d_cliff: bool):
 	start_floor()
 	
 	add_point(1, b_y, 0, 0 ,0)
