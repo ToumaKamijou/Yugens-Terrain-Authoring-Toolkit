@@ -1,6 +1,6 @@
 extends GutTest
 
-func _store_geometry(mesh: Mesh, name: String):
+func _store_geometry(mesh: Mesh, name_: String):
 	var mesh_arrays = mesh.surface_get_arrays(0)
 	var vertices = mesh_arrays[Mesh.ARRAY_VERTEX]
 	var uvs = mesh_arrays[Mesh.ARRAY_TEX_UV]
@@ -9,7 +9,7 @@ func _store_geometry(mesh: Mesh, name: String):
 	var indices = mesh_arrays[Mesh.ARRAY_INDEX]
 	var vertex_offset := 1
 	
-	var file := FileAccess.open(name, FileAccess.WRITE)
+	var file := FileAccess.open(name_, FileAccess.WRITE)
 	
 	# vertices
 	for v in vertices:
@@ -65,23 +65,23 @@ func test_c6():
 	_test_generate_geometry_match([[0.0, 2.0],[0.8, 0.0]], "c6.1")
 	
 func test_c7():
-	_test_generate_geometry_match([[0.0, 1.0],[1.0, 1.0]], "c7.0")
+	_test_generate_geometry_match([[0.0, 1.1],[1.2, 1.3]], "c7.0")
 
 func test_c8():
-	_test_generate_geometry_match([[0.0, 1.0],[1.0, 2.0]], "c8.0")
+	_test_generate_geometry_match([[0.0, 1.1],[1.2, 2.2]], "c8.0")
 	
 func test_c9():
 	_test_generate_geometry_match([[0.0, 1.0],[2.0, 1.0]], "c9.0")
-	_test_generate_geometry_match([[0.0, 1.0],[2.0, 0.9]], "c9.1")
+	_test_generate_geometry_match([[0.0, 1.1],[2.1, 0.9]], "c9.1")
 	
 func test_c10():
-	_test_generate_geometry_match([[0.0, 2.0],[1.0, 1.0]], "c10.0")
+	_test_generate_geometry_match([[0.0, 2.2],[1.1, 1.2]], "c10.0")
 
 func test_c11():
 	_test_generate_geometry_match([[0.0, 2.0],[1.0, 2.0]], "c11.0")
 
 func test_c12():
-	_test_generate_geometry_match([[0.0, 1.0],[2.0, 2.0]], "c12.0")
+	_test_generate_geometry_match([[0.0, 1.0],[2.5, 2.0]], "c12.0")
 
 func test_c13():
 	_test_generate_geometry_match([[0.0, 1.0],[3.0, 2.0]], "c13.0")
@@ -103,11 +103,13 @@ func test_c18():
 	
 func _test_generate_geometry_match(height_map, chunk_name, save_only = false):
 	var chunk := MarchingSquaresTerrainChunk.new()
-	
+
 	chunk.terrain_system = MarchingSquaresTerrain.new()
+	chunk.terrain_system.enable_runtime_texture_baking = false
 	chunk.terrain_system.dimensions = Vector3i(height_map[0].size(),50,height_map.size())
 	chunk.terrain_system.cell_size = Vector2.ONE
 	chunk.merge_mode = MarchingSquaresTerrainChunk.Mode.CUBIC
+	chunk.merge_threshold = 0.6
 	
 	chunk.generate_height_map()
 	chunk.height_map = height_map	
@@ -117,7 +119,7 @@ func _test_generate_geometry_match(height_map, chunk_name, save_only = false):
 	chunk.regenerate_all_cells(true)
 
 	var generated = chunk.mesh.surface_get_arrays(0)
-	
+	var success := true
 	if save_only:
 		_store_geometry(chunk.mesh,"tests/expected_cell_geometry/" + chunk_name + ".obj")
 	else:
@@ -134,12 +136,19 @@ func _test_generate_geometry_match(height_map, chunk_name, save_only = false):
 			var p2 : Vector3 = generated[Mesh.ARRAY_VERTEX][idx1]
 			var p3 : Vector3 = generated[Mesh.ARRAY_VERTEX][idx2]
 			
-			assert_has_polygon(expected, p1, p2, p3)
-	
+			var uv1 : Vector2 = generated[Mesh.ARRAY_TEX_UV][idx0]
+			var uv2 : Vector2 = generated[Mesh.ARRAY_TEX_UV][idx1]
+			var uv3 : Vector2 = generated[Mesh.ARRAY_TEX_UV][idx2]
+			
+			success = success and assert_has_polygon(expected, p1, p2, p3, uv1, uv2, uv3)
+	if not success:
+		_store_geometry(chunk.mesh,"tests/expected_cell_geometry/" + chunk_name + "_fail.obj")
+	#else:
+	#	_store_geometry(chunk.mesh,"tests/expected_cell_geometry/" + chunk_name + "_success.obj")
 	assert_true(true)
 	chunk.queue_free()
 
-func assert_has_polygon(expected: Array, p1: Vector3, p2: Vector3, p3: Vector3) -> void:
+func assert_has_polygon(expected: Array, p1: Vector3, p2: Vector3, p3: Vector3, uv1: Vector2, uv2: Vector2, uv3: Vector2) -> bool:
 
 	var indices = expected[Mesh.ARRAY_INDEX]
 	for i in range(0, indices.size(), 3):
@@ -150,9 +159,21 @@ func assert_has_polygon(expected: Array, p1: Vector3, p2: Vector3, p3: Vector3) 
 		var ex_p1 : Vector3 = expected[Mesh.ARRAY_VERTEX][idx0]
 		var ex_p2 : Vector3 = expected[Mesh.ARRAY_VERTEX][idx1]
 		var ex_p3 : Vector3 = expected[Mesh.ARRAY_VERTEX][idx2]
+		var ex_uv1 : Vector2 = expected[Mesh.ARRAY_TEX_UV][idx0]
+		var ex_uv2 : Vector2 = expected[Mesh.ARRAY_TEX_UV][idx1]
+		var ex_uv3 : Vector2 = expected[Mesh.ARRAY_TEX_UV][idx2]
 
-		if p1.is_equal_approx(ex_p1) and p2.is_equal_approx(ex_p2) and p3.is_equal_approx(ex_p3) or \
-			p2.is_equal_approx(ex_p1) and p3.is_equal_approx(ex_p2) and p1.is_equal_approx(ex_p3) or \
-			p3.is_equal_approx(ex_p1) and p1.is_equal_approx(ex_p2) and p2.is_equal_approx(ex_p3):
-				return
+		if p1.is_equal_approx(ex_p1) and p2.is_equal_approx(ex_p2) and p3.is_equal_approx(ex_p3):
+			return check_uvs(ex_uv1, ex_uv2, ex_uv3, uv1, uv2, uv3)
+		elif p2.is_equal_approx(ex_p1) and p3.is_equal_approx(ex_p2) and p1.is_equal_approx(ex_p3):
+			return check_uvs(ex_uv1, ex_uv2, ex_uv3, uv2, uv3, uv1)
+		elif p3.is_equal_approx(ex_p1) and p1.is_equal_approx(ex_p2) and p2.is_equal_approx(ex_p3):
+			return check_uvs(ex_uv1, ex_uv2, ex_uv3, uv3, uv1, uv2)
 	assert_true(false, "No matching polygon " + str(p1) + ", " + str(p2) + ", " + str(p3))
+	return false
+	
+func check_uvs(e1,e2,e3,g1,g2,g3) -> bool:
+	if not (e1.is_equal_approx(g1) and e2.is_equal_approx(g2) and e3.is_equal_approx(g3)):
+		assert_true(false, "UVs not matching")
+		return false
+	return true

@@ -9,6 +9,7 @@ func generate_geometry_benchmark(height_map: Array[Array], N: int):
 	var chunk := MarchingSquaresTerrainChunk.new()
 	
 	chunk.terrain_system = MarchingSquaresTerrain.new()
+	chunk.terrain_system.enable_runtime_texture_baking = false
 	chunk.terrain_system.dimensions = Vector3i(height_map[0].size(),50,height_map.size())
 	chunk.terrain_system.cell_size = Vector2.ONE
 	chunk.merge_mode = MarchingSquaresTerrainChunk.Mode.CUBIC
