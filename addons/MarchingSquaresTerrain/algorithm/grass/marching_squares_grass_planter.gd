@@ -279,13 +279,13 @@ func _get_grass_alpha(texture_id: int) -> float:
 
 
 ## Samples the terrain texture color at the given world position.
-func _sample_terrain_texture_color(position: Vector3, texture_id: int, tex_scale: float) -> Color:
+func _sample_terrain_texture_color(world_pos: Vector3, texture_id: int, tex_scale: float) -> Color:
 	var terrain_image := _get_terrain_image(texture_id)
 	if not terrain_image:
 		return Color.WHITE
 
-	var uv_x : float = clamp(position.x / (terrain_system.dimensions.x * terrain_system.cell_size.x), 0.0, 1.0)
-	var uv_y : float = clamp(position.z / (terrain_system.dimensions.z * terrain_system.cell_size.y), 0.0, 1.0)
+	var uv_x : float = clamp(world_pos.x / (terrain_system.dimensions.x * terrain_system.cell_size.x), 0.0, 1.0)
+	var uv_y : float = clamp(world_pos.z / (terrain_system.dimensions.z * terrain_system.cell_size.y), 0.0, 1.0)
 
 	uv_x = abs(fmod(uv_x * tex_scale, 1.0))
 	uv_y = abs(fmod(uv_y * tex_scale, 1.0))
@@ -315,7 +315,7 @@ func _format_needs_conversion(fmt: Image.Format) -> bool:
 #region grass placement helpers
 
 ## Creates a grass instance at the given position with proper transform and color.
-func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:
+func _create_grass_instance(index: int, world_pos: Vector3, a: Vector3, b: Vector3, c: Vector3, texture_id: int) -> void:
 	var edge1 := b - a
 	var edge2 := c - a
 	var normal := edge1.cross(edge2).normalized()
@@ -324,10 +324,10 @@ func _create_grass_instance(index: int, position: Vector3, a: Vector3, b: Vector
 	var forward := normal.cross(Vector3.RIGHT).normalized()
 	var instance_basis := Basis(right, forward, -normal)
 
-	multimesh.set_instance_transform(index, Transform3D(instance_basis, position))
+	multimesh.set_instance_transform(index, Transform3D(instance_basis, world_pos))
 
 	var tex_scale := _get_texture_scale(texture_id)
-	var instance_color := _sample_terrain_texture_color(position, texture_id, tex_scale)
+	var instance_color := _sample_terrain_texture_color(world_pos, texture_id, tex_scale)
 	instance_color.a = _get_grass_alpha(texture_id)
 
 	multimesh.set_instance_custom_data(index, instance_color)

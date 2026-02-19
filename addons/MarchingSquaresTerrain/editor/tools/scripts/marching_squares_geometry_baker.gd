@@ -44,8 +44,10 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	
 	var tri_id := 0
 	
+	@warning_ignore_start("integer_division")
 	var atlas_res := int(pow(2, ceil(log(polygon_texture_resolution) / log(2)))) # next power of two
-	var tris_per_row := atlas_res / polygon_texture_resolution * 2
+	var tris_per_row := (atlas_res / polygon_texture_resolution) * 2
+	
 	
 	var num_of_triangles := indices.size()/3
 	var max_texture_size := RenderingServer.get_rendering_device().limit_get(RenderingDevice.LIMIT_MAX_TEXTURE_SIZE_2D)
@@ -241,6 +243,7 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 
 	finished.emit(new_mesh, inst, img)
 	viewport.queue_free()
+	@warning_ignore_restore("integer_division")
 	
 func _to_color_array(arr: PackedFloat32Array) -> PackedColorArray:
 	assert(arr.size() % 4 == 0)
@@ -283,12 +286,12 @@ func _transfer_shader_props(from: ShaderMaterial, to: ShaderMaterial) -> void:
 		to_uniforms[u.name] = true
 	
 	for uniform in uniforms:
-		var name: String = uniform.name
+		var prop_name: String = uniform.name
 
 		# Check if target shader has the same parameter
-		if to_uniforms.has(name):
-			var value = from.get_shader_parameter(name)
-			to.set_shader_parameter(name, value)
+		if to_uniforms.has(prop_name):
+			var value = from.get_shader_parameter(prop_name)
+			to.set_shader_parameter(prop_name, value)
 	
 
 static func _store_geometry(mesh: Mesh, name: String):

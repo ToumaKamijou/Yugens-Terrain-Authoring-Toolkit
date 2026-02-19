@@ -276,7 +276,7 @@ static func import_chunk_data(chunk: MarchingSquaresTerrainChunk, data: MSTChunk
 		return
 
 	chunk.chunk_coords = data.chunk_coords
-	chunk.merge_mode = data.merge_mode
+	chunk.merge_mode = data.merge_mode as MarchingSquaresTerrainChunk.Mode
 	chunk.height_map = data.height_map.duplicate(true)
 
 	# Restore baked assets if present
@@ -407,16 +407,17 @@ static func _delete_chunk_directory(chunk_dir: String) -> void:
 	# Delete all files in directory
 	dir.list_dir_begin()
 	var file_name := dir.get_next()
+	var err : Error
 	while file_name != "":
 		if not dir.current_is_dir():
-			var err := dir.remove(file_name)
+			err = dir.remove(file_name)
 			if err != OK:
 				printerr("MSTDataHandler: Failed to delete file ", file_name, " in ", chunk_dir)
 		file_name = dir.get_next()
 	dir.list_dir_end()
 
 	# Remove the directory itself
-	var err := DirAccess.remove_absolute(chunk_dir.trim_suffix("/"))
+	err = DirAccess.remove_absolute(chunk_dir.trim_suffix("/"))
 	if err != OK:
 		printerr("MSTDataHandler: Failed to delete directory ", chunk_dir)
 
@@ -448,8 +449,10 @@ static func _colors_to_texture_idx(c0: Color, c1: Color) -> int:
 static func _texture_idx_to_colors(idx: int) -> Array:
 	var c0 := Color(0, 0, 0, 0)
 	var c1 := Color(0, 0, 0, 0)
+	@warning_ignore_start("integer_division") 
 	var c0_ch := idx / 4
 	var c1_ch := idx % 4
+	@warning_ignore_restore("integer_division")
 
 	match c0_ch:
 		0: c0.r = 1.0

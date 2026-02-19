@@ -136,6 +136,7 @@ func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_EDITOR_PRE_SAVE:
 			# Store height_map and clear - source data saved to external storage, not scene
+			_skip_save_on_exit = _skip_save_on_exit # surpress warning
 			_temp_height_map = height_map
 			height_map = []
 			
@@ -272,7 +273,7 @@ func regenerate_mesh(use_threads: bool = false):
 	if not Engine.is_editor_hint() and terrain_system.enable_runtime_texture_baking:
 		var baker = MarchingSquaresGeometryBaker.new()
 		baker.polygon_texture_resolution = terrain_system.polygon_texture_resolution
-		baker.finished.connect(func(mesh_: Mesh, original: MeshInstance3D, img: Image):
+		baker.finished.connect(func(mesh_: Mesh, _original: MeshInstance3D, img: Image):
 			mesh = mesh_
 			var mat : Material
 			if terrain_system.bake_material_override: 
@@ -298,10 +299,10 @@ func generate_terrain_cells(use_threads: bool):
 	for z in range(dimensions.z - 1):
 		for x in range(dimensions.x - 1):
 			var cell_coords = Vector2i(x, z)
-			
+			var work_load : Callable
 			# If geometry did not change, copy already generated geometry and skip this cell
 			if not needs_update[z][x]:
-				var work_load = func():
+				work_load = func():
 					cell_generation_mutex.lock()
 					var verts = cell_geometry[cell_coords]["verts"]
 					var uvs = cell_geometry[cell_coords]["uvs"]
@@ -349,7 +350,7 @@ func generate_terrain_cells(use_threads: bool):
 			color_helper.chunk = self
 			color_helper.cell = cell
 			
-			var work_load := func():
+			work_load = func():
 				cell.generate_geometry(cell_coords)
 				if grass_planter and grass_planter.terrain_system:
 					grass_planter.generate_grass_on_cell(cell_coords)
@@ -384,11 +385,15 @@ func add_polygons(
 		assert(pts.size() == floors.size())
 		
 		cell_generation_mutex.lock()
+		var floor_mode : bool = true
+		st.set_smooth_group(0)
 		for i in range(pts.size()):
 			if floor_mode and not floors[i]:
-				_start_wall()
+				floor_mode = false
+				st.set_smooth_group(-1)
 			elif not floor_mode and floors[i]:
-				_start_floor()
+				floor_mode = true
+				st.set_smooth_group(0)
 			_add_point(cell_coords, pts[i], uvs[i], uv2s[i], color_0s[i], color_1s[i], custom_1_values[i], mat_blends[i], floors[i])
 		cell_generation_mutex.unlock()
 
@@ -411,19 +416,7 @@ func _add_point(cell_coords: Vector2i, vert: Vector3, uv: Vector2, uv2: Vector2,
 	cell_geometry[cell_coords]["color_1s"].append(color_1)
 	cell_geometry[cell_coords]["custom_1_values"].append(custom_1_value)
 	cell_geometry[cell_coords]["mat_blend"].append(mat_blend)
-	cell_geometry[cell_coords]["is_floor"].append(floor_mode)
-
-# If true, currently making floor geometry. if false, currently making wall geometry.
-var floor_mode : bool = true
-
-func _start_floor():
-	floor_mode = true
-	st.set_smooth_group(0)
-
-
-func _start_wall():
-	floor_mode = false
-	st.set_smooth_group(-1)
+	cell_geometry[cell_coords]["is_floor"].append(is_floor)
 
 #region cell_geometry generators (on being empty)
 

@@ -494,6 +494,8 @@ func _init() -> void:
 	var base_grass_mesh := preload("uid://h41fuxldpf1u")
 	grass_mesh = base_grass_mesh.duplicate(true)
 	grass_mesh.material = base_grass_mesh.material.duplicate(true)
+	print_verbose("Terrain UID: ", _terrain_uid)
+	print_verbose("Last storage mode: ", _last_storage_mode)
 
 
 func _notification(what: int) -> void:
