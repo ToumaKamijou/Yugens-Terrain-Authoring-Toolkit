@@ -101,10 +101,10 @@ var paint_walls : Dictionary = {
 	"default": false,
 }
 
-var planter : Dictionary = {
-	"name": "planter",
+var populator : Dictionary = {
+	"name": "populator",
 	"type": "option",
-	"label": "Planter",
+	"label": "Populator",
 	"default": 0,
 }
 

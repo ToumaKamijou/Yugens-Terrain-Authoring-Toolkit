@@ -22,7 +22,7 @@ class_name MarchingSquaresToolAttributeSettings
 @export var paint_walls : bool = false
 
 # Populate-related special attributes
-@export var planter : bool = false
+@export var populator : bool = false
 @export var remove_selection : bool = false
 @export var populate_terrain : bool = false
 

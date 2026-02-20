@@ -1,6 +1,6 @@
 @icon("uid://sx50shr1w2g0")
 @tool
-extends MarchingSquaresPopulator
+extends MarchingSquaresPlanter
 class_name MarchingSquaresFlowerPlanter
 
 ## TODO: Add size variations for the sprites
@@ -43,7 +43,7 @@ var terrain_system : MarchingSquaresTerrain
 			multimesh.mesh.center_offset.y = value.y
 		else:
 			multimesh.mesh.center_offset.y = 0.75
-@export_custom(PROPERTY_HINT_RANGE, "0, 2", PROPERTY_USAGE_STORAGE) var flower_subdivisions : int = 1:
+@export_custom(PROPERTY_HINT_RANGE, "0, 8", PROPERTY_USAGE_STORAGE) var flower_subdivisions : int = 3:
 	set(value):
 		flower_subdivisions = value
 		if Engine.is_editor_hint():

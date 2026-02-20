@@ -1123,8 +1123,9 @@ func draw_populator_mask_pattern_action(terrain: MarchingSquaresTerrain, pattern
 		
 		flower_planter.setup(false)
 		flower_planter.regenerate_flowers()
-	elif current_populator is MarchingSquaresVegetationPlanter:
-		pass
+	elif current_populator is MarchingSquaresVegetationContainer:
+		for child in current_populator.get_children():
+			pass
 	else:
 		printerr("Couldn't identify a known populator type to draw to")
 		return

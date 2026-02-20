@@ -3,61 +3,61 @@ extends Button
 class_name MarchingSquaresPopulateButton
 
 
-enum PlanterType {FLOWER, VEGETATION}
+enum PopulatorType {FLOWER, VEGETATION}
 
-const PLANTER_TYPE = {
-	PlanterType.FLOWER: preload("res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.tscn"),
-	PlanterType.VEGETATION: preload("res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_vegetation_planter.tscn"),
+const POPULATOR_TYPE = {
+	PopulatorType.FLOWER: preload("uid://demjm5kq2kdpa"),
+	PopulatorType.VEGETATION: preload("uid://jud8opcg5py5"),
 }
 
 var current_terrain_node : MarchingSquaresTerrain
 
-var planter_dialog : AcceptDialog
-var planter_type : OptionButton
+var populator_dialog : AcceptDialog
+var populator_type : OptionButton
 
 
 func _ready() -> void:
-	text = "Add Planter"
-	pressed.connect(_add_new_planter)
+	text = "Add Populator"
+	pressed.connect(_add_new_populator)
 	_create_populate_dialog()
 
 
 func _create_populate_dialog() -> void:
-	planter_dialog = AcceptDialog.new()
-	planter_dialog.title = "Add Planter"
-	planter_dialog.unresizable = true
-	planter_dialog.confirmed.connect(_on_planter_confirmed)
+	populator_dialog = AcceptDialog.new()
+	populator_dialog.title = "Add Populator"
+	populator_dialog.unresizable = true
+	populator_dialog.confirmed.connect(_on_populator_confirmed)
 	
 	var cont := VBoxContainer.new()
 	cont.add_theme_constant_override("seperation", 10)
 	
 	var label := Label.new()
-	label.text = "Choose planter type:"
+	label.text = "Choose populator type:"
 	cont.add_child(label)
 	
-	planter_type = OptionButton.new()
-	for type in PlanterType.size():
-		planter_type.add_item(str(PlanterType.find_key(type)))
-		planter_type.selected = 0
-	cont.add_child(planter_type)
+	populator_type = OptionButton.new()
+	for type in PopulatorType.size():
+		populator_type.add_item(str(PopulatorType.find_key(type)))
+		populator_type.selected = 0
+	cont.add_child(populator_type)
 	
-	planter_dialog.add_child(cont)
+	populator_dialog.add_child(cont)
 	
-	add_child(planter_dialog)
+	add_child(populator_dialog)
 
 
-func _on_planter_confirmed() -> void:
-	var planter = PLANTER_TYPE[planter_type.selected].instantiate()
+func _on_populator_confirmed() -> void:
+	var populator = POPULATOR_TYPE[populator_type.selected].instantiate()
 	
-	current_terrain_node.add_child(planter)
-	planter.terrain_system = current_terrain_node
+	current_terrain_node.add_child(populator)
+	populator.terrain_system = current_terrain_node
 	
-	planter.setup()
+	populator.setup()
 	
 	if Engine.is_editor_hint():
-		planter.owner = Engine.get_singleton("EditorInterface").get_edited_scene_root()
+		populator.owner = Engine.get_singleton("EditorInterface").get_edited_scene_root()
 
 
-func _add_new_planter() -> void:
-	planter_dialog.popup_centered(Vector2(300, 130))
-	planter_type.grab_focus()
+func _add_new_populator() -> void:
+	populator_dialog.popup_centered(Vector2(300, 130))
+	populator_type.grab_focus()

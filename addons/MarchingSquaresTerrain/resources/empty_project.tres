@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="4_td885"]
 [ext_resource type="Script" uid="uid://mtlf02qfkqp5" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_quick_paint.gd" id="5_22b5s"]
 [ext_resource type="Texture2D" uid="uid://cv87twjgbqq0s" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/wall_noise_texture.res" id="5_p1dug"]
-[ext_resource type="Script" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="6_47oyh"]
+[ext_resource type="Script" uid="uid://fvb3vi413siv" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_texture_preset.gd" id="6_47oyh"]
 
 [sub_resource type="Resource" id="Resource_38l2j"]
 script = ExtResource("1_p1dug")

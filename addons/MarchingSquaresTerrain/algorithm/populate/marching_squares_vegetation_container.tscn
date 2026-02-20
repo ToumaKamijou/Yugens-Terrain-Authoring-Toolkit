@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://jud8opcg5py5"]
+
+[ext_resource type="Script" uid="uid://b5bokyffhqd0r" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_vegetation_container.gd" id="1_7wgdq"]
+
+[node name="VegetationContainer" type="MultiMeshInstance3D" unique_id=969702602]
+script = ExtResource("1_7wgdq")
