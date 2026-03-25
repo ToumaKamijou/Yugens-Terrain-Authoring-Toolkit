@@ -2,3 +2,6 @@
 .godot/
 /android/
 addons/gut
+
+.DS_Store
+._.DS_Store
