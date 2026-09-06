@@ -2356,8 +2356,28 @@ func regenerate_all_cells(use_threads: bool):
 	regenerate_mesh(use_threads)
 
 
-@export_tool_button("Export GLB") var bake =  func():
+@export_tool_button("Export GLB") var bake = func():
 	var tree := get_tree()
+	
+	if not prepare_for_storage():
+		push_error("Cannot export GLB: chunk mesh is not complete.")
+		return
+	
+	var persisted_mesh := get_persisted_mesh()
+	
+	if persisted_mesh == null or persisted_mesh.get_surface_count() == 0:
+		push_error("Cannot export GLB: persisted mesh is empty.")
+		return
+	
+	print("[MST Export] surfaces=%d vertices=%d"% [
+			persisted_mesh.get_surface_count(),
+			persisted_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX].size()
+		]
+	)
+	
+	var export_inst := MeshInstance3D.new()
+	export_inst.mesh = persisted_mesh
+	export_inst.transform = transform
 	
 	var baker := MarchingSquaresGeometryBaker.new()
 	baker.polygon_texture_resolution = terrain_system.polygon_texture_resolution
@@ -2365,24 +2385,31 @@ func regenerate_all_cells(use_threads: bool):
 	var f := func(bakedMesh: Mesh, original: MeshInstance3D, bakedTexture: Image):
 		var dialog := FileDialog.new()
 		get_tree().root.add_child(dialog)
+		
 		dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 		dialog.access = FileDialog.ACCESS_FILESYSTEM
 		
 		var inst := MeshInstance3D.new()
 		inst.mesh = bakedMesh
+		
 		var mat := StandardMaterial3D.new()
 		mat.albedo_texture = ImageTexture.create_from_image(bakedTexture)
+		
 		if inst.mesh and inst.mesh.get_surface_count() > 0:
 			inst.mesh.surface_set_material(0, mat)
+		
 		var file_selected := func(path: String):
 			var state := GLTFState.new()
 			var doc := GLTFDocument.new()
+			
 			doc.append_from_scene(inst, state)
 			doc.write_to_filesystem(state, path)
+			
 			dialog.queue_free()
+		
 		dialog.add_filter("*.glb", "GLB file")
 		dialog.connect("file_selected", file_selected)
 		dialog.popup_centered()
 	
 	baker.finished.connect(f, CONNECT_ONE_SHOT)
-	baker.bake_geometry_texture(self, tree)
+	baker.bake_geometry_texture(export_inst, tree)

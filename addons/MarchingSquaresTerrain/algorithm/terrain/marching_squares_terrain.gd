@@ -1920,6 +1920,7 @@ func add_new_chunk(chunk_x: int, chunk_z: int, plugin, regenerate_mesh: bool = t
 	var chunk_coords := Vector2i(chunk_x, chunk_z)
 	var new_chunk := MarchingSquaresTerrainChunk.new()
 	new_chunk.name = "Chunk "+str(chunk_coords)
+	new_chunk.chunk_coords = chunk_coords
 	new_chunk.terrain_system = self
 	
 	new_chunk.generate_height_map(plugin.height)
@@ -2101,6 +2102,7 @@ func remove_chunk_from_tree(x: int, z: int, plugin):
 func add_chunk(coords: Vector2i, chunk: MarchingSquaresTerrainChunk, plugin, regenerate_mesh: bool = true) -> void:
 	chunk.terrain_system = self
 	chunk.chunk_coords = coords
+	print(coords)
 	chunk._skip_save_on_exit = false  # Reset flag when chunk is re-added (undo restores chunk)
 	add_child(chunk)
 	chunks[coords] = chunk

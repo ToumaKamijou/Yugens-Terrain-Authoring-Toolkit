@@ -15,7 +15,9 @@ var _flower_visibility_fade_margin := 0.0
 
 @export var flower_mesh : QuadMesh = null:
 	set(value):
-		flower_mesh = value
+		flower_mesh = value.duplicate(true)
+		if value.material:
+			flower_mesh.material = value.material.duplicate(true)
 		if multimesh:
 			multimesh.mesh = flower_mesh
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var color_gradient : GradientTexture1D = preload("uid://cjkufv3o3pg57"):

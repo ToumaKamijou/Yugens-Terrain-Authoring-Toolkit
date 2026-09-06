@@ -50,7 +50,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TexturePreview" type="TextureRect" parent="WindowVBoxContainer" unique_id=69375260]
-texture_filter = 0
 custom_minimum_size = Vector2(484, 267)
 layout_mode = 2
 texture = SubResource("ViewportTexture_jefjx")
@@ -231,7 +230,7 @@ flat = true
 [node name="WallNoiseCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=982178245]
 layout_mode = 2
 size_flags_horizontal = 3
-text = " Wal Noise"
+text = " Wall Noise"
 
 [node name="WallNoiseMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1136045284]
 layout_mode = 2

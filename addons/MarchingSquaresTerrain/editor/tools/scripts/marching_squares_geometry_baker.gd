@@ -17,9 +17,14 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	if mesh.get_surface_count() == 0:
 		push_warning("MarchingSquaresGeometryBaker: input mesh has no surfaces; aborting bake.")
 		return
+	
 	var new_mesh := ArrayMesh.new()
 	
-	var arrays := mesh.surface_get_arrays(0)
+	var arrays := _combine_mesh_surfaces(mesh)
+	
+	if arrays.is_empty():
+		push_warning("MarchingSquaresGeometryBaker: combined mesh has no geometry; aborting bake.")
+		return
 	
 	var verts : PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 	var indices : PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
@@ -212,7 +217,7 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	
 	var cam := Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
-	cam.global_transform = inst.global_transform
+	cam.transform = inst.transform
 	
 	viewport.add_child(cam)
 	
@@ -254,6 +259,71 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 		viewport.queue_free()
 	, CONNECT_ONE_SHOT)
 	@warning_ignore_restore("integer_division")
+
+
+func _combine_mesh_surfaces(mesh: ArrayMesh) -> Array:
+	var combined_vertices := PackedVector3Array()
+	var combined_normals := PackedVector3Array()
+	var combined_uvs := PackedVector2Array()
+	var combined_uv2s := PackedVector2Array()
+	var combined_colors := PackedColorArray()
+	
+	var combined_c0 := PackedFloat32Array()
+	var combined_c1 := PackedFloat32Array()
+	var combined_c2 := PackedFloat32Array()
+	
+	var combined_indices := PackedInt32Array()
+	
+	for surface_idx in range(mesh.get_surface_count()):
+		var arrays := mesh.surface_get_arrays(surface_idx)
+		
+		if arrays.is_empty():
+			continue
+		
+		var vertices : PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var normals : PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+		var uvs : PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
+		var uv2s : PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV2]
+		var colors : PackedColorArray = arrays[Mesh.ARRAY_COLOR]
+		
+		var c0 : PackedFloat32Array = arrays[Mesh.ARRAY_CUSTOM0]
+		var c1 : PackedFloat32Array = arrays[Mesh.ARRAY_CUSTOM1]
+		var c2 : PackedFloat32Array = arrays[Mesh.ARRAY_CUSTOM2]
+		
+		var indices : PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+		
+		var vertex_offset := combined_vertices.size()
+		
+		combined_vertices.append_array(vertices)
+		combined_normals.append_array(normals)
+		combined_uvs.append_array(uvs)
+		combined_uv2s.append_array(uv2s)
+		combined_colors.append_array(colors)
+		
+		combined_c0.append_array(c0)
+		combined_c1.append_array(c1)
+		combined_c2.append_array(c2)
+		
+		for index in indices:
+			combined_indices.append(index + vertex_offset)
+	
+	if combined_vertices.is_empty():
+		return []
+	
+	var result := []
+	result.resize(Mesh.ARRAY_MAX)
+	
+	result[Mesh.ARRAY_VERTEX] = combined_vertices
+	result[Mesh.ARRAY_NORMAL] = combined_normals
+	result[Mesh.ARRAY_TEX_UV] = combined_uvs
+	result[Mesh.ARRAY_TEX_UV2] = combined_uv2s
+	result[Mesh.ARRAY_COLOR] = combined_colors
+	result[Mesh.ARRAY_CUSTOM0] = combined_c0
+	result[Mesh.ARRAY_CUSTOM1] = combined_c1
+	result[Mesh.ARRAY_CUSTOM2] = combined_c2
+	result[Mesh.ARRAY_INDEX] = combined_indices
+	
+	return result
 
 
 func _to_color_array(arr: PackedFloat32Array) -> PackedColorArray:

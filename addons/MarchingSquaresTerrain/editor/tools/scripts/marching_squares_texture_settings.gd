@@ -364,7 +364,7 @@ func _sync_slot_legacy_fields(terrain, slot_idx: int) -> void:
 		return
 	var slot = terrain.texture_slots[slot_idx] if slot_idx < terrain.texture_slots.size() else null
 	var tex : Texture2D = _coerce_texture2d(slot.texture) if slot != null else null
-	var _scale := float(slot._scale) if slot != null and slot.get("scale") != null else 1.0
+	var _scale := float(slot.scale) if slot != null and slot.get("scale") != null else 1.0
 	var was_batch = terrain.get("is_batch_updating") if terrain.has_method("get") else null
 	if was_batch != null:
 		terrain.set("is_batch_updating", true)
