@@ -184,13 +184,10 @@ static func cell_to_world_pos(chunk_coords: Vector2i, cell_coords: Vector2i, ter
 
 ## Get cell range for a specific chunk within the brush bounds
 static func get_cell_range_for_chunk(chunk_coords: Vector2i, bounds: BrushBounds, terrain: MarchingSquaresTerrain) -> Dictionary:
-	# A chunk with N height samples has N-1 paintable cells. Clamping to
-	# dimensions here lets a seam brush address the neighboring chunk's final
-	# height row and corrupts its first cell.
-	var cell_max_x := maxi(terrain.dimensions.x - 1, 0)
-	var cell_max_z := maxi(terrain.dimensions.z - 1, 0)
-	var x_min : int = clampi(bounds.cell_tl.x, 0, cell_max_x) if chunk_coords.x == bounds.chunk_tl.x else 0
-	var x_max : int = clampi(bounds.cell_br.x, 0, cell_max_x) if chunk_coords.x == bounds.chunk_br.x else cell_max_x
-	var z_min : int = clampi(bounds.cell_tl.y, 0, cell_max_z) if chunk_coords.y == bounds.chunk_tl.y else 0
-	var z_max : int = clampi(bounds.cell_br.y, 0, cell_max_z) if chunk_coords.y == bounds.chunk_br.y else cell_max_z
+	var vertex_count_x := maxi(terrain.dimensions.x, 0)
+	var vertex_count_z := maxi(terrain.dimensions.z, 0)
+	var x_min : int = clampi(bounds.cell_tl.x, 0, vertex_count_x) if chunk_coords.x == bounds.chunk_tl.x else 0
+	var x_max : int = clampi(bounds.cell_br.x, 0, vertex_count_x) if chunk_coords.x == bounds.chunk_br.x else vertex_count_x
+	var z_min : int = clampi(bounds.cell_tl.y, 0, vertex_count_z) if chunk_coords.y == bounds.chunk_tl.y else 0
+	var z_max : int = clampi(bounds.cell_br.y, 0, vertex_count_z) if chunk_coords.y == bounds.chunk_br.y else vertex_count_z
 	return {"x_min": x_min, "x_max": x_max, "z_min": z_min, "z_max": z_max}

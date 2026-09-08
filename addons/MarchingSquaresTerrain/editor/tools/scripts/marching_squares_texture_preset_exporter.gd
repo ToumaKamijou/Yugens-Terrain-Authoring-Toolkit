@@ -169,21 +169,10 @@ func _save_preset(path: String) -> void:
 	# If a preset is currently selected, inherit its Global Settings apply flags so exports preserve intent.
 	if current_terrain_node != null and current_terrain_node.current_texture_preset != null:
 		var src_preset := current_terrain_node.current_texture_preset
-		if src_preset.get("apply_terrain_settings") != null:
-			new_tex_preset.apply_terrain_settings = bool(src_preset.apply_terrain_settings)
-		if src_preset.get("apply_chunk_settings") != null:
-			new_tex_preset.apply_chunk_settings = bool(src_preset.apply_chunk_settings)
 		if src_preset.get("apply_vertex_painter_settings") != null:
 			new_tex_preset.apply_vertex_painter_settings = bool(src_preset.apply_vertex_painter_settings)
 		if src_preset.get("apply_grass_settings") != null:
 			new_tex_preset.apply_grass_settings = bool(src_preset.apply_grass_settings)
-	
-	# PR1: Do not export terrain/global settings unless explicitly enabled.
-	# This prevents PR2/PR4 keys (wind/global noise/etc.) from leaking into PR1 presets.
-	if new_tex_preset.apply_terrain_settings and current_terrain_node != null and current_terrain_node.has_method("_gather_preset_terrain_settings"):
-		new_tex_preset.terrain_settings = current_terrain_node._gather_preset_terrain_settings(new_tex_preset)
-	else:
-		new_tex_preset.terrain_settings = {}
 	
 	if include_library:
 		_save_texture_library_snapshot(new_tex_preset, path)

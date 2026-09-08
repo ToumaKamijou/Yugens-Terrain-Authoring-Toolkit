@@ -86,8 +86,6 @@ func import_to_terrain(
 	imported_preset.new_tex_names = names_res
 	imported_preset.texture_library = texture_library
 	if terrain.current_texture_preset != null:
-		imported_preset.apply_terrain_settings = bool(terrain.current_texture_preset.apply_terrain_settings)
-		imported_preset.apply_chunk_settings = bool(terrain.current_texture_preset.apply_chunk_settings)
 		imported_preset.apply_vertex_painter_settings = bool(terrain.current_texture_preset.apply_vertex_painter_settings)
 		imported_preset.apply_grass_settings = bool(terrain.current_texture_preset.apply_grass_settings)
 	if ResourceSaver.save(imported_preset, preset_path) != OK:

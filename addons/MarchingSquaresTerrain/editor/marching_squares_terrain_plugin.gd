@@ -176,6 +176,7 @@ func deactivate_navmesh_paint_mode() -> void:
 	_commit_navmesh_stroke(current_terrain_node)
 	set_navmesh_paint_mode(NavMeshPaintMode.NONE)
 	is_drawing = false
+	is_erasing = false
 	is_setting = false
 	current_draw_pattern.clear()
 	if current_terrain_node != null and gizmo_plugin != null:
@@ -290,6 +291,8 @@ var last_bridge_point : Vector3
 
 # True if the mouse is currently held down to draw
 var is_drawing : bool
+# True if the mouse is held down with Ctrl to remove cells from the current draw pattern
+var is_erasing : bool
 var chunk_batch_dragging := false
 var chunk_batch_drag_removing := false
 var chunk_batch_drag_start := Vector2i.ZERO
@@ -613,6 +616,7 @@ func _edit(object: Object) -> void:
 			current_draw_pattern.clear()
 			heightmap_pattern_samples.clear()
 			is_drawing = false
+			is_erasing = false
 			draw_height_set = false
 			gizmo_plugin.clear()
 			current_terrain_node = null
@@ -670,18 +674,17 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 			return EditorPlugin.AFTER_GUI_INPUT_PASS
 		
 		if is_setting and draw_height_set:
-			var local_ray_dir := _ray_dir * terrain.transform
+			var local_ray : Array = _ray_to_terrain_space(terrain, _ray_origin, _ray_dir)
+			var local_ray_dir : Vector3 = local_ray[1]
 			var set_plane := Plane(Vector3(local_ray_dir.x, 0, local_ray_dir.z), base_position)
-			var set_position := set_plane.intersects_ray(terrain.to_local(_ray_origin), local_ray_dir)
+			var set_position := set_plane.intersects_ray(local_ray[0], local_ray_dir)
 			if set_position:
 				brush_position = set_position
 		
 		# If there is any pattern and flatten is enabled, draw along that height plane instead of the terrain intersection
 		elif not current_draw_pattern.is_empty() and flatten:
-			var chunk_plane := Plane(Vector3.UP, Vector3(0, draw_height, 0))
-			draw_position = chunk_plane.intersects_ray(_ray_origin, _ray_dir)
+			draw_position = _intersect_terrain_height_plane(terrain, _ray_origin, _ray_dir, draw_height)
 			if draw_position:
-				draw_position = terrain.to_local(draw_position)
 				draw_area_hovered = true
 		
 		else:
@@ -702,10 +705,9 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 				if is_drawing or is_setting or not current_draw_pattern.is_empty():
 					fallback_height = draw_height
 				
-				var virtual_plane := Plane(Vector3.UP, Vector3(0, fallback_height, 0))
-				var plane_pos := virtual_plane.intersects_ray(ray_origin, ray_dir)
+				var plane_pos = _intersect_terrain_height_plane(terrain, _ray_origin, _ray_dir, fallback_height)
 				if plane_pos:
-					draw_position = terrain.to_local(plane_pos)
+					draw_position = plane_pos
 					draw_area_hovered = true
 		
 		# ALT or Right Click to clear the current draw pattern. Don't clear while setting
@@ -778,6 +780,9 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 				elif Input.is_key_pressed(KEY_SHIFT) and mode not in [TerrainToolMode.CHUNK_MANAGEMENT, TerrainToolMode.HEIGHTMAP]:
 					is_drawing = true
 					brush_position = draw_position
+				elif Input.is_key_pressed(KEY_CTRL) and mode not in [TerrainToolMode.CHUNK_MANAGEMENT, TerrainToolMode.HEIGHTMAP] and not (mode == TerrainToolMode.VERTEX_PAINTING and paint_walls_mode):
+					is_erasing = true
+					brush_position = draw_position
 				elif mode not in [TerrainToolMode.CHUNK_MANAGEMENT]:
 					is_setting = true
 					if not flatten:
@@ -798,6 +803,8 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 							current_draw_pattern.clear()
 					if mode in [TerrainToolMode.SMOOTH]:
 						current_draw_pattern.clear()
+				if is_erasing:
+					is_erasing = false
 				if is_setting:
 					is_setting = false
 					if mode == TerrainToolMode.VERTEX_PAINTING and paint_walls_mode:
@@ -859,8 +866,7 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 			return EditorPlugin.AFTER_GUI_INPUT_PASS
 	
 	# Check for hovering over/clicking a new chunk
-	var chunk_plane := Plane(Vector3.UP, Vector3.ZERO)
-	var intersection := chunk_plane.intersects_ray(_ray_origin, _ray_dir)
+	var intersection = _intersect_terrain_height_plane(terrain, _ray_origin, _ray_dir, 0.0)
 	
 	if intersection:
 		var chunk_x : int = floor(intersection.x / ((terrain.dimensions.x-1) * terrain.cell_size.x))
@@ -943,6 +949,15 @@ func handle_mouse(camera: Camera3D, event: InputEvent) -> int:
 #endregion
 
 #region draw-related functions
+
+func _ray_to_terrain_space(terrain: Node3D, origin: Vector3, dir: Vector3) -> Array:
+	return [terrain.to_local(origin), terrain.global_transform.basis.inverse() * dir]
+
+
+func _intersect_terrain_height_plane(terrain: Node3D, origin: Vector3, dir: Vector3, local_height: float) -> Variant:
+	var local_ray : Array = _ray_to_terrain_space(terrain, origin, dir)
+	return Plane(Vector3.UP, Vector3(0.0, local_height, 0.0)).intersects_ray(local_ray[0], local_ray[1])
+
 
 # Calculates brush pattern and updates current_draw_pattern
 func update_draw_pattern(b_pos: Vector3):
@@ -1258,14 +1273,17 @@ func _apply_navmesh_pattern(terrain: MarchingSquaresTerrain, pattern: Dictionary
 		_ensure_navmesh_permission(chunk)
 		
 		var width := maxi(chunk.dimensions.x - 1, 1)
+		var depth := maxi(chunk.dimensions.z - 1, 1)
 		if not _navmesh_stroke_undo.has(chunk_coords):
 			_navmesh_stroke_undo[chunk_coords] = {}
 		if not _navmesh_stroke_do.has(chunk_coords):
 			_navmesh_stroke_do[chunk_coords] = {}
 		
 		for cell_coords: Vector2i in pattern[chunk_coords].keys():
+			if cell_coords.x < 0 or cell_coords.y < 0 or cell_coords.x >= width or cell_coords.y >= depth:
+				continue
 			var index : int = cell_coords.y * width + cell_coords.x
-			if index < 0 or index >= chunk.navmesh_permission.size():
+			if index >= chunk.navmesh_permission.size():
 				continue
 			if not _navmesh_stroke_undo[chunk_coords].has(index):
 				_navmesh_stroke_undo[chunk_coords][index] = chunk.navmesh_permission[index]

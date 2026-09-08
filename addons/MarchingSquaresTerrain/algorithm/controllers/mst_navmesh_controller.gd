@@ -69,7 +69,7 @@ func bake() -> void:
 	if int(bake_result.get("polygon_count", 0)) <= 0:
 		push_warning("[MST] NavMesh bake finished but no nav polygons were generated. Check slope settings and terrain shape.")
 	if EngineWrapper.instance.is_editor():
-		EditorInterface.mark_scene_as_unsaved()
+		EngineWrapper.instance.mark_scene_as_unsaved()
 	clear_bake_state()
 
 
@@ -80,7 +80,7 @@ func clear_baked() -> void:
 	nav_region.navigation_mesh = null
 	clear_debug_mesh()
 	if EngineWrapper.instance.is_editor():
-		EditorInterface.mark_scene_as_unsaved()
+		EngineWrapper.instance.mark_scene_as_unsaved()
 	clear_bake_state()
 
 
