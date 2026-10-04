@@ -21,6 +21,7 @@ var _color_slot_idx : int = -1
 
 # Viewport nodes
 @export var texture_preview : TextureRect
+@export var no_preview_label : Label
 @export var prev_cam_button : Button
 @export var next_cam_button : Button
 
@@ -141,6 +142,7 @@ func reset_preview_sources() -> void:
 	available_preview_sources.clear()
 	current_preview_index = 0
 	texture_preview.texture = null
+	_set_no_preview_label_visible(false)
 
 
 func add_material_preview_source(slot_idx: int, terrain) -> void:
@@ -188,10 +190,13 @@ func cycle_preview(step: int) -> void:
 
 func apply_preview_source(source_idx: int) -> void:
 	if available_preview_sources.is_empty():
-		texture_preview.texture = null
+		clear_preview()
 		return
 	current_preview_index = wrapi(source_idx, 0, available_preview_sources.size())
-	texture_preview.texture = _preview_texture_from_source(available_preview_sources[current_preview_index])
+	_show_preview_texture(_preview_texture_from_source(available_preview_sources[current_preview_index]))
+
+func clear_preview() -> void:
+	_show_preview_texture(null)
 
 
 func apply_preview_source_after_open(source_idx: int) -> void:
@@ -204,7 +209,7 @@ func refresh_active_material_preview() -> void:
 	if current_preview_index < 0 or current_preview_index >= available_preview_sources.size():
 		return
 	if _is_material_preview_source(available_preview_sources[current_preview_index]):
-		texture_preview.texture = _preview_texture_from_source(available_preview_sources[current_preview_index])
+		_show_preview_texture(_preview_texture_from_source(available_preview_sources[current_preview_index]))
 
 
 func queue_material_preview_refresh(terrain, slot_idx: int) -> void:
@@ -242,7 +247,7 @@ func _preview_texture_from_source(source: Variant) -> Texture2D:
 			return _make_material_preview_texture(terrain, slot_idx)
 		if source_type == "viewport":
 			var viewport = source.get("viewport")
-			if viewport != null and viewport.has_method("get_texture"):
+			if is_instance_valid(viewport) and viewport.has_method("get_texture"):
 				return viewport.get_texture()
 	elif source is Texture2D:
 		return source
@@ -253,6 +258,16 @@ func _preview_texture_from_source(source: Variant) -> Texture2D:
 
 func _is_material_preview_source(source: Variant) -> bool:
 	return source is Dictionary and str(source.get("type", "")) == "material_preview"
+
+
+func _show_preview_texture(tex: Texture2D) -> void:
+	texture_preview.texture = tex
+	_set_no_preview_label_visible(tex == null)
+
+
+func _set_no_preview_label_visible(show_label: bool) -> void:
+	if no_preview_label != null:
+		no_preview_label.visible = show_label
 
 
 func _coerce_texture2d(tex) -> Texture2D:

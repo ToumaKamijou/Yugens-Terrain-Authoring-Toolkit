@@ -89,22 +89,9 @@ func move_terrain_point(terrain: MarchingSquaresTerrainChunk, handle_id: int, he
 	var x = handle_id % terrain.dimensions.x
 	if z < 0 or z >=  terrain.height_map.size() or x < 0 or x >= terrain.height_map[z].size():
 		return
-	terrain.height_map[z][x] = height
-	terrain.mark_dirty()
-
-	notify_needs_update(terrain, z, x)
-	notify_needs_update(terrain, z, x-1)
-	notify_needs_update(terrain, z-1, x)
-	notify_needs_update(terrain, z-1, x-1)
-
+	terrain.draw_height(x, z, height)
 	terrain.regenerate_mesh()
 	terrain.update_gizmos()
-
-
-func notify_needs_update(terrain: MarchingSquaresTerrainChunk, z: int, x: int):
-	if z < 0 or z >=  terrain.dimensions.z-1 or x < 0 or x >= terrain.dimensions.x-1:
-		return
-	terrain.needs_update[z][x] = true
 
 
 func _set_handle(handle_id: int, secondary: bool, camera: Camera3D, screen_pos: Vector2) -> void:

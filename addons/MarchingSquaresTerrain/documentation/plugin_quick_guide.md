@@ -17,6 +17,8 @@ The most basic of brushes that can simply elevate or lower terrain.
 Shortcuts:
 * Shift+LMB+Drag: Add cells to the current draw selection.
 
+* Ctrl+LMB+Drag: Remove cells from the current draw selection (in the Level tool Ctrl+LMB sets the level height instead).
+
 * Shift+MWU/MWD: Increase or decrease the brush size.
 
 * Alt/RMB/Esc: Reset the current draw selection.

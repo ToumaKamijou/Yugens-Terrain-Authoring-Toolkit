@@ -464,15 +464,15 @@ static func rebuild_palette_uniforms(terrain) -> void:
 	var max_slots : int = int(terrain.MAX_TEXTURE_SLOTS)
 	var void_slot : int = int(terrain.VOID_TEXTURE_SLOT)
 	
-	var img_colors := Image.create_empty(8, max_slots, false, Image.FORMAT_RGBAF)
+	var img_colors := Image.create_empty(8, max_slots, false, Image.FORMAT_RGBA8)
 	var img_weights := Image.create_empty(8, max_slots, false, Image.FORMAT_RGBAF)
 	var img_meta := Image.create_empty(1, max_slots, false, Image.FORMAT_RGBA8)
 	var img_surface_settings := Image.create_empty(1, max_slots, false, Image.FORMAT_RGBAF)
 	var img_floor_noise := Image.create_empty(1, max_slots, false, Image.FORMAT_RGBAF)
 	var img_wall_noise := Image.create_empty(1, max_slots, false, Image.FORMAT_RGBAF)
-	var img_slot_albedo := Image.create_empty(1, max_slots, false, Image.FORMAT_RGBAF)
 	# Palette colors are edited/stored as sRGB-style values.
 	# Shaders operate in linear space, so convert to linear before uploading.
+	var img_slot_albedo := Image.create_empty(1, max_slots, false, Image.FORMAT_RGBA8)
 	var fallback := Color(1.0, 1.0, 1.0, 0.0)
 	
 	for slot in range(max_slots):
@@ -504,13 +504,13 @@ static func rebuild_palette_uniforms(terrain) -> void:
 			if raw_slot_albedo is Color:
 				slot_albedo = raw_slot_albedo
 		
-		img_slot_albedo.set_pixel(0, slot, slot_albedo.srgb_to_linear())
+		img_slot_albedo.set_pixel(0, slot, slot_albedo)
 		
 		for i in range(8):
 			var c := Color(1.0, 1.0, 1.0, 1.0)
 			var w := 0.0
 			if i < count and indices[i] < terrain.palette_colors.size():
-				c = terrain.palette_colors[indices[i]].srgb_to_linear()
+				c = terrain.palette_colors[indices[i]]
 				w = (float(terrain.palette_weights[indices[i]]) / 100.0) if indices[i] < terrain.palette_weights.size() else 1.0
 			elif i == 0 and count == 0:
 				# Empty slots should mean "no tint", not an implicit fallback color.

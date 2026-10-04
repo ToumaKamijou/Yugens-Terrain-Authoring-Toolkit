@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://38j7bnoq6nks" path="res://addons/MarchingSquaresTerrain/editor/utils/texture_edit/mst_texture_edit_window.gd" id="1_0wwrc"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_jefjx"]
-viewport_path = NodePath("SubViewport")
-
-[node name="TextureEditWindow" type="AcceptDialog" unique_id=1202449268 node_paths=PackedStringArray("texture_preview", "prev_cam_button", "next_cam_button", "texture_name_edit", "albedo_picker", "normal_picker", "texture_scale_slider", "blend_mode_button", "colors_container", "add_color_button", "has_grass_check_box", "grass_texture_picker", "floor_noise_attributes", "floor_noise_check_box", "floor_strength_slider", "floor_scale_slider", "wall_noise_attributes", "wall_noise_check_box", "wall_strength_slider", "wall_scale_slider", "wetness_attributes", "wetness_check_box", "wetness_mode_button", "wetness_terrain_slider", "wetness_grass_slider")]
+[node name="TextureEditWindow" type="AcceptDialog" unique_id=1202449268 node_paths=PackedStringArray("texture_preview", "no_preview_label", "prev_cam_button", "next_cam_button", "texture_name_edit", "albedo_picker", "normal_picker", "texture_scale_slider", "blend_mode_button", "colors_container", "add_color_button", "has_grass_check_box", "grass_texture_picker", "floor_noise_attributes", "floor_noise_check_box", "floor_strength_slider", "floor_scale_slider", "wall_noise_attributes", "wall_noise_check_box", "wall_strength_slider", "wall_scale_slider", "wetness_attributes", "wetness_check_box", "wetness_mode_button", "wetness_terrain_slider", "wetness_grass_slider")]
 oversampling_override = 1.0
 title = "Edit Texture"
 initial_position = 1
@@ -16,6 +13,7 @@ unresizable = true
 ok_button_text = "      OK      "
 script = ExtResource("1_0wwrc")
 texture_preview = NodePath("WindowVBoxContainer/TexturePreview")
+no_preview_label = NodePath("WindowVBoxContainer/TexturePreview/NoPreviewLabel")
 prev_cam_button = NodePath("WindowVBoxContainer/CameraControlHBox/PrevCameraButton")
 next_cam_button = NodePath("WindowVBoxContainer/CameraControlHBox/NextCameraButton")
 texture_name_edit = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings/TextureNameEdit")
@@ -50,12 +48,23 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TexturePreview" type="TextureRect" parent="WindowVBoxContainer" unique_id=69375260]
-texture_filter = 0
 custom_minimum_size = Vector2(484, 267)
 layout_mode = 2
-texture = SubResource("ViewportTexture_jefjx")
 expand_mode = 5
 stretch_mode = 4
+
+[node name="NoPreviewLabel" type="Label" parent="WindowVBoxContainer/TexturePreview" unique_id=1583920467]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "No viewport to preview"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CameraControlHBox" type="HBoxContainer" parent="WindowVBoxContainer" unique_id=693490937]
 layout_mode = 2
@@ -231,7 +240,7 @@ flat = true
 [node name="WallNoiseCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=982178245]
 layout_mode = 2
 size_flags_horizontal = 3
-text = " Wal Noise"
+text = " Wall Noise"
 
 [node name="WallNoiseMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1136045284]
 layout_mode = 2

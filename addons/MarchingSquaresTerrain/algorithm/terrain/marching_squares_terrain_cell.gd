@@ -304,9 +304,9 @@ func add_point(x: float, y: float, z: float, u: float, v: float, u2: float = INF
 			uv2 = Vector2(vert.x, vert.z) / chunk.cell_size
 		else:
 			# This avoids is_inside_tree() errors when inactive scene tabs are loaded
-			var chunk_pos : Vector3 = chunk.global_position_cached
-			var global_pos = vert + chunk_pos
-			uv2 = (Vector2(global_pos.x, global_pos.y) + Vector2(global_pos.z, global_pos.y))
+			var chunk_pos : Vector3 = chunk.terrain_position_cached
+			var terrain_pos = vert + chunk_pos
+			uv2 = (Vector2(terrain_pos.x, terrain_pos.y) + Vector2(terrain_pos.z, terrain_pos.y))
 	
 	pts.append(vert)
 	uvs.append(uv)

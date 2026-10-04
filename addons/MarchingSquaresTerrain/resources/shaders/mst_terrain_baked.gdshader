@@ -15,7 +15,10 @@ void fragment() {
 	vec4 albedo_tex = texture(texture_albedo, UV);
 	ALBEDO = albedo_tex.rgb;
 	if (has_prefab_colormap) {
-		ALBEDO *= texture(tex_prefab_colormap, UV).rgb;
+		vec4 prefab_col = texture(tex_prefab_colormap, UV2);
+		ALBEDO *= prefab_col.rgb;
+		ALPHA *= prefab_col.a;
+		ALPHA_SCISSOR_THRESHOLD = 0.5;
 	}
 }
 

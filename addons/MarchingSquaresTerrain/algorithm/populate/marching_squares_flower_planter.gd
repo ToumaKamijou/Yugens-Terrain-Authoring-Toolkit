@@ -6,6 +6,8 @@ class_name MarchingSquaresFlowerPlanter
 
 # All populators need this variable at the top so the mst_populator_settings.gd script can reference it properly
 const CLASS_NAME := "MarchingSquaresFlowerPlanter"
+# Slope limit floor faces steeper than this get no flowers, same as grass planter (_MIN_GRASS_FACE_UP_DOT)
+const _MIN_FLOWER_FACE_UP_DOT : float = 0.5
 
 var terrain_system : MarchingSquaresTerrain
 var _connected_color_gradient: Gradient
@@ -15,7 +17,9 @@ var _flower_visibility_fade_margin := 0.0
 
 @export var flower_mesh : QuadMesh = null:
 	set(value):
-		flower_mesh = value
+		flower_mesh = value.duplicate(true)
+		if value.material:
+			flower_mesh.material = value.material.duplicate(true)
 		if multimesh:
 			multimesh.mesh = flower_mesh
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var color_gradient : GradientTexture1D = preload("uid://cjkufv3o3pg57"):
@@ -212,8 +216,11 @@ func regenerate_flowers() -> void:
 			printerr("No cell_geometry data set while regenerating cells")
 			return
 	
-	var plugin := MarchingSquaresTerrainPlugin.instance
-	var remove_selection := plugin != null and plugin.remove_selection
+	var remove_selection := false
+	if Engine.is_editor_hint():
+		var plugin_script: Resource = load("res://addons/MarchingSquaresTerrain/editor/marching_squares_terrain_plugin.gd")
+		var plugin: Object = plugin_script.get("instance") if plugin_script != null else null
+		remove_selection = plugin != null and bool(plugin.get("remove_selection"))
 	if not planted_chunks.is_empty() and cell_data.is_empty() and not remove_selection:
 		printerr("No cell data set while regenerating cells")
 		return
@@ -281,10 +288,8 @@ func generate_flowers_on_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i
 	var points : PackedVector2Array = []
 	var count := flower_subdivisions * flower_subdivisions
 	var chunk_offset: Vector3
-	if chunk.is_inside_tree():
-		chunk_offset = chunk.global_position
-	elif terrain_system and terrain_system.is_inside_tree():
-		chunk_offset = terrain_system.global_position + chunk.position
+	if is_inside_tree() and chunk.is_inside_tree():
+		chunk_offset = to_local(chunk.global_position)
 	else:
 		chunk_offset = chunk.position
 	
@@ -318,6 +323,7 @@ func generate_flowers_on_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i
 	var uvs: PackedVector2Array = current_cell_data["uvs"]
 	var custom_1_values: PackedColorArray = current_cell_data["custom_1_values"]
 	var is_floor: Array = current_cell_data["is_floor"]
+	var uv_marks_ledges : bool = terrain_system == null or terrain_system.prefab_set == null
 	
 	for i in range(0, len(verts), 3):
 		if i+2 >= len(verts):
@@ -329,6 +335,9 @@ func generate_flowers_on_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i
 		var a := verts[i] + chunk_offset
 		var b := verts[i+1] + chunk_offset
 		var c := verts[i+2] + chunk_offset
+		var face_normal := (b - a).cross(c - a)
+		if face_normal.length_squared() < 0.000001 or absf(face_normal.normalized().y) < _MIN_FLOWER_FACE_UP_DOT:
+			continue
 		
 		var v0 := Vector2(c.x - a.x, c.z - a.z)
 		var v1 := Vector2(b.x - a.x, b.z - a.z)
@@ -361,7 +370,7 @@ func generate_flowers_on_cell(chunk: MarchingSquaresTerrainChunk, cell: Vector2i
 				
 				# Don't place flowers on ledge or ridges
 				var uv = uvs[i]*u + uvs[i+1]*v + uvs[i+2]*(1-u-v)
-				var on_ledge_or_ridge : bool = uv.y > 0.0 or uv.x > 0.5
+				var on_ledge_or_ridge : bool = uv_marks_ledges and (uv.y > 0.0 or uv.x > 0.5)
 				
 				if not on_ledge_or_ridge:
 					_create_flower_instance(index, p, a, b, c, color_rng)

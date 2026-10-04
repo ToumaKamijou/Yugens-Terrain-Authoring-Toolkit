@@ -364,7 +364,7 @@ func _sync_slot_legacy_fields(terrain, slot_idx: int) -> void:
 		return
 	var slot = terrain.texture_slots[slot_idx] if slot_idx < terrain.texture_slots.size() else null
 	var tex : Texture2D = _coerce_texture2d(slot.texture) if slot != null else null
-	var _scale := float(slot._scale) if slot != null and slot.get("scale") != null else 1.0
+	var _scale := float(slot.scale) if slot != null and slot.get("scale") != null else 1.0
 	var was_batch = terrain.get("is_batch_updating") if terrain.has_method("get") else null
 	if was_batch != null:
 		terrain.set("is_batch_updating", true)
@@ -832,6 +832,7 @@ func add_texture_settings() -> void:
 	gn_picker.resource_changed.connect(func(resource):
 		resource = _coerce_texture2d(resource)
 		terrain.set("global_noise_texture", resource)
+		EditorInterface.mark_scene_as_unsaved()
 	)
 	gn_picker.resource_selected.connect(func(resource: Resource, inspect: bool):
 		if inspect and resource != null:
@@ -859,7 +860,10 @@ func add_texture_settings() -> void:
 		gn_strength_slider.set_value(float(gn_strength_val))
 	else:
 		gn_strength_slider.set_value(1.0)
-	gn_strength_slider.value_changed.connect(func(v): terrain.set("global_noise_strength", float(v)))
+	gn_strength_slider.value_changed.connect(func(v):
+		terrain.set("global_noise_strength", float(v))
+		EditorInterface.mark_scene_as_unsaved()
+	)
 	gn_strength_slider.set_custom_minimum_size(Vector2(95, 25))
 	gn_strength_hbox.add_child(gn_strength_slider)
 	gn_strength_hbox.visible = false
@@ -880,7 +884,10 @@ func add_texture_settings() -> void:
 		gn_scale_slider.set_value(float(gn_scale_val))
 	else:
 		gn_scale_slider.set_value(0.037)
-	gn_scale_slider.value_changed.connect(func(v): terrain.set("global_noise_scale", float(v)))
+	gn_scale_slider.value_changed.connect(func(v):
+		terrain.set("global_noise_scale", float(v))
+		EditorInterface.mark_scene_as_unsaved()
+	)
 	gn_scale_slider.set_custom_minimum_size(Vector2(95, 25))
 	gn_scale_hbox.add_child(gn_scale_slider)
 	gn_scale_hbox.visible = false
@@ -1020,7 +1027,6 @@ func _open_texture_edit_window(slot_idx: int) -> void:
 	for vp in get_tree().root.find_children("*", "SubViewport", true, false):
 		if vp.owner != null:
 			dialog.add_viewport_preview_source(vp)
-	dialog.add_viewport_preview_source(EditorInterface.get_editor_viewport_3d())
 	
 	dialog.prev_cam_button.pressed.connect(func():
 		dialog.cycle_preview(-1)
@@ -1058,7 +1064,7 @@ func _open_texture_edit_window(slot_idx: int) -> void:
 						dialog.current_preview_index = clampi(dialog.current_preview_index, 0, dialog.preview_source_count() - 1)
 						dialog.apply_preview_source(dialog.current_preview_index)
 					else:
-						dialog.texture_preview.texture = null
+						dialog.clear_preview()
 			return
 		if material_preview_index < 0:
 			dialog.add_material_preview_source(slot_idx, terrain)

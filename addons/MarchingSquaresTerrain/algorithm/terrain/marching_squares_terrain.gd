@@ -151,9 +151,8 @@ var _data_directory : String = ""
 		for chunk: MarchingSquaresTerrainChunk in chunks.values():
 			if is_instance_valid(chunk):
 				chunk.mark_dirty()
-				# Prefab swaps touch the whole chunk, so queue the expensive rebuild
-				# onto the deferred path and thread the geometry work to reduce editor stalls.
-				chunk.queue_mesh_regen(true)
+				# Prefab swaps invalidate every cell of the chunk, cache need to be invalidated fully
+				chunk.queue_full_mesh_regen(true)
 		if not is_batch_updating:
 			_request_grass_regen()
 
@@ -399,7 +398,7 @@ var flat_normals : bool = false:
 #region global noise settings
 # Convenience: texture used by the shader's global noise multiplier.
 # Defaults to the same noise used for ridge/ledge so porting feels consistent.
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var global_noise_texture : Texture2D = EngineWrapper.load_resource("uid://dbnc04k3n0sro") as Texture2D:
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var global_noise_texture : Texture2D = preload("uid://dbnc04k3n0sro"):
 	set(value):
 		global_noise_texture = value
 		if terrain_material != null:
@@ -433,7 +432,7 @@ var flat_normals : bool = false:
 #endregion
 
 #region wind settings
-@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wind_noise_texture : Texture2D = EngineWrapper.load_resource("uid://dk1t5hy2tiil7") as Texture2D:
+@export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var wind_noise_texture : Texture2D = preload("uid://dk1t5hy2tiil7"):
 	set(value):
 		wind_noise_texture = value
 		_sync_wind_state()
@@ -1194,9 +1193,9 @@ func _build_navigation_mesh_from_walkable_faces(nav_mesh: NavigationMesh) -> Dic
 		for index in range(0, faces.size(), 3):
 			if index + 2 >= faces.size():
 				break
-			var a := chunk.global_transform * faces[index]
-			var b := chunk.global_transform * faces[index + 1]
-			var c := chunk.global_transform * faces[index + 2]
+			var a := chunk.transform * faces[index]
+			var b := chunk.transform * faces[index + 1]
+			var c := chunk.transform * faces[index + 2]
 			var triangle_key := _nav_controller.triangle_key(a, b, c, epsilon)
 			if seen_triangles.has(triangle_key):
 				continue
@@ -1753,7 +1752,8 @@ func _repair_chunk_storage() -> void:
 			terrain_chunk.mark_dirty()
 	if MSTDataHandler.save_all_chunks(self):
 		_storage_initialized = true
-		EditorInterface.mark_scene_as_unsaved()
+		if EngineWrapper.instance.is_editor():
+			EngineWrapper.instance.mark_scene_as_unsaved()
 		push_warning("[MST] Chunk metadata was repaired and externalized. Save the scene now to strip embedded chunk payload from the .tscn.")
 	else:
 		push_error("[MST] Failed to repair chunk storage. Embedded chunk data was left untouched.")
@@ -1920,6 +1920,7 @@ func add_new_chunk(chunk_x: int, chunk_z: int, plugin, regenerate_mesh: bool = t
 	var chunk_coords := Vector2i(chunk_x, chunk_z)
 	var new_chunk := MarchingSquaresTerrainChunk.new()
 	new_chunk.name = "Chunk "+str(chunk_coords)
+	new_chunk.chunk_coords = chunk_coords
 	new_chunk.terrain_system = self
 	
 	new_chunk.generate_height_map(plugin.height)
@@ -2101,6 +2102,7 @@ func remove_chunk_from_tree(x: int, z: int, plugin):
 func add_chunk(coords: Vector2i, chunk: MarchingSquaresTerrainChunk, plugin, regenerate_mesh: bool = true) -> void:
 	chunk.terrain_system = self
 	chunk.chunk_coords = coords
+	print(coords)
 	chunk._skip_save_on_exit = false  # Reset flag when chunk is re-added (undo restores chunk)
 	add_child(chunk)
 	chunks[coords] = chunk

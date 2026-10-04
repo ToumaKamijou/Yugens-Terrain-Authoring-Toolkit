@@ -15,4 +15,4 @@ func clear_baked_navmesh() -> void:
 	if terrain != null and terrain.has_method("_clear_nav_debug_mesh"):
 		terrain._clear_nav_debug_mesh()
 	if EngineWrapper.instance != null and EngineWrapper.instance.is_editor():
-		EditorInterface.mark_scene_as_unsaved()
+		EngineWrapper.instance.mark_scene_as_unsaved()

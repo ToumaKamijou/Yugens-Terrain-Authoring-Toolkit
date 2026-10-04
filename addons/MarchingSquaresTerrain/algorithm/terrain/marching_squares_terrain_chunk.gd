@@ -68,7 +68,7 @@ var wall_paint_stamp_normals : PackedVector3Array = PackedVector3Array()
 var wall_paint_stamp_radii : PackedFloat32Array = PackedFloat32Array()
 var wall_paint_stamp_texture_indices : PackedInt32Array = PackedInt32Array()
 
-var global_position_cached : Vector3 = Vector3.ZERO
+var terrain_position_cached : Vector3 = Vector3.ZERO
 
 var cell_generation_mutex : Mutex = Mutex.new()
 
@@ -321,6 +321,10 @@ func initialize_terrain(should_regenerate_mesh: bool =  true, defer_grass_setup:
 				mat.albedo_texture = ImageTexture.create_from_image(img)
 			elif mat is ShaderMaterial:
 				mat.set_shader_parameter("texture_albedo", ImageTexture.create_from_image(img))
+				var src_mat : ShaderMaterial = terrain_system.terrain_material
+				if src_mat != null:
+					mat.set_shader_parameter("tex_prefab_colormap", src_mat.get_shader_parameter("tex_prefab_colormap"))
+					mat.set_shader_parameter("has_prefab_colormap", src_mat.get_shader_parameter("has_prefab_colormap"))
 			# Runtime texture baking replaces the normal terrain material. Preserve
 			# the post-processing chain, otherwise effects visible in the editor are
 			# silently lost as soon as the bake completes.
@@ -513,7 +517,7 @@ func rebuild_cell_geometry_for_grass() -> void:
 		for z in range(expected_z):
 			for x in range(expected_x):
 				needs_update[z][x] = true
-	_cache_global_position_for_thread()
+	_cache_terrain_position_for_thread()
 	var collect_was := _collect_mesh_arrays
 	_collect_mesh_arrays = false
 	generate_terrain_cells(false)
@@ -527,7 +531,7 @@ func regenerate_cell_geometry(cell_coords: Vector2i) -> void:
 		return
 	if cell_geometry == null:
 		cell_geometry = {}
-	_cache_global_position_for_thread()
+	_cache_terrain_position_for_thread()
 	_reset_cell_geometry(cell_coords)
 	var cell = _create_cell_for_geometry(cell_coords)
 	if cell == null:
@@ -597,7 +601,7 @@ func regenerate_mesh(use_threads: bool =  false):
 	var was_hydrated_mesh := _baked_mesh_is_complete
 	_baked_mesh_is_complete = false
 	_apply_shadow_visibility_settings()
-	_cache_global_position_for_thread()
+	_cache_terrain_position_for_thread()
 	if _mesh_tiles.is_empty():
 		_mark_all_mesh_tiles_dirty()
 	_clear_mesh_build_arrays()
@@ -1311,7 +1315,7 @@ func _apply_chunk_surface_material() -> void:
 		var source_material := base_mat as ShaderMaterial
 		var source_revision : int = terrain_system._surface_material_revision
 		if _chunk_surface_material == null or _chunk_surface_material_source != source_material or _chunk_surface_material_revision != source_revision:
-			_chunk_surface_material = source_material.duplicate(true)
+			_chunk_surface_material = source_material.duplicate()
 			_chunk_surface_material_source = source_material
 			_chunk_surface_material_revision = source_revision
 		_sync_wall_paint_shader_params(_chunk_surface_material)
@@ -1396,7 +1400,7 @@ func begin_deferred_initial_build() -> void:
 	if _initial_build_pending or not is_inside_tree():
 		return
 	# Scene-tree transforms must be read on the main thread before the worker starts.
-	_cache_global_position_for_thread()
+	_cache_terrain_position_for_thread()
 	_mark_all_mesh_tiles_dirty()
 	_initial_build_pending = true
 	build_phase = BuildPhase.GENERATING_CELLS
@@ -1414,8 +1418,8 @@ func _start_deferred_initial_build_thread() -> void:
 	_initial_build_thread.start(_run_deferred_initial_cell_generation)
 
 
-func _cache_global_position_for_thread() -> void:
-	global_position_cached = global_position if is_inside_tree() else position
+func _cache_terrain_position_for_thread() -> void:
+	terrain_position_cached = position
 
 
 func wait_for_initial_build() -> void:
@@ -2347,17 +2351,55 @@ func _apply_collision_layers() -> void:
 					_child.set_visible(false)
 
 
-func regenerate_all_cells(use_threads: bool):
+func mark_all_cells_for_update() -> void:
 	_mark_all_mesh_tiles_dirty()
-	for z in range(dimensions.z-1):
-		for x in range(dimensions.x-1):
+	var expected_z := maxi(dimensions.z - 1, 0)
+	var expected_x := maxi(dimensions.x - 1, 0)
+	if needs_update == null or needs_update.size() != expected_z \
+			or (expected_z > 0 and needs_update[0].size() != expected_x):
+		needs_update = []
+		for z in range(expected_z):
+			needs_update.append([])
+			for x in range(expected_x):
+				needs_update[z].append(true)
+		return
+	for z in range(expected_z):
+		for x in range(expected_x):
 			needs_update[z][x] = true
-	
+
+
+func regenerate_all_cells(use_threads: bool):
+	mark_all_cells_for_update()
 	regenerate_mesh(use_threads)
 
 
-@export_tool_button("Export GLB") var bake =  func():
+func queue_full_mesh_regen(use_threads: bool = false) -> void:
+	mark_all_cells_for_update()
+	queue_mesh_regen(use_threads)
+
+
+@export_tool_button("Export GLB") var bake = func():
 	var tree := get_tree()
+	
+	if not prepare_for_storage():
+		push_error("Cannot export GLB: chunk mesh is not complete.")
+		return
+	
+	var persisted_mesh := get_persisted_mesh()
+	
+	if persisted_mesh == null or persisted_mesh.get_surface_count() == 0:
+		push_error("Cannot export GLB: persisted mesh is empty.")
+		return
+	
+	print("[MST Export] surfaces=%d vertices=%d"% [
+			persisted_mesh.get_surface_count(),
+			persisted_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX].size()
+		]
+	)
+	
+	var export_inst := MeshInstance3D.new()
+	export_inst.mesh = persisted_mesh
+	export_inst.transform = transform
 	
 	var baker := MarchingSquaresGeometryBaker.new()
 	baker.polygon_texture_resolution = terrain_system.polygon_texture_resolution
@@ -2365,24 +2407,31 @@ func regenerate_all_cells(use_threads: bool):
 	var f := func(bakedMesh: Mesh, original: MeshInstance3D, bakedTexture: Image):
 		var dialog := FileDialog.new()
 		get_tree().root.add_child(dialog)
+		
 		dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 		dialog.access = FileDialog.ACCESS_FILESYSTEM
 		
 		var inst := MeshInstance3D.new()
 		inst.mesh = bakedMesh
+		
 		var mat := StandardMaterial3D.new()
 		mat.albedo_texture = ImageTexture.create_from_image(bakedTexture)
+		
 		if inst.mesh and inst.mesh.get_surface_count() > 0:
 			inst.mesh.surface_set_material(0, mat)
+		
 		var file_selected := func(path: String):
 			var state := GLTFState.new()
 			var doc := GLTFDocument.new()
+			
 			doc.append_from_scene(inst, state)
 			doc.write_to_filesystem(state, path)
+			
 			dialog.queue_free()
+		
 		dialog.add_filter("*.glb", "GLB file")
 		dialog.connect("file_selected", file_selected)
 		dialog.popup_centered()
 	
 	baker.finished.connect(f, CONNECT_ONE_SHOT)
-	baker.bake_geometry_texture(self, tree)
+	baker.bake_geometry_texture(export_inst, tree)

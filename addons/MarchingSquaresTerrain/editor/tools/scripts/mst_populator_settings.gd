@@ -118,7 +118,7 @@ func add_populator_settings() -> void:
 			var edit_btn := Button.new()
 			edit_btn.text = "Edit"
 			edit_btn.set_custom_minimum_size(Vector2(48, 24))
-			edit_btn.pressed.connect(func(): _open_texture_edit_window(child))
+			edit_btn.pressed.connect(func(): _open_populator_edit_window(child))
 			btn_h.add_child(edit_btn)
 			
 			var rem_btn := Button.new()
@@ -156,7 +156,7 @@ func _refresh_editor(p_refresh_ui: bool = true) -> void:
 		call_deferred("add_populator_settings")
 
 
-func _open_texture_edit_window(populator: MarchingSquaresPopulator) -> void:
+func _open_populator_edit_window(populator: MarchingSquaresPopulator) -> void:
 	var terrain := plugin.current_terrain_node
 	if terrain == null:
 		return
@@ -168,7 +168,6 @@ func _open_texture_edit_window(populator: MarchingSquaresPopulator) -> void:
 			
 			var dialog : MarchingSquaresFlowerEditWindow = _FLOWER_EDIT_WINDOW.instantiate()
 			dialog.title = "Edit Flower"
-			
 			
 			dialog.albedo_texture_picker.edited_resource = populator.flower_sprite
 			dialog.albedo_texture_picker.resource_changed.connect(func(res):
