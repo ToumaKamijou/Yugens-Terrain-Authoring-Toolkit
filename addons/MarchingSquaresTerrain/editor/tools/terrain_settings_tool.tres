@@ -13,16 +13,13 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_b2ltq")
 icon = ExtResource("1_pnnl0")
 label = "Terrain Settings"
-tooltip = "Terrain Settings Tool
+tooltip = "Allows the user to tweak existing and add custom global terrain settings.
 
-Used to tweak global terrain settings.
+[b]Info[/b]:
+The [EDITOR_ACCENT]Vertex Painter Tab[/EDITOR_ACCENT] is mainly used for changing texture blending related settings.
 
-[INFO]
-• The \"Blend Mode\" dropdown menu allows you to set the terrain's texture blending mode to suit your liking.
-• Setting a \"Noise Hmap\" makes the base chunk height generation procedural instead of flat. 
-• Setting the \"Animation Fps\" value to more than 0 makes the grass sprites move with limited fps.
-    • Keeping it at 0 gives the grass a smooth wind based effect.
-• \"Ridge Threshold\" controls how close grass sprites get spawned to lowering terrain (cliffs).
-• \"Ledge Threshold\" controls how close grass sprites get spawned to elevating terrain (walls)."
+The [EDITOR_ACCENT]Environment Tab[/EDITOR_ACCENT] and [EDITOR_ACCENT]Wind Tab[/EDITOR_ACCENT] can be used to alter terrain generation and the feel of vegetation.
+
+Finally, the [EDITOR_ACCENT]Post-Processing Tab[/EDITOR_ACCENT] allows for custom shaders to be applied to the terrain and/or built-in vegetation systems."
 attributes = SubResource("Resource_vnd2o")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

@@ -9,6 +9,8 @@ script = ExtResource("1_nb1fd")
 brush_type = true
 size = true
 ease_value = true
+falloff = true
+curve3d_mode = true
 quick_paint_selection = true
 metadata/_custom_type_script = "uid://b6jopat61dbd3"
 
@@ -16,12 +18,11 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_xy6if")
 icon = ExtResource("1_xvlk8")
 label = "Bridge"
-tooltip = "Bridge Tool
+tooltip = "An intuitive brush for creating bridges between two points.
 
-Used to create a bridge between two points.
+[b]Info[/b]:
+The [EDITOR_KEYWORD]bridge_curve_falloff[/EDITOR_KEYWORD] can be set via the [EDITOR_ACCENT]Ease Value[/EDITOR_ACCENT] attribute. For further reference see the ease value cheatsheet in the [u]documentation+[/u] folder.
 
-[INFO]
-The bridge curve falloff can be set via the \"ease value\" attribute. 
-For reference see the ease value cheatsheet in the documentation+ folder."
+Enabling [EDITOR_ACCENT]Curve3D Mode[/EDITOR_ACCENT] changes the bridge calculations to be point based, allowing for free form bridges."
 attributes = SubResource("Resource_l6yvy")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

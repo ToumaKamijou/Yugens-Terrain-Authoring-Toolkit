@@ -1,0 +1,166 @@
+[gd_scene format=3 uid="uid://dbarg5nvaylij"]
+
+[ext_resource type="Script" uid="uid://dcc8486bk3s08" path="res://addons/MarchingSquaresTerrain/editor/utils/populator_edit/mst_flower_edit_window.gd" id="1_i3rcu"]
+
+[node name="FlowerEditWindow" type="AcceptDialog" unique_id=1893742550 node_paths=PackedStringArray("albedo_texture_picker", "albedo_color_picker", "edit_gradient_button", "vec_2_left", "vec_2_right", "flower_h_map_picker", "height_range_h_slider", "size_range_h_slider", "billboard_check_box", "height_offset_spin_box", "flower_subdivions_spin_box")]
+oversampling_override = 1.0
+title = "Edit Flower"
+position = Vector2i(0, 36)
+size = Vector2i(300, 400)
+visible = true
+exclusive = false
+unresizable = true
+ok_button_text = "      OK      "
+script = ExtResource("1_i3rcu")
+albedo_texture_picker = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/AlbedoTexturePicker")
+albedo_color_picker = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/AlbedoColorPicker")
+edit_gradient_button = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/EditGradientButton")
+vec_2_left = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/SpriteSizeHBox/Vec2Left")
+vec_2_right = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/SpriteSizeHBox/Vec2Right")
+flower_h_map_picker = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings/FlowerHMapPicker")
+height_range_h_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings/HeightRangeHSlider")
+size_range_h_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings/SizeRangeHSlider")
+billboard_check_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/BillboardCheckBox")
+height_offset_spin_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/HeightOffsetSpinBox")
+flower_subdivions_spin_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FlowerSubdivionsSpinBox")
+
+[node name="WindowVBoxContainer" type="VBoxContainer" parent="." unique_id=384861533]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 292.0
+offset_bottom = 351.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SettingsScrollContainer" type="ScrollContainer" parent="WindowVBoxContainer" unique_id=207956495]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/scrollbar_h_separation = 10
+
+[node name="SettingsContainer" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer" unique_id=1711129404]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlbedoSettings" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer" unique_id=1653523370]
+layout_mode = 2
+
+[node name="AlbedoSettingsLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=372537279]
+layout_mode = 2
+text = "Albedo"
+
+[node name="AlbedoTextureLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=1961445310]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Texture"
+
+[node name="AlbedoTexturePicker" type="EditorResourcePicker" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=149513178]
+layout_mode = 2
+base_type = "Texture2D"
+
+[node name="AlbedoColorLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=1065068085]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Gradient"
+
+[node name="AlbedoColorPicker" type="EditorResourcePicker" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=738608988]
+layout_mode = 2
+base_type = "GradientTexture1D"
+
+[node name="EditGradientButton" type="Button" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=738608989]
+layout_mode = 2
+text = "Edit Gradient"
+
+[node name="SpriteSizeLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=317697969]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Sprite Size"
+
+[node name="SpriteSizeHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings" unique_id=894380675]
+layout_mode = 2
+
+[node name="Vec2Left" type="SpinBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/SpriteSizeHBox" unique_id=1003930115]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.1
+alignment = 1
+
+[node name="Vec2Right" type="SpinBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AlbedoSettings/SpriteSizeHBox" unique_id=403517942]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 10.0
+step = 0.1
+alignment = 1
+
+[node name="RNGSettings" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer" unique_id=1663283325]
+layout_mode = 2
+
+[node name="RNGSettingsLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=355364090]
+layout_mode = 2
+text = "RNG"
+
+[node name="FlowerHMapLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=1547727577]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Flower Heightmap"
+
+[node name="FlowerHMapPicker" type="EditorResourcePicker" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=1977237516]
+layout_mode = 2
+base_type = "Texture2D"
+
+[node name="HeightRangeLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=1442150188]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Height Range"
+
+[node name="HeightRangeHSlider" type="HSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=460802671]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+max_value = 2.0
+step = 0.1
+
+[node name="SizeRangeLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=177877264]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Size Range"
+
+[node name="SizeRangeHSlider" type="HSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/RNGSettings" unique_id=2098681439]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+
+[node name="AdvancedSettings" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer" unique_id=413215889]
+layout_mode = 2
+
+[node name="AdvancedSettingsLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=219061641]
+layout_mode = 2
+text = "Advanced"
+
+[node name="BillboardCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1265303481]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Should Billboard"
+
+[node name="HeightOffsetLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=690599896]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Height Offset"
+
+[node name="HeightOffsetSpinBox" type="SpinBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1305368553]
+layout_mode = 2
+max_value = 10.0
+step = 0.01
+value = 0.75
+alignment = 1
+
+[node name="FlowerSubdivisionsLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1151008004]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Flower Subdivisions"
+
+[node name="FlowerSubdivionsSpinBox" type="SpinBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=259730260]
+layout_mode = 2
+max_value = 8.0
+value = 3.0
+alignment = 1

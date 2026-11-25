@@ -1,0 +1,71 @@
+[gd_resource type="Resource" script_class="MarchingSquaresPrefabSet" format=3 uid="uid://bt87wj56j4uj2"]
+
+[ext_resource type="Script" uid="uid://ct55aw6xlcmu" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_flat.gd" id="1_h70ih"]
+[ext_resource type="Texture2D" uid="uid://qt35e2pi6rnm" path="res://prefabs/kenney/castle.png" id="1_wuypu"]
+[ext_resource type="Script" uid="uid://ca7353uloodm3" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_diagonal.gd" id="2_h70ih"]
+[ext_resource type="PackedScene" uid="uid://cw6xo05bv8gcl" path="res://prefabs/kenney/glb_castle/Diagonal_BottomFloor.glb" id="2_u34m8"]
+[ext_resource type="Script" uid="uid://cx6mjly0heii5" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_squares_prefab_set.gd" id="2_x2jb2"]
+[ext_resource type="Script" uid="uid://jetwfp0muy5b" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_filler.gd" id="3_h70ih"]
+[ext_resource type="PackedScene" uid="uid://h08y1tjkwhel" path="res://prefabs/kenney/glb_castle/Diagonal_TopFloor.glb" id="3_hhs3h"]
+[ext_resource type="PackedScene" uid="uid://blh66j7amy4c7" path="res://prefabs/kenney/glb_castle/Flat_TopFloor.glb" id="3_huaqt"]
+[ext_resource type="Script" uid="uid://c0uwqtd5aejyp" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_orthogonal.gd" id="4_h70ih"]
+[ext_resource type="PackedScene" uid="uid://b8inosve11tp8" path="res://prefabs/kenney/glb_castle/Diagonal_Wall.glb" id="4_jwnvl"]
+[ext_resource type="PackedScene" uid="uid://cq0duk2gsoskn" path="res://prefabs/kenney/glb_castle/Diagonal_TopWall.glb" id="5_k7lgm"]
+[ext_resource type="PackedScene" uid="uid://cyupcurbw21pm" path="res://prefabs/kenney/glb_castle/Filler_BottomFloor.glb" id="6_0f34l"]
+[ext_resource type="PackedScene" uid="uid://dssqca1fpwgqb" path="res://prefabs/kenney/glb_castle/Filler_TopFloor.glb" id="7_gvf4d"]
+[ext_resource type="PackedScene" uid="uid://4lj20b26ald0" path="res://prefabs/kenney/glb_castle/Filler_DDCap_LeftFloor.glb" id="7_op2s1"]
+[ext_resource type="PackedScene" uid="uid://cgjpa5l1pm38d" path="res://prefabs/kenney/glb_castle/Filler_HalfFloor.glb" id="8_04p8y"]
+[ext_resource type="PackedScene" uid="uid://bc8oq3hwnxu7s" path="res://prefabs/kenney/glb_castle/Filler_DDCap_RightFloor.glb" id="8_hhs3h"]
+[ext_resource type="PackedScene" uid="uid://bia4g1c8e4w7a" path="res://prefabs/kenney/glb_castle/Orthogonal_CapLeftFloor.glb" id="9_e0sc3"]
+[ext_resource type="PackedScene" uid="uid://h8pjitcy3rku" path="res://prefabs/kenney/glb_castle/Filler_DOCap_LeftFloor.glb" id="9_glqiu"]
+[ext_resource type="PackedScene" uid="uid://bf083ix04fw0u" path="res://prefabs/kenney/glb_castle/Filler_DOCap_RightFloor.glb" id="10_74sq7"]
+[ext_resource type="PackedScene" uid="uid://b7cdhjcp0w688" path="res://prefabs/kenney/glb_castle/Orthogonal_CapRightFloor.glb" id="10_pqcct"]
+[ext_resource type="PackedScene" uid="uid://b7jldt1d7q42r" path="res://prefabs/kenney/glb_castle/Orthogonal_TopFloor.glb" id="11_8nsj2"]
+[ext_resource type="PackedScene" uid="uid://c3ogy0mfgmyo6" path="res://prefabs/kenney/glb_castle/Orthogonal_Wall.glb" id="12_op2s1"]
+[ext_resource type="PackedScene" uid="uid://mwcesw1me37k" path="res://prefabs/kenney/glb_castle/Filler_Wall.glb" id="13_cpwan"]
+[ext_resource type="PackedScene" uid="uid://byha5wucqhd6t" path="res://prefabs/kenney/glb_castle/Orthogonal_TopWall.glb" id="13_hhs3h"]
+[ext_resource type="PackedScene" uid="uid://hy5sleikygch" path="res://prefabs/kenney/glb_castle/Filler_TopWall.glb" id="14_ln0s7"]
+
+[sub_resource type="Resource" id="Resource_bld86"]
+script = ExtResource("2_h70ih")
+top_floor = ExtResource("3_hhs3h")
+bottom_floor = ExtResource("2_u34m8")
+wall_top = ExtResource("5_k7lgm")
+wall = ExtResource("4_jwnvl")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_glqiu"]
+script = ExtResource("3_h70ih")
+top_floor = ExtResource("7_gvf4d")
+top_floor_half = ExtResource("8_04p8y")
+bottom_floor = ExtResource("6_0f34l")
+wall_top = ExtResource("14_ln0s7")
+wall = ExtResource("13_cpwan")
+diagonal_orthogonal_cap_left_floor = ExtResource("9_glqiu")
+diagonal_orthogonal_cap_right_floor = ExtResource("10_74sq7")
+diagonal_diagonal_cap_left_floor = ExtResource("7_op2s1")
+diagonal_diagonal_cap_right_floor = ExtResource("8_hhs3h")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_0fx0d"]
+script = ExtResource("1_h70ih")
+top_floor = ExtResource("3_huaqt")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_u34m8"]
+script = ExtResource("4_h70ih")
+top_floor = ExtResource("11_8nsj2")
+bottom_floor = ExtResource("2_u34m8")
+wall_top = ExtResource("13_hhs3h")
+wall = ExtResource("12_op2s1")
+orthogonal_orthogonal_cap_left_floor = ExtResource("9_e0sc3")
+orthogonal_orthogonal_cap_right_floor = ExtResource("10_pqcct")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[resource]
+script = ExtResource("2_x2jb2")
+flats = Array[ExtResource("1_h70ih")]([SubResource("Resource_0fx0d")])
+diagonals = Array[ExtResource("2_h70ih")]([SubResource("Resource_bld86")])
+orthogonals = Array[ExtResource("4_h70ih")]([SubResource("Resource_u34m8")])
+fillers = Array[ExtResource("3_h70ih")]([SubResource("Resource_glqiu")])
+color_map = ExtResource("1_wuypu")

@@ -7,20 +7,24 @@ extends Resource
 ## Chunk coordinates in the terrain grid
 @export var chunk_coords : Vector2i
 
-## Merge mode setting 
+## Merge mode setting
 @export var merge_mode : int
+@export var grass_mode : int = 0
 
-## Height values as 2D array 
+## Height values as 2D array
 @export var height_map : Array
 
-## Ground texture indices 
+## Ground texture indices
 @export var ground_texture_idx : PackedByteArray
 
-## Wall texture indices 
+## Wall texture indices
 @export var wall_texture_idx : PackedByteArray
 
-## Grass mask 
+## Grass mask
 @export var grass_mask : PackedByteArray
+
+## Per-cell permission mask for terrain NavMesh baking.
+@export var navmesh_permission : PackedByteArray
 
 # Legacy format (V1.1) for backward compatibility during migration
 @export var color_map_0 : PackedColorArray
@@ -31,8 +35,13 @@ extends Resource
 
 # Ephemeral data saved for caching but regenerated on load if missing
 @export var mesh : Mesh
+@export var mesh_is_tiled_complete : bool = false
 @export var collision_faces : PackedVector3Array
 @export var grass_multimesh : MultiMesh
+@export var wall_paint_stamp_positions : PackedVector3Array
+@export var wall_paint_stamp_normals : PackedVector3Array
+@export var wall_paint_stamp_radii : PackedFloat32Array
+@export var wall_paint_stamp_texture_indices : PackedInt32Array
 
 
 ## Helper to set collision from a ConcavePolygonShape3D

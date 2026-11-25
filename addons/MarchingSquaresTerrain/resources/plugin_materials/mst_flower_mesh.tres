@@ -1,0 +1,30 @@
+[gd_resource type="QuadMesh" format=3 uid="uid://dp1hfchm2o7c3"]
+
+[ext_resource type="Shader" uid="uid://nm6bsrx1aie5" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="1_vfxux"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jhoiy"]
+render_priority = 0
+shader = ExtResource("1_vfxux")
+shader_parameter/should_billboard = false
+shader_parameter/rng_height_range = 0.1
+shader_parameter/rng_size_range = 0.2
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0
+shader_parameter/visibility_end_distance = 0.0
+shader_parameter/visibility_fade_margin = 0.0
+shader_parameter/animate_active = true
+shader_parameter/fps = 0.0
+shader_parameter/flower_wind_strength = 1.0
+shader_parameter/flower_stem_bend = 1.35
+shader_parameter/flower_tip_flutter = 0.2
+shader_parameter/wind_direction_degrees = 45.0
+shader_parameter/wind_speed = 0.08
+shader_parameter/wind_strength = 1.0
+shader_parameter/wind_scale = 0.037
+shader_parameter/wind_gust_strength = 0.35
+shader_parameter/wind_gust_speed = 0.12
+shader_parameter/wind_mode = 0
+
+[resource]
+material = SubResource("ShaderMaterial_jhoiy")

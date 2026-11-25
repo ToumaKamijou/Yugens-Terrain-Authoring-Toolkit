@@ -1,0 +1,3240 @@
+[gd_scene format=3 uid="uid://qgckk218ln4t"]
+
+[ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="1_7isul"]
+[ext_resource type="Resource" uid="uid://bks8psh5iff0d" path="res://prefabs/template/template_set.tres" id="2_nm1jt"]
+[ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="3_pdhvo"]
+[ext_resource type="Texture2D" uid="uid://dbnc04k3n0sro" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_terrain_noise.res" id="3_ve6lf"]
+[ext_resource type="Texture2D" uid="uid://cxvnfgy865wsk" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/grass_leaf_sprite.png" id="4_tyrw5"]
+[ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="4_ve6lf"]
+[ext_resource type="Script" uid="uid://blcngv6fs1rut" path="res://addons/MarchingSquaresTerrain/resources/marching_squares_texture_slot.gd" id="5_ep4uo"]
+[ext_resource type="Resource" uid="uid://ljcr0d4mbbuo" path="res://prefabs/kenney/example_grass.tres" id="5_tyrw5"]
+[ext_resource type="Texture2D" uid="uid://csvthlqhb8g5j" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/void_texture.tres" id="6_37w48"]
+[ext_resource type="Resource" uid="uid://bt87wj56j4uj2" path="res://prefabs/kenney/example_castle.tres" id="7_37w48"]
+[ext_resource type="Resource" uid="uid://db4scsn2nqqyu" path="res://addons/MarchingSquaresTerrain/resources/empty_project.tres" id="7_c1w6x"]
+[ext_resource type="Resource" uid="uid://r6ss2ilkekoq" path="res://addons/MarchingSquaresTerrain/resources/texture_presets/example_flat_toon.tres" id="11_tyrw5"]
+
+[sub_resource type="Resource" id="Resource_i0fx4"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+has_grass = true
+
+[sub_resource type="Resource" id="Resource_615e5"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_egkl8"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_8xq46"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_ju3kp"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_gp1v6"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_f7awl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nq3oe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_smjec"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p7q4g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lijy0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mwkt7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eat13"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vcclu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a5buv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1ovau"]
+script = ExtResource("5_ep4uo")
+active = false
+texture = ExtResource("6_37w48")
+
+[sub_resource type="Resource" id="Resource_31flh"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7y1hu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1dnd3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xv84e"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mjtyk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jxugi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2olnx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_f6lej"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vbaix"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4g8jy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w0q71"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v4ckj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0doqc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wo5bd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mygeg"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7usrd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0typo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qnt2y"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fwg6x"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_un7th"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4jc7b"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3ps6i"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wdx4w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_buvix"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rrh7h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4kfy2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6tbad"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y6vb5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2fock"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u7y2j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h6vqe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_o8gxw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k2toe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bku5l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_okkui"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kvdw1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eoeo2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2xcip"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_sn5l4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_45g6c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_r0bm2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_clcmm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3trvq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lparr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ookuo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b6a65"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_o5qpj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8up20"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_n2vly"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mtn1p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y267j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_e7ams"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bmixp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fh867"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8p4v7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_x65op"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_iblvx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rd3mt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cboxb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qujhs"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tqk52"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l31op"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_57wq3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tv7c3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_as82t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_owbn8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3xkre"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a51w8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hmkkw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kgule"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ssfrd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p0eax"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dauki"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3m6xo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_80t3n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mdw3c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_12ci4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_e3m84"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rirbv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ltdoa"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_sspyb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_52agv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6jgnl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0bort"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1urh8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tkopu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gjm67"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a8a2c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_haf33"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_sfwo7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_g20rq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_exfrj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xqrck"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rcivq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0jkhb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nvqfi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4f6ag"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8qutd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ga3d0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3j5d7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ljvud"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k5ot3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nkvvm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_208l0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_63oke"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_368qp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_26wg5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_s7ioi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pmotg"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qlgwy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uqb2w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pk3jj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uc2d6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j0g6c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jfrak"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8l8s5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dwnq3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_46qef"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jgc00"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7itsn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ldp1t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v1few"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qo4ug"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qrcbd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cty1m"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b28sv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lf42i"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_topt5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vq2eo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pby7b"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7acrn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uxcg6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_44hfb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a8dpm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_10uxa"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_457r3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gqerc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mr4k0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u4dqj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gl7ad"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kusty"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_g7npt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v0pj7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0346g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ak8bm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q7fpn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_geajq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cj73c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_f0ple"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wfqw7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_24d6v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_svgj1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jovaf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yxgbb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vfp76"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bato2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wv68f"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q0qod"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_t7p25"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bhbg8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j5j2j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ox87n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_irops"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gfqy7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_iuusk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2k6oi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0c406"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_of0p8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mcgh3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5phcx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vlqwe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h8264"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fgscy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ty202"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hrj18"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hajfc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d31l8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a8m7h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mjq4w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2auoj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y0gro"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_by6wn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mgroe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ikum1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_iobi0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tjfds"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fk547"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3xfsf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4katj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k474p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nayvg"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xpkwm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cswri"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ktjpo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_i50o7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ligdr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c1t2j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_btp7e"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_21tlo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_487iy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_awrbk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_agpvb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uhixc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yem2s"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ym1yi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_iq6wi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qyp47"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y4q7w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yd7s2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8vhmm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bwl04"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7anay"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_s6s3i"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_e77dm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_auqwv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qyj6v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rmomr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2isy1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_536cj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u6dcs"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xsb55"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lpw5c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pug6e"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oorqc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hqti7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_m82x3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_03rvc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d1ejp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gl6xb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_t6w5s"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d63il"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_i11w2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_signt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nj0wp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q1ker"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l3lqs"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0q84s"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y05t0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4ubbq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nh4xs"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_o4sdp"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+has_grass = true
+
+[sub_resource type="Resource" id="Resource_nvwlt"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_8r5m7"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_h50xu"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_q7nt8"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_3dfy1"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_7d001"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3vkbw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0op8g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vav1t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_t0vpq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c3pxc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_426n4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_utq8n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_t8y71"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_was3i"]
+script = ExtResource("5_ep4uo")
+texture = ExtResource("6_37w48")
+
+[sub_resource type="Resource" id="Resource_b28pb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xrk7d"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k171l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_27eyf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mq5db"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fnsba"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6ei5l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a7n1v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d5ry6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_iin7g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_o1pvy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0ikcq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q8eb0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8rg82"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ntiip"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_t7f88"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c7nc8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_navt3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8h880"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ued3n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2t700"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fii51"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h5evn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6g8d4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_md1w0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w16o4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a7tpo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_02ckd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dc0yl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b3te7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_82fml"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xyejg"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b3kq7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yu4sv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tdqns"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_sy3sq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2x1y3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_20q8x"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_geo37"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ox601"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h4e82"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_sqldy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p43c7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6c36r"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l7jw5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mgta7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jy6yj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cvf0w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_foo3m"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nnqyi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rm3cv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qhm3n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_s6nvp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4vlk3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bir70"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_n8ncp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qgqn5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ihc0l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yka8h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1j2l2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6my2g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_am1ut"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p3vo0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lsp4p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_n8fio"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cfe03"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7di7p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wym6n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_62hll"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_05v18"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ikqyr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8g8ys"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vpiny"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7ovxc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vrucw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ew88u"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w653j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wcyv7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qnlhp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mqp77"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_m4q0n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_edp4x"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uvcj8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_th657"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y3cpj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6ym22"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w0ad8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j8t8r"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_folw0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rbuta"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u82y8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wld0r"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kds7x"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_77ayk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_otp11"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4wxfj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_a7api"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yqm2h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_12my5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5mct7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cak0s"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fp6yl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fo878"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5dpyk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_x82o0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7ny0o"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oauoh"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pk8qx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eessd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4xrna"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oo8eq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1very"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rmvc8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_83lan"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_simx5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u4tov"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gftjf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bep7w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c2fg6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c5r4h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ykvnt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_78pii"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6ra8b"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wlok8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j3ycj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ri5u5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hi705"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eyrjc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_s7j3p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7kv23"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xf7mk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h6esd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c7t7m"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8aujb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q6b3l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vqmej"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nayuq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gvalb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nqggk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_55cgg"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_18ws5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u225k"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0mrei"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_13s6q"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2mx5v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_olpor"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5b4gn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4hiph"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jvjw4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ywbl5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ioffe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w6grk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dy626"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d0een"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lgq80"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_563tu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bkrwd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8hpcp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b3cwj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_n42te"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oy4vl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k1acl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gv2iq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ci0j6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_825r8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4ep1e"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_odmwn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jqo8h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bbo50"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oq5tx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2jq7m"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2t4ft"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2wfwr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jfgyp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yahu3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tsu5o"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vmac1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nvqd3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_seoru"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wfau8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j5gdc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d26oc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_roiyf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gl68t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2n1ma"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7qpu1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ig5s7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p0x18"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_djooo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0a0ne"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_orh74"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eiwa0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l7dpf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_61q4o"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ueirx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qi56g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gxh68"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ficev"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v1dc1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5dspd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xyqdq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uhi3p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1en3s"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_aekmn"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_50nbs"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7y1pe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mhif0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ucmmw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bp55a"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5ideo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_msije"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c3kxl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ceccb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gaq73"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ol17b"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2kxho"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uwrdp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_65sf7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_26y5a"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0q2cd"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u5ls0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cdlw5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lb6tb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_38hma"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2uokf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3ga5o"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_g5hw1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c0lyq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_auwuh"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q751u"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_lwedy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j1tkq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j8s8t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4tlnl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rn8i7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4x1jj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qk2xw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0tl2x"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3hetq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0vdhy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6jq17"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+has_grass = true
+
+[sub_resource type="Resource" id="Resource_n53f1"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_5st4l"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_qlhgc"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_kyx5h"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_5t18q"]
+script = ExtResource("5_ep4uo")
+grass_texture = ExtResource("4_tyrw5")
+
+[sub_resource type="Resource" id="Resource_od8dt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bxn5t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dd52h"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dn1im"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fxyav"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qftag"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7e0xf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wf1un"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_joni0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mg22a"]
+script = ExtResource("5_ep4uo")
+texture = ExtResource("6_37w48")
+
+[sub_resource type="Resource" id="Resource_4egsw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v18uk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v3usl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l3ecj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_btawi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_efvh2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8h7kr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yu4o4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eqbfr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_331e5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uxop3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cs33g"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_aiaxp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fnu8y"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ow8j3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rrq3f"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fxfcx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jla1i"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xkoca"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d8ftq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6f2kv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8lfmm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qs3xl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dq87t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4127p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h02ps"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xje3r"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ccc35"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7o8h7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3gacc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d5bom"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_akrg3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xq0hl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8dfvq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jdxra"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jp0i2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_i7rdt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8n05p"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_i5xph"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vq7i7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hmf0o"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d6adq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kyc1c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gf4i0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bymi5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b0yso"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_aye2v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kv67v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_e2qki"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_25j8x"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jjlni"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3bo40"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bxrtb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1gosy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vsgur"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k2vhm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7yvde"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nnmdw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dkdsl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_f8tmo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xjmju"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_100fx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j6rjm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_aleoc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fyod8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wu0ra"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_073fh"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_r0b28"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_k4bas"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8m55i"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eb0dp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6k6ay"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8e6n5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7lt5l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_45cds"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2qweq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4m46b"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_duahj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_6jiob"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3r507"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_u8mds"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vndsk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_tmn4i"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_edgul"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ub0f7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ieasi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_47y1v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qeerq"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p1dbl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vsscu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_whg4j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hryq6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nycoh"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_napim"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4wmvi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mkumx"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v21p0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jkcm2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0tpd1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_urwq2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pee6t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w6kt3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oevol"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c5xo0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bsdge"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7ow50"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bb45y"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_niae4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4k7iu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2h7cl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_exsfo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ordkt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qbits"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eh5ge"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_bljcj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_brduu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_olyrt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ajglj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4pq6d"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7qgbu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1m0dc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_emdm7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_dklec"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_beryj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yrud8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_g6q7t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_acbwl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7j33w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gjgv3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ukv0t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4xdp5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ktv56"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nlu3c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hlv52"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uhsjy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kd4fi"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_m0fre"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wtho8"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0v4uh"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kwg8m"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yq2et"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_fq2yj"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y8jo3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ctj70"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_c2vk2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_djw4t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jwbxb"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rvogw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xdonk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_sjqxm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_67h3e"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_uorc6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ur50m"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_xli0r"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_f1ir7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l8xr3"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4rro4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nk5rf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_q7uew"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_m7jel"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vks6n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_honep"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_jtg5c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3y2y2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3oi8l"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_cia2t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rv0ap"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_s1o7j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_wkv2c"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kwjkv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2v8yu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h05ap"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_4fnvo"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1gy7v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_7b4f5"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_qqyxt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_aw5pl"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_poerc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_y3f27"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_khmng"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8th4t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_p2r13"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_rq5c1"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_r81qw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ab0pw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ku32d"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_70jx6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_g0i84"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_r55da"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_d8g6f"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_iahoe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pwe6v"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5e2co"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_68u8a"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nlnm7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_pp0cp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kow7a"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_hg7p7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ywoqu"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_nc5q0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_3mdw2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_l7x2f"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0j4wp"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_h8w0t"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_oqmxf"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yimlt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ejm13"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5mggm"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1hm6f"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0nd2j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2vevt"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8mq77"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_0qu3w"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_r1iwg"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_70xxe"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_r7swr"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_2wep2"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_320jc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_yuecc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kwbop"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_w650j"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_j0jya"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_8n6k6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vtd4n"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_1x58a"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vuh3s"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_vujs7"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ygsia"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_shcur"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_b8lau"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_mdc3e"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ysncs"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_kgsjk"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_eklh6"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_itbrv"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_v5flw"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_5rab0"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_gv7rc"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_46ljy"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[sub_resource type="Resource" id="Resource_ymmu4"]
+script = ExtResource("5_ep4uo")
+active = false
+
+[node name="PrefabDemoScene" type="Node3D" unique_id=1787602393]
+
+[node name="Template" type="Node3D" parent="." unique_id=352788694]
+script = ExtResource("1_7isul")
+bake_collision = false
+data_directory = "res://scenes/mst_demo_prefab_TerrainData/Template_bad2e6ac"
+baked_dense_slot_lookup = PackedInt32Array()
+prefab_set = ExtResource("2_nm1jt")
+_storage_initialized = true
+_warned_storage_mode_message = true
+_uv_wall_sentinel_migrated = true
+_uv_wall_sentinel_v2_migrated = true
+_wall_material_pair_migrated = true
+_default_wall_texture_migrated = true
+_slot_blend_mode_defaults_migrated = true
+use_ridge_texture = false
+use_ledge_texture = false
+global_noise_texture = ExtResource("3_ve6lf")
+texture_slots = [SubResource("Resource_i0fx4"), SubResource("Resource_615e5"), SubResource("Resource_egkl8"), SubResource("Resource_8xq46"), SubResource("Resource_ju3kp"), SubResource("Resource_gp1v6"), SubResource("Resource_f7awl"), SubResource("Resource_nq3oe"), SubResource("Resource_smjec"), SubResource("Resource_p7q4g"), SubResource("Resource_lijy0"), SubResource("Resource_mwkt7"), SubResource("Resource_eat13"), SubResource("Resource_vcclu"), SubResource("Resource_a5buv"), SubResource("Resource_1ovau"), SubResource("Resource_31flh"), SubResource("Resource_7y1hu"), SubResource("Resource_1dnd3"), SubResource("Resource_xv84e"), SubResource("Resource_mjtyk"), SubResource("Resource_jxugi"), SubResource("Resource_2olnx"), SubResource("Resource_f6lej"), SubResource("Resource_vbaix"), SubResource("Resource_4g8jy"), SubResource("Resource_w0q71"), SubResource("Resource_v4ckj"), SubResource("Resource_0doqc"), SubResource("Resource_wo5bd"), SubResource("Resource_mygeg"), SubResource("Resource_7usrd"), SubResource("Resource_0typo"), SubResource("Resource_qnt2y"), SubResource("Resource_fwg6x"), SubResource("Resource_un7th"), SubResource("Resource_4jc7b"), SubResource("Resource_3ps6i"), SubResource("Resource_wdx4w"), SubResource("Resource_buvix"), SubResource("Resource_rrh7h"), SubResource("Resource_4kfy2"), SubResource("Resource_6tbad"), SubResource("Resource_y6vb5"), SubResource("Resource_2fock"), SubResource("Resource_u7y2j"), SubResource("Resource_h6vqe"), SubResource("Resource_o8gxw"), SubResource("Resource_k2toe"), SubResource("Resource_bku5l"), SubResource("Resource_okkui"), SubResource("Resource_kvdw1"), SubResource("Resource_eoeo2"), SubResource("Resource_2xcip"), SubResource("Resource_sn5l4"), SubResource("Resource_45g6c"), SubResource("Resource_r0bm2"), SubResource("Resource_clcmm"), SubResource("Resource_3trvq"), SubResource("Resource_lparr"), SubResource("Resource_ookuo"), SubResource("Resource_b6a65"), SubResource("Resource_o5qpj"), SubResource("Resource_8up20"), SubResource("Resource_n2vly"), SubResource("Resource_mtn1p"), SubResource("Resource_y267j"), SubResource("Resource_e7ams"), SubResource("Resource_bmixp"), SubResource("Resource_fh867"), SubResource("Resource_8p4v7"), SubResource("Resource_x65op"), SubResource("Resource_iblvx"), SubResource("Resource_rd3mt"), SubResource("Resource_cboxb"), SubResource("Resource_qujhs"), SubResource("Resource_tqk52"), SubResource("Resource_l31op"), SubResource("Resource_57wq3"), SubResource("Resource_tv7c3"), SubResource("Resource_as82t"), SubResource("Resource_owbn8"), SubResource("Resource_3xkre"), SubResource("Resource_a51w8"), SubResource("Resource_hmkkw"), SubResource("Resource_kgule"), SubResource("Resource_ssfrd"), SubResource("Resource_p0eax"), SubResource("Resource_dauki"), SubResource("Resource_3m6xo"), SubResource("Resource_80t3n"), SubResource("Resource_mdw3c"), SubResource("Resource_12ci4"), SubResource("Resource_e3m84"), SubResource("Resource_rirbv"), SubResource("Resource_ltdoa"), SubResource("Resource_sspyb"), SubResource("Resource_52agv"), SubResource("Resource_6jgnl"), SubResource("Resource_0bort"), SubResource("Resource_1urh8"), SubResource("Resource_tkopu"), SubResource("Resource_gjm67"), SubResource("Resource_a8a2c"), SubResource("Resource_haf33"), SubResource("Resource_sfwo7"), SubResource("Resource_g20rq"), SubResource("Resource_exfrj"), SubResource("Resource_xqrck"), SubResource("Resource_rcivq"), SubResource("Resource_0jkhb"), SubResource("Resource_nvqfi"), SubResource("Resource_4f6ag"), SubResource("Resource_8qutd"), SubResource("Resource_ga3d0"), SubResource("Resource_3j5d7"), SubResource("Resource_ljvud"), SubResource("Resource_k5ot3"), SubResource("Resource_nkvvm"), SubResource("Resource_208l0"), SubResource("Resource_63oke"), SubResource("Resource_368qp"), SubResource("Resource_26wg5"), SubResource("Resource_s7ioi"), SubResource("Resource_pmotg"), SubResource("Resource_qlgwy"), SubResource("Resource_uqb2w"), SubResource("Resource_pk3jj"), SubResource("Resource_uc2d6"), SubResource("Resource_j0g6c"), SubResource("Resource_jfrak"), SubResource("Resource_8l8s5"), SubResource("Resource_dwnq3"), SubResource("Resource_46qef"), SubResource("Resource_jgc00"), SubResource("Resource_7itsn"), SubResource("Resource_ldp1t"), SubResource("Resource_v1few"), SubResource("Resource_qo4ug"), SubResource("Resource_qrcbd"), SubResource("Resource_cty1m"), SubResource("Resource_b28sv"), SubResource("Resource_lf42i"), SubResource("Resource_topt5"), SubResource("Resource_vq2eo"), SubResource("Resource_pby7b"), SubResource("Resource_7acrn"), SubResource("Resource_uxcg6"), SubResource("Resource_44hfb"), SubResource("Resource_a8dpm"), SubResource("Resource_10uxa"), SubResource("Resource_457r3"), SubResource("Resource_gqerc"), SubResource("Resource_mr4k0"), SubResource("Resource_u4dqj"), SubResource("Resource_gl7ad"), SubResource("Resource_kusty"), SubResource("Resource_g7npt"), SubResource("Resource_v0pj7"), SubResource("Resource_0346g"), SubResource("Resource_ak8bm"), SubResource("Resource_q7fpn"), SubResource("Resource_geajq"), SubResource("Resource_cj73c"), SubResource("Resource_f0ple"), SubResource("Resource_wfqw7"), SubResource("Resource_24d6v"), SubResource("Resource_svgj1"), SubResource("Resource_jovaf"), SubResource("Resource_yxgbb"), SubResource("Resource_vfp76"), SubResource("Resource_bato2"), SubResource("Resource_wv68f"), SubResource("Resource_q0qod"), SubResource("Resource_t7p25"), SubResource("Resource_bhbg8"), SubResource("Resource_j5j2j"), SubResource("Resource_ox87n"), SubResource("Resource_irops"), SubResource("Resource_gfqy7"), SubResource("Resource_iuusk"), SubResource("Resource_2k6oi"), SubResource("Resource_0c406"), SubResource("Resource_of0p8"), SubResource("Resource_mcgh3"), SubResource("Resource_5phcx"), SubResource("Resource_vlqwe"), SubResource("Resource_h8264"), SubResource("Resource_fgscy"), SubResource("Resource_ty202"), SubResource("Resource_hrj18"), SubResource("Resource_hajfc"), SubResource("Resource_d31l8"), SubResource("Resource_a8m7h"), SubResource("Resource_mjq4w"), SubResource("Resource_2auoj"), SubResource("Resource_y0gro"), SubResource("Resource_by6wn"), SubResource("Resource_mgroe"), SubResource("Resource_ikum1"), SubResource("Resource_iobi0"), SubResource("Resource_tjfds"), SubResource("Resource_fk547"), SubResource("Resource_3xfsf"), SubResource("Resource_4katj"), SubResource("Resource_k474p"), SubResource("Resource_nayvg"), SubResource("Resource_xpkwm"), SubResource("Resource_cswri"), SubResource("Resource_ktjpo"), SubResource("Resource_i50o7"), SubResource("Resource_ligdr"), SubResource("Resource_c1t2j"), SubResource("Resource_btp7e"), SubResource("Resource_21tlo"), SubResource("Resource_487iy"), SubResource("Resource_awrbk"), SubResource("Resource_agpvb"), SubResource("Resource_uhixc"), SubResource("Resource_yem2s"), SubResource("Resource_ym1yi"), SubResource("Resource_iq6wi"), SubResource("Resource_qyp47"), SubResource("Resource_y4q7w"), SubResource("Resource_yd7s2"), SubResource("Resource_8vhmm"), SubResource("Resource_bwl04"), SubResource("Resource_7anay"), SubResource("Resource_s6s3i"), SubResource("Resource_e77dm"), SubResource("Resource_auqwv"), SubResource("Resource_qyj6v"), SubResource("Resource_rmomr"), SubResource("Resource_2isy1"), SubResource("Resource_536cj"), SubResource("Resource_u6dcs"), SubResource("Resource_xsb55"), SubResource("Resource_lpw5c"), SubResource("Resource_pug6e"), SubResource("Resource_oorqc"), SubResource("Resource_hqti7"), SubResource("Resource_m82x3"), SubResource("Resource_03rvc"), SubResource("Resource_d1ejp"), SubResource("Resource_gl6xb"), SubResource("Resource_t6w5s"), SubResource("Resource_d63il"), SubResource("Resource_i11w2"), SubResource("Resource_signt"), SubResource("Resource_nj0wp"), SubResource("Resource_q1ker"), SubResource("Resource_l3lqs"), SubResource("Resource_0q84s"), SubResource("Resource_y05t0"), SubResource("Resource_4ubbq"), SubResource("Resource_nh4xs")]
+_grass_slots_migrated = true
+tex2_has_grass = false
+tex3_has_grass = false
+tex4_has_grass = false
+tex5_has_grass = false
+tex6_has_grass = false
+current_texture_preset = ExtResource("7_c1w6x")
+palette_colors = Array[Color]([Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.76862746, 0.64705884, 0.47843137, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1)])
+palette_weights = Array[float]([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0])
+slot_color_indices = [[0], [1], [2], [3], [4], [5], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+slot_blend_modes = Array[int]([0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+slot_wet_enabled = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+slot_wet_modes = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+slot_roughnesses = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_grass_wetnesses = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+slot_floor_noise_enabled = [true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, true, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+slot_floor_noise_strengths = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_floor_noise_scales = [0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037]
+slot_wall_noise_enabled = [true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, true, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+slot_wall_noise_strengths = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_wall_noise_scales = [0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037]
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (-1, 0)" type="MeshInstance3D" parent="Template" unique_id=1799987468 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 0)
+extra_cull_margin = 64.0
+script = ExtResource("3_pdhvo")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(-1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="Template/Chunk (-1, 0)" unique_id=1414551555]
+cast_shadow = 0
+script = ExtResource("4_ve6lf")
+
+[node name="GrassyBlocks" type="Node3D" parent="." unique_id=1047272908]
+script = ExtResource("1_7isul")
+bake_collision = false
+data_directory = "res://scenes/mst_demo_prefab_TerrainData/GrassyBlocks_d1806485"
+baked_dense_slot_lookup = PackedInt32Array()
+prefab_set = ExtResource("5_tyrw5")
+_storage_initialized = true
+_warned_storage_mode_message = true
+_uv_wall_sentinel_migrated = true
+_uv_wall_sentinel_v2_migrated = true
+_wall_material_pair_migrated = true
+_default_wall_texture_migrated = true
+_slot_blend_mode_defaults_migrated = true
+global_noise_texture = ExtResource("3_ve6lf")
+texture_slots = [SubResource("Resource_o4sdp"), SubResource("Resource_nvwlt"), SubResource("Resource_8r5m7"), SubResource("Resource_h50xu"), SubResource("Resource_q7nt8"), SubResource("Resource_3dfy1"), SubResource("Resource_7d001"), SubResource("Resource_3vkbw"), SubResource("Resource_0op8g"), SubResource("Resource_vav1t"), SubResource("Resource_t0vpq"), SubResource("Resource_c3pxc"), SubResource("Resource_426n4"), SubResource("Resource_utq8n"), SubResource("Resource_t8y71"), SubResource("Resource_was3i"), SubResource("Resource_b28pb"), SubResource("Resource_xrk7d"), SubResource("Resource_k171l"), SubResource("Resource_27eyf"), SubResource("Resource_mq5db"), SubResource("Resource_fnsba"), SubResource("Resource_6ei5l"), SubResource("Resource_a7n1v"), SubResource("Resource_d5ry6"), SubResource("Resource_iin7g"), SubResource("Resource_o1pvy"), SubResource("Resource_0ikcq"), SubResource("Resource_q8eb0"), SubResource("Resource_8rg82"), SubResource("Resource_ntiip"), SubResource("Resource_t7f88"), SubResource("Resource_c7nc8"), SubResource("Resource_navt3"), SubResource("Resource_8h880"), SubResource("Resource_ued3n"), SubResource("Resource_2t700"), SubResource("Resource_fii51"), SubResource("Resource_h5evn"), SubResource("Resource_6g8d4"), SubResource("Resource_md1w0"), SubResource("Resource_w16o4"), SubResource("Resource_a7tpo"), SubResource("Resource_02ckd"), SubResource("Resource_dc0yl"), SubResource("Resource_b3te7"), SubResource("Resource_82fml"), SubResource("Resource_xyejg"), SubResource("Resource_b3kq7"), SubResource("Resource_yu4sv"), SubResource("Resource_tdqns"), SubResource("Resource_sy3sq"), SubResource("Resource_2x1y3"), SubResource("Resource_20q8x"), SubResource("Resource_geo37"), SubResource("Resource_ox601"), SubResource("Resource_h4e82"), SubResource("Resource_sqldy"), SubResource("Resource_p43c7"), SubResource("Resource_6c36r"), SubResource("Resource_l7jw5"), SubResource("Resource_mgta7"), SubResource("Resource_jy6yj"), SubResource("Resource_cvf0w"), SubResource("Resource_foo3m"), SubResource("Resource_nnqyi"), SubResource("Resource_rm3cv"), SubResource("Resource_qhm3n"), SubResource("Resource_s6nvp"), SubResource("Resource_4vlk3"), SubResource("Resource_bir70"), SubResource("Resource_n8ncp"), SubResource("Resource_qgqn5"), SubResource("Resource_ihc0l"), SubResource("Resource_yka8h"), SubResource("Resource_1j2l2"), SubResource("Resource_6my2g"), SubResource("Resource_am1ut"), SubResource("Resource_p3vo0"), SubResource("Resource_lsp4p"), SubResource("Resource_n8fio"), SubResource("Resource_cfe03"), SubResource("Resource_7di7p"), SubResource("Resource_wym6n"), SubResource("Resource_62hll"), SubResource("Resource_05v18"), SubResource("Resource_ikqyr"), SubResource("Resource_8g8ys"), SubResource("Resource_vpiny"), SubResource("Resource_7ovxc"), SubResource("Resource_vrucw"), SubResource("Resource_ew88u"), SubResource("Resource_w653j"), SubResource("Resource_wcyv7"), SubResource("Resource_qnlhp"), SubResource("Resource_mqp77"), SubResource("Resource_m4q0n"), SubResource("Resource_edp4x"), SubResource("Resource_uvcj8"), SubResource("Resource_th657"), SubResource("Resource_y3cpj"), SubResource("Resource_6ym22"), SubResource("Resource_w0ad8"), SubResource("Resource_j8t8r"), SubResource("Resource_folw0"), SubResource("Resource_rbuta"), SubResource("Resource_u82y8"), SubResource("Resource_wld0r"), SubResource("Resource_kds7x"), SubResource("Resource_77ayk"), SubResource("Resource_otp11"), SubResource("Resource_4wxfj"), SubResource("Resource_a7api"), SubResource("Resource_yqm2h"), SubResource("Resource_12my5"), SubResource("Resource_5mct7"), SubResource("Resource_cak0s"), SubResource("Resource_fp6yl"), SubResource("Resource_fo878"), SubResource("Resource_5dpyk"), SubResource("Resource_x82o0"), SubResource("Resource_7ny0o"), SubResource("Resource_oauoh"), SubResource("Resource_pk8qx"), SubResource("Resource_eessd"), SubResource("Resource_4xrna"), SubResource("Resource_oo8eq"), SubResource("Resource_1very"), SubResource("Resource_rmvc8"), SubResource("Resource_83lan"), SubResource("Resource_simx5"), SubResource("Resource_u4tov"), SubResource("Resource_gftjf"), SubResource("Resource_bep7w"), SubResource("Resource_c2fg6"), SubResource("Resource_c5r4h"), SubResource("Resource_ykvnt"), SubResource("Resource_78pii"), SubResource("Resource_6ra8b"), SubResource("Resource_wlok8"), SubResource("Resource_j3ycj"), SubResource("Resource_ri5u5"), SubResource("Resource_hi705"), SubResource("Resource_eyrjc"), SubResource("Resource_s7j3p"), SubResource("Resource_7kv23"), SubResource("Resource_xf7mk"), SubResource("Resource_h6esd"), SubResource("Resource_c7t7m"), SubResource("Resource_8aujb"), SubResource("Resource_q6b3l"), SubResource("Resource_vqmej"), SubResource("Resource_nayuq"), SubResource("Resource_gvalb"), SubResource("Resource_nqggk"), SubResource("Resource_55cgg"), SubResource("Resource_18ws5"), SubResource("Resource_u225k"), SubResource("Resource_0mrei"), SubResource("Resource_13s6q"), SubResource("Resource_2mx5v"), SubResource("Resource_olpor"), SubResource("Resource_5b4gn"), SubResource("Resource_4hiph"), SubResource("Resource_jvjw4"), SubResource("Resource_ywbl5"), SubResource("Resource_ioffe"), SubResource("Resource_w6grk"), SubResource("Resource_dy626"), SubResource("Resource_d0een"), SubResource("Resource_lgq80"), SubResource("Resource_563tu"), SubResource("Resource_bkrwd"), SubResource("Resource_8hpcp"), SubResource("Resource_b3cwj"), SubResource("Resource_n42te"), SubResource("Resource_oy4vl"), SubResource("Resource_k1acl"), SubResource("Resource_gv2iq"), SubResource("Resource_ci0j6"), SubResource("Resource_825r8"), SubResource("Resource_4ep1e"), SubResource("Resource_odmwn"), SubResource("Resource_jqo8h"), SubResource("Resource_bbo50"), SubResource("Resource_oq5tx"), SubResource("Resource_2jq7m"), SubResource("Resource_2t4ft"), SubResource("Resource_2wfwr"), SubResource("Resource_jfgyp"), SubResource("Resource_yahu3"), SubResource("Resource_tsu5o"), SubResource("Resource_vmac1"), SubResource("Resource_nvqd3"), SubResource("Resource_seoru"), SubResource("Resource_wfau8"), SubResource("Resource_j5gdc"), SubResource("Resource_d26oc"), SubResource("Resource_roiyf"), SubResource("Resource_gl68t"), SubResource("Resource_2n1ma"), SubResource("Resource_7qpu1"), SubResource("Resource_ig5s7"), SubResource("Resource_p0x18"), SubResource("Resource_djooo"), SubResource("Resource_0a0ne"), SubResource("Resource_orh74"), SubResource("Resource_eiwa0"), SubResource("Resource_l7dpf"), SubResource("Resource_61q4o"), SubResource("Resource_ueirx"), SubResource("Resource_qi56g"), SubResource("Resource_gxh68"), SubResource("Resource_ficev"), SubResource("Resource_v1dc1"), SubResource("Resource_5dspd"), SubResource("Resource_xyqdq"), SubResource("Resource_uhi3p"), SubResource("Resource_1en3s"), SubResource("Resource_aekmn"), SubResource("Resource_50nbs"), SubResource("Resource_7y1pe"), SubResource("Resource_mhif0"), SubResource("Resource_ucmmw"), SubResource("Resource_bp55a"), SubResource("Resource_5ideo"), SubResource("Resource_msije"), SubResource("Resource_c3kxl"), SubResource("Resource_ceccb"), SubResource("Resource_gaq73"), SubResource("Resource_ol17b"), SubResource("Resource_2kxho"), SubResource("Resource_uwrdp"), SubResource("Resource_65sf7"), SubResource("Resource_26y5a"), SubResource("Resource_0q2cd"), SubResource("Resource_u5ls0"), SubResource("Resource_cdlw5"), SubResource("Resource_lb6tb"), SubResource("Resource_38hma"), SubResource("Resource_2uokf"), SubResource("Resource_3ga5o"), SubResource("Resource_g5hw1"), SubResource("Resource_c0lyq"), SubResource("Resource_auwuh"), SubResource("Resource_q751u"), SubResource("Resource_lwedy"), SubResource("Resource_j1tkq"), SubResource("Resource_j8s8t"), SubResource("Resource_4tlnl"), SubResource("Resource_rn8i7"), SubResource("Resource_4x1jj"), SubResource("Resource_qk2xw"), SubResource("Resource_0tl2x"), SubResource("Resource_3hetq"), SubResource("Resource_0vdhy")]
+_grass_slots_migrated = true
+tex2_has_grass = false
+tex3_has_grass = false
+tex4_has_grass = false
+tex5_has_grass = false
+tex6_has_grass = false
+current_texture_preset = ExtResource("11_tyrw5")
+palette_colors = Array[Color]([Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.45505515, 0.47058824, 0.3176471, 1), Color(0.47058824, 0.36424634, 0.3176471, 1), Color(0.47, 0.47, 0.47, 1), Color(0.41204047, 0.3176471, 0.47058824, 1), Color(0.76862746, 0.64705884, 0.47843137, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1)])
+palette_weights = Array[float]([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0])
+slot_color_indices = [[0], [1], [2], [3], [4], [5], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+slot_blend_modes = Array[int]([3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+slot_wet_enabled = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+slot_wet_modes = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+slot_roughnesses = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_grass_wetnesses = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+slot_floor_noise_enabled = [false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+slot_floor_noise_strengths = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_floor_noise_scales = [0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037]
+slot_wall_noise_enabled = [false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+slot_wall_noise_strengths = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_wall_noise_scales = [0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037]
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (0, 0)" type="MeshInstance3D" parent="GrassyBlocks" unique_id=1427209554 node_paths=PackedStringArray("terrain_system")]
+extra_cull_margin = 64.0
+script = ExtResource("3_pdhvo")
+terrain_system = NodePath("..")
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="GrassyBlocks/Chunk (0, 0)" unique_id=1004925807]
+cast_shadow = 0
+script = ExtResource("4_ve6lf")
+
+[node name="Castle" type="Node3D" parent="." unique_id=80276916]
+script = ExtResource("1_7isul")
+bake_collision = false
+data_directory = "res://scenes/mst_demo_prefab_TerrainData/Castle_505cc85d"
+baked_dense_slot_lookup = PackedInt32Array()
+prefab_set = ExtResource("7_37w48")
+_storage_initialized = true
+_warned_storage_mode_message = true
+_uv_wall_sentinel_migrated = true
+_uv_wall_sentinel_v2_migrated = true
+_wall_material_pair_migrated = true
+_default_wall_texture_migrated = true
+_slot_blend_mode_defaults_migrated = true
+global_noise_texture = ExtResource("3_ve6lf")
+texture_slots = [SubResource("Resource_6jq17"), SubResource("Resource_n53f1"), SubResource("Resource_5st4l"), SubResource("Resource_qlhgc"), SubResource("Resource_kyx5h"), SubResource("Resource_5t18q"), SubResource("Resource_od8dt"), SubResource("Resource_bxn5t"), SubResource("Resource_dd52h"), SubResource("Resource_dn1im"), SubResource("Resource_fxyav"), SubResource("Resource_qftag"), SubResource("Resource_7e0xf"), SubResource("Resource_wf1un"), SubResource("Resource_joni0"), SubResource("Resource_mg22a"), SubResource("Resource_4egsw"), SubResource("Resource_v18uk"), SubResource("Resource_v3usl"), SubResource("Resource_l3ecj"), SubResource("Resource_btawi"), SubResource("Resource_efvh2"), SubResource("Resource_8h7kr"), SubResource("Resource_yu4o4"), SubResource("Resource_eqbfr"), SubResource("Resource_331e5"), SubResource("Resource_uxop3"), SubResource("Resource_cs33g"), SubResource("Resource_aiaxp"), SubResource("Resource_fnu8y"), SubResource("Resource_ow8j3"), SubResource("Resource_rrq3f"), SubResource("Resource_fxfcx"), SubResource("Resource_jla1i"), SubResource("Resource_xkoca"), SubResource("Resource_d8ftq"), SubResource("Resource_6f2kv"), SubResource("Resource_8lfmm"), SubResource("Resource_qs3xl"), SubResource("Resource_dq87t"), SubResource("Resource_4127p"), SubResource("Resource_h02ps"), SubResource("Resource_xje3r"), SubResource("Resource_ccc35"), SubResource("Resource_7o8h7"), SubResource("Resource_3gacc"), SubResource("Resource_d5bom"), SubResource("Resource_akrg3"), SubResource("Resource_xq0hl"), SubResource("Resource_8dfvq"), SubResource("Resource_jdxra"), SubResource("Resource_jp0i2"), SubResource("Resource_i7rdt"), SubResource("Resource_8n05p"), SubResource("Resource_i5xph"), SubResource("Resource_vq7i7"), SubResource("Resource_hmf0o"), SubResource("Resource_d6adq"), SubResource("Resource_kyc1c"), SubResource("Resource_gf4i0"), SubResource("Resource_bymi5"), SubResource("Resource_b0yso"), SubResource("Resource_aye2v"), SubResource("Resource_kv67v"), SubResource("Resource_e2qki"), SubResource("Resource_25j8x"), SubResource("Resource_jjlni"), SubResource("Resource_3bo40"), SubResource("Resource_bxrtb"), SubResource("Resource_1gosy"), SubResource("Resource_vsgur"), SubResource("Resource_k2vhm"), SubResource("Resource_7yvde"), SubResource("Resource_nnmdw"), SubResource("Resource_dkdsl"), SubResource("Resource_f8tmo"), SubResource("Resource_xjmju"), SubResource("Resource_100fx"), SubResource("Resource_j6rjm"), SubResource("Resource_aleoc"), SubResource("Resource_fyod8"), SubResource("Resource_wu0ra"), SubResource("Resource_073fh"), SubResource("Resource_r0b28"), SubResource("Resource_k4bas"), SubResource("Resource_8m55i"), SubResource("Resource_eb0dp"), SubResource("Resource_6k6ay"), SubResource("Resource_8e6n5"), SubResource("Resource_7lt5l"), SubResource("Resource_45cds"), SubResource("Resource_2qweq"), SubResource("Resource_4m46b"), SubResource("Resource_duahj"), SubResource("Resource_6jiob"), SubResource("Resource_3r507"), SubResource("Resource_u8mds"), SubResource("Resource_vndsk"), SubResource("Resource_tmn4i"), SubResource("Resource_edgul"), SubResource("Resource_ub0f7"), SubResource("Resource_ieasi"), SubResource("Resource_47y1v"), SubResource("Resource_qeerq"), SubResource("Resource_p1dbl"), SubResource("Resource_vsscu"), SubResource("Resource_whg4j"), SubResource("Resource_hryq6"), SubResource("Resource_nycoh"), SubResource("Resource_napim"), SubResource("Resource_4wmvi"), SubResource("Resource_mkumx"), SubResource("Resource_v21p0"), SubResource("Resource_jkcm2"), SubResource("Resource_0tpd1"), SubResource("Resource_urwq2"), SubResource("Resource_pee6t"), SubResource("Resource_w6kt3"), SubResource("Resource_oevol"), SubResource("Resource_c5xo0"), SubResource("Resource_bsdge"), SubResource("Resource_7ow50"), SubResource("Resource_bb45y"), SubResource("Resource_niae4"), SubResource("Resource_4k7iu"), SubResource("Resource_2h7cl"), SubResource("Resource_exsfo"), SubResource("Resource_ordkt"), SubResource("Resource_qbits"), SubResource("Resource_eh5ge"), SubResource("Resource_bljcj"), SubResource("Resource_brduu"), SubResource("Resource_olyrt"), SubResource("Resource_ajglj"), SubResource("Resource_4pq6d"), SubResource("Resource_7qgbu"), SubResource("Resource_1m0dc"), SubResource("Resource_emdm7"), SubResource("Resource_dklec"), SubResource("Resource_beryj"), SubResource("Resource_yrud8"), SubResource("Resource_g6q7t"), SubResource("Resource_acbwl"), SubResource("Resource_7j33w"), SubResource("Resource_gjgv3"), SubResource("Resource_ukv0t"), SubResource("Resource_4xdp5"), SubResource("Resource_ktv56"), SubResource("Resource_nlu3c"), SubResource("Resource_hlv52"), SubResource("Resource_uhsjy"), SubResource("Resource_kd4fi"), SubResource("Resource_m0fre"), SubResource("Resource_wtho8"), SubResource("Resource_0v4uh"), SubResource("Resource_kwg8m"), SubResource("Resource_yq2et"), SubResource("Resource_fq2yj"), SubResource("Resource_y8jo3"), SubResource("Resource_ctj70"), SubResource("Resource_c2vk2"), SubResource("Resource_djw4t"), SubResource("Resource_jwbxb"), SubResource("Resource_rvogw"), SubResource("Resource_xdonk"), SubResource("Resource_sjqxm"), SubResource("Resource_67h3e"), SubResource("Resource_uorc6"), SubResource("Resource_ur50m"), SubResource("Resource_xli0r"), SubResource("Resource_f1ir7"), SubResource("Resource_l8xr3"), SubResource("Resource_4rro4"), SubResource("Resource_nk5rf"), SubResource("Resource_q7uew"), SubResource("Resource_m7jel"), SubResource("Resource_vks6n"), SubResource("Resource_honep"), SubResource("Resource_jtg5c"), SubResource("Resource_3y2y2"), SubResource("Resource_3oi8l"), SubResource("Resource_cia2t"), SubResource("Resource_rv0ap"), SubResource("Resource_s1o7j"), SubResource("Resource_wkv2c"), SubResource("Resource_kwjkv"), SubResource("Resource_2v8yu"), SubResource("Resource_h05ap"), SubResource("Resource_4fnvo"), SubResource("Resource_1gy7v"), SubResource("Resource_7b4f5"), SubResource("Resource_qqyxt"), SubResource("Resource_aw5pl"), SubResource("Resource_poerc"), SubResource("Resource_y3f27"), SubResource("Resource_khmng"), SubResource("Resource_8th4t"), SubResource("Resource_p2r13"), SubResource("Resource_rq5c1"), SubResource("Resource_r81qw"), SubResource("Resource_ab0pw"), SubResource("Resource_ku32d"), SubResource("Resource_70jx6"), SubResource("Resource_g0i84"), SubResource("Resource_r55da"), SubResource("Resource_d8g6f"), SubResource("Resource_iahoe"), SubResource("Resource_pwe6v"), SubResource("Resource_5e2co"), SubResource("Resource_68u8a"), SubResource("Resource_nlnm7"), SubResource("Resource_pp0cp"), SubResource("Resource_kow7a"), SubResource("Resource_hg7p7"), SubResource("Resource_ywoqu"), SubResource("Resource_nc5q0"), SubResource("Resource_3mdw2"), SubResource("Resource_l7x2f"), SubResource("Resource_0j4wp"), SubResource("Resource_h8w0t"), SubResource("Resource_oqmxf"), SubResource("Resource_yimlt"), SubResource("Resource_ejm13"), SubResource("Resource_5mggm"), SubResource("Resource_1hm6f"), SubResource("Resource_0nd2j"), SubResource("Resource_2vevt"), SubResource("Resource_8mq77"), SubResource("Resource_0qu3w"), SubResource("Resource_r1iwg"), SubResource("Resource_70xxe"), SubResource("Resource_r7swr"), SubResource("Resource_2wep2"), SubResource("Resource_320jc"), SubResource("Resource_yuecc"), SubResource("Resource_kwbop"), SubResource("Resource_w650j"), SubResource("Resource_j0jya"), SubResource("Resource_8n6k6"), SubResource("Resource_vtd4n"), SubResource("Resource_1x58a"), SubResource("Resource_vuh3s"), SubResource("Resource_vujs7"), SubResource("Resource_ygsia"), SubResource("Resource_shcur"), SubResource("Resource_b8lau"), SubResource("Resource_mdc3e"), SubResource("Resource_ysncs"), SubResource("Resource_kgsjk"), SubResource("Resource_eklh6"), SubResource("Resource_itbrv"), SubResource("Resource_v5flw"), SubResource("Resource_5rab0"), SubResource("Resource_gv7rc"), SubResource("Resource_46ljy"), SubResource("Resource_ymmu4")]
+_grass_slots_migrated = true
+tex2_has_grass = false
+tex3_has_grass = false
+tex4_has_grass = false
+tex5_has_grass = false
+tex6_has_grass = false
+current_texture_preset = ExtResource("11_tyrw5")
+palette_colors = Array[Color]([Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.45505515, 0.47058824, 0.3176471, 1), Color(0.47058824, 0.36424634, 0.3176471, 1), Color(0.47, 0.47, 0.47, 1), Color(0.41204047, 0.3176471, 0.47058824, 1), Color(0.76862746, 0.64705884, 0.47843137, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1), Color(0.39215687, 0.47058824, 0.31764707, 1)])
+palette_weights = Array[float]([100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0])
+slot_color_indices = [[0], [1], [2], [3], [4], [5], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+slot_blend_modes = Array[int]([3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+slot_wet_enabled = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+slot_wet_modes = Array[int]([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+slot_roughnesses = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_grass_wetnesses = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+slot_floor_noise_enabled = [false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+slot_floor_noise_strengths = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_floor_noise_scales = [0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037]
+slot_wall_noise_enabled = [false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+slot_wall_noise_strengths = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+slot_wall_noise_scales = [0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037, 0.037]
+metadata/_custom_type_script = "uid://cddg1xr5hye1d"
+
+[node name="Chunk (1, 0)" type="MeshInstance3D" parent="Castle" unique_id=602514889 node_paths=PackedStringArray("terrain_system")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 0)
+extra_cull_margin = 64.0
+script = ExtResource("3_pdhvo")
+terrain_system = NodePath("..")
+chunk_coords = Vector2i(1, 0)
+
+[node name="GrassPlanter" type="MultiMeshInstance3D" parent="Castle/Chunk (1, 0)" unique_id=362389044]
+visible = false
+cast_shadow = 0
+script = ExtResource("4_ve6lf")

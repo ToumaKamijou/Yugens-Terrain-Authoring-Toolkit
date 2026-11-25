@@ -15,8 +15,6 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_m4ay5")
 icon = ExtResource("1_74wds")
 label = "Grass Mask"
-tooltip = "Grass Mask Tool
-
-Used to control where grass gets placed."
+tooltip = "A brush that controls where grass gets placed. Fully grassless chunks can be enabled in the [u][EDITOR_ACCENT]Chunk Manager[/EDITOR_ACCENT][/u] tool."
 attributes = SubResource("Resource_w0hx0")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

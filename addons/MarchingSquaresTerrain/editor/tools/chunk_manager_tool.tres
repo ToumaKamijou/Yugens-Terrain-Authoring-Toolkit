@@ -13,19 +13,26 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_j1t8c")
 icon = ExtResource("1_ir1w2")
 label = "Chunk Manager"
-tooltip = "Chunk Management Tool
+tooltip = "Manages the creation, deletion and changing of individual and global chunk settings.
 
-Used to create, delete and change chunk settings.
+[b]Info:[/b]
+Inside the [EDITOR_ACCENT]Chunk Tab[/EDITOR_ACCENT] settings such as the [EDITOR_KEYWORD]chunk_dimensions[/EDITOR_KEYWORD] and [EDITOR_KEYWORD]cell_size[/EDITOR_KEYWORD] can be changed. Additionally, this is where prefabs can be applied.
 
-[INFO]
-Chunk cell merge modes:
-• CUBIC: The most blocky of all the modes. Has minimal smoothing between cells.
-• POLYHEDRON: Blocky terrain with slight cell smoothing (DEFAULT CHUNK STATE).
-• ROUNDED_POLYHEDRON: A good 50/50 mix between having smooth and blocky terrain.
-• SEMI_ROUND: Mostly smooth terrain with the occasional blocky cells.
-• SPHERICAL: All the terrain will become smooth. This mode looks the most unnatural for the algorithm.
+Terrain specific NavMesh groups can be applied via this tool as well!
 
-[SHORTCUTS]
-• CTRL+LMB: Change the currently selected chunk to the hovered chunk."
+Chunk cell merge modes can be used to alter the merge thresholds of neighbouring vertices. These have the biggest impact on the overall [i]feel[/i] of the terrain.
+
+[ul][EDITOR_ACCENT]Cubic[/EDITOR_ACCENT]: The most blocky of all the modes. Has minimal smoothing between cells;[/ul]
+
+[ul][EDITOR_ACCENT]Polyhedron[/EDITOR_ACCENT]: Blocky terrain with slight cell smoothing;[/ul]
+
+[ul][EDITOR_ACCENT]Rounded Polyhedron[/EDITOR_ACCENT]: A 50/50 mix between having smooth and blocky terrain;[/ul]
+
+[ul][EDITOR_ACCENT]Semi Round[/EDITOR_ACCENT]: Mostly smooth terrain with occasional blocky cells;[/ul]
+
+[ul][EDITOR_ACCENT]Spherical[/EDITOR_ACCENT]: All the terrain will become smooth. This mode looks the most unnatural for the marching squares algorithm.[/ul]
+
+[b]Shortcuts:[/b]
+[ul]CTRL+LMB: Change the currently selected chunk to the hovered chunk.[/ul]"
 attributes = SubResource("Resource_w6p77")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

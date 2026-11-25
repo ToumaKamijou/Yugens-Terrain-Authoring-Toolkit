@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://dc1s2agj1xhhc"]
+
+[ext_resource type="Script" uid="uid://dwg2cq42ujb4m" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tooltip_panel_container.gd" id="1_bge8y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bge8y"]
+bg_color = Color(0.08468998, 0.08468991, 0.08468992, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_harnd"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+
+[node name="TooltipPanelContainer" type="PanelContainer" unique_id=2118976577 node_paths=PackedStringArray("_tooltip_tool_label", "tooltip_name_label", "tooltip_text_label")]
+custom_minimum_size = Vector2(750, 150)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_bge8y")
+_tooltip_tool_label = NodePath("VBoxContainer/TopPanel/MarginContainer/HBoxContainer/TooltipToolLabel")
+tooltip_name_label = NodePath("VBoxContainer/TopPanel/MarginContainer/HBoxContainer/TooltipNameLabel")
+tooltip_text_label = NodePath("VBoxContainer/BottomPanel/MarginContainer/TooltipTextLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1074945115]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TopPanel" type="Panel" parent="VBoxContainer" unique_id=358124645]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bge8y")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TopPanel" unique_id=1649119090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopPanel/MarginContainer" unique_id=1605660968]
+layout_mode = 2
+
+[node name="TooltipToolLabel" type="RichTextLabel" parent="VBoxContainer/TopPanel/MarginContainer/HBoxContainer" unique_id=545809157]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "Tool"
+fit_content = true
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="TooltipNameLabel" type="RichTextLabel" parent="VBoxContainer/TopPanel/MarginContainer/HBoxContainer" unique_id=314966775]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "tool_name_here"
+fit_content = true
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="BottomPanel" type="Panel" parent="VBoxContainer" unique_id=1454004536]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_harnd")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BottomPanel" unique_id=2115635017]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="TooltipTextLabel" type="RichTextLabel" parent="VBoxContainer/BottomPanel/MarginContainer" unique_id=2037097814]
+layout_mode = 2
+bbcode_enabled = true
+text = "tooltip_text_here"
+fit_content = true
+visible_characters_behavior = 1

@@ -18,10 +18,11 @@ All the scripts in the plugin follow the following conventions when setting up:
   * (e.g. "variable_name : float" instead of "variable_name: float")
   * However, typing for functions, dictionaries, etc. should follow normal conventions.
 * Exported variables should follow the below structure.
-* There should be tabs instead of blanks between code parts. The opposite of gdshaders.
+* There should be tabs instead of blanks between code parts.
   * These tabs should go until the next line's starting tab. 
-* Regions can be one space apart from each other as can functions and the top and bottom of regions.
+* Regions can be one space apart from each other as can functions at the top and bottom of regions.
   * All the other functions inside or outside regions except for the above exceptions should have two spaces between them.
+  * Variable regions shouldn't have any spaces between them.
   * Regions shouldn't contain capitalization in their names.
 * Only use double hashtags for editor visible comments that explain the functionality of export variables, functions or classes.
 * All comments should start with a capital.
@@ -38,6 +39,11 @@ const CONSTANT_VARIABLE : int = 1
 
 # This is a normal comment on how the variable works
 var variable : float = 1.0
+
+#region example vars
+var ex1 : int = 0
+var ex2 : int = 1
+#endregion
 
 @export_custom(PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE) var export_variable : String = "example":
 	set(value):

@@ -8,6 +8,7 @@
 script = ExtResource("1_rbatu")
 brush_type = true
 size = true
+vp_falloff_mode = true
 material = true
 texture_name = true
 texture_preset = true
@@ -17,19 +18,12 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 [resource]
 script = ExtResource("1_7okwl")
 icon = ExtResource("2_rbatu")
-label = "Vertex Painting"
-tooltip = "Vertex Paint Tool
+label = "Vertex Painter"
+tooltip = "A vertex-based painting brush that allows for up to 255 custom textures to be edited and applied onto the terrain.
 
-Used to paint textures onto the terrain.
+[b]Info[/b]:
+A [EDITOR_ACCENT]Texture Preset[/EDITOR_ACCENT] is a resource that stores and loads a group of vertex painter settings and textures. Use these for editing and saving different environments or quickly testing custom palettes.
 
-[INFO]
-• There are 16 available textures.
-    • 1 through 6 have grass sprites attached to them.
-    • 16 is a void material making terrain invisible.
-• Texture presets can be used to quickly swap between texture pallets.
-    • They can be exported via the right hand panel at the bottom.
-• \"Quick Paints\" are a way to quickly set textures while moddeling the terrain.
-    • You can make global or texture preset specific ones. 
-        • → Create a MarchingSquaresQuickPaint resource in their dedicated folders in the parent plugin folder."
+[EDITOR_ACCENT]Quick Paints[/EDITOR_ACCENT] are a quick way to set textures on the fly while moddeling the terrain. They can be either terrain-wide or preset specific. The quick paint resource files should be stored inside their dedicated folder in the MST parent folder."
 attributes = SubResource("Resource_2cita")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

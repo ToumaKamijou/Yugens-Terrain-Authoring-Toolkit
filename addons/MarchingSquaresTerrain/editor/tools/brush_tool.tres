@@ -17,14 +17,15 @@ metadata/_custom_type_script = "uid://b6jopat61dbd3"
 script = ExtResource("1_jdprw")
 icon = ExtResource("1_6atyx")
 label = "Brush"
-tooltip = "Brush Tool
+tooltip = "The most basic of brushes that can simply elevate or lower terrain.
 
-Used to elevate or lower terrain.
+[color=DIM_GRAY][i]The following can be used on all brush related tools...[/i][/color]
 
-[SHORTCUTS]
-• Shift+LMB+Drag: Add cells to the current draw selection.
-• Shift+MWU/MWD: Increase or decrease the brush size..
-• Alt/RMB/Esc: Reset the current draw selection.
-These shortcuts apply to all brush related tools."
+[b]Shortcuts[/b]:
+[ul]Shift+LMB+Drag: Add cells to the current draw selection.[/ul]
+
+[ul]Shift+MWU/MWD: Increase or decrease the brush size.[/ul]
+
+[ul]Alt/RMB/Esc: Reset the current draw selection.[/ul]"
 attributes = SubResource("Resource_f0ade")
 metadata/_custom_type_script = "uid://brkjbcthwswel"

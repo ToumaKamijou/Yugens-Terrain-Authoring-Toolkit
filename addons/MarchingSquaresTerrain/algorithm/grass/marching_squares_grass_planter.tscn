@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="1_76233"]
 
-[node name="GrassPlanter" type="MultiMeshInstance3D"]
-layers = 32
+[node name="GrassPlanter" type="Node3D" unique_id=661710473]
 script = ExtResource("1_76233")
 metadata/_custom_type_script = "uid://22l7ysgniux3"

@@ -4,7 +4,7 @@ This guide serves to explain how the internal tool system and its related code i
 
 ## Terrain Explained (SIMPLE VERSION)
 
-The terrain is built from the marching squares algorithm, which means that unlike the marching cubes algorithm it can only have variation in the Y axis. For this reason, the terrain is built from a cellular grid (adjustable in the terrain settings tab in the plugin) and all the terrain behaviour is calculated from values stored in or referencing to those cells. For example, the process for increasing terrain height works as follows: 1. select the cells you want to change the height value for; 2. pick a higher number; 3. store those new numbers in a height map. Almost everything in the plugin works this way, color values for the grass and floor, texture id's, etc...
+The terrain is built from the marching squares algorithm, which means that unlike the marching cubes algorithm it can only have variation in the Y axis. For this reason, the terrain is built from a cellular grid (adjustable in the chunk management settings tab in the plugin) and all the terrain behaviour is calculated from values stored in or referencing to those cells. For example, the process for increasing terrain height works as follows: 1. select the cells you want to change the height value for; 2. pick a higher number; 3. store those new numbers in a height map. Almost everything in the plugin works this way, color values for the grass and floor, texture id's, etc...
 
 ## Tools Explained
 
@@ -27,18 +27,23 @@ These attributes can theoretically be used for any type of brush the user wants 
 
 These are attributes specifically made to work for a singular specific brush and don't provide any value outside of those brushes:
 
+* vp_falloff_mode → uses a special pattern different from the normal falloff to select cells while vertex painting
+* curve_3d_mode → switches between point based and free form line bridge calculations
 * mask_mode → controls if selected terrain should have grass spawn on it or not
 * material → used for selecting which texture to use while vertex painting the terrain
 * texture_name → used to change the material names in the plugin interface
 * texture_preset → used to change all the vertex painting settings via pre-saved resources. This allows for quick swapping between aesthetics.
-* paint_walls → self explanatory.
+* paint_walls → self explanatory
+* populator → used for selecting the current populator node in the tree
+* remove_selection → used to remove parts of the current populator's cell selection
 
 ### Non-Brush Related Attributes
 
 These are usually reserved for terrain settings and also have interal code that deviates from the above attributes:
 
-* chunk_management → right now only has an option to change the merge_mode threshold value, however this can be expanded upon
+* chunk_management → has the option to change individual and global chunk settings as well as set navmesh bounds based on the terrain cells
 * terrain_settings → features all the global terrain settings as well as some (global) grass settings
+* heightmap → can import & export the terrain and its chunks as well as extract and place custom mesh-heightmaps via a brush
 
 ### ________
 The above settings are contained in an array of booleans per tool which can be set in the inspector. Enabling a setting in the array makes it popup in the plugin window when the tool is selected. When adding all the UI to the screen the plugin will read a **MarchingSquaresToolAttributesList** resource for all the necessary data such as label names, what type of UI element it should be, default values, etc. This resource also contains the export variable for the texture names in the vertex paint tool.
@@ -77,7 +82,8 @@ The current _type_ field options are:
 6. TERRAIN,
 7. PRESET,
 8. QUICK_PAINT,
-9. ERROR, _# This one is used as a failsafe if the internal logic fails._
+9. HEIGHTMAP,
+10. ERROR, _# This one is used as a failsafe if the internal logic fails._
 
 If you have a tool that uses custom logic that has nothing to do with brushes, then it is recommended to make its own option for it like CHUNK or TERRAIN. Adding new options can be done in the **MarchingSquaresToolAttributes** script under the `enum SettingType` variable. Make sure to also include the new setting type in the `type_map` variable in the `show_tool_attributes(tool_index: int) -> void` function.
 

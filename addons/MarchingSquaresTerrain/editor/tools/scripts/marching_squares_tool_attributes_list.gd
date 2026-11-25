@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name MarchingSquaresToolAttributesList
 
@@ -8,6 +9,14 @@ var brush_type : Dictionary = {
 	"label": "Brush Type",
 	"options": ["Round", "Square"],
 	"default": 0,
+}
+
+# Vertex Paint only: creates a feathered edge without lerping vertex colors (prevents wrong-texture “donut” artifacts).
+var vp_falloff_mode : Dictionary = {
+	"name": "vp_falloff_mode",
+	"type": "checkbox",
+	"label": "Falloff",
+	"default": false,
 }
 
 var size : Dictionary = {
@@ -56,6 +65,13 @@ var falloff : Dictionary = {
 	"default": true,
 }
 
+var curve3d_mode : Dictionary = {
+	"name": "curve3d_mode",
+	"type": "checkbox",
+	"label": "Curve3D Mode",
+	"default": false,
+}
+
 var mask_mode : Dictionary = {
 	"name": "mask_mode",
 	"type": "checkbox",
@@ -71,13 +87,6 @@ var material : Dictionary = {
 	"label": "Material",
 	"options": vp_tex_names.texture_names,
 	"default": 0,
-}
-
-var texture_name : Dictionary = {
-	"name": "texture_name",
-	"type": "text",
-	"label": "Texture Name",
-	"default": "New name here...",
 }
 
 var texture_preset : Dictionary = {
@@ -101,6 +110,20 @@ var paint_walls : Dictionary = {
 	"default": false,
 }
 
+var populator : Dictionary = {
+	"name": "populator",
+	"type": "option",
+	"label": "Populator",
+	"default": 0,
+}
+
+var remove_selection : Dictionary = {
+	"name": "remove_selection",
+	"type": "checkbox",
+	"label": "Remove Selection",
+	"default": false,
+}
+
 var chunk_management : Dictionary = {
 	"name": "chunk_management",
 	"type": "chunk",
@@ -111,6 +134,12 @@ var terrain_settings : Dictionary = {
 	"name": "terrain_settings",
 	"type": "terrain",
 	"label": "Terrain Settings",
+}
+
+var heightmap : Dictionary = {
+	"name": "heightmap",
+	"type": "heightmap",
+	"label": "Heightmap",
 }
 
 """

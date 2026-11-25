@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://cf8710euu81ol"]
+
+[ext_resource type="Script" uid="uid://d0667y7g3cax0" path="res://addons/MarchingSquaresTerrain/editor/utils/texture_edit/mst_single_color_container.gd" id="1_scf7p"]
+
+[node name="SingleColorContainer" type="HBoxContainer" unique_id=298288097 node_paths=PackedStringArray("color_label", "color_picker", "color_weight_h_box", "weight_percentage_label", "weight_slider", "remove_color_button")]
+script = ExtResource("1_scf7p")
+color_label = NodePath("ColorLabel")
+color_picker = NodePath("ColorPicker")
+color_weight_h_box = NodePath("ColorWeightHBox")
+weight_percentage_label = NodePath("ColorWeightHBox/WeightPercentageLabel")
+weight_slider = NodePath("ColorWeightHBox/WeightSlider")
+remove_color_button = NodePath("ColorWeightHBox/RemoveColorButton")
+
+[node name="ColorLabel" type="Label" parent="." unique_id=1322786460]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "1"
+horizontal_alignment = 1
+
+[node name="ColorPicker" type="ColorPickerButton" parent="." unique_id=1026776327]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorWeightHBox" type="HBoxContainer" parent="." unique_id=1988284662]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeightPercentageLabel" type="Label" parent="ColorWeightHBox" unique_id=43743789]
+custom_minimum_size = Vector2(45, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "100%"
+horizontal_alignment = 1
+
+[node name="WeightSlider" type="HSlider" parent="ColorWeightHBox" unique_id=1526451106]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+
+[node name="RemoveColorButton" type="Button" parent="ColorWeightHBox" unique_id=623561273]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+text = "X"

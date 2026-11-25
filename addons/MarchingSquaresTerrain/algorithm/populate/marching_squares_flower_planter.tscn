@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://demjm5kq2kdpa"]
+
+[ext_resource type="Script" uid="uid://dclwk65s0jbm4" path="res://addons/MarchingSquaresTerrain/algorithm/populate/marching_squares_flower_planter.gd" id="1_pvhvu"]
+[ext_resource type="Shader" uid="uid://nm6bsrx1aie5" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_flower.gdshader" id="2_ntu2f"]
+[ext_resource type="Texture2D" uid="uid://ld4ildjiaxlw" path="res://addons/MarchingSquaresTerrain/resources/plugin_materials/example_flower_sprite1.png" id="3_s7w8h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6h13b"]
+render_priority = 0
+shader = ExtResource("2_ntu2f")
+shader_parameter/flower_texture = ExtResource("3_s7w8h")
+shader_parameter/should_billboard = false
+shader_parameter/rng_height_range = 0.1
+shader_parameter/rng_size_range = 0.2
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+shader_parameter/bands = 5
+shader_parameter/shadow_intensity = 0.0
+shader_parameter/animate_active = true
+shader_parameter/fps = 0.0
+shader_parameter/flower_wind_strength = 1.0
+shader_parameter/flower_stem_bend = 1.35
+shader_parameter/flower_tip_flutter = 0.2
+shader_parameter/wind_direction_degrees = 45.0
+shader_parameter/wind_direction = Vector2(0.70710678, 0.70710678)
+shader_parameter/wind_speed = 0.08
+shader_parameter/wind_strength = 1.0
+shader_parameter/wind_scale = 0.037
+shader_parameter/wind_gust_strength = 0.35
+shader_parameter/wind_gust_speed = 0.12
+shader_parameter/wind_mode = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_ntu2f"]
+material = SubResource("ShaderMaterial_6h13b")
+
+[node name="MarchingSquaresFlowerPlanter" type="MultiMeshInstance3D" unique_id=898745184]
+script = ExtResource("1_pvhvu")
+flower_mesh = SubResource("QuadMesh_ntu2f")
+metadata/_custom_type_script = "uid://dclwk65s0jbm4"

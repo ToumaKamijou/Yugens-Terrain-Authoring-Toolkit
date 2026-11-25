@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_ydxdw")
 paint_name = "Full Void"
+has_grass = false
 wall_texture_slot = 15
 ground_texture_slot = 15
 metadata/_custom_type_script = "uid://mtlf02qfkqp5"

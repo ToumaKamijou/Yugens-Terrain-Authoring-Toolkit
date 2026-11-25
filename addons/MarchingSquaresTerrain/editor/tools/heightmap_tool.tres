@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="MarchingSquaresTool" format=3 uid="uid://cotf6d0khe2kn"]
+
+[ext_resource type="Script" uid="uid://b6jopat61dbd3" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tool_attribute_settings.gd" id="1_ygjx6"]
+[ext_resource type="Texture2D" uid="uid://ckwltg172hfpf" path="res://addons/MarchingSquaresTerrain/editor/icons/heightmap_tool.svg" id="2_pky3j"]
+[ext_resource type="Script" uid="uid://brkjbcthwswel" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tool.gd" id="3_byjpg"]
+
+[sub_resource type="Resource" id="Resource_he"]
+script = ExtResource("1_ygjx6")
+size = true
+flatten = true
+heightmap = true
+metadata/_custom_type_script = "uid://b6jopat61dbd3"
+
+[resource]
+script = ExtResource("3_byjpg")
+icon = ExtResource("2_pky3j")
+label = "Heightmap"
+tooltip = "Exports and imports heightmap data from and (on)to the terrain.
+
+[b]Info[/b]:
+The [EDITOR_ACCENT]Export Tab[/EDITOR_ACCENT] allows for the exporting of terrain data as greyscale PNG's (heightmap, grass mask, texture index).
+
+The [EDITOR_ACCENT]Import Tab[/EDITOR_ACCENT] can then utilise these greyscale PNG's as data for the creation of terrain chunks.
+
+The [EDITOR_ACCENT]Library Tab[/EDITOR_ACCENT] differs in that it can create heightmaps from 3D meshes and then place them onto the terrain via a heightmap brush. It's best used for quickly terraforming the terrain in complex ways.
+
+[b]Shortcuts[/b]:
+[ul]Shift+R: Rotate the current heightmap 90 degrees clockwise.[/ul]"
+attributes = SubResource("Resource_he")
+metadata/_custom_type_script = "uid://brkjbcthwswel"

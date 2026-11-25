@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bqxtostixwsb2"]
+
+[ext_resource type="Shader" uid="uid://byoutryhn7yvf" path="res://addons/MarchingSquaresTerrain/resources/shaders/mst_pp_ink_grass.gdshader" id="1_grassink"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_grassink")
+shader_parameter/ink_color = Color(0.055, 0.05, 0.045, 0.92)
+shader_parameter/outline_opacity = 0.92
+shader_parameter/outline_width_uv = 0.018
+shader_parameter/inner_outline_mix = 0.28
+shader_parameter/fill_opacity = 0.14
+shader_parameter/fill_density = 15.0
+shader_parameter/fill_patchiness = 0.38
+shader_parameter/use_grass_tex_array = false
+shader_parameter/use_slot_layer_lookup = false
+shader_parameter/use_grass_tex_2 = true
+shader_parameter/use_grass_tex_3 = true
+shader_parameter/use_grass_tex_4 = true
+shader_parameter/use_grass_tex_5 = true
+shader_parameter/use_grass_tex_6 = true
+shader_parameter/animate_active = true
+shader_parameter/fps = 0.0
+shader_parameter/blade_variation = 1.0
+shader_parameter/is_merge_round = false
+shader_parameter/wall_threshold = 0.0
+shader_parameter/global_noise_scale = 0.037
+shader_parameter/wind_direction_degrees = 45.0
+shader_parameter/wind_direction = Vector2(0.70710677, 0.70710677)
+shader_parameter/wind_speed = 0.14
+shader_parameter/wind_strength = 1.0
+shader_parameter/wind_scale = 1.0
+shader_parameter/wind_gust_strength = 0.35
+shader_parameter/wind_gust_speed = 0.35
+shader_parameter/wind_mode = 0

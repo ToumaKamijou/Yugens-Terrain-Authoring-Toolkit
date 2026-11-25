@@ -11,10 +11,10 @@ static func get_directory_size_recursive(dir_path: String) -> int:
 	
 	dir.list_dir_begin()
 	var file_name := dir.get_next()
-	while file_name != "":
+	while file_name !=  "":
 		var next_path = dir_path.path_join(file_name)
 		if dir.current_is_dir():
-			if file_name != "." and file_name != "..":
+			if file_name !=  "." and file_name != "..":
 				total_size += get_directory_size_recursive(next_path)
 		else:
 			total_size += FileAccess.get_file_as_bytes(next_path).size()

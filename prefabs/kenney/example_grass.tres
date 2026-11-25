@@ -1,0 +1,147 @@
+[gd_resource type="Resource" script_class="MarchingSquaresPrefabSet" format=3 uid="uid://ljcr0d4mbbuo"]
+
+[ext_resource type="Script" uid="uid://ct55aw6xlcmu" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_flat.gd" id="1_h70ih"]
+[ext_resource type="Texture2D" uid="uid://da06vhls0hw17" path="res://prefabs/kenney/grass.png" id="1_lhkgn"]
+[ext_resource type="PackedScene" uid="uid://drktxhigrdo36" path="res://prefabs/kenney/glb_grass/Diagonal_BottomFloor.glb" id="2_3l25d"]
+[ext_resource type="Script" uid="uid://ca7353uloodm3" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_diagonal.gd" id="2_h70ih"]
+[ext_resource type="Script" uid="uid://cx6mjly0heii5" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_squares_prefab_set.gd" id="2_oy10v"]
+[ext_resource type="PackedScene" uid="uid://dufisnmsc2ve5" path="res://prefabs/kenney/glb_grass/Diagonal_TopFloor.glb" id="3_1jcjl"]
+[ext_resource type="Script" uid="uid://jetwfp0muy5b" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_filler.gd" id="3_h70ih"]
+[ext_resource type="PackedScene" uid="uid://8swsox2sa0fi" path="res://prefabs/kenney/glb_grass/Diagonal_Wall.glb" id="4_5qpxm"]
+[ext_resource type="Script" uid="uid://c0uwqtd5aejyp" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/prefab/marching_square_prefab_orthogonal.gd" id="4_h70ih"]
+[ext_resource type="PackedScene" uid="uid://chg4884243w7l" path="res://prefabs/kenney/glb_grass/Diagonal_TopWall.glb" id="5_11wsx"]
+[ext_resource type="PackedScene" uid="uid://d1yx7bl5sqyfd" path="res://prefabs/kenney/glb_grass/Diagonal_TopFloor_001.glb" id="6_lehde"]
+[ext_resource type="PackedScene" uid="uid://d28h5offlbxvf" path="res://prefabs/kenney/glb_grass/Filler_BottomFloor.glb" id="6_qfqo8"]
+[ext_resource type="PackedScene" uid="uid://comh5lwtoqwsd" path="res://prefabs/kenney/glb_grass/Flat_TopFloor.glb" id="6_ttabb"]
+[ext_resource type="PackedScene" uid="uid://c562sj86k2wdn" path="res://prefabs/kenney/glb_grass/Filler_DOCap_LeftFloor.glb" id="7_84d5n"]
+[ext_resource type="PackedScene" uid="uid://b6gu0k0gbpsbr" path="res://prefabs/kenney/glb_grass/Orthogonal_BottomFloor.glb" id="7_f0pjf"]
+[ext_resource type="PackedScene" uid="uid://r1bah5u0k7gb" path="res://prefabs/kenney/glb_grass/Diagonal_TopFloor_002.glb" id="7_fbwvy"]
+[ext_resource type="PackedScene" uid="uid://bkno370puov6o" path="res://prefabs/kenney/glb_grass/Orthogonal_CapLeftFloor.glb" id="8_qhprf"]
+[ext_resource type="PackedScene" uid="uid://vnsos1v1773x" path="res://prefabs/kenney/glb_grass/Diagonal_TopFloor_003.glb" id="8_rmm6o"]
+[ext_resource type="PackedScene" uid="uid://lgtfgocwhnu5" path="res://prefabs/kenney/glb_grass/Filler_DDCap_LeftWall.glb" id="8_wsn6v"]
+[ext_resource type="PackedScene" uid="uid://bdknkpt366k8s" path="res://prefabs/kenney/glb_grass/Orthogonal_CapLeftWall.glb" id="9_6xn8t"]
+[ext_resource type="PackedScene" uid="uid://d1058h2yjh626" path="res://prefabs/kenney/glb_grass/Filler_DOCap_RightFloor.glb" id="9_lehde"]
+[ext_resource type="PackedScene" uid="uid://buhwc8e0isnwk" path="res://prefabs/kenney/glb_grass/Filler_DDCap_RightWall.glb" id="10_fbwvy"]
+[ext_resource type="PackedScene" uid="uid://y76eehcvgch3" path="res://prefabs/kenney/glb_grass/Orthogonal_CapRightFloor.glb" id="10_gov5q"]
+[ext_resource type="PackedScene" uid="uid://cid8o54p46dwk" path="res://prefabs/kenney/glb_grass/Orthogonal_CapRightWall.glb" id="11_evpdn"]
+[ext_resource type="PackedScene" uid="uid://c46eav57n7bdr" path="res://prefabs/kenney/glb_grass/Filler_DOCap_LeftWall.glb" id="11_rmm6o"]
+[ext_resource type="PackedScene" uid="uid://chpjddua54uat" path="res://prefabs/kenney/glb_grass/Filler_DOCap_RightWall.glb" id="12_shvtt"]
+[ext_resource type="PackedScene" uid="uid://cqtpa74ga72tu" path="res://prefabs/kenney/glb_grass/Orthogonal_TopFloor.glb" id="12_yrfyu"]
+[ext_resource type="PackedScene" uid="uid://ds5jxwwjywgyp" path="res://prefabs/kenney/glb_grass/Orthogonal_Wall.glb" id="13_1wy27"]
+[ext_resource type="PackedScene" uid="uid://bo2xx6flyj7tq" path="res://prefabs/kenney/glb_grass/Filler_TopFloor.glb" id="13_tnoqh"]
+[ext_resource type="PackedScene" uid="uid://c6fhka3i6hl7m" path="res://prefabs/kenney/glb_grass/Filler_HalfFloor.glb" id="14_6xvdq"]
+[ext_resource type="PackedScene" uid="uid://b0cjayaocg2br" path="res://prefabs/kenney/glb_grass/Orthogonal_TopWall.glb" id="14_7m703"]
+[ext_resource type="PackedScene" uid="uid://b6a6yey3yq04y" path="res://prefabs/kenney/glb_grass/Filler_Wall.glb" id="15_bkp5j"]
+[ext_resource type="PackedScene" uid="uid://05itqodhuukg" path="res://prefabs/kenney/glb_grass/Filler_TopWall.glb" id="16_mkexp"]
+[ext_resource type="PackedScene" uid="uid://dwatwvhcpamyc" path="res://prefabs/kenney/glb_grass/Orthogonal_TopFloor_001.glb" id="29_shvtt"]
+[ext_resource type="PackedScene" uid="uid://b3515ah0wsstm" path="res://prefabs/kenney/glb_grass/Orthogonal_TopFloor_002.glb" id="30_tnoqh"]
+[ext_resource type="PackedScene" uid="uid://dwe8h6r08lef8" path="res://prefabs/kenney/glb_grass/Orthogonal_TopFloor_003.glb" id="31_6xvdq"]
+
+[sub_resource type="Resource" id="Resource_qtg1h"]
+script = ExtResource("2_h70ih")
+top_floor = ExtResource("3_1jcjl")
+bottom_floor = ExtResource("2_3l25d")
+wall_top = ExtResource("5_11wsx")
+wall = ExtResource("4_5qpxm")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_shvtt"]
+script = ExtResource("2_h70ih")
+top_floor = ExtResource("6_lehde")
+bottom_floor = ExtResource("2_3l25d")
+wall_top = ExtResource("5_11wsx")
+wall = ExtResource("4_5qpxm")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_tnoqh"]
+script = ExtResource("2_h70ih")
+top_floor = ExtResource("7_fbwvy")
+bottom_floor = ExtResource("2_3l25d")
+wall_top = ExtResource("5_11wsx")
+wall = ExtResource("4_5qpxm")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_6xvdq"]
+script = ExtResource("2_h70ih")
+top_floor = ExtResource("8_rmm6o")
+bottom_floor = ExtResource("2_3l25d")
+wall_top = ExtResource("5_11wsx")
+wall = ExtResource("4_5qpxm")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_qqg2n"]
+script = ExtResource("3_h70ih")
+top_floor = ExtResource("13_tnoqh")
+top_floor_half = ExtResource("14_6xvdq")
+bottom_floor = ExtResource("6_qfqo8")
+wall_top = ExtResource("16_mkexp")
+wall = ExtResource("15_bkp5j")
+diagonal_orthogonal_cap_left_floor = ExtResource("7_84d5n")
+diagonal_orthogonal_cap_left_wall = ExtResource("11_rmm6o")
+diagonal_orthogonal_cap_right_floor = ExtResource("9_lehde")
+diagonal_orthogonal_cap_right_wall = ExtResource("12_shvtt")
+diagonal_diagonal_cap_left_floor = ExtResource("7_84d5n")
+diagonal_diagonal_cap_left_wall = ExtResource("8_wsn6v")
+diagonal_diagonal_cap_right_floor = ExtResource("9_lehde")
+diagonal_diagonal_cap_right_wall = ExtResource("10_fbwvy")
+
+[sub_resource type="Resource" id="Resource_5bt05"]
+script = ExtResource("1_h70ih")
+top_floor = ExtResource("6_ttabb")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_614ql"]
+script = ExtResource("4_h70ih")
+top_floor = ExtResource("12_yrfyu")
+bottom_floor = ExtResource("7_f0pjf")
+wall_top = ExtResource("14_7m703")
+wall = ExtResource("13_1wy27")
+orthogonal_orthogonal_cap_left_floor = ExtResource("8_qhprf")
+orthogonal_orthogonal_cap_left_wall = ExtResource("9_6xn8t")
+orthogonal_orthogonal_cap_right_floor = ExtResource("10_gov5q")
+orthogonal_orthogonal_cap_right_wall = ExtResource("11_evpdn")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_bkp5j"]
+script = ExtResource("4_h70ih")
+top_floor = ExtResource("29_shvtt")
+bottom_floor = ExtResource("7_f0pjf")
+wall_top = ExtResource("14_7m703")
+wall = ExtResource("13_1wy27")
+orthogonal_orthogonal_cap_left_floor = ExtResource("8_qhprf")
+orthogonal_orthogonal_cap_left_wall = ExtResource("9_6xn8t")
+orthogonal_orthogonal_cap_right_floor = ExtResource("10_gov5q")
+orthogonal_orthogonal_cap_right_wall = ExtResource("11_evpdn")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_mkexp"]
+script = ExtResource("4_h70ih")
+top_floor = ExtResource("30_tnoqh")
+bottom_floor = ExtResource("7_f0pjf")
+wall_top = ExtResource("14_7m703")
+wall = ExtResource("13_1wy27")
+orthogonal_orthogonal_cap_left_floor = ExtResource("8_qhprf")
+orthogonal_orthogonal_cap_left_wall = ExtResource("9_6xn8t")
+orthogonal_orthogonal_cap_right_floor = ExtResource("10_gov5q")
+orthogonal_orthogonal_cap_right_wall = ExtResource("11_evpdn")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[sub_resource type="Resource" id="Resource_qo5e5"]
+script = ExtResource("4_h70ih")
+top_floor = ExtResource("31_6xvdq")
+bottom_floor = ExtResource("7_f0pjf")
+wall_top = ExtResource("14_7m703")
+wall = ExtResource("13_1wy27")
+orthogonal_orthogonal_cap_left_floor = ExtResource("8_qhprf")
+orthogonal_orthogonal_cap_left_wall = ExtResource("9_6xn8t")
+orthogonal_orthogonal_cap_right_floor = ExtResource("10_gov5q")
+orthogonal_orthogonal_cap_right_wall = ExtResource("11_evpdn")
+metadata/_custom_type_script = "uid://brr0n4nhr567q"
+
+[resource]
+script = ExtResource("2_oy10v")
+flats = Array[ExtResource("1_h70ih")]([SubResource("Resource_5bt05")])
+diagonals = Array[ExtResource("2_h70ih")]([SubResource("Resource_qtg1h"), SubResource("Resource_shvtt"), SubResource("Resource_tnoqh"), SubResource("Resource_6xvdq")])
+orthogonals = Array[ExtResource("4_h70ih")]([SubResource("Resource_614ql"), SubResource("Resource_bkp5j"), SubResource("Resource_mkexp"), SubResource("Resource_qo5e5")])
+fillers = Array[ExtResource("3_h70ih")]([SubResource("Resource_qqg2n")])
+color_map = ExtResource("1_lhkgn")

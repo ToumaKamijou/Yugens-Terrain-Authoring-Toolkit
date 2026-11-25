@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://dc1s2agj1xhhc"]
+
+[ext_resource type="Script" uid="uid://dwg2cq42ujb4m" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/marching_squares_tooltip_panel_container.gd" id="1_hlpx8"]
+[ext_resource type="Script" uid="uid://7jctbab68wtw" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/editor_accent_color_effect.gd" id="2_v51o6"]
+[ext_resource type="Script" uid="uid://lhxv6opjyx00" path="res://addons/MarchingSquaresTerrain/editor/tools/scripts/editor_keyword_color_effect.gd" id="3_v51o6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qmbi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bge8y"]
+bg_color = Color(0.06879826, 0.06879829, 0.068798244, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eova5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bge8y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kk38i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_grxcb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_harnd"]
+bg_color = Color(0.08468992, 0.08468994, 0.08468989, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_harnd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcv3s"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_7be7e"]
+script = ExtResource("2_v51o6")
+metadata/_custom_type_script = "uid://7jctbab68wtw"
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_grxcb"]
+script = ExtResource("3_v51o6")
+metadata/_custom_type_script = "uid://lhxv6opjyx00"
+
+[node name="TooltipPanelContainer" type="PanelContainer" unique_id=2118976577 node_paths=PackedStringArray("_tooltip_tool_label", "tooltip_name_label", "tooltip_text_label", "tooltip_index_label")]
+custom_minimum_size = Vector2(600, 75)
+clip_contents = true
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8qmbi")
+script = ExtResource("1_hlpx8")
+_tooltip_tool_label = NodePath("VBoxContainer/TopPanel/MarginContainer/HBoxContainer/TooltipToolLabel")
+tooltip_name_label = NodePath("VBoxContainer/TopPanel/MarginContainer/HBoxContainer/TooltipNameLabel")
+tooltip_text_label = NodePath("VBoxContainer/BottomPanel/MarginContainer/TooltipTextLabel")
+tooltip_index_label = NodePath("VBoxContainer/TopPanel/MarginContainer/HBoxContainer/TooltipIndexLabel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1074945115]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TopPanel" type="PanelContainer" parent="VBoxContainer" unique_id=725062709]
+custom_minimum_size = Vector2(0, 25)
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bge8y")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TopPanel" unique_id=1649119090]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TopPanel/MarginContainer" unique_id=1605660968]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TooltipToolLabel" type="RichTextLabel" parent="VBoxContainer/TopPanel/MarginContainer/HBoxContainer" unique_id=545809157]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.7058824, 0.57254905, 0.88235295, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eova5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bge8y")
+bbcode_enabled = true
+text = "[b]Tool"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="TooltipNameLabel" type="RichTextLabel" parent="VBoxContainer/TopPanel/MarginContainer/HBoxContainer" unique_id=314966775]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kk38i")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_grxcb")
+bbcode_enabled = true
+text = "tool_name_here"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="TooltipIndexLabel" type="RichTextLabel" parent="VBoxContainer/TopPanel/MarginContainer/HBoxContainer" unique_id=476526957]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/default_color = Color(0.39308554, 0.39308554, 0.39308533, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_eova5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bge8y")
+bbcode_enabled = true
+text = ":  index (x)"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+visible_characters_behavior = 1
+
+[node name="BottomPanel" type="PanelContainer" parent="VBoxContainer" unique_id=2040154406]
+custom_maximum_size = Vector2(600, -1)
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_harnd")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BottomPanel" unique_id=2115635017]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="TooltipTextLabel" type="RichTextLabel" parent="VBoxContainer/BottomPanel/MarginContainer" unique_id=2037097814]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_harnd")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hcv3s")
+bbcode_enabled = true
+text = "tooltip_text_here"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+custom_effects = [SubResource("RichTextEffect_7be7e"), SubResource("RichTextEffect_grxcb")]
+visible_characters_behavior = 1

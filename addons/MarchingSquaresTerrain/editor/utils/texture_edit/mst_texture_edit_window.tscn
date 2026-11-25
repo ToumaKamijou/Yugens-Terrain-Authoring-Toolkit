@@ -1,0 +1,347 @@
+[gd_scene format=3 uid="uid://58vqrcbqc0jm"]
+
+[ext_resource type="Script" uid="uid://38j7bnoq6nks" path="res://addons/MarchingSquaresTerrain/editor/utils/texture_edit/mst_texture_edit_window.gd" id="1_0wwrc"]
+
+[node name="TextureEditWindow" type="AcceptDialog" unique_id=1202449268 node_paths=PackedStringArray("texture_preview", "no_preview_label", "prev_cam_button", "next_cam_button", "texture_name_edit", "albedo_picker", "normal_picker", "texture_scale_slider", "blend_mode_button", "colors_container", "add_color_button", "has_grass_check_box", "grass_texture_picker", "floor_noise_attributes", "floor_noise_check_box", "floor_strength_slider", "floor_scale_slider", "wall_noise_attributes", "wall_noise_check_box", "wall_strength_slider", "wall_scale_slider", "wetness_attributes", "wetness_check_box", "wetness_mode_button", "wetness_terrain_slider", "wetness_grass_slider")]
+oversampling_override = 1.0
+title = "Edit Texture"
+initial_position = 1
+size = Vector2i(500, 700)
+visible = true
+exclusive = false
+unresizable = true
+ok_button_text = "      OK      "
+script = ExtResource("1_0wwrc")
+texture_preview = NodePath("WindowVBoxContainer/TexturePreview")
+no_preview_label = NodePath("WindowVBoxContainer/TexturePreview/NoPreviewLabel")
+prev_cam_button = NodePath("WindowVBoxContainer/CameraControlHBox/PrevCameraButton")
+next_cam_button = NodePath("WindowVBoxContainer/CameraControlHBox/NextCameraButton")
+texture_name_edit = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings/TextureNameEdit")
+albedo_picker = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings/AlbedoPicker")
+normal_picker = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings/NormalPicker")
+texture_scale_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings/TextureScaleSlider")
+blend_mode_button = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings/BlendHBox/BlendModeButton")
+colors_container = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings/ColorsContainer")
+add_color_button = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings/AddColorMargins/AddColorButton")
+has_grass_check_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/HasGrassCheckBox")
+grass_texture_picker = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/GrassTextureMargins/GrassTexturePicker")
+floor_noise_attributes = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox")
+floor_noise_check_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseCheckBox")
+floor_strength_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox/StrengthHBox/StrengthSlider")
+floor_scale_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox/ScaleHBox/ScaleSlider")
+wall_noise_attributes = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox")
+wall_noise_check_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseCheckBox")
+wall_strength_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox/StrengthHBox/StrengthSlider")
+wall_scale_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox/ScaleHBox/ScaleSlider")
+wetness_attributes = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox")
+wetness_check_box = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessCheckBox")
+wetness_mode_button = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/ModeHBox/WetnessModeButton")
+wetness_terrain_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/TerrainHBox/TerrainSlider")
+wetness_grass_slider = NodePath("WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/GrassHBox/GrassSlider")
+
+[node name="WindowVBoxContainer" type="VBoxContainer" parent="." unique_id=1764745617]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 492.0
+offset_bottom = 651.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TexturePreview" type="TextureRect" parent="WindowVBoxContainer" unique_id=69375260]
+custom_minimum_size = Vector2(484, 267)
+layout_mode = 2
+expand_mode = 5
+stretch_mode = 4
+
+[node name="NoPreviewLabel" type="Label" parent="WindowVBoxContainer/TexturePreview" unique_id=1583920467]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "No viewport to preview"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CameraControlHBox" type="HBoxContainer" parent="WindowVBoxContainer" unique_id=693490937]
+layout_mode = 2
+
+[node name="PrevCameraButton" type="Button" parent="WindowVBoxContainer/CameraControlHBox" unique_id=405043208]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "←"
+
+[node name="NextCameraButton" type="Button" parent="WindowVBoxContainer/CameraControlHBox" unique_id=1070799933]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "→"
+
+[node name="SettingsScrollContainer" type="ScrollContainer" parent="WindowVBoxContainer" unique_id=448656659]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/scrollbar_h_separation = 10
+
+[node name="SettingsContainer" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer" unique_id=1038870167]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureSettings" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer" unique_id=782347699]
+layout_mode = 2
+
+[node name="TextureNameLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=1299756467]
+layout_mode = 2
+text = "Texture Name"
+
+[node name="TextureNameEdit" type="LineEdit" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=1278135602]
+layout_mode = 2
+
+[node name="TextureSelectLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=1219496544]
+layout_mode = 2
+text = "Texture Select"
+
+[node name="AlbedoTextureLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=1240434552]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+text = "Albedo Texture"
+
+[node name="AlbedoPicker" type="EditorResourcePicker" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=1962596834]
+layout_mode = 2
+base_type = "Texture2D"
+
+[node name="NormalTextureLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=1337975643]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Normal Texture"
+
+[node name="NormalPicker" type="EditorResourcePicker" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=948729562]
+layout_mode = 2
+base_type = "Texture2D"
+
+[node name="TextureScaleLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=343133403]
+layout_mode = 2
+text = "Texture Scale"
+
+[node name="TextureScaleSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/TextureSettings" unique_id=319150005]
+layout_mode = 2
+min_value = 0.01
+max_value = 64.0
+step = 0.01
+value = 1.0
+flat = true
+
+[node name="ColorSettings" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer" unique_id=1245783033]
+layout_mode = 2
+
+[node name="ColorSettingsLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings" unique_id=1083719370]
+layout_mode = 2
+text = "Colors"
+
+[node name="BlendHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings" unique_id=1052164829]
+layout_mode = 2
+
+[node name="BlendLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings/BlendHBox" unique_id=921993446]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Blend"
+
+[node name="BlendModeButton" type="OptionButton" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings/BlendHBox" unique_id=66811647]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 4
+popup/item_0/text = "Gradient"
+popup/item_0/id = 0
+popup/item_1/text = "Retro"
+popup/item_1/id = 1
+popup/item_2/text = "Dithered"
+popup/item_2/id = 2
+popup/item_3/text = "Stippled"
+popup/item_3/id = 3
+
+[node name="ColorsContainer" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings" unique_id=1981824855]
+layout_mode = 2
+
+[node name="AddColorMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings" unique_id=657595566]
+layout_mode = 2
+theme_override_constants/margin_left = 49
+
+[node name="AddColorButton" type="Button" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/ColorSettings/AddColorMargins" unique_id=935707748]
+layout_mode = 2
+text = "+ Add Color"
+
+[node name="AdvancedSettings" type="GridContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer" unique_id=994484526]
+layout_mode = 2
+
+[node name="AdvancedSettingsLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=2034182258]
+layout_mode = 2
+text = "Advanced"
+
+[node name="HasGrassCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=885932851]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Has Grass"
+
+[node name="GrassTextureMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=2090587076]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+
+[node name="GrassTexturePicker" type="EditorResourcePicker" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/GrassTextureMargins" unique_id=1854796116]
+layout_mode = 2
+
+[node name="FloorNoiseCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=2070180867]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Floor Noise"
+
+[node name="FloorNoiseMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1976905932]
+layout_mode = 2
+theme_override_constants/margin_left = 29
+
+[node name="FloorNoiseAttributesVBox" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins" unique_id=1043167336]
+layout_mode = 2
+
+[node name="StrengthHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox" unique_id=1817385063]
+layout_mode = 2
+
+[node name="StrengthLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox/StrengthHBox" unique_id=305034961]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Strength"
+
+[node name="StrengthSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox/StrengthHBox" unique_id=967384273]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+flat = true
+
+[node name="ScaleHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox" unique_id=338569561]
+layout_mode = 2
+
+[node name="ScaleLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox/ScaleHBox" unique_id=1935380318]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Scale"
+
+[node name="ScaleSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/FloorNoiseMargins/FloorNoiseAttributesVBox/ScaleHBox" unique_id=1052066122]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 1.0
+step = 0.001
+value = 0.001
+flat = true
+
+[node name="WallNoiseCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=982178245]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Wall Noise"
+
+[node name="WallNoiseMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1136045284]
+layout_mode = 2
+theme_override_constants/margin_left = 29
+
+[node name="WallNoiseAttributesVBox" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins" unique_id=737238171]
+layout_mode = 2
+
+[node name="StrengthHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox" unique_id=1097773096]
+layout_mode = 2
+
+[node name="StrengthLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox/StrengthHBox" unique_id=1564400652]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Strength"
+
+[node name="StrengthSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox/StrengthHBox" unique_id=1084277079]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+flat = true
+
+[node name="ScaleHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox" unique_id=1766731423]
+layout_mode = 2
+
+[node name="ScaleLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox/ScaleHBox" unique_id=1754378677]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Scale"
+
+[node name="ScaleSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WallNoiseMargins/WallNoiseAttributesVBox/ScaleHBox" unique_id=681852324]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 1.0
+step = 0.001
+value = 0.001
+flat = true
+
+[node name="WetnessCheckBox" type="CheckBox" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=1970218644]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Wetness"
+
+[node name="WetnessMargins" type="MarginContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings" unique_id=685687785]
+layout_mode = 2
+theme_override_constants/margin_left = 29
+
+[node name="WetnessAttributesVBox" type="VBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins" unique_id=1443292555]
+layout_mode = 2
+
+[node name="ModeHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox" unique_id=466926195]
+layout_mode = 2
+
+[node name="ModeLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/ModeHBox" unique_id=1080619023]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Mode"
+
+[node name="WetnessModeButton" type="OptionButton" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/ModeHBox" unique_id=591814064]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+item_count = 2
+popup/item_0/text = "Wet"
+popup/item_0/id = 0
+popup/item_1/text = "Glossy Puddles"
+popup/item_1/id = 1
+
+[node name="TerrainHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox" unique_id=209822950]
+layout_mode = 2
+
+[node name="TerrainLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/TerrainHBox" unique_id=999208912]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Terrain"
+
+[node name="TerrainSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/TerrainHBox" unique_id=1586723515]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+flat = true
+
+[node name="GrassHBox" type="HBoxContainer" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox" unique_id=1329757964]
+layout_mode = 2
+
+[node name="GrassLabel" type="Label" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/GrassHBox" unique_id=2037651717]
+custom_minimum_size = Vector2(85, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5921569, 0.5921569, 0.5921569, 1)
+text = "Grass"
+
+[node name="GrassSlider" type="EditorSpinSlider" parent="WindowVBoxContainer/SettingsScrollContainer/SettingsContainer/AdvancedSettings/WetnessMargins/WetnessAttributesVBox/GrassHBox" unique_id=1043041919]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+flat = true

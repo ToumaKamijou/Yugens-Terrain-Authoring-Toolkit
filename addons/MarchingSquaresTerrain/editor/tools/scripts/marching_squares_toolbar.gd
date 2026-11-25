@@ -17,9 +17,9 @@ func _init() -> void:
 func _ready() -> void:
 	tool_button_group.pressed.connect(_on_tool_selected)
 	add_child(HSeparator.new())
-	
+
 	_add_tools()
-	
+
 	var buttons_array : Array[BaseButton] = tool_button_group.get_buttons()
 	if buttons_array.size() > 0:
 		buttons_array[0].set_pressed(true)
@@ -33,13 +33,15 @@ func _add_tools() -> void:
 	
 	alignment = FlowContainer.ALIGNMENT_CENTER
 	for i in range(tools.size()):
-		if i == 4 or i == 6 or i == 9:
+		if i == 4 or i == 7 or i == 11:
 			add_child(HSeparator.new())
 		var tool := tools[i]
-		var button := Button.new()
+		var button := MarchingSquaresToolbarButton.new()
 		
 		button.set_name(tool.label)
-		button.set_tooltip_text(tool.tooltip)
+		button.tool_name = tool.label
+		button.tooltip = tool.tooltip
+		button.tool_index = str(i)
 		button.set_button_icon(tool.icon)
 		button.set_meta("Index", i)
 		button.set_flat(true)

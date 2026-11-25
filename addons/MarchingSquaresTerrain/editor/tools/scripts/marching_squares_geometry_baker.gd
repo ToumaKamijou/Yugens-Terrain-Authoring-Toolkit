@@ -8,14 +8,23 @@ signal finished(mesh: Mesh, original: MeshInstance3D, img: Image)
 @export var polygon_texture_resolution : int = 32
 static var MAX_TEXTURE_SIZE := 4096
 
+
 func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	if not inst or not scene_tree or not inst.mesh is ArrayMesh:
 		return
 	
 	var mesh : ArrayMesh = inst.mesh
+	if mesh.get_surface_count() == 0:
+		push_warning("MarchingSquaresGeometryBaker: input mesh has no surfaces; aborting bake.")
+		return
+	
 	var new_mesh := ArrayMesh.new()
 	
-	var arrays := mesh.surface_get_arrays(0)
+	var arrays := _combine_mesh_surfaces(mesh)
+	
+	if arrays.is_empty():
+		push_warning("MarchingSquaresGeometryBaker: combined mesh has no geometry; aborting bake.")
+		return
 	
 	var verts : PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 	var indices : PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
@@ -67,9 +76,9 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	var quads_per_row := tris_per_row / 2
 	
 	for i in range(0, indices.size(), 3):
-		var idx0 = indices[i]
-		var idx1 = indices[i + 1]
-		var idx2 = indices[i + 2]
+		var idx0 := indices[i]
+		var idx1 := indices[i + 1]
+		var idx2 := indices[i + 2]
 		
 		var row := tri_id / tris_per_row
 		var col := (tri_id / 2) % (tris_per_row / 2)
@@ -128,7 +137,7 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 		bake_uv2s.append(uv2s[idx0])
 		bake_uv2s.append(uv2s[idx1])
 		bake_uv2s.append(uv2s[idx2])
-		
+	
 		bake_cols.append(cols[idx0])
 		bake_cols.append(cols[idx1])
 		bake_cols.append(cols[idx2])
@@ -157,9 +166,10 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	new_arrays[Mesh.ARRAY_INDEX] = bake_indices
 	new_arrays[Mesh.ARRAY_VERTEX] = new_verts
 	new_arrays[Mesh.ARRAY_TEX_UV] = new_uvs
+	new_arrays[Mesh.ARRAY_TEX_UV2] = bake_uvs
 	new_arrays[Mesh.ARRAY_NORMAL] = bake_normals
 	
-	new_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, new_arrays, [], {}, Mesh.ARRAY_FORMAT_NORMAL | Mesh.ARRAY_FORMAT_VERTEX | Mesh.ARRAY_FORMAT_TEX_UV | Mesh.ARRAY_FORMAT_COLOR)
+	new_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, new_arrays, [], {}, Mesh.ARRAY_FORMAT_NORMAL | Mesh.ARRAY_FORMAT_VERTEX | Mesh.ARRAY_FORMAT_TEX_UV | Mesh.ARRAY_FORMAT_TEX_UV2 | Mesh.ARRAY_FORMAT_COLOR)
 	
 	# At this point we have the inset triangles, they will contain the actual color data.
 	# To prevent texture bleeding when we bake the texture we add a quad on each of their sides to serve as a border.
@@ -208,7 +218,7 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	
 	var cam := Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
-	cam.global_transform = inst.global_transform
+	cam.transform = inst.transform
 	
 	viewport.add_child(cam)
 	
@@ -228,13 +238,14 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	bake_arrays[Mesh.ARRAY_CUSTOM2] = _color_to_float_array(bake_c2)
 	bake_arrays[Mesh.ARRAY_CUSTOM3] = bake_c3
 	
-	bake_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, bake_arrays, [], {}, 
-		mesh.surface_get_format(0) 
-		| Mesh.ARRAY_FORMAT_CUSTOM3 
+	bake_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, bake_arrays, [], {},
+		mesh.surface_get_format(0)
+		| Mesh.ARRAY_FORMAT_CUSTOM3
 		| (Mesh.ARRAY_CUSTOM_RGB_FLOAT << Mesh.ARRAY_FORMAT_CUSTOM3_SHIFT))
 	var mat := ShaderMaterial.new()
 	mat.shader = load("uid://b32t80p1iesdd") as Shader
 	_transfer_shader_props(mesh.surface_get_material(0), mat)
+	mat.set_shader_parameter("has_prefab_colormap", false)
 	bake_mesh.surface_set_material(0, mat)
 	
 	bake_inst.position = Vector3(-0.5, 0.5, -1)
@@ -244,11 +255,76 @@ func bake_geometry_texture(inst: MeshInstance3D, scene_tree: SceneTree) -> void:
 	
 	RenderingServer.frame_post_draw.connect(func():
 		var img := viewport.get_texture().get_image()
-		
+	
 		finished.emit(new_mesh, inst, img)
 		viewport.queue_free()
 	, CONNECT_ONE_SHOT)
 	@warning_ignore_restore("integer_division")
+
+
+func _combine_mesh_surfaces(mesh: ArrayMesh) -> Array:
+	var combined_vertices := PackedVector3Array()
+	var combined_normals := PackedVector3Array()
+	var combined_uvs := PackedVector2Array()
+	var combined_uv2s := PackedVector2Array()
+	var combined_colors := PackedColorArray()
+	
+	var combined_c0 := PackedFloat32Array()
+	var combined_c1 := PackedFloat32Array()
+	var combined_c2 := PackedFloat32Array()
+	
+	var combined_indices := PackedInt32Array()
+	
+	for surface_idx in range(mesh.get_surface_count()):
+		var arrays := mesh.surface_get_arrays(surface_idx)
+		
+		if arrays.is_empty():
+			continue
+		
+		var vertices : PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var normals : PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+		var uvs : PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
+		var uv2s : PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV2]
+		var colors : PackedColorArray = arrays[Mesh.ARRAY_COLOR]
+		
+		var c0 : PackedFloat32Array = arrays[Mesh.ARRAY_CUSTOM0]
+		var c1 : PackedFloat32Array = arrays[Mesh.ARRAY_CUSTOM1]
+		var c2 : PackedFloat32Array = arrays[Mesh.ARRAY_CUSTOM2]
+		
+		var indices : PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+		
+		var vertex_offset := combined_vertices.size()
+		
+		combined_vertices.append_array(vertices)
+		combined_normals.append_array(normals)
+		combined_uvs.append_array(uvs)
+		combined_uv2s.append_array(uv2s)
+		combined_colors.append_array(colors)
+		
+		combined_c0.append_array(c0)
+		combined_c1.append_array(c1)
+		combined_c2.append_array(c2)
+		
+		for index in indices:
+			combined_indices.append(index + vertex_offset)
+	
+	if combined_vertices.is_empty():
+		return []
+	
+	var result := []
+	result.resize(Mesh.ARRAY_MAX)
+	
+	result[Mesh.ARRAY_VERTEX] = combined_vertices
+	result[Mesh.ARRAY_NORMAL] = combined_normals
+	result[Mesh.ARRAY_TEX_UV] = combined_uvs
+	result[Mesh.ARRAY_TEX_UV2] = combined_uv2s
+	result[Mesh.ARRAY_COLOR] = combined_colors
+	result[Mesh.ARRAY_CUSTOM0] = combined_c0
+	result[Mesh.ARRAY_CUSTOM1] = combined_c1
+	result[Mesh.ARRAY_CUSTOM2] = combined_c2
+	result[Mesh.ARRAY_INDEX] = combined_indices
+	
+	return result
 
 
 func _to_color_array(arr: PackedFloat32Array) -> PackedColorArray:
@@ -296,8 +372,8 @@ func _transfer_shader_props(from: ShaderMaterial, to: ShaderMaterial) -> void:
 		to_uniforms[u.name] = true
 	
 	for uniform in uniforms:
-		var prop_name: String = uniform.name
-		
+		var prop_name : String = uniform.name
+	
 		# Check if target shader has the same parameter
 		if to_uniforms.has(prop_name):
 			var value = from.get_shader_parameter(prop_name)

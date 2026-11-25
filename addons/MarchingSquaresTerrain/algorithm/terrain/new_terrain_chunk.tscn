@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://lkoyvbi3y6qu"]
+[gd_scene format=3 uid="uid://lkoyvbi3y6qu"]
 
 [ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="1_lfuls"]
 
-[node name="NewTerrainChunk" type="MeshInstance3D"]
+[node name="NewTerrainChunk" type="MeshInstance3D" unique_id=1440676925]
 script = ExtResource("1_lfuls")

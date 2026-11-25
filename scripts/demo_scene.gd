@@ -1,7 +1,7 @@
 extends Node3D
 
 
-@onready var world_environment: WorldEnvironment = $SubViewportContainer/SubViewport/WorldEnvironment
+@onready var world_environment : WorldEnvironment = $SubViewportContainer/SubViewport/WorldEnvironment
 
 
 func _ready() -> void:

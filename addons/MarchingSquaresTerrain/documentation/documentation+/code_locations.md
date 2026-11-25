@@ -10,15 +10,13 @@ This small guide explains where you can find the code for several (smaller) feat
 
 Here you can change the logic for how the color_0 and color_1 variables are calculated to change how the grass appears and floor textures get mixed.
 
-Although the variables are called _color_, the shader logic uses these two vec4 variables and checks wether any of the channels are a 1 or 0. It then calculates which texture it should use based on which channels in both variables are "turned on".
+Although the variables are called _color_, the shader logic uses a byte sized integer Array.
 
-### Grass Animations
+### Wind Animations
 
-* **mst_grass** gdshader → at the top of the vertex function.
+* **mst_global_wind** gdshader → all functions and variables.
 
-Right now having the fps at 0 means that the shader will use a noise texture to apply a global smooth wind effect. Turning the fps up in the terrain_settings tool mode in the editor makes the individual grass sprites move from left to right giving it a pixel art look.
-
-Feel free to change these animations to what looks best for your project! The two animation types present right now are only a base to get people started.
+Feel free to change these animations to what looks best for your project! The animation system that is included right now serves as a base for people to build upon.
 
 ### Cell Normal Calculations
 
@@ -29,7 +27,7 @@ Feel free to change these animations to what looks best for your project! The tw
 * **MarchingSquaresTerrainGizmo** script → `try_add_chunk(terrain_system: MarchingSquaresTerrain, coords: Vector2i):` function.
 * **MarchingSquaresTerrainGizmo** script → `add_chunk_lines(terrain_system: MarchingSquaresTerrain, coords: Vector2i, material: Material):` function.
 
-### Terrain (Triplanar) Mapping
+### Terrain Mapping
 
 * **mst_terrain** gdshaderinc → fragment function.
 
