@@ -2102,7 +2102,7 @@ func remove_chunk_from_tree(x: int, z: int, plugin):
 func add_chunk(coords: Vector2i, chunk: MarchingSquaresTerrainChunk, plugin, regenerate_mesh: bool = true) -> void:
 	chunk.terrain_system = self
 	chunk.chunk_coords = coords
-	print(coords)
+	print_verbose(coords)
 	chunk._skip_save_on_exit = false  # Reset flag when chunk is re-added (undo restores chunk)
 	add_child(chunk)
 	chunks[coords] = chunk

@@ -307,7 +307,7 @@ static func load_chunk_from_directory(terrain: MarchingSquaresTerrain, coords: V
 		if data:
 			var mesh_surface_count := data.mesh.get_surface_count() if data.mesh != null else 0
 			var persisted_mesh_complete := chunk.is_persisted_mesh_complete(data.mesh)
-			print("[MST Persistence] load chunk=%s metadata=present height=%d ground=%d wall=%d mesh=%s surfaces=%d tiled_flag=%s surface_complete=%s" % [
+			print_verbose("[MST Persistence] load chunk=%s metadata=present height=%d ground=%d wall=%d mesh=%s surfaces=%d tiled_flag=%s surface_complete=%s" % [
 				str(coords),
 				data.height_map.size(),
 				data.ground_texture_idx.size(),
@@ -319,9 +319,9 @@ static func load_chunk_from_directory(terrain: MarchingSquaresTerrain, coords: V
 			])
 			import_chunk_data(chunk, data)
 		else:
-			print("[MST Persistence] load chunk=%s metadata=invalid path=%s" % [str(coords), metadata_path])
+			print_verbose("[MST Persistence] load chunk=%s metadata=invalid path=%s" % [str(coords), metadata_path])
 	else:
-		print("[MST Persistence] load chunk=%s metadata=missing path=%s" % [str(coords), metadata_path])
+		print_verbose("[MST Persistence] load chunk=%s metadata=missing path=%s" % [str(coords), metadata_path])
 	
 	print_verbose("MSTDataHandler: Loaded chunk ", coords)
 
@@ -361,7 +361,7 @@ static func export_chunk_data(chunk: MarchingSquaresTerrainChunk) -> MSTChunkDat
 	# Ephemeral data for BAKED mode
 	data.mesh = chunk.get_persisted_mesh()
 	data.mesh_is_tiled_complete = data.mesh != null and chunk.is_mesh_complete_for_storage() and chunk.is_persisted_mesh_complete(data.mesh)
-	print("[MST Persistence] save chunk=%s storage_mode=%d mesh=%s surfaces=%d complete=%s mesh_tiles=%d dirty_tiles=%d build_pending=%s" % [
+	print_verbose("[MST Persistence] save chunk=%s storage_mode=%d mesh=%s surfaces=%d complete=%s mesh_tiles=%d dirty_tiles=%d build_pending=%s" % [
 		str(chunk.chunk_coords),
 		int(chunk.terrain_system.storage_mode),
 		"present" if data.mesh != null else "missing",

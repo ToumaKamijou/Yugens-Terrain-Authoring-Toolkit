@@ -793,7 +793,7 @@ func hydrate_mesh_tiles_from_persisted_mesh(persisted_mesh: Mesh) -> bool:
 	var tile_count_z := ceili(float(dimensions.z - 1) / float(MESH_TILE_SIZE))
 	var expected_surface_count := tile_count_x * tile_count_z
 	if persisted_mesh.get_surface_count() != expected_surface_count:
-		print("[MST Persistence] hydrate chunk=%s skipped surfaces=%d expected=%d" % [
+		print_verbose("[MST Persistence] hydrate chunk=%s skipped surfaces=%d expected=%d" % [
 			str(chunk_coords),
 			persisted_mesh.get_surface_count(),
 			expected_surface_count,
@@ -807,7 +807,7 @@ func hydrate_mesh_tiles_from_persisted_mesh(persisted_mesh: Mesh) -> bool:
 	for source_surface in range(expected_surface_count):
 		var arrays : Array = persisted_mesh.surface_get_arrays(source_surface)
 		if arrays.is_empty():
-			print("[MST Persistence] hydrate chunk=%s skipped empty_surface=%d" % [
+			print_verbose("[MST Persistence] hydrate chunk=%s skipped empty_surface=%d" % [
 				str(chunk_coords),
 				source_surface,
 			])
@@ -838,7 +838,7 @@ func hydrate_mesh_tiles_from_persisted_mesh(persisted_mesh: Mesh) -> bool:
 	
 	_dirty_mesh_tiles.clear()
 	_baked_mesh_is_complete = true
-	print("[MST Persistence] hydrate chunk=%s tiles=%d surfaces=%d" % [
+	print_verbose("[MST Persistence] hydrate chunk=%s tiles=%d surfaces=%d" % [
 		str(chunk_coords),
 		_mesh_tiles.size(),
 		persisted_mesh.get_surface_count(),
